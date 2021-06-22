@@ -8,11 +8,12 @@ Minishell is a simple shell project for 42 school
 
 **Parsing** -> **Executor** -> **Shell Subsystems**
 
+
 > 1. [**Parsing**](#parsing)
-> 	- Lexer
-> 		- Scanning
-> 		- Evaluating
-> 	- Parser
+> 		- Lexer
+> 			- Scanning
+> 			- Evaluating
+> 		- Parser
 > 2. **Executor**
 > 3. **Shell Subsystems**
 
