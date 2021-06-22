@@ -16,30 +16,25 @@ Minishell is a simple shell project for 42 school
 > 2. **Executor**
 > 3. **Shell Subsystems**
 
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
-/
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 ### Parsing <a name="parsing"></a>
 
 
