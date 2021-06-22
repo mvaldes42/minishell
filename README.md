@@ -14,9 +14,9 @@ Minishell is a simple shell project for 42 school
 
 ### 1. PARSING <a name="parsing"></a>
 
-#####Lexer
-: lexing, tokenization, lexical analysis
-: converts a sequence of char into a sequence of tokens.
+##### Lexer
+lexing, tokenization, lexical analysis
+converts a sequence of char into a sequence of tokens.
 
 	- Scanning
 	: segments the input string into syntactic units called lexemes, into token classes
