@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/07 13:12:21 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/01/09 13:11:38 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	char	*line;
-	char	cwd[256];
+	unsigned char	*start;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	if (b != NULL)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		start = (unsigned char *)b;
+		while (len)
+		{
+			*start = (unsigned char)c;
+			start++;
+			len--;
+		}
 	}
-	return (1);
+	return (b);
 }

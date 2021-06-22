@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/06 16:28:26 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/01/09 15:04:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
-	char	*line;
-	char	cwd[256];
+	size_t	i;
+	size_t	len;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	if (src != NULL && dst != NULL)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		len = 0;
+		while (dst[len] && len < dstsize)
+			len++;
+		i = len;
+		while (src[len - i] && len + 1 < dstsize)
+		{
+			dst[len] = src[len - i];
+			len++;
+		}
+		if (i < dstsize)
+			dst[len] = '\0';
+		return (i + ft_strlen(src));
 	}
-	return (1);
+	return (0);
 }

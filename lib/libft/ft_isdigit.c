@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/06 14:11:55 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/01/09 14:59:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_isdigit(int c)
 {
-	char	*line;
-	char	cwd[256];
-
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
-	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	}
-	return (1);
+	return (c >= '0' && c <= '9');
 }

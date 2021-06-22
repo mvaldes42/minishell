@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/07 15:15:06 by mvaldes           #+#    #+#             */
+/*   Updated: 2020/01/09 13:17:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	char	*line;
-	char	cwd[256];
+	unsigned char	*src;
+	size_t			i;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	if (s == NULL)
+		return (NULL);
+	src = (void *)s;
+	i = 0;
+	while (i < n)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		if (src[i] == (unsigned char)c)
+			return (&src[i]);
+		i++;
 	}
-	return (1);
+	return (NULL);
 }

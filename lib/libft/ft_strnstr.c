@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/07 10:22:12 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/06/22 19:40:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	char	*line;
-	char	cwd[256];
+	size_t	n;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	if (haystack != NULL && needle != NULL && *needle)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		n = ft_strlen(needle);
+		while (*haystack && len-- >= n)
+		{
+			if (ft_strncmp(haystack, needle, n) == 0)
+				return ((char *)haystack);
+			haystack++;
+		}
+		return (NULL);
 	}
-	return (1);
+	return ((char *)haystack);
 }

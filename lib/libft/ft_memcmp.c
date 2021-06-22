@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2019/11/18 17:14:55 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/06/22 19:35:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	main(int argc, char **argv, char **env)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*line;
-	char	cwd[256];
+	const unsigned char	*str1;
+	const unsigned char	*str2;
+	size_t				i;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	i = 0;
+	if (s1 != NULL && s2 != NULL && s1 != s2 && n != 0)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		str1 = (const unsigned char *)s1;
+		str2 = (const unsigned char *)s2;
+		while (i < n)
+		{
+			if (str1[i] != str2[i])
+				return ((int)(str1[i] - str2[i]));
+			i++;
+		}
 	}
-	return (1);
+	return (0);
 }
