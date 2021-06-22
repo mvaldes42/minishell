@@ -6,12 +6,10 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:16:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/22 19:20:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdio.h>
 #include "minishell.h"
 
 int	main(int argc, char **argv, char **env)
@@ -25,6 +23,7 @@ int	main(int argc, char **argv, char **env)
 	printf(">$\n");
 	while (get_next_line(STDIN, &line) > 0)
 	{
+		printf("line : %s\n", line);
 		printf(">$\n");
 	}
 	return (1);
