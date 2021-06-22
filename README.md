@@ -3,6 +3,7 @@
 Minishell is a simple shell project for 42 school
 
 ## Minishell subdivision
+---
 
 > 1. [**PARSING**](#parsing)
 > 		- Lexer
@@ -13,7 +14,8 @@ Minishell is a simple shell project for 42 school
 > 3. [**SHELL SUBSYSTEMS**](#subsystems)
 ><br>
 
-### <ins> 1. PARSING : <a name="parsing"></a>
+### 1. PARSING : <a name="parsing"></a>
+---
 
 - <font size="3"><ins>**Lexer :**<font> <br>
 
@@ -39,10 +41,12 @@ Minishell is a simple shell project for 42 school
 	Puts tokens into a data structure called *Command Table* that will store the commands to be executed.
 
 ### 2. EXECUTOR <a name="executor"></a>
+---
 
 - <font size="3"><ins>**Executor:**<font><br>
 
 	With the command table, and for each simple command, creats a new process.
 
 ### 2. SUBSYSTEMS <a name="subsystems"></a>
+---
 
