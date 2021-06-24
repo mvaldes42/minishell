@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/24 16:58:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/24 17:29:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,24 @@ typedef enum e_token_type_lst
 	CHAR_NULL = 0,
 	CHAR_EXPANSION = '$',
 	CHAR_SINGLE_WILD = '?',
+	CHAR_ALPHA = -1,
 }	t_token_type;
 
 typedef struct s_token_id
 {
 	int		token_type;
-	char			*token_ptr;
+	char	*token_ptr;
 }	t_token_id;
 
 typedef struct s_lexer
 {
 	t_token_id	*tokens_lst;
-	long		token_nbr;
+	int			token_nbr;
 }	t_lexer;
 
 typedef struct s_data
 {
-	t_lexer	*s_tokens;
+	t_lexer	s_tokens;
 }	t_data;
 
 #endif
