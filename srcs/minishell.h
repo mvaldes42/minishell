@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/24 17:29:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/29 17:34:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,29 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <string.h>
+# include <stddef.h>
 
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
 
-const char	*g_build_in[] =
+static const char	*g_build_in[] =
 {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
-typedef enum e_token_type_lst
-{
-	CHAR_SINGLE_QUOTE = '\'',
-	CHAR_DOUBLE_QUOTE = '\"',
-	CHAR_GREATER = '>',
-	CHAR_LESSER = '<',
-	CHAR_PIPE = '|',
-	CHAR_WHITESPACE = ' ',
-	CHAR_TAB = '\t',
-	CHAR_NEWLINE = '\n',
-	CHAR_NULL = 0,
-	CHAR_EXPANSION = '$',
-	CHAR_SINGLE_WILD = '?',
-	CHAR_ALPHA = -1,
-}	t_token_type;
+# define CHAR_SINGLE_QUOTE '\''
+# define CHAR_DOUBLE_QUOTE '\"'
+# define CHAR_RED_OUT '>'
+# define STR_RED_OUT_APP '>' + '>'
+# define CHAR_RED_IN '<'
+# define STR_READ_IN '<' + '<'
+# define CHAR_PIPE '|'
+# define CHAR_NULL 0
+# define CHAR_EXP '$'
+# define STR_EXIT_STAT '$' + '?'
+# define CHAR_WHITESPACE ' '
+# define CHAR_ALPHA -1
+
+# define OPT_ECHO "-n"
 
 typedef struct s_token_id
 {
@@ -49,13 +49,15 @@ typedef struct s_token_id
 
 typedef struct s_lexer
 {
-	t_token_id	*tokens_lst;
-	int			token_nbr;
+	t_token_id	*tk_lst;
+	int			tk_nbr;
 }	t_lexer;
 
 typedef struct s_data
 {
 	t_lexer	s_tokens;
 }	t_data;
+
+char	*ft_strtok(char *s, const char *delim);
 
 #endif

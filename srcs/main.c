@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/24 17:31:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/29 18:51:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,32 +19,63 @@ void	exit_fail(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-// int	ft_isalpha(char c)
+// int	word_count(const char *s, char c)
 // {
-// 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-// 		return (1);
-// 	return (0);
+// 	unsigned int	i;
+// 	unsigned int	count;
+
+// 	i = 0;
+// 	count = 0;
+// 	while (s[i])
+// 	{
+// 		while (s[i] == c)
+// 			i++;
+// 		if (s[i])
+// 			count++;
+// 		while (s[i] != c && s[i])
+// 			i++;
+// 	}
+// 	if (count == 0)
+// 		return (0);
+// 	return (count);
 // }
 
-int	word_count(t_data *data, const char *s, char c)
+int	delim_count(char *str)
 {
-	unsigned int	i;
-	unsigned int	count;
+	int	count;
+	int	i;
 
-	i = 0;
 	count = 0;
-	while (s[i])
+	i = 0;
+	while (str[i])
 	{
-		while (s[i] == c)
+		while (str[i] == ' ' || str[i] == '\'' || str[i] == '\"')
 			i++;
-		if (s[i])
+		if (str[i])
 			count++;
-		while (s[i] != c && s[i])
+		while (!(str[i] == ' ' || str[i] == '\'' || str[i] == '\"') && str[i])
 			i++;
+		i++;
 	}
-	if (count == 0)
-		exit_fail(data);
 	return (count);
+}
+
+int	char_occu(char *str, char c)
+{
+	int		nbr;
+	char	*s;
+
+	s = str;
+	nbr = 0;
+	while (*s)
+	{
+		if (*s == c)
+			nbr++;
+		s++;
+	}
+	if (nbr > 0)
+		return (nbr);
+	return (0);
 }
 
 void	print_prompt(void)
@@ -56,20 +87,49 @@ void	print_prompt(void)
 	ft_putstr_fd(" >$ ", STDOUT);
 }
 
-int	lexer(char *line, t_data *data)
+int	lexer(char *line, t_lexer lx)
 {
-	// int		i;
+	int		i;
+	int		j;
 	char	**unspec_token;
 
-	data->s_tokens.token_nbr = word_count(data, line, CHAR_WHITESPACE);
-	unspec_token = (char **)malloc(sizeof(char *) * (data->s_tokens.token_nbr + 1));
-	unspec_token = ft_split(line, CHAR_WHITESPACE);
-	// while (line[i])
+	i = 0;
+	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 || char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
+		exit(EXIT_FAILURE);
+	lx.tk_nbr = delim_count(line);
+	unspec_token = (char **)malloc(sizeof(char *) * (lx.tk_nbr + 1));
+	printf("count : %d\n", delim_count(line));
+	// char *ptr = ft_strtok(line, " '");
+	// while(ptr != NULL)
 	// {
-	// 	if (ft_isalpha(line[i]) && data->s_tokens->tokens_lst[i].token_type != CHAR_ALPHA)
+	// 	printf(">%s<\n", ptr);
+	// 	ptr = ft_strtok(NULL, " '");
+	// }
+	// unspec_token = (char **)malloc(sizeof(char *) * (lx.tk_nbr + 1));
+	// unspec_token = ft_split(line, CHAR_WHITESPACE);
+	// lx.tk_lst = (t_token_id *)malloc(sizeof(t_token_id *) * (lx.tk_nbr + 1));
+	// ft_memset(lx.tk_lst, 0, sizeof(t_token_id *) * (lx.tk_nbr + 1));
+	// while (unspec_token[i])
+	// {
+	// 	lx.tk_lst[i].token_ptr = ft_strdup(unspec_token[i]);
+	// 	if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == CHAR_PIPE)
+	// 		lx.tk_lst[i].token_type = CHAR_PIPE;
+	// 	else if (ft_strlen(unspec_token[i]) == 2)
 	// 	{
-
+	// 		if (ft_strncmp(unspec_token[i], ">>", 2))
+	// 			lx.tk_lst[i].token_type = STR_RED_OUT_APP;
+	// 		if (ft_strncmp(unspec_token[i], "<<", 2))
+	// 			lx.tk_lst[i].token_type = STR_READ_IN;
+	// 		if (ft_strncmp(unspec_token[i], "$?", 2))
+	// 			lx.tk_lst[i].token_type = STR_EXIT_STAT;
 	// 	}
+	// 	else if (unspec_token[i][0] == CHAR_EXP)
+	// 		lx.tk_lst[i].token_type = CHAR_EXP;
+	// 	else if (unspec_token[i][0] == CHAR_EXP)
+	// 		lx.tk_lst[i].token_type = CHAR_EXP;
+	// 	// else if (is_occu_odd(unspec_token[i], CHAR_SINGLE_QUOTE) == 1)
+	// 	i++;
+	// }
 	return (1);
 }
 
@@ -83,12 +143,10 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 	line = NULL;
 	ft_bzero(&data, sizeof(data));
-	// data.s_tokens->tokens_lst->token_type = CHAR_SINGLE_QUOTE;
-	// printf("%c\n", data.s_tokens->tokens_lst->token_type);
 	print_prompt();
 	while (get_next_line(STDIN, &line) > 0)
 	{
-		lexer(line, &data);
+		lexer(line, data.s_tokens);
 		print_prompt();
 	}
 	return (1);
