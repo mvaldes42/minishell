@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/29 18:51:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/29 19:25:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,7 @@ void	exit_fail(t_data *data)
 	exit(EXIT_FAILURE);
 }
 
-// int	word_count(const char *s, char c)
-// {
-// 	unsigned int	i;
-// 	unsigned int	count;
-
-// 	i = 0;
-// 	count = 0;
-// 	while (s[i])
-// 	{
-// 		while (s[i] == c)
-// 			i++;
-// 		if (s[i])
-// 			count++;
-// 		while (s[i] != c && s[i])
-// 			i++;
-// 	}
-// 	if (count == 0)
-// 		return (0);
-// 	return (count);
-// }
-
-int	delim_count(char *str)
+int	delim_token_count(char *str)
 {
 	int	count;
 	int	i;
@@ -92,44 +71,52 @@ int	lexer(char *line, t_lexer lx)
 	int		i;
 	int		j;
 	char	**unspec_token;
+	char	*ptr;
+	char	*line_bis;
 
 	i = 0;
-	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 || char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
+	line_bis = ft_strdup(line);
+	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 \
+		|| char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
 		exit(EXIT_FAILURE);
-	lx.tk_nbr = delim_count(line);
+	lx.tk_nbr = delim_token_count(line);
 	unspec_token = (char **)malloc(sizeof(char *) * (lx.tk_nbr + 1));
-	printf("count : %d\n", delim_count(line));
-	// char *ptr = ft_strtok(line, " '");
-	// while(ptr != NULL)
-	// {
-	// 	printf(">%s<\n", ptr);
-	// 	ptr = ft_strtok(NULL, " '");
-	// }
-	// unspec_token = (char **)malloc(sizeof(char *) * (lx.tk_nbr + 1));
-	// unspec_token = ft_split(line, CHAR_WHITESPACE);
-	// lx.tk_lst = (t_token_id *)malloc(sizeof(t_token_id *) * (lx.tk_nbr + 1));
-	// ft_memset(lx.tk_lst, 0, sizeof(t_token_id *) * (lx.tk_nbr + 1));
-	// while (unspec_token[i])
-	// {
-	// 	lx.tk_lst[i].token_ptr = ft_strdup(unspec_token[i]);
-	// 	if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == CHAR_PIPE)
-	// 		lx.tk_lst[i].token_type = CHAR_PIPE;
-	// 	else if (ft_strlen(unspec_token[i]) == 2)
-	// 	{
-	// 		if (ft_strncmp(unspec_token[i], ">>", 2))
-	// 			lx.tk_lst[i].token_type = STR_RED_OUT_APP;
-	// 		if (ft_strncmp(unspec_token[i], "<<", 2))
-	// 			lx.tk_lst[i].token_type = STR_READ_IN;
-	// 		if (ft_strncmp(unspec_token[i], "$?", 2))
-	// 			lx.tk_lst[i].token_type = STR_EXIT_STAT;
-	// 	}
-	// 	else if (unspec_token[i][0] == CHAR_EXP)
-	// 		lx.tk_lst[i].token_type = CHAR_EXP;
-	// 	else if (unspec_token[i][0] == CHAR_EXP)
-	// 		lx.tk_lst[i].token_type = CHAR_EXP;
-	// 	// else if (is_occu_odd(unspec_token[i], CHAR_SINGLE_QUOTE) == 1)
-	// 	i++;
-	// }
+	i = 0;
+	printf("count : %d\n", delim_token_count(line_bis));
+	ptr = ft_strtok(line_bis, " '");
+	while (ptr != NULL && i < lx.tk_nbr)
+	{
+		unspec_token[i] = ptr;
+		printf(">%s<\n", unspec_token[i]);
+		i++;
+		ptr = ft_strtok(NULL, " '");
+	}
+	printf("%s\n", line);
+	free(line_bis);
+	i = 0;
+	lx.tk_lst = (t_token_id *)malloc((sizeof(char *) * (lx.tk_nbr + 1)) + (sizeof(int) * (lx.tk_nbr + 1)));
+	while (i < lx.tk_nbr)
+	{
+		lx.tk_lst[i].token_ptr = ft_strdup(unspec_token[i]);
+		if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == CHAR_PIPE)
+			lx.tk_lst[i].token_type = CHAR_PIPE;
+		else if (ft_strlen(unspec_token[i]) == 2)
+		{
+			if (ft_strncmp(unspec_token[i], ">>", 2))
+				lx.tk_lst[i].token_type = STR_RED_OUT_APP;
+			if (ft_strncmp(unspec_token[i], "<<", 2))
+				lx.tk_lst[i].token_type = STR_READ_IN;
+			if (ft_strncmp(unspec_token[i], "$?", 2))
+				lx.tk_lst[i].token_type = STR_EXIT_STAT;
+		}
+		else if (unspec_token[i][0] == CHAR_EXP)
+			lx.tk_lst[i].token_type = CHAR_EXP;
+		else if (unspec_token[i][0] == CHAR_EXP)
+			lx.tk_lst[i].token_type = CHAR_EXP;
+		// else if (is_occu_odd(unspec_token[i], CHAR_SINGLE_QUOTE) == 1)
+		printf("%s && %c\n", lx.tk_lst[i].token_ptr, lx.tk_lst[i].token_type);
+		i++;
+	}
 	return (1);
 }
 
