@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/29 17:34:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/30 16:11:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ typedef struct s_data
 	t_lexer	s_tokens;
 }	t_data;
 
-char	*ft_strtok(char *s, const char *delim);
+int		lexer(char *line, t_lexer *lx);
 
 #endif

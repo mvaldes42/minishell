@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:23:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/29 17:56:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/30 16:01:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
 static size_t	ft_strcspn(const char *s1, const char *s2)
 {

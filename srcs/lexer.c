@@ -6,13 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/29 19:46:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/06/30 17:48:35 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include "utils/utils.h"
 
-char	**take_tokens_out(t_lexer *lx, char *line)
+char	**take_tokens_out(t_lexer *lx, char *line, char *separators)
 {
 	char	**unspec_token;
 	char	*ptr;
@@ -21,16 +22,16 @@ char	**take_tokens_out(t_lexer *lx, char *line)
 
 	i = 0;
 	line_bis = ft_strdup(line);
-	lx->tk_nbr = delim_token_count(line_bis);
+	lx->tk_nbr = delim_token_count(line_bis, separators);
+	printf("count : %d\n", lx->tk_nbr);
 	unspec_token = (char **)malloc(sizeof(char *) * (lx->tk_nbr + 1));
-	printf("count : %d\n", delim_token_count(line_bis));
-	ptr = ft_strtok(line_bis, " '");
+	ptr = ft_strtok(line_bis, separators);
 	while (ptr != NULL && i < lx->tk_nbr)
 	{
 		unspec_token[i] = ptr;
 		printf(">%s<\n", unspec_token[i]);
 		i++;
-		ptr = ft_strtok(NULL, " '");
+		ptr = ft_strtok(NULL, separators);
 	}
 	free(line_bis);
 	return (unspec_token);
@@ -68,14 +69,16 @@ void	scanning(t_lexer *lx, char **unspec_token)
 int	lexer(char *line, t_lexer *lx)
 {
 	char	**unspec_token;
+	char	*separators;
 
+	separators = " \'\"|<>$";
 	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 \
 		|| char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
 		exit(EXIT_FAILURE);
-	unspec_token = take_tokens_out(lx, line);
+	unspec_token = take_tokens_out(lx, line, separators);
 	lx->tk_lst = (t_token_id *)malloc((sizeof(char *) * (lx->tk_nbr + 1)) + \
 	(sizeof(int) * (lx->tk_nbr + 1)));
-	scanning(&lx, unspec_token);
+	scanning(lx, unspec_token);
 	free(unspec_token);
 	return (1);
 }
