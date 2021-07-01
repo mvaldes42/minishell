@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/06/29 19:46:36 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/07/01 18:29:26 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ SRCS =	srcs/minishell.c \
 		srcs/lexer.c \
 		srcs/utils/general_utils.c \
 		srcs/utils/lexer_utils.c \
+		srcs/utils/lexer_utils_2.c \
 		srcs/utils/ft_strtok.c \
+		srcs/utils/ft_strtok_spec.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = @gcc
@@ -30,7 +32,7 @@ GNL_F = lib/get_next_line
 all:		$(NAME)
 
 $(NAME):	compile $(OBJS)
-			$(CC) $(CC_FLAGS) $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
+			$(CC) $(CC_FLAGS) -lreadline $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
 			@echo "> compile done <"
 
 compile:

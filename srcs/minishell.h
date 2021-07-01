@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/30 16:11:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/01 19:22:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define MINISHELL_H
 # include "../lib/get_next_line/get_next_line.h"
 # include "../lib/libft/libft.h"
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <signal.h>
 # include <stddef.h>
 # include <stdio.h>
 # include <string.h>
@@ -58,6 +61,6 @@ typedef struct s_data
 	t_lexer	s_tokens;
 }	t_data;
 
-int		lexer(char *line, t_lexer *lx);
+int		lexer(t_data *data, char *line, t_lexer *lx);
 
 #endif

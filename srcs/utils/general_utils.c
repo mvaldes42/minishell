@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/30 19:06:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/01 18:51:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void	exit_fail(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
+	if (data->s_tokens.tk_lst != NULL && \
+	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
 	{
 		while (i < data->s_tokens.tk_nbr)
 		{
@@ -37,7 +38,8 @@ void	exit_sucess(t_data *data, char *line)
 	int	i;
 
 	i = 0;
-	if (data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
+	if (data->s_tokens.tk_lst != NULL && \
+	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
 	{
 		while (i < data->s_tokens.tk_nbr)
 		{
@@ -59,7 +61,7 @@ void	clear_data(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->s_tokens.tk_lst)
+	if (data->s_tokens.tk_lst != NULL)
 	{
 		while (data->s_tokens.tk_lst[i].token_ptr && i < data->s_tokens.tk_nbr)
 		{
@@ -72,11 +74,15 @@ void	clear_data(t_data *data)
 	ft_bzero(&data, sizeof(data));
 }
 
-void	print_prompt(void)
+void	create_prompt(char **prompt)
 {
 	char	cwd[256];
+	int		size;
 
-	ft_putstr_fd("-> ", STDOUT);
-	ft_putstr_fd(getcwd(cwd, sizeof(cwd)), STDOUT);
-	ft_putstr_fd(" >$ ", STDOUT);
+	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
+	ft_strlen("-> ") + ft_strlen(" $> ") + 1;
+	*prompt = (char *)malloc(sizeof(char) * size);
+	strlcat(*prompt, "-> ", size);
+	strlcat(*prompt, getcwd(cwd, sizeof(cwd)), size);
+	strlcat(*prompt, " $> ", size);
 }

@@ -54,7 +54,7 @@ Terminate: After its commands are executed, the shell executes any shutdown comm
 
 - [ ] environment variables
 - [ ] subshells
-- [ ] history
+- [ ] history -> http://web.mit.edu/gnu/doc/html/rlman_2.html
 - [ ] show prompt
 - [ ] PATH variable, relative & absolute
 - [ ] built-ins
