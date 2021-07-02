@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/01 18:09:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 14:27:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**take_tokens_out(t_data *data, t_lexer *lx, char *line, char *sep)
 	// 	ptr = ft_strtok(NULL, sep);
 	// }
 	// ft_strtok_spec(line_bis, sep);
-	// free(line_bis);
+	free(line_bis);
 	return (unspec_token);
 }
 
@@ -80,6 +80,6 @@ int	lexer(t_data *data, char *line, t_lexer *lx)
 	// lx->tk_lst = (t_token_id *)malloc((sizeof(char *) * (lx->tk_nbr + 1)) + \
 	// (sizeof(int) * (lx->tk_nbr + 1)));
 	// scanning(lx, unspec_token);
-	// free(unspec_token);
+	free(unspec_token);
 	return (1);
 }
