@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:54 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/01 18:57:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 15:56:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 void	exit_fail(t_data *data);
 void	exit_sucess(t_data *data, char *line);
 void	clear_data(t_data *data);
-void	create_prompt(char **prompt);
+void	create_prompt(void);
 
 int		sep_token_count(t_data *data, char *str, char *sep);
 int		char_occu(char *str, char c);

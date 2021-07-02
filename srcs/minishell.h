@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/01 19:22:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 15:42:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,6 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
-
-static const char	*g_build_in[] =
-{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 # define CHAR_SINGLE_QUOTE '\''
 # define CHAR_DOUBLE_QUOTE '\"'
@@ -62,5 +59,13 @@ typedef struct s_data
 }	t_data;
 
 int		lexer(t_data *data, char *line, t_lexer *lx);
+
+typedef struct s_global
+{
+	char	*build_in[7];
+	char	*prompt;
+}	t_global;
+
+t_global	g_global;
 
 #endif
