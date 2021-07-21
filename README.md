@@ -70,10 +70,10 @@ Minishell is a simple shell project for 42 school
 
 ###### <ins>**Operators**
 
-pipe operator = |
-redirection operator = <  <<  >>  >
-(logical operator = &&  || )
-(list terminator = ; )
+- pipe operator = |
+- redirection operator = <  <<  >>  >
+- (logical operator = &&  || )
+- (list terminator = ; )
 
 #### <ins>> INPUT PARSING EXAMPLE :
 
@@ -110,11 +110,14 @@ Run through a **scanning process** that separate the words  :
 **Parse** the tokens into a data structure called the **command table** :
 The Command Table is an array of  SimpleCommand structs.
 <br>
-| command 	| options 	|       arguments       	|
-|:-------:	|:-------:	|:---------------------:	|
-|   echo  	|    -n   	|        bonjour        	|
-|   echo  	|         	| cool'super'"chouette" 	|
-|         	|         	|          txt1         	|
+| command 	| options 	|                            arguments                            	|
+|:-------:	|:-------:	|:---------------------------------------------------------------:	|
+|   echo  	|    -n   	|                          bonjour (CHAR)                         	|
+|   echo  	|         	| cool (CHAR)<br>'super' (STRONG_QUOTE<br>"chouette" (WEAK_QUOTE) 	|
+
+redirection out = txt 1
+
+example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
 ## II. EXECUTOR <a name="executor"></a>
 
@@ -122,10 +125,10 @@ The Command Table is an array of  SimpleCommand structs.
 - <font size="3"><ins>**Executor:**<font><br>
 
 	With the command table, and for each simple command, creats a new process.
-
-Initialize: In this step, a typical shell would read and execute its configuration files. These change aspects of the shell’s behavior.
-Interpret: Next, the shell reads commands from stdin (which could be interactive, or a file) and executes them.
-Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
+<br>
+- Initialize: In this step, a typical shell would read and execute its configuration files. These change aspects of the shell’s behavior.
+- Interpret: Next, the shell reads commands from stdin (which could be interactive, or a file) and executes them.
+- Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
 
 ## III. SUBSYSTEMS <a name="subsystems"></a>
 
