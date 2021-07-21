@@ -141,12 +141,9 @@ example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapte
 
 ## II. EXECUTOR <a name="executor"></a>
 
-
-- <font size="3"><ins>**Executor:**<font><br>
-
-	With the command table, and for each simple command, creats a new process.
+With the command table, and for each simple command, creats a new process.
 <br>
-- Interpret: Next, the shell reads commands from the **command table** and executes them.
+- Interpret: The shell reads commands from the **command table** and executes them.
 - Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
 
 ## III. SUBSYSTEMS <a name="subsystems"></a>
