@@ -107,17 +107,17 @@ Run through a **scanning process** that separates the words  :
 
 |   token   	|    token type   	|
 |:---------:	|:---------------:	|
-|    echo   	| WORD -> COMMAND 	|
+|    echo   	| WORD 	|
 |     -n    	|       WORD      	|
 |  bonjour  	|       WORD      	|
 |     \|    	|       PIPE      	|
-|    echo   	| WORD -> COMMAND 	|
+|    echo   	| WORD	|
 |    cool   	|       WORD      	|
 | $HOME top 	|       WORD      	|
 |   $HOME   	|     VARIABLE    	|
 |   super   	|       WORD      	|
 |     \|    	|       PIPE      	|
-|    echo   	| WORD -> COMMAND 	|
+|    echo   	| WORD 	|
 |     $?    	|   EXIT_STATUS   	|
 |     >     	|    REDIR_OUT    	|
 |    txt1   	|       WORD      	|
