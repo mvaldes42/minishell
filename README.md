@@ -84,50 +84,57 @@ other examples (not always up to date with the new subject)
 
 Take the following command :
 
-	echo -n bonjour | echo cool'$HOME'"$HOME" | echo $? > txt1
+	echo -n bonjour | echo cool'$HOME top'"$HOME super" | echo $? > txt1
 Run through a **scanning process** that separate the words  :
 
-| nb 	|   word  	|
-|:--:	|:-------:	|
-|  1 	|   echo  	|
-|  2 	|    -n   	|
-|  3 	| bonjour 	|
-|  4 	|    \|   	|
-|  5 	|   echo  	|
-|  6 	|   cool  	|
-|  7 	| '$HOME' 	|
-|  8 	| "$HOME" 	|
-|  9 	|    \|   	|
-| 10 	|   echo  	|
-| 11 	|    $?   	|
-| 12 	|    >    	|
-| 13 	|   txt1  	|
+| nb 	|   word  			|
+|:--:	|:-------:			|
+|  1 	|   echo  			|
+|  2 	|    -n   			|
+|  3 	| bonjour 			|
+|  4 	|    \|   			|
+|  5 	|   echo  			|
+|  6 	|   cool  			|
+|  7 	| '$HOME top' 		|
+|  8 	| "$HOME super" 	|
+|  9 	|    \|   			|
+| 10 	|   echo  			|
+| 11 	|    $?   			|
+| 12 	|    >    			|
+| 13 	|   txt1  			|
 
 **Evaluate** the resulted lexemes into **tokens** :
-<br>
 
-	token 1 = echo				token_type = WORD -> COMMAND
-	token 2 = -n				token_type = WORD
-	token 3 = bonjour			token_type = WORD
-	token 4 = |				token_type = PIPE
-	token 5 = echo				token_type = WORD -> COMMAND
-	token 6 = cool				token_type = WORD
-	token 7 = 'super'			token_type = WORD -> STRONG_QUOTE
-	token 8 = "chouette"			token_type = WORD -> WEAK_QUOTE
-	token 9 =  >				token_type = REDIR_OUT
-	token 10 = txt1				token_type = WORD
+|   token   	|    token type   	|
+|:---------:	|:---------------:	|
+|    echo   	| WORD -> COMMAND 	|
+|     -n    	|       WORD      	|
+|  bonjour  	|       WORD      	|
+|     \|    	|       PIPE      	|
+|    echo   	| WORD -> COMMAND 	|
+|    cool   	|       WORD      	|
+| $HOME top 	|       WORD      	|
+|   $HOME   	|     VARIABLE    	|
+|   super   	|       WORD      	|
+|     \|    	|       PIPE      	|
+|    echo   	| WORD -> COMMAND 	|
+|     $?    	|   EXIT_STATUS   	|
+|     >     	|    REDIR_OUT    	|
+|    txt1   	|       WORD      	|
 
 **Parse** the tokens into a data structure called the **command table** :
 The Command Table is an array of  SimpleCommand structs.
-<br>
-| command 	| options 	|                            arguments                            	|
-|:-------:	|:-------:	|:---------------------------------------------------------------:	|
-|   echo  	|    -n   	|                          bonjour (WORD)                         	|
-|   echo  	|         	| cool (WORD)<br>'super' (STRONG_QUOTE<br>"chouette" (WEAK_QUOTE) 	|
+| command 	| option 	| arguments                      	|
+|---------	|--------	|--------------------------------	|
+| echo    	| -n     	| bonjour                        	|
+| echo    	|        	| cool$HOME top/Usr/user42 super 	|
+| echo    	|        	| $?                             	|
 
 - **execute "echo -n bonjour"**
-- **the output is connected to the input of following command (PIPE)**
-- **execute "echo cool'super'"chouette"**
+- *the output is connected to the input of following command (PIPE)*
+- **execute "echo cool$HOME top/Usr/user42 super"**
+- *the output is connected to the input of following command (PIPE)*
+- **execute "echo $?**
 - **redirects output to file txt1**
 
 example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
