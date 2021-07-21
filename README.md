@@ -141,7 +141,7 @@ example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapte
 
 ## II. EXECUTOR <a name="executor"></a>
 
-With the command table, and for each simple command, creats a new process.
+With the command table, and for each simple command, creates a new process.
 <br>
 - Interpret: The shell reads commands from the **command table** and executes them.
 - Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
