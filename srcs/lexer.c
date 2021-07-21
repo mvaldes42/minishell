@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 17:37:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/21 20:02:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ char	**take_tokens_out(t_data *data, t_lexer *lx, char *line, char *sep)
 	line_bis = ft_strdup(line);
 	lx->tk_nbr = sep_token_count(data, line_bis, sep);
 	printf("count : %d\n", lx->tk_nbr);
-	// unspec_token = (char **)malloc(sizeof(char *) * (lx->tk_nbr + 1));
-	// ptr = ft_strtok(line_bis, sep);
-	// while (ptr != NULL && i < lx->tk_nbr)
-	// {
-	// 	unspec_token[i] = ptr;
-	// 	printf(">%s<\n", unspec_token[i]);
-	// 	i++;
-	// 	ptr = ft_strtok(NULL, sep);
-	// }
-	ft_strtok_spec(data, line_bis, lx->tk_nbr);
+	unspec_token = (char **)malloc(sizeof(char *) * (lx->tk_nbr + 1));
+	ptr = ft_strtok(line_bis, sep);
+	while (ptr != NULL && i < lx->tk_nbr)
+	{
+		unspec_token[i] = ptr;
+		printf(">%s<\n", unspec_token[i]);
+		i++;
+		ptr = ft_strtok(NULL, sep);
+	}
+	// ft_strtok_spec(data, line_bis, lx->tk_nbr);
 	free(line_bis);
 	return (unspec_token);
 }
 
+//FONCTION EN COURS DE DEV
 // void	scanning(t_lexer *lx, char **unspec_token)
 // {
 // 	int		i;
@@ -57,12 +58,12 @@ char	**take_tokens_out(t_data *data, t_lexer *lx, char *line, char *sep)
 // 			if (ft_strncmp(unspec_token[i], "$?", 2))
 // 				lx->tk_lst[i].token_type = STR_EXIT_STAT;
 // 		}
-// 		else if (unspec_token[i][0] == CHAR_EXP)
-// 			lx->tk_lst[i].token_type = CHAR_EXP;
-// 		else if (unspec_token[i][0] == CHAR_EXP)
-// 			lx->tk_lst[i].token_type = CHAR_EXP;
+// 		// else if (unspec_token[i][0] == CHAR_EXP)
+// 		// 	lx->tk_lst[i].token_type = CHAR_EXP;
+// 		// else if (unspec_token[i][0] == CHAR_EXP)
+// 		// 	lx->tk_lst[i].token_type = CHAR_EXP;
 // 		// else if (is_occu_odd(unspec_token[i], CHAR_SINGLE_QUOTE) == 1)
-// 		printf("%s && %c\n", lx->tk_lst[i].token_ptr, lx->tk_lst[i].token_type);
+// 		printf("token is = \"%s\", token type is = %c\n", lx->tk_lst[i].token_ptr, lx->tk_lst[i].token_type);
 // 		i++;
 // 	}
 // }

@@ -6,13 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 17:41:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/21 19:51:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-# include "../lib/get_next_line/get_next_line.h"
 # include "../lib/libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -60,8 +59,6 @@ typedef struct s_data
 	t_lexer	s_tokens;
 }	t_data;
 
-int		lexer(t_data *data, char *line, t_lexer *lx);
-
 typedef struct s_global
 {
 	char	*build_in[7];
@@ -69,5 +66,7 @@ typedef struct s_global
 }	t_global;
 
 t_global	g_global;
+
+int		lexer(t_data *data, char *line, t_lexer *lx);
 
 #endif
