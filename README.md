@@ -85,7 +85,7 @@ other examples (not always up to date with the new subject)
 Take the following command :
 
 	echo -n bonjour | echo cool'$HOME top'"$HOME super" | echo $? > txt1
-Run through a **scanning process** that separate the words  :
+Run through a **scanning process** that separates the words  :
 
 | nb 	|   word  			|
 |:--:	|:-------:			|
