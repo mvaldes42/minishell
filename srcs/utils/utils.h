@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:54 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 15:56:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 17:38:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ void	create_prompt(void);
 int		sep_token_count(t_data *data, char *str, char *sep);
 int		char_occu(char *str, char c);
 char	*ft_strtok(char *s, const char *delim);
-char	**ft_strtok_spec(char *s, const char *delim);
+char	**ft_strtok_spec(t_data *data, char *s, int tk_nbr);
 
 #endif

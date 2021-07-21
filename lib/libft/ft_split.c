@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:38:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 16:12:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static char	**no_occurence(char **dest, const char *s)
 	return (dest);
 }
 
-static char	**ft_split2(char const *s, char c, char	**dest)
+static char	**ft_split2(char const *s, char c, char **dest)
 {
 	int		start;
 	int		end;

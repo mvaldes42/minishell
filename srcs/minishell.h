@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 15:42:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 17:41:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ typedef struct s_token_id
 typedef struct s_lexer
 {
 	t_token_id	*tk_lst;
+	char		**unspec_tk;
+	int			unspec_tk_nb;
 	int			tk_nbr;
 }	t_lexer;
 

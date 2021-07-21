@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 15:43:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/02 17:37:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	**take_tokens_out(t_data *data, t_lexer *lx, char *line, char *sep)
 	line_bis = ft_strdup(line);
 	lx->tk_nbr = sep_token_count(data, line_bis, sep);
 	printf("count : %d\n", lx->tk_nbr);
-	unspec_token = (char **)malloc(sizeof(char *) * (lx->tk_nbr + 1));
+	// unspec_token = (char **)malloc(sizeof(char *) * (lx->tk_nbr + 1));
 	// ptr = ft_strtok(line_bis, sep);
 	// while (ptr != NULL && i < lx->tk_nbr)
 	// {
@@ -33,7 +33,7 @@ char	**take_tokens_out(t_data *data, t_lexer *lx, char *line, char *sep)
 	// 	i++;
 	// 	ptr = ft_strtok(NULL, sep);
 	// }
-	// ft_strtok_spec(line_bis, sep);
+	ft_strtok_spec(data, line_bis, lx->tk_nbr);
 	free(line_bis);
 	return (unspec_token);
 }
