@@ -71,3 +71,9 @@ Terminate: After its commands are executed, the shell executes any shutdown comm
 - [ ] $?
 - [ ] ` (inhibits all interpretation of a sequence of char)
 - [ ] `` (same, except for $)
+
+## IV. CALL STACK <a name="subsystems"></a>
+
+<img src="rsc/callstackmap.png?raw=true" width="500">
+
+
