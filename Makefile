@@ -3,22 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
+#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/22 10:41:04 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/07/22 17:21:45 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+include minishell.mk
+
 NAME= minishell
-
-SRCS =	srcs/minishell.c \
-		srcs/lexer.c \
-		srcs/utils/general_utils.c \
-		srcs/utils/lexer_utils.c \
-		srcs/utils/sep_token_count.c \
-		srcs/utils/ft_strtok.c \
-
 
 OBJS = $(SRCS:.c=.o)
 CC = @gcc
