@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
+#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/11/12 11:18:52 by mvaldes           #+#    #+#              #
-#    Updated: 2020/01/07 13:02:15 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/07/22 18:24:43 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,21 +49,21 @@ OBJS	= ${SRCS:.c=.o}
 
 NAME	= libft.a
 
-RM	= rm -f
+RM		= rm -f
 
 .c.o: $(SRCS)
-	gcc -Wall -Wextra -Werror -c $^ -o ${^:.c=.o} 
+	@gcc -Wall -Wextra -Werror -c $^ -o ${^:.c=.o} 
 
 $(NAME):    $(OBJS) libft.h
-	ar rcs $(NAME) $(OBJS)
+	@ar rcs $(NAME) $(OBJS)
 
 all:		${NAME}
 
 clean:
-			${RM} ${OBJS}
+			@${RM} ${OBJS}
 
 fclean:		clean
-			${RM} ${NAME}
+			@${RM} ${NAME}
 
 re:			fclean all
 

@@ -1,10 +1,11 @@
-SRCS =	srcs/minishell.c \
-		srcs/lexer.c \
-		srcs/utils/general_utils.c \
-		srcs/utils/lexer_utils.c \
-		srcs/utils/sep_token_count.c \
-		srcs/utils/ft_strtok.c \
+FILES =	minishell.c \
+		lexer.c \
+		utils/general_utils.c \
+		utils/lexer_utils.c \
+		utils/sep_token_count.c \
+		utils/ft_strtok.c \
 
+SUB_DIR	=	utils
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

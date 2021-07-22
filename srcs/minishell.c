@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 11:58:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 18:39:28 by cramdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	initialize_env(t_data *data, char **line, t_global *g_global)
 	ft_bzero(&data, sizeof(data));
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(void)
 {
 	t_data		data;
 	char		*line;
@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **env)
 	line = readline(g_global.prompt);
 	while (line)
 	{
-		if (char_occu(line, CHAR_WHITESPACE) != ft_strlen(line))
+		if (char_occu(line, CHAR_WHITESPACE) != (int)ft_strlen(line))
 			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
