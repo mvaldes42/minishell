@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/21 20:53:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 11:37:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int	main(int argc, char **argv, char **env)
 	line = readline(g_global.prompt);
 	while (line)
 	{
-		add_history(line);
+		if (char_occu(line, CHAR_WHITESPACE) != ft_strlen(line))
+			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
 		lexer(&data, line, &data.s_tokens);

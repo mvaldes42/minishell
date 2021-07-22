@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/21 19:46:25 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/07/22 10:41:04 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRCS =	srcs/minishell.c \
 		srcs/utils/lexer_utils.c \
 		srcs/utils/sep_token_count.c \
 		srcs/utils/ft_strtok.c \
-		srcs/utils/ft_strtok_spec.c \
+
 
 OBJS = $(SRCS:.c=.o)
 CC = @gcc

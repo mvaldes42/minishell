@@ -167,6 +167,7 @@ With the command table, and for each simple command, creates a new process.
 - [ ] $?
 - [ ] ` (inhibits all interpretation of a sequence of WORD)
 - [ ] `` (same, except for $)
+- [ ] redirect STDIN and STDOUT
 
 ## IV. CALL STACK <a name="callstack"></a>
 
