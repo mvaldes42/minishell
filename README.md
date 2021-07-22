@@ -6,10 +6,11 @@ Minishell is a simple shell project for 42 school
 
 
 > 1. [**PARSING**](#parsing)
-> 		- Lexer
-> 			- Scanning
-> 			- Evaluating
-> 		- Parser
+> 		- [1. Lexer](#lexer)
+> 			- [a. Scanning](#scanning)
+> 			- [b. Evaluating](#evaluating)
+> 		- [2. Parser](#parser)
+>		- [3. Searcher](#searcher) *or in executor ?*
 > 2. [**EXECUTOR**](#executor)
 > 3. [**SHELL SUBSYSTEMS**](#subsystems)
 > 4. [**CALL STACK MAP**](#callstack)
@@ -80,11 +81,16 @@ other examples (not always up to date with the new subject)
 - (logical operator = &&  || )
 - (list terminator = ; )
 
-#### <ins>> INPUT PARSING EXAMPLE :
+####  <ins>> PARSING EXAMPLE :
 
 Take the following command :
 
 	echo -n bonjour | echo cool'$HOME top'"$HOME super" | echo $? > txt1
+
+
+### <ins>1. LEXER <a name="lexer"></a> :
+#### *a.Scanning* <a name="scanning"></a> :
+
 Run through a **scanning process** that separates the words  :
 
 | nb 	|   word  			|
@@ -103,6 +109,7 @@ Run through a **scanning process** that separates the words  :
 | 12 	|    >    			|
 | 13 	|   txt1  			|
 
+#### *a.Evaluating* <a name="evaluating"></a> :
 **Evaluate** the resulted lexemes into **tokens** :
 
 |   token   	|    token type   	|
@@ -122,6 +129,8 @@ Run through a **scanning process** that separates the words  :
 |     >     	|    REDIR_OUT    	|
 |    txt1   	|       WORD      	|
 
+### <ins>2. PARSER <a name="parser"></a> :
+
 **Parse** the tokens into a data structure called the **command table** :
 The Command Table is an array of  SimpleCommand structs.
 | command 	| option 	| arguments                      	|
@@ -139,12 +148,35 @@ The Command Table is an array of  SimpleCommand structs.
 
 example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
+### <ins>3. SEARCHER <a name="searcher"></a> :
+
 ## II. EXECUTOR <a name="executor"></a>
 
 With the command table, and for each simple command, creates a new process.
 <br>
 - Interpret: The shell reads commands from the **command table** and executes them.
 - Terminate: After its commands are executed, the shell executes any shutdown commands, frees up any memory, and terminates.
+
+- [ ] if system command, a new child will be created and then by using the execvp, execute the command, and wait until it is finished.
+- [ ] if built-in execute normally
+- [ ] for pipes, call each command into separate children using execvp.
+
+	1. Declare an integer array of size 2 for storing file descriptors. File descriptor 0 is for reading and 1 is for writing.
+	2. Open a pipe using the pipe() function.
+	3. Create two children with **fork**
+	4. Child 1->
+		- Here the output has to be taken into the pipe.
+		- Copy file descriptor 1 to stdout.
+		- Close  file descriptor 0.
+		- Execute the first command using execvp()
+	5. Child 2->
+		- Here the input has to be taken from the pipe.
+		- Copy file descriptor 0 to stdin.
+		- Close file descriptor 1.
+		- Execute the second command using execvp()
+	10. **Wait** for the two children to finish in the parent.
+
+ressource here : https://www.geeksforgeeks.org/making-linux-shell-c/
 
 ## III. SUBSYSTEMS <a name="subsystems"></a>
 
