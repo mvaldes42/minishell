@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:52:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:56:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define TRUE 1
+# define FALSE 0
 
 # define CHAR_SINGLE_QUOTE '\''
 # define CHAR_DOUBLE_QUOTE '\"'
@@ -73,6 +76,16 @@ typedef struct s_commands
 // arguments = "bonjour"
 // fd_out = STDOUT
 // redir_in = 0
+// fd_in = STDIN
+// redir_out = 0
+// }
+
+// commands[1] = {
+// name = "echo"
+// option = NULL
+// arguments = "cool$HOME top/Usr/user42 super"
+// fd_out = 3
+// redir_in = TRUE
 // fd_in = STDIN
 // redir_out = 0
 // }
