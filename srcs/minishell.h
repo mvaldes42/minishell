@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:19:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:20:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_commands
 	char	*name;
 	char	*option;
 	char	*arguments;
-	int 	fd_input;
+	int		fd_input;
 	bool	redir_in;
 	int		fd_output;
 	bool	redir_out;
@@ -68,8 +68,8 @@ typedef struct s_commands
 
 typedef struct s_data
 {
-	t_lexer	s_tokens;
-	t_commands commands;
+	t_lexer		s_tokens;
+	t_commands	*commands;
 }	t_data;
 
 typedef struct s_global
