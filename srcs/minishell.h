@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 16:53:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:19:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <stddef.h>
+# include <stdbool.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -53,6 +54,17 @@ typedef struct s_lexer
 	int			unspec_tk_nb;
 	int			tk_nbr;
 }	t_lexer;
+
+typedef struct s_commands
+{
+	char	*name;
+	char	*option;
+	char	*arguments;
+	int 	fd_input;
+	bool	redir_in;
+	int		fd_output;
+	bool	redir_out;
+}	t_commands;
 
 typedef struct s_data
 {
