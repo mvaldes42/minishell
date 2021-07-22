@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/22 17:21:45 by cramdani         ###   ########.fr        #
+#    Updated: 2021/07/22 17:40:44 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,13 +23,12 @@ LIBFT_F = lib/libft
 
 all:		$(NAME)
 
-$(NAME):	compile
+$(NAME):	compile $(OBJS)
 			$(CC) $(CC_FLAGS) -lreadline $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
 			@echo "> compile done <"
 
 compile:
 			@make -C $(LIBFT_F)
-			@make $(OBJS)
 
 clean:
 			@make clean -C $(LIBFT_F)

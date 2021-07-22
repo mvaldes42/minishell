@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:20:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:41:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,14 @@ typedef struct s_commands
 
 typedef struct s_data
 {
+	char		*prompt;
 	t_lexer		s_tokens;
 	t_commands	*commands;
+
 }	t_data;
 
-typedef struct s_global
-{
-	char	*build_in[7];
-	char	*prompt;
-}	t_global;
-
-t_global	g_global;
+static const char	*g_build_in[7] = \
+		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 int		lexer(t_data *data, char *line, t_lexer *lx);
 

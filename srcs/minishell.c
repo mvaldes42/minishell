@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 11:58:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:47:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,9 @@
 // 	// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
 // }
 
-static void	initialize_env(t_data *data, char **line, t_global *g_global)
+static void	initialize_env(t_data *data, char **line)
 {
-	const char	*build_in[7] = \
-		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-
-	memcpy(g_global->build_in, build_in, sizeof(build_in));
-	g_global->prompt = NULL;
+	data->prompt = NULL;
 	line = NULL;
 	ft_bzero(&data, sizeof(data));
 }
@@ -68,9 +64,9 @@ int	main(int argc, char **argv, char **env)
 	t_data		data;
 	char		*line;
 
-	initialize_env(&data, &line, &g_global);
-	create_prompt();
-	line = readline(g_global.prompt);
+	initialize_env(&data, &line);
+	create_prompt(&data);
+	line = readline(data.prompt);
 	while (line)
 	{
 		if (char_occu(line, CHAR_WHITESPACE) != ft_strlen(line))
@@ -82,8 +78,8 @@ int	main(int argc, char **argv, char **env)
 		clear_data(&data);
 		if (line)
 			free(line);
-		create_prompt();
-		line = readline(g_global.prompt);
+		create_prompt(&data);
+		line = readline(data.prompt);
 		// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
 	}
 	return (1);
