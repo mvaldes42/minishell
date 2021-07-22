@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:51:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:52:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ typedef struct s_commands
 	bool	redir_out;
 }	t_commands;
 
-// COMMAND EXAMPLE 
+// COMMAND EXAMPLE
+// commands[0] = {
 // name = "echo"
 // option = "-n"
 // arguments = "bonjour"
@@ -74,6 +75,7 @@ typedef struct s_commands
 // redir_in = 0
 // fd_in = STDIN
 // redir_out = 0
+// }
 
 typedef struct s_data
 {
