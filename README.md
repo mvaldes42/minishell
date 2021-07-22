@@ -89,7 +89,7 @@ Take the following command :
 
 
 ### <ins>1. LEXER <a name="lexer"></a> :
-#### *a.Scanning* <a name="scanning"></a> :
+#### *a. scanning* <a name="scanning"></a> :
 
 Run through a **scanning process** that separates the words  :
 
@@ -109,7 +109,7 @@ Run through a **scanning process** that separates the words  :
 | 12 	|    >    			|
 | 13 	|   txt1  			|
 
-#### *a.Evaluating* <a name="evaluating"></a> :
+#### *b. evaluating* <a name="evaluating"></a> :
 **Evaluate** the resulted lexemes into **tokens** :
 
 |   token   	|    token type   	|
@@ -146,10 +146,35 @@ The Command Table is an array of  SimpleCommand structs.
 - **execute "echo $?**
 - **redirects output to file txt1**
 
-example : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+source : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
 ### <ins>3. SEARCHER <a name="searcher"></a> :
 
+- comparing our tokens to some data structures and, if not matching, searching around the environment PATH directories to find a match for it.
+The order of comparing the first argument is against:
+	- 1) aliases,
+	- 2) builtins,
+	- 3) environment path.
+
+#### 1) Aliases
+>		typedef struct s_aliases
+>		{
+>			char	*alias_name;
+>			char	*real_name;
+>		} t_alias;
+#### 2) Builtins
+>		typedef struct s_builtins
+>		{
+>			char	*name;
+>			int		(*func)(void);
+>		} t_builtins;
+#### 2) Environment path
+In bash, if you input ENV, you will get in stdout a list of all those variables.<br>
+In order to access the environment, an external variable must be declared in the header :
+>		extern char **environ;
+Using loops, each directory is opened and stat() checks if the *commandname* is there. If positive, the directory is concatenated with a slash character and also with the user’s command, and the pointer is returned to be executed.
+
+source : https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e
 ## II. EXECUTOR <a name="executor"></a>
 
 With the command table, and for each simple command, creates a new process.
