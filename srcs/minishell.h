@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/21 19:51:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 16:53:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_lexer
 typedef struct s_data
 {
 	t_lexer	s_tokens;
+	t_commands commands;
 }	t_data;
 
 typedef struct s_global
