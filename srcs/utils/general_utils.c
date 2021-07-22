@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 15:58:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:47:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,20 +57,20 @@ void	clear_data(t_data *data)
 		if (data->s_tokens.tk_lst)
 			free(data->s_tokens.tk_lst);
 	}
-	if (g_global.prompt)
-		free(g_global.prompt);
+	if (data->prompt)
+		free(data->prompt);
 	ft_bzero(&data, sizeof(data));
 }
 
-void	create_prompt(void)
+void	create_prompt(t_data *data)
 {
 	char	cwd[256];
 	int		size;
 
 	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
 	ft_strlen("-> ") + ft_strlen(" $> ") + 1;
-	g_global.prompt = (char *)malloc(sizeof(char) * size);
-	strlcat(g_global.prompt, "-> ", size);
-	strlcat(g_global.prompt, getcwd(cwd, sizeof(cwd)), size);
-	strlcat(g_global.prompt, " $> ", size);
+	data->prompt = (char *)malloc(sizeof(char) * size);
+	strlcat(data->prompt, "-> ", size);
+	strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
+	strlcat(data->prompt, " $> ", size);
 }

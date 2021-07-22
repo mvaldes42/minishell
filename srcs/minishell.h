@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:20:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 17:56:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define STDIN 0
 # define STDOUT 1
 # define STDERR 2
+
+# define TRUE 1
+# define FALSE 0
 
 # define CHAR_SINGLE_QUOTE '\''
 # define CHAR_DOUBLE_QUOTE '\"'
@@ -60,25 +63,43 @@ typedef struct s_commands
 	char	*name;
 	char	*option;
 	char	*arguments;
-	int		fd_input;
+	int		fd_in;
 	bool	redir_in;
-	int		fd_output;
+	int		fd_out;
 	bool	redir_out;
 }	t_commands;
 
+// COMMAND EXAMPLE
+// commands[0] = {
+// name = "echo"
+// option = "-n"
+// arguments = "bonjour"
+// fd_out = STDOUT
+// redir_in = 0
+// fd_in = STDIN
+// redir_out = 0
+// }
+
+// commands[1] = {
+// name = "echo"
+// option = NULL
+// arguments = "cool$HOME top/Usr/user42 super"
+// fd_out = 3
+// redir_in = TRUE
+// fd_in = STDIN
+// redir_out = 0
+// }
+
 typedef struct s_data
 {
+	char		*prompt;
 	t_lexer		s_tokens;
 	t_commands	*commands;
+
 }	t_data;
 
-typedef struct s_global
-{
-	char	*build_in[7];
-	char	*prompt;
-}	t_global;
-
-t_global	g_global;
+static const char	*g_build_in[7] = \
+		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 int		lexer(t_data *data, char *line, t_lexer *lx);
 
