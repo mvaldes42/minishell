@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/22 19:11:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/22 17:56:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/22 18:39:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ typedef struct s_commands
 	char	*name;
 	char	*option;
 	char	*arguments;
-	int		fd_in;
-	bool	redir_in;
 	int		fd_out;
 	bool	redir_out;
 }	t_commands;
@@ -75,8 +73,6 @@ typedef struct s_commands
 // option = "-n"
 // arguments = "bonjour"
 // fd_out = STDOUT
-// redir_in = 0
-// fd_in = STDIN
 // redir_out = 0
 // }
 
@@ -85,10 +81,9 @@ typedef struct s_commands
 // option = NULL
 // arguments = "cool$HOME top/Usr/user42 super"
 // fd_out = 3
-// redir_in = TRUE
-// fd_in = STDIN
-// redir_out = 0
+// redir_out = 1
 // }
+
 
 typedef struct s_data
 {
