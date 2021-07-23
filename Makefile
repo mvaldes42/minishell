@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/22 18:40:41 by cramdani         ###   ########.fr        #
+#    Updated: 2021/07/23 19:07:06 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ NAME		=	minishell
 
 SRCS_DIR	=	srcs
 OBJS_DIR	=	objs
-HEADER		=	./srcs/minishell.h	
+HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
@@ -36,7 +36,7 @@ $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIBFT_F)
 			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) -lreadline  $(LIBFT) $(GNL) -o $(NAME)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
-			@printf "$(PURPLE)Minishell is ready to work!$(END)"
+			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
 	    	@$(CC) $(CC_FLAGS) -c $< -o $@
@@ -46,7 +46,7 @@ $(OBJS_DIR):
 		@mkdir $(addprefix $(OBJS_DIR)/, $(SUB_DIR))
 		@printf "Create object directories : $(GREEN)$(OBJS_DIR)\n$(END)"
 		@printf "Create object subdirectories : $(GREEN)$(SUB_DIR)\n$(END)"
-		
+
 clean:
 			@make clean -C $(LIBFT_F)
 			@$(RM) $(OBJS_DIR)
