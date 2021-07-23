@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/02 16:12:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/23 22:25:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	word_count(const char *s, char c)
+int	word_count(const char *s, char c)
 {
 	unsigned int	i;
 	unsigned int	count;

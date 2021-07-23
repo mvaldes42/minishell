@@ -72,7 +72,6 @@ typedef struct s_commands
 // redir_out = 1
 // }
 
-
 typedef struct s_data
 {
 	char		*prompt;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 19:46:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/23 21:55:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,17 @@ void	clear_data(t_data *data)
 	i = 0;
 	if (data->s_tokens.tk_lst != NULL)
 	{
-		while (data->s_tokens.tk_lst[i].token_ptr && i < data->s_tokens.tk_nbr)
+		while (i < data->s_tokens.tk_nbr)
 		{
 			free(data->s_tokens.tk_lst[i].token_ptr);
 			i++;
 		}
-		if (data->s_tokens.tk_lst)
-			free(data->s_tokens.tk_lst);
+		free(data->s_tokens.tk_lst);
+		data->s_tokens.tk_lst = NULL;
 	}
 	if (data->prompt)
 		free(data->prompt);
-	ft_bzero(&data, sizeof(data));
+	ft_memset(data, 0, sizeof(t_data));
 }
 
 void	create_prompt(t_data *data)
