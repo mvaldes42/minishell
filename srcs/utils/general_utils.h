@@ -1,5 +1,5 @@
-#ifndef UTILS_H
-# define UTILS_H
+#ifndef GENERAL_UTILS_H
+# define GENERAL_UTILS_H
 # include "../minishell.h"
 
 void	exit_fail(t_data *data);

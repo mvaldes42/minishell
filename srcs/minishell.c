@@ -1,5 +1,5 @@
 #include "minishell.h"
-#include "utils/utils.h"
+#include "utils/general_utils.h"
 
 // void	handdle_signals(void)
 // {

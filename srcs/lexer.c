@@ -6,12 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 22:24:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:47:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "utils/utils.h"
+#include "utils/general_utils.h"
 
 static char	**scanning_tokens(t_lexer *lx, char *line)
 {

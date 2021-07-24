@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 17:23:31 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 21:18:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:48:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "general_utils.h"
 
 static size_t	ft_strcspn(const char *s1, const char *s2)
 {

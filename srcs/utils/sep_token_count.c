@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 16:26:26 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 21:28:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:48:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "general_utils.h"
 
 static int	quotes_case(int count, char **s)
 {
