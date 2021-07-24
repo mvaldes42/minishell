@@ -9,8 +9,8 @@ Minishell is a simple shell project for 42 school
 > 		- [1. Lexer](#lexer)
 > 			- [a. Scanning](#scanning)
 > 			- [b. Evaluating](#evaluating)
-> 		- [2. Parser](#parser)
->		- [3. Searcher](#searcher) *or in executor ?*
+>		- [2. Searcher](#searcher)
+> 		- [3. Parser](#parser)
 > 2. [**EXECUTOR**](#executor)
 > 3. [**SHELL SUBSYSTEMS**](#subsystems)
 > 4. [**CALL STACK MAP**](#callstack)
@@ -114,22 +114,55 @@ Run through a **scanning process** that separates the words  :
 
 |   token   	|    token type   	|
 |:---------:	|:---------------:	|
-|    echo   	| WORD 	|
+|    echo   	|       WORD      	|
 |     -n    	|       WORD      	|
 |  bonjour  	|       WORD      	|
 |     \|    	|       PIPE      	|
-|    echo   	| WORD	|
+|    echo   	|       WORD      	|
 |    cool   	|       WORD      	|
-| $HOME top 	|       WORD      	|
-|   $HOME   	|     VARIABLE    	|
-|   super   	|       WORD      	|
+| '$HOME top' 	|   STRONG_WORD   	|
+|"$HOME super"	|    WEAK WORD    	|
 |     \|    	|       PIPE      	|
-|    echo   	| WORD 	|
+|    echo   	|       WORD      	|
 |     $?    	|   EXIT_STATUS   	|
 |     >     	|    REDIR_OUT    	|
 |    txt1   	|       WORD      	|
 
-### <ins>2. PARSER <a name="parser"></a> :
+### <ins>2. SEARCHER <a name="searcher"></a> :
+
+- compares the "ALIAS" tokens against known aliases.
+- compares the "WORD" tokens against known **command names**, **builtins**.
+- searched around the environment PATH directories to find a match for it.<br>
+
+The order of comparing:
+	- 1) aliases,
+	- 2) builtins,
+	- 3) environment path.
+
+#### 1) Aliases
+
+When an alias is found, its values are stored in a structure like so :
+>		typedef struct s_aliases
+>		{
+>			char	*alias_name;
+>			char	*real_name;
+>		} t_alias;
+#### 2) Builtins
+When an builtin is found, its function pointer is stored in a structure like so :
+>		typedef struct s_builtins
+>		{
+>			char	*name;
+>			int		(*func)(void);
+>		} t_builtins;
+#### 2) Environment path
+In bash, if you input ENV, you will get in stdout a list of all those variables.<br>
+In order to access the environment, an external variable must be declared in the header :
+>		extern char **environ;
+Using loops, each directory is opened and stat() checks if the *commandname* is there. If positive, the directory is concatenated with a slash character and also with the user’s command, and the pointer is returned to be executed.
+
+source : https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e
+
+### <ins>3. PARSER <a name="parser"></a> :
 
 **Parse** the tokens into a data structure called the **command table** :
 The Command Table is an array of  SimpleCommand structs.
@@ -148,33 +181,6 @@ The Command Table is an array of  SimpleCommand structs.
 
 source : https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 
-### <ins>3. SEARCHER <a name="searcher"></a> :
-
-- comparing our tokens to some data structures and, if not matching, searching around the environment PATH directories to find a match for it.
-The order of comparing the first argument is against:
-	- 1) aliases,
-	- 2) builtins,
-	- 3) environment path.
-
-#### 1) Aliases
->		typedef struct s_aliases
->		{
->			char	*alias_name;
->			char	*real_name;
->		} t_alias;
-#### 2) Builtins
->		typedef struct s_builtins
->		{
->			char	*name;
->			int		(*func)(void);
->		} t_builtins;
-#### 2) Environment path
-In bash, if you input ENV, you will get in stdout a list of all those variables.<br>
-In order to access the environment, an external variable must be declared in the header :
->		extern char **environ;
-Using loops, each directory is opened and stat() checks if the *commandname* is there. If positive, the directory is concatenated with a slash character and also with the user’s command, and the pointer is returned to be executed.
-
-source : https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e
 ## II. EXECUTOR <a name="executor"></a>
 
 With the command table, and for each simple command, creates a new process.
