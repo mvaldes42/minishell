@@ -20,17 +20,27 @@
 # define CHAR_SINGLE_QUOTE '\''
 # define CHAR_DOUBLE_QUOTE '\"'
 # define CHAR_RED_OUT '>'
-# define STR_RED_OUT_APP '>' + '>'
 # define CHAR_RED_IN '<'
-# define STR_READ_IN '<' + '<'
 # define CHAR_PIPE '|'
-# define CHAR_NULL 0
 # define CHAR_EXP '$'
-# define STR_EXIT_STAT '$' + '?'
 # define CHAR_WHITESPACE ' '
-# define CHAR_ALPHA -1
 
 # define OPT_ECHO "-n"
+
+typedef enum e_tk_types
+{
+	UNDEF = 0,
+	WORD = 1,
+	PIPE = 2,
+	VARIABLE = 3,
+	REDIR_OUT = 4,
+	REDIR_IN = 5,
+	READ_IN = 6,
+	REDIR_OUT_A = 7,
+	EXIT_STS = 8,
+	WEAK_WORD = 9,
+	STRONG_WORD = 10
+}	t_tk_types;
 
 typedef struct s_token_id
 {
@@ -44,6 +54,7 @@ typedef struct s_lexer
 	char		**unspec_tk;
 	int			unspec_tk_nb;
 	int			tk_nbr;
+	t_tk_types	token_types;
 }	t_lexer;
 
 typedef struct s_commands
