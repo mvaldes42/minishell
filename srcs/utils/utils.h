@@ -2,6 +2,16 @@
 # define UTILS_H
 # include "../minishell.h"
 
+typedef struct s_split
+{
+	char		**dest;
+	char		c;
+	int			start;
+	int			end;
+	int			i;
+	int			w_count;
+}	t_split;
+
 void	exit_fail(t_data *data);
 void	exit_sucess(t_data *data, char *line);
 void	clear_data(t_data *data);

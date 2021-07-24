@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 14:08:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 15:54:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**scanning_tokens(t_lexer *lx, char *line)
 	lx->tk_nbr = word_count(line, ' ');
 	printf("count : %d\n", lx->tk_nbr);
 	unspec_token = malloc(sizeof(char *) * (lx->tk_nbr + 1));
-	unspec_token = ft_split(line, ' ');
+	unspec_token = special_split(line, ' ');
 	return (unspec_token);
 }
 
@@ -62,9 +62,9 @@ int	lexer(t_data *data, char *line, t_lexer *lx)
 		|| char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
 		exit_fail(data);
 	unspec_token = scanning_tokens(lx, line);
-	// lx->tk_lst = (t_token_id *)malloc(sizeof(t_token_id) * \
-	// (data->s_tokens.tk_nbr + 1));
-	// evaluating_tokens(lx, unspec_token);
-	// free(unspec_token);
+	lx->tk_lst = (t_token_id *)malloc(sizeof(t_token_id) * \
+	(data->s_tokens.tk_nbr + 1));
+	evaluating_tokens(lx, unspec_token);
+	free(unspec_token);
 	return (1);
 }

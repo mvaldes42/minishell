@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 15:23:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 15:59:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,65 +41,55 @@ int	word_count(const char *s, char c)
 	return (count);
 }
 
-static char	**no_occurence(char **dest, const char *s)
+static void	regular_word(t_split *s, const char *str)
 {
-	dest[0] = ft_strdup(s);
-	dest[1] = 0;
-	return (dest);
+	while (str[s->end] && str[s->end] != s->c && str[s->end] != '\'')
+		s->end++;
+	s->dest[s->i] = ft_substr(str, s->start, (s->end - s->start));
+	s->start = s->end;
+	s->i++;
 }
 
-static int	regu_word(int start, int end, int i, char const *s, char c, char **dest)
+static void	quote_word(t_split *s, const char *str)
 {
-	while (s[end] && s[end] != c && s[end] != '\'')
-		end++;
-	dest[i] = ft_substr(s, start, (end - start));
-	return (end);
+	s->end += 1;
+	while (str[s->end] && str[s->end] != '\'')
+		s->end++;
+	s->end += 1;
+	s->dest[s->i] = ft_substr(str, s->start, (s->end - s->start));
+	s->start = s->end;
+	s->i++;
 }
 
-static char	**ft_split2(char const *s, char c, char **dest)
+static void	special_split_2(t_split *s, const char *str)
 {
-	int		start;
-	int		end;
-	int		i;
-
-	start = 0;
-	end = 0;
-	i = 0;
-	while (i != word_count(s, c))
+	while (s->i != s->w_count)
 	{
-		while (s[start] && s[start] == c)
-			start++;
-		if (!s[start])
-			return (no_occurence(dest, s));
-		end = start;
-		if (s[end] && s[end] != c && s[end] != '\'')
-		{
-			regu_word(start, end, i, s, c, dest);
-			i++;
-		}
-		if (s[end] && s[end] == '\'')
-		{
-			end += 1;
-			while (s[end] && s[end] != '\'')
-				end++;
-			end += 1;
-			dest[i] = ft_substr(s, start, (end - start));
-			i++;
-		}
-		start = end;
+		while (str[s->start] && str[s->start] == s->c)
+			s->start++;
+		if (!str[s->start])
+			break ;
+		s->end = s->start;
+		if (str[s->end] && str[s->end] != s->c && str[s->end] != '\'')
+			regular_word(s, str);
+		if (str[s->end] && str[s->end] == '\'')
+			quote_word(s, str);
 	}
-	dest[i] = NULL;
-	return (dest);
 }
 
-char	**special_split(char const *s, char c)
+char	**special_split(char const *str, char c)
 {
-	char	**dest;
+	t_split		s_data;
 
-	if (!(s))
+	if (!(str))
 		return (NULL);
-	dest = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (!dest)
+	ft_memset(&s_data, 0, sizeof(t_split));
+	s_data.c = c;
+	s_data.w_count = word_count(str, c);
+	s_data.dest = (char **)malloc(sizeof(char *) * (s_data.w_count + 1));
+	if (!s_data.dest)
 		return (NULL);
-	return (ft_split2(s, c, dest));
+	special_split_2(&s_data, str);
+	s_data.dest[s_data.w_count] = NULL;
+	return (s_data.dest);
 }
