@@ -1,5 +1,5 @@
 #include "minishell.h"
-#include "utils/utils.h"
+#include "utils/general_utils.h"
 
 // void	handdle_signals(void)
 // {
@@ -62,13 +62,11 @@ int	main(void)
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
 		lexer(&data, line, &data.s_tokens);
-		// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
 		clear_data(&data);
 		if (line)
 			free(line);
 		create_prompt(&data);
 		line = readline(data.prompt);
-		// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
 	}
 	return (1);
 }

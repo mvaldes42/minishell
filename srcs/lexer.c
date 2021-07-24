@@ -6,25 +6,26 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 15:54:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 18:41:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "utils/utils.h"
+#include "utils/general_utils.h"
 
 static char	**scanning_tokens(t_lexer *lx, char *line)
 {
 	char	**unspec_token;
 
-	lx->tk_nbr = word_count(line, ' ');
+	lx->tk_nbr = token_count(line, ' ');
+	if (lx->tk_nbr == 0)
+		exit(1);
 	printf("count : %d\n", lx->tk_nbr);
 	unspec_token = malloc(sizeof(char *) * (lx->tk_nbr + 1));
-	unspec_token = special_split(line, ' ');
+	unspec_token = token_split(line, ' ');
 	return (unspec_token);
 }
 
-//FONCTION EN COURS DE DEV
 void	evaluating_tokens(t_lexer *lx, char **unspec_token)
 {
 	int		i;

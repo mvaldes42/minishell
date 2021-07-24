@@ -2,9 +2,8 @@ FILES =	minishell.c \
 		lexer.c \
 		utils/general_utils.c \
 		utils/lexer_utils.c \
-		utils/sep_token_count.c \
-		utils/ft_strtok.c \
-		utils/special_split.c \
+		utils/token_split.c \
+		utils/token_count.c \
 
 SUB_DIR	=	utils
 
