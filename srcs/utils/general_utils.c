@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 21:55:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 13:16:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	create_prompt(t_data *data)
 
 	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
 	ft_strlen("\033[32m\u27A1\033[0m \033[38;5;117;1m") + \
-	ft_strlen(" \033[38;5;212m\u2613\033[0m ") + 1;
+	ft_strlen(" \033[38;5;69m\u2613\033[0m ") + 1;
 	data->prompt = (char *)malloc(sizeof(char) * size);
 	strlcat(data->prompt, "\033[32m\u27A1\033[0m \033[38;5;117;1m", size);
 	strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
-	strlcat(data->prompt, " \033[38;5;212m\u2613\033[0m ", size);
+	strlcat(data->prompt, " \033[38;5;69m\u2613\033[0m ", size);
 }
