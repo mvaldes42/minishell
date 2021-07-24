@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   lexer_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/22 18:03:21 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:28:45 by mvaldes          ###   ########.fr       */
+/*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/07/01 16:26:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int	main(int argc, char **argv, char **env)
+int	char_occu(char *str, char c)
 {
-	char	*line;
-	char	cwd[256];
+	int		nbr;
+	char	*s;
 
-	(void)argc;
-	(void)argv;
-	(void)env;
-	line = NULL;
-	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
-	while (get_next_line(STDIN, &line) > 0)
+	s = str;
+	nbr = 0;
+	while (*s)
 	{
-	// 	printf("line : %s\n", line);
-	// 	printf("%s >$ ", getcwd(cwd, sizeof(cwd)));
+		if (*s == c)
+			nbr++;
+		s++;
 	}
-	return (1);
+	if (nbr > 0)
+		return (nbr);
+	return (0);
 }

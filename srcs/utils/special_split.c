@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   special_split.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 15:26:10 by mvaldes          ###   ########.fr       */
+/*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/07/24 15:23:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "utils.h"
 
-static int	word_count(const char *s, char c)
+int	word_count(const char *s, char c)
 {
 	unsigned int	i;
 	unsigned int	count;
@@ -21,12 +21,22 @@ static int	word_count(const char *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] == c)
+		while (s[i] && s[i] == c)
 			i++;
-		if (s[i])
+		if (s[i] && s[i] != c && s[i] != '\'')
+		{
+			while (s[i] && s[i] != c && s[i] != '\'')
+				i++;
 			count++;
-		while (s[i] != c && s[i])
-			i++;
+		}
+		if (s[i] && s[i] == '\'')
+		{
+			i += 1;
+			while (s[i] && s[i] != '\'')
+				i++;
+			count++;
+			i += 1;
+		}
 	}
 	return (count);
 }
@@ -36,6 +46,14 @@ static char	**no_occurence(char **dest, const char *s)
 	dest[0] = ft_strdup(s);
 	dest[1] = 0;
 	return (dest);
+}
+
+static int	regu_word(int start, int end, int i, char const *s, char c, char **dest)
+{
+	while (s[end] && s[end] != c && s[end] != '\'')
+		end++;
+	dest[i] = ft_substr(s, start, (end - start));
+	return (end);
 }
 
 static char	**ft_split2(char const *s, char c, char **dest)
@@ -49,22 +67,32 @@ static char	**ft_split2(char const *s, char c, char **dest)
 	i = 0;
 	while (i != word_count(s, c))
 	{
-		while (s[start] == c)
+		while (s[start] && s[start] == c)
 			start++;
 		if (!s[start])
 			return (no_occurence(dest, s));
 		end = start;
-		while (s[end] != c && s[end])
-			end++;
-		dest[i] = ft_substr(s, start, (end - start));
-		i++;
+		if (s[end] && s[end] != c && s[end] != '\'')
+		{
+			regu_word(start, end, i, s, c, dest);
+			i++;
+		}
+		if (s[end] && s[end] == '\'')
+		{
+			end += 1;
+			while (s[end] && s[end] != '\'')
+				end++;
+			end += 1;
+			dest[i] = ft_substr(s, start, (end - start));
+			i++;
+		}
 		start = end;
 	}
-	dest[i] = 0;
+	dest[i] = NULL;
 	return (dest);
 }
 
-char	**ft_split(char const *s, char c)
+char	**special_split(char const *s, char c)
 {
 	char	**dest;
 
