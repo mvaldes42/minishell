@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/23 19:07:06 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/07/23 22:35:21 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-CC_FLAGS	=	-Wall -Wextra -Werror
+# CC_FLAGS	=	-Wall -Wextra -Werror
 INC			=	-I $(HEADER)
 
 LIBFT		=	lib/libft/libft.a

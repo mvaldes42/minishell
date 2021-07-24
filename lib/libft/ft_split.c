@@ -6,11 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 22:25:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/23 23:02:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	word_count(const char *s, char c)
 {
@@ -22,11 +23,35 @@ int	word_count(const char *s, char c)
 	while (s[i])
 	{
 		while (s[i] == c)
-			i++;
-		if (s[i])
+				i++;
+		printf("c: %c\n", s[i]);
+		if (s[i] == '\'')
+		{
 			count++;
-		while (s[i] != c && s[i])
+			printf("count ' : %d\n", count);
 			i++;
+			while (s[i] != '\'')
+			{
+				printf("c ': %c\n", s[i]);
+				i++;
+			}
+			printf("c ': %c\n", s[i]);
+			count++;
+			printf("count ' : %d\n", count);
+		}
+		else if (s[i] != '\'')
+		{
+			count++;
+			printf("count n : %d\n", count);
+			while (s[i] != c && s[i] != '\'')
+			{
+				printf("c n: %c\n", s[i]);
+				i++;
+			}
+		}
+		while (s[i] == c)
+				i++;
+		i++;
 	}
 	return (count);
 }
