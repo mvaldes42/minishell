@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 20:47:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 21:25:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils/general_utils.h"
 
-static char	**scanning_tokens(t_lexer *lx, char *line)
+static char	**scanning_tokens(t_parsing *lx, char *line)
 {
 	char	**unspec_token;
 
@@ -26,7 +26,7 @@ static char	**scanning_tokens(t_lexer *lx, char *line)
 	return (unspec_token);
 }
 
-void	eval_double_char(t_lexer *lx, char **unspec_token, int i)
+static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 {
 	if (!ft_strncmp(unspec_token[i], ">>", 2))
 		lx->tk_lst[i].token_type = REDIR_OUT_A;
@@ -36,7 +36,7 @@ void	eval_double_char(t_lexer *lx, char **unspec_token, int i)
 		lx->tk_lst[i].token_type = EXIT_STS;
 }
 
-void	evaluating_tokens(t_lexer *lx, char **unspec_token)
+static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 {
 	int			i;
 
@@ -64,14 +64,16 @@ void	evaluating_tokens(t_lexer *lx, char **unspec_token)
 	}
 }
 
-int	lexer(t_data *data, char *line, t_lexer *lx)
+int	lexer(t_data *data, char *line)
 {
 	char		**unspec_token;
 	int			i;
+	t_parsing	*lx;
 	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
 	"WEAK_WORD", "STRONG_WORD"};
 
+	lx = &data->s_tokens;
 	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 \
 		|| char_occu(line, CHAR_DOUBLE_QUOTE) % 2)
 		exit_fail(data);

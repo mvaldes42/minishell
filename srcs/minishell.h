@@ -48,14 +48,13 @@ typedef struct s_token_id
 	char	*token_ptr;
 }	t_token_id;
 
-typedef struct s_lexer
+typedef struct s_parsing
 {
 	t_token_id	*tk_lst;
 	char		**unspec_tk;
-	int			unspec_tk_nb;
 	int			tk_nbr;
 	t_tk_types	token_types;
-}	t_lexer;
+}	t_parsing;
 
 typedef struct s_commands
 {
@@ -86,7 +85,7 @@ typedef struct s_commands
 typedef struct s_data
 {
 	char		*prompt;
-	t_lexer		s_tokens;
+	t_parsing	s_tokens;
 	t_commands	*commands;
 
 }	t_data;
@@ -94,6 +93,7 @@ typedef struct s_data
 static const char	*g_build_in[7] = \
 		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
-int		lexer(t_data *data, char *line, t_lexer *lx);
+int		parsing(t_data *data, char *line);
+int		lexer(t_data *data, char *line);
 
 #endif

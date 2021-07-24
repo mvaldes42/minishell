@@ -61,7 +61,7 @@ int	main(void)
 			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
-		lexer(&data, line, &data.s_tokens);
+		parsing(&data, line);
 		clear_data(&data);
 		if (line)
 			free(line);
