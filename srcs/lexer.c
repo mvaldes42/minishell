@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 22:35:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 14:08:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ static char	**scanning_tokens(t_lexer *lx, char *line)
 
 	lx->tk_nbr = word_count(line, ' ');
 	printf("count : %d\n", lx->tk_nbr);
-	// unspec_token = malloc(sizeof(char *) * (lx->tk_nbr + 1));
-	// unspec_token = ft_split(line, ' ');
+	unspec_token = malloc(sizeof(char *) * (lx->tk_nbr + 1));
+	unspec_token = ft_split(line, ' ');
 	return (unspec_token);
 }
 

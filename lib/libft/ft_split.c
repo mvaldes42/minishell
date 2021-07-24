@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/23 23:02:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/24 14:12:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,36 +22,22 @@ int	word_count(const char *s, char c)
 	count = 0;
 	while (s[i])
 	{
-		while (s[i] == c)
-				i++;
-		printf("c: %c\n", s[i]);
-		if (s[i] == '\'')
-		{
-			count++;
-			printf("count ' : %d\n", count);
+		while (s[i] && s[i] == c)
 			i++;
-			while (s[i] != '\'')
-			{
-				printf("c ': %c\n", s[i]);
-				i++;
-			}
-			printf("c ': %c\n", s[i]);
-			count++;
-			printf("count ' : %d\n", count);
-		}
-		else if (s[i] != '\'')
+		if (s[i] && s[i] != c && s[i] != '\'')
 		{
+			while (s[i] && s[i] != c && s[i] != '\'')
+				i++;
 			count++;
-			printf("count n : %d\n", count);
-			while (s[i] != c && s[i] != '\'')
-			{
-				printf("c n: %c\n", s[i]);
-				i++;
-			}
 		}
-		while (s[i] == c)
+		if (s[i] && s[i] == '\'')
+		{
+			i += 1;
+			while (s[i] && s[i] != '\'')
 				i++;
-		i++;
+			count++;
+			i += 1;
+		}
 	}
 	return (count);
 }
@@ -74,7 +60,7 @@ static char	**ft_split2(char const *s, char c, char **dest)
 	i = 0;
 	while (i != word_count(s, c))
 	{
-		while (s[start] == c)
+		while (s[start] && s[start] == c)
 			start++;
 		if (!s[start])
 			return (no_occurence(dest, s));
@@ -88,6 +74,26 @@ static char	**ft_split2(char const *s, char c, char **dest)
 	dest[i] = 0;
 	return (dest);
 }
+
+	// while (s[i])
+	// {
+	// 	while (s[i] && s[i] == c)
+	// 		i++;
+	// 	if (s[i] && s[i] != c && s[i] != '\'')
+	// 	{
+	// 		while (s[i] && s[i] != c && s[i] != '\'')
+	// 			i++;
+	// 		count++;
+	// 	}
+	// 	if (s[i] && s[i] == '\'')
+	// 	{
+	// 		i += 1;
+	// 		while (s[i] && s[i] != '\'')
+	// 			i++;
+	// 		count++;
+	// 		i += 1;
+	// 	}
+	// }
 
 char	**ft_split(char const *s, char c)
 {
