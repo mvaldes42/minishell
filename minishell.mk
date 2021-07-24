@@ -1,6 +1,7 @@
 FILES =	minishell.c \
 		parsing.c \
 		lexer.c \
+		searcher.c \
 		utils/general_utils.c \
 		utils/lexer_utils.c \
 		utils/token_split.c \

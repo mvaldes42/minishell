@@ -46,6 +46,7 @@ typedef struct s_token_id
 {
 	int		token_type;
 	char	*token_ptr;
+	char	*translated_tk;
 }	t_token_id;
 
 typedef struct s_parsing
@@ -95,5 +96,6 @@ static const char	*g_build_in[7] = \
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);
+int		searcher(t_data *data);
 
 #endif

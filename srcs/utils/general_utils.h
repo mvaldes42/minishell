@@ -24,4 +24,4 @@ int		token_count(const char *s, char c);
 
 #endif
 
-//  echo -n bonjour|echo cool' $HOME top '" $HOME    super "|echo $?>txt1
+// echo -n bonjour|echo cool' $HOME top " $HOME    super$LANG' "|echo $HOME $?>txt1
