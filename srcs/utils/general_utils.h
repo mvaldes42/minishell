@@ -12,7 +12,7 @@ typedef struct s_split
 	int			w_count;
 }	t_split;
 
-void	exit_fail(t_data *data);
+void	wrong_input(t_data *data);
 void	exit_sucess(t_data *data, char *line);
 void	clear_data(t_data *data);
 void	create_prompt(t_data *data);
