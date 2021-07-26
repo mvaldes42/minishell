@@ -14,8 +14,9 @@
 #include "utils/general_utils.h"
 
 // echo -n bonjour|echo cool' $HOME top '" $HOME    super'$LANG' "
+// echo " $HOME    super'$LANG' "
 
-static	int	nbr_var(char *str)
+static	int	count_variables(char *str)
 {
 	int	i;
 	int	var_nbr;
@@ -49,6 +50,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 			while (str[i++] && str[i] != CHAR_EXP && str[i] != ' ' && \
 			str[i] != '?' && str[i] != '\'' && str[i] != '\"')
 				srch->o_var_len[j] += 1;
+			srch->tot_o_len += srch->o_var_len[j];
 			srch->var_name[j] = ft_substr(str, start, i - start);
 			j += 1;
 		}
@@ -68,6 +70,7 @@ static void	translated_var_length(t_searcher *srch)
 		if (srch->var_translated[i] == NULL)
 			exit(1);
 		srch->t_var_len[i] = ft_strlen(srch->var_translated[i]);
+		srch->tot_t_len += srch->t_var_len[i];
 		printf("srch->var_name[i] = %s, srch->var_translated[i] = %s\n", \
 		srch->var_name[i], srch->var_translated[i]);
 		i++;
@@ -81,10 +84,22 @@ static char	*weak_word_search(t_token_id *token, t_searcher *srch)
 
 	i = 0;
 	o_str = ft_strdup(token->token_ptr);
-	srch->nbr_var = nbr_var(o_str);
+	srch->nbr_var = count_variables(o_str);
 	original_var_length(o_str, srch);
 	translated_var_length(srch);
-	token->translated_tk = ft_strdup(token->token_ptr);
+	srch->t_token_len = ft_strlen(o_str) - srch->tot_o_len + srch->tot_t_len;
+	printf("srch->t_token_len = %zu\n", srch->t_token_len);
+	token->translated_tk = malloc(sizeof(char *) * (1 + srch->t_token_len));
+	free(srch->o_var_len);
+	free(srch->t_var_len);
+	i = 0;
+	// while (i < srch->nbr_var)
+	// {
+	// 	free(srch->var_name[i]);
+	// 	i++;
+	// }
+	free(srch->var_name);
+	free(srch->var_translated);
 	return (token->translated_tk);
 }
 
@@ -107,16 +122,15 @@ int	searcher(t_data *data)
 	int			i;
 	t_parsing	*parsing;
 	t_token_id	*token;
-	t_searcher	*srch;
+	t_searcher	srch;
 
 	parsing = &data->s_tokens;
-	srch = &data->s_tokens.searcher;
 	i = 0;
 	while (i < parsing->tk_nbr)
 	{
 		token = &parsing->tk_lst[i];
 		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
-			search_variables(token, srch);
+			search_variables(token, &srch);
 		i++;
 	}
 	return (1);

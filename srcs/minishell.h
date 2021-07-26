@@ -54,8 +54,11 @@ typedef struct s_searcher
 	int		nbr_var;
 	size_t	*o_var_len;
 	size_t	*t_var_len;
+	size_t	tot_o_len;
+	size_t	tot_t_len;
 	char	**var_name;
 	char	**var_translated;
+	size_t	t_token_len;
 }	t_searcher;
 
 typedef struct s_parsing
@@ -64,7 +67,6 @@ typedef struct s_parsing
 	char		**unspec_tk;
 	int			tk_nbr;
 	t_tk_types	token_types;
-	t_searcher	searcher;
 }	t_parsing;
 
 typedef struct s_commands
