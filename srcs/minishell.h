@@ -26,13 +26,13 @@
 # define TRUE 1
 # define FALSE 0
 
-# define CHAR_SINGLE_QUOTE '\''
-# define CHAR_DOUBLE_QUOTE '\"'
-# define CHAR_RED_OUT '>'
-# define CHAR_RED_IN '<'
-# define CHAR_PIPE '|'
-# define CHAR_EXP '$'
-# define CHAR_WHITESPACE ' '
+# define S_QUOTE '\''
+# define D_QUOTE '\"'
+# define RED_OUT '>'
+# define RED_IN '<'
+# define PIPE_C '|'
+# define VAR '$'
+# define SPACE ' '
 
 # define OPT_ECHO "-n"
 

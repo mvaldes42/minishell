@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/26 17:57:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/26 18:25:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
 
-void	exit_fail(t_data *data)
+void	wrong_input(t_data *data)
 {
 	int	i;
 
@@ -30,7 +30,7 @@ void	exit_fail(t_data *data)
 			free(data->s_tokens.tk_lst);
 	}
 	ft_putstr_fd("Error\n", STDERR);
-	exit(EXIT_FAILURE);
+
 }
 
 void	exit_sucess(t_data *data, char *line)

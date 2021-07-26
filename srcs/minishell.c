@@ -57,7 +57,7 @@ int	main(void)
 	line = readline(data.prompt);
 	while (line)
 	{
-		if (char_occu(line, CHAR_WHITESPACE) != (int)ft_strlen(line))
+		if (char_occu(line, SPACE) != (int)ft_strlen(line))
 			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
