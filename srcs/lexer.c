@@ -6,12 +6,40 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 21:25:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/26 11:36:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils/general_utils.h"
+
+static void	print_tab(t_parsing	*lx)
+{
+	int			i;
+	int			j;
+	int			max_len;
+	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
+	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
+	"WEAK_WORD", "STRONG_WORD"};
+
+	i = -1;
+	max_len = 0;
+	while (++i < lx->tk_nbr)
+	{
+		if (max_len < (int)ft_strlen(lx->tk_lst[i].token_ptr))
+			max_len = (int)ft_strlen(lx->tk_lst[i].token_ptr);
+	}
+	i = -1;
+	while (++i < lx->tk_nbr)
+	{
+		j = -1;
+		printf("| %-*s | %-13s |\n", max_len, \
+		lx->tk_lst[i].token_ptr, tk_t_name[lx->tk_lst[i].token_type]);
+		while (++j < max_len + 13 + 7)
+			printf("-");
+		printf("\n");
+	}
+}
 
 static char	**scanning_tokens(t_parsing *lx, char *line)
 {
@@ -67,11 +95,7 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 int	lexer(t_data *data, char *line)
 {
 	char		**unspec_token;
-	int			i;
 	t_parsing	*lx;
-	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
-	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
-	"WEAK_WORD", "STRONG_WORD"};
 
 	lx = &data->s_tokens;
 	if (char_occu(line, CHAR_SINGLE_QUOTE) % 2 \
@@ -82,13 +106,6 @@ int	lexer(t_data *data, char *line)
 	(data->s_tokens.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
 	free(unspec_token);
-	i = 0;
-	while (i < lx->tk_nbr)
-	{
-		printf("| %-20s | %-13s |\n", \
-		lx->tk_lst[i].token_ptr, tk_t_name[lx->tk_lst[i].token_type]);
-		printf("----------------------------------------\n");
-		i++;
-	}
+	print_tab(lx);
 	return (1);
 }
