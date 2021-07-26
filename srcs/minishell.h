@@ -9,6 +9,15 @@
 # include <string.h>
 # include <stddef.h>
 # include <stdbool.h>
+# include <sys/wait.h>
+# include <unistd.h>
+# include <sys/stat.h>
+# include <dirent.h>
+# include <sys/ioctl.h>
+# include <stdlib.h>
+# include <termios.h>
+# include <curses.h>
+# include <term.h>
 
 # define STDIN 0
 # define STDOUT 1
