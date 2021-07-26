@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/26 11:36:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/26 13:40:33 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 #include "utils/general_utils.h"
 
-static void	print_tab(t_parsing	*lx)
+static void	print_lexer_tab(t_parsing	*lx)
 {
 	int			i;
 	int			j;
@@ -30,6 +30,10 @@ static void	print_tab(t_parsing	*lx)
 			max_len = (int)ft_strlen(lx->tk_lst[i].token_ptr);
 	}
 	i = -1;
+	j = -1;
+	while (++j < max_len + 13 + 7)
+		printf("-");
+	printf("\n");
 	while (++i < lx->tk_nbr)
 	{
 		j = -1;
@@ -106,6 +110,6 @@ int	lexer(t_data *data, char *line)
 	(data->s_tokens.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
 	free(unspec_token);
-	print_tab(lx);
+	print_lexer_tab(lx);
 	return (1);
 }
