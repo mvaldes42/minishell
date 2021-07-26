@@ -49,12 +49,22 @@ typedef struct s_token_id
 	char	*translated_tk;
 }	t_token_id;
 
+typedef struct s_searcher
+{
+	int		nbr_var;
+	size_t	*o_var_len;
+	size_t	*t_var_len;
+	char	**var_name;
+	char	**var_translated;
+}	t_searcher;
+
 typedef struct s_parsing
 {
 	t_token_id	*tk_lst;
 	char		**unspec_tk;
 	int			tk_nbr;
 	t_tk_types	token_types;
+	t_searcher	searcher;
 }	t_parsing;
 
 typedef struct s_commands
