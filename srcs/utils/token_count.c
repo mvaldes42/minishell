@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 12:48:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:57:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,20 +79,14 @@ int	token_count(const char *s, char c)
 		if (*dup && *dup != c && *dup != S_QUOTE && *dup != D_QUOTE && \
 		*dup != PIPE_C && *dup != R_IN && *dup != R_OUT && *dup != VAR)
 			count = word_case_count(&dup, c, count);
-		if (*dup && (*dup == S_QUOTE || *dup == D_QUOTE))
-		{
+		else if (*dup && (*dup == S_QUOTE || *dup == D_QUOTE))
 			count = quotes_case_count(&dup, count);
-			if (count == 0)
-				return (count);
-		}
 		else if (*dup && (*dup == PIPE_C || *dup == VAR))
 			count = spe_case_count(&dup, c, count);
 		else if (*dup && (*dup == R_IN || *dup == R_OUT))
-		{
 			count = redir_case_count(&dup, count);
-			if (count == 0)
-				return (count);
-		}
+		if (count == 0)
+			return (count);
 	}
 	free(ptr);
 	return (count);

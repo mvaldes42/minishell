@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 12:52:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:58:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ int	redir_case_general(char **dup, int count, char r_type, char other_r)
 	*dup += 1;
 	if (**dup == other_r)
 	{
-		printf(error_str);
+		printf("%s", error_str);
 		return (0);
 	}
 	else if (**dup == r_type)
 		*dup += 1;
 	if (**dup == r_type || **dup == other_r)
 	{
-		printf(error_str);
+		printf("%s", error_str);
 		return (0);
 	}
 	else
