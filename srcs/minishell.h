@@ -28,8 +28,8 @@
 
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
-# define RED_OUT '>'
-# define RED_IN '<'
+# define R_OUT '>'
+# define R_IN '<'
 # define PIPE_C '|'
 # define VAR '$'
 # define SPACE ' '

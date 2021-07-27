@@ -6,32 +6,31 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/26 18:25:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 11:57:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
 
-void	wrong_input(t_data *data)
-{
-	int	i;
+// void	wrong_input(t_data *data)
+// {
+// 	int	i;
 
-	i = 0;
-	if (data->s_tokens.tk_lst != NULL && \
-	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
-	{
-		while (i < data->s_tokens.tk_nbr)
-		{
-			printf("free: \"%s.\"\n", data->s_tokens.tk_lst[i].token_ptr);
-			free(data->s_tokens.tk_lst[i].token_ptr);
-			i++;
-		}
-		if (data->s_tokens.tk_lst != NULL)
-			free(data->s_tokens.tk_lst);
-	}
-	ft_putstr_fd("Error\n", STDERR);
-
-}
+// 	i = 0;
+// 	if (data->s_tokens.tk_lst != NULL && \
+// 	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
+// 	{
+// 		while (i < data->s_tokens.tk_nbr)
+// 		{
+// 			printf("free: \"%s.\"\n", data->s_tokens.tk_lst[i].token_ptr);
+// 			free(data->s_tokens.tk_lst[i].token_ptr);
+// 			i++;
+// 		}
+// 		if (data->s_tokens.tk_lst != NULL)
+// 			free(data->s_tokens.tk_lst);
+// 	}
+// 	ft_putstr_fd("Error\n", STDERR);
+// }
 
 void	exit_sucess(t_data *data, char *line)
 {

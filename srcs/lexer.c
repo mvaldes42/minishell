@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 11:15:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 11:59:38 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,15 @@ static void	print_lexer_tab(t_parsing	*lx)
 	}
 }
 
-static char	**scanning_tokens(t_data *data, t_parsing *lx, char *line)
+static char	**scanning_tokens(t_parsing *lx, char *line)
 {
 	char	**unspec_token;
 
-	lx->tk_nbr = token_count(line, ' ');
+	lx->tk_nbr = token_count(line, SPACE);
 	if (lx->tk_nbr == 0)
-		wrong_input(data);
+		return (NULL);
 	printf("count : %d\n", lx->tk_nbr);
-	unspec_token = token_split(line, ' ');
+	unspec_token = token_split(line, SPACE);
 	return (unspec_token);
 }
 
@@ -94,9 +94,9 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tk_lst[i].token_type = STRONG_WORD;
 		else if (unspec_token[i][0] == D_QUOTE)
 			lx->tk_lst[i].token_type = WEAK_WORD;
-		else if (unspec_token[i][0] == RED_IN)
+		else if (unspec_token[i][0] == R_IN)
 			lx->tk_lst[i].token_type = REDIR_IN;
-		else if (unspec_token[i][0] == RED_OUT)
+		else if (unspec_token[i][0] == R_OUT)
 			lx->tk_lst[i].token_type = REDIR_OUT;
 		else if (lx->tk_lst[i].token_type == 0)
 			lx->tk_lst[i].token_type = WORD;
@@ -112,12 +112,9 @@ int	lexer(t_data *data, char *line)
 
 	lx = &data->s_tokens;
 	ft_memset(lx, 0, sizeof(t_parsing));
-	if (char_occu(line, S_QUOTE) % 2 || char_occu(line, D_QUOTE) % 2)
-	{
-		printf("error: missing quote\n");
+	unspec_token = scanning_tokens(lx, line);
+	if (unspec_token == NULL)
 		return (0);
-	}
-	unspec_token = scanning_tokens(data, lx, line);
 	lx->tk_lst = (t_token_id *)malloc(sizeof(t_token_id) * \
 	(data->s_tokens.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
