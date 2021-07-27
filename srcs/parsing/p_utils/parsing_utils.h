@@ -1,31 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer_utils.c                                      :+:      :+:    :+:   */
+/*   parsing_utils.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 18:54:59 by mvaldes          ###   ########.fr       */
+/*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/07/27 14:04:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "general_utils.h"
-
-int	char_occu(char *str, char c)
-{
-	int		nbr;
-	char	*s;
-
-	s = str;
-	nbr = 0;
-	while (*s)
-	{
-		if (*s == c)
-			nbr++;
-		s++;
-	}
-	if (nbr > 0)
-		return (nbr);
-	return (0);
-}
+#ifndef PARSING_UTILS_H
+# define PARSING_UTILS_H
+# include "../../minishell.h"
+#endif

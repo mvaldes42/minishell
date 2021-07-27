@@ -6,11 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/26 17:11:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:01:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "general_utils.h"
+#include "../../utils/general_utils.h"
 
 static void	regular_word(t_split *s, const char *str)
 {
