@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "utils/general_utils.h"
+#include "p_utils/parsing_utils.h"
+#include "../minishell.h"
 
 // echo -n bonjour|echo cool' $HOME top '" $HOME    super'$LANG' "
 // echo " $HOME    super'$LANG' "

@@ -6,12 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 11:59:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 15:47:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "utils/general_utils.h"
+#include "p_utils/parsing_utils.h"
+#include "../minishell.h"
 
 static void	print_lexer_tab(t_parsing	*lx)
 {

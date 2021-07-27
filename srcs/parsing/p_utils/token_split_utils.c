@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_split.c                                      :+:      :+:    :+:   */
+/*   token_split_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 11:59:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 15:47:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "general_utils.h"
+#include "parsing_utils.h"
 
 static void	regular_word(t_split *s, const char *str)
 {
@@ -86,7 +86,7 @@ static void	redir_word(t_split *s, const char *str)
 	s->i++;
 }
 
-static void	special_split_2(t_split *s, const char *str)
+void	special_split_2(t_split *s, const char *str)
 {
 	while (s->i != s->w_count)
 	{

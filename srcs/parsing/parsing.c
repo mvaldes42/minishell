@@ -6,12 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 13:35:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 15:47:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-#include "utils/general_utils.h"
+#include "p_utils/parsing_utils.h"
+#include "../minishell.h"
 
 int	parsing(t_data *data, char *line)
 {

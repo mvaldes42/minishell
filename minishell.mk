@@ -1,13 +1,16 @@
 FILES =	minishell.c \
-		parsing.c \
-		lexer.c \
-		searcher.c \
 		utils/general_utils.c \
-		utils/lexer_utils.c \
-		utils/token_split.c \
-		utils/token_count.c \
+		parsing/parsing.c \
+		parsing/lexer.c \
+		parsing/searcher.c \
+		parsing/p_utils/lexer_utils.c \
+		parsing/p_utils/token_split.c \
+		parsing/p_utils/token_count.c \
+		parsing/p_utils/token_split_utils.c\
 
-SUB_DIR	=	utils
+SUB_DIR	=	utils\
+			parsing\
+			parsing/p_utils\
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m
