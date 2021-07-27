@@ -6,11 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 15:47:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 16:01:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
+#include "../../minishell.h"
 
 static void	regular_word(t_split *s, const char *str)
 {
@@ -106,23 +107,4 @@ void	special_split_2(t_split *s, const char *str)
 		else if (str[s->end] && (str[s->end] == R_IN || str[s->end] == R_OUT))
 			redir_word(s, str);
 	}
-}
-
-char	**token_split(char const *str, char c)
-{
-	t_split		s_data;
-
-	if (!(str))
-		return (NULL);
-	ft_memset(&s_data, 0, sizeof(t_split));
-	s_data.c = c;
-	s_data.w_count = token_count(str, c);
-	if (s_data.w_count == 0)
-		return (NULL);
-	s_data.dest = (char **)malloc(sizeof(char *) * (s_data.w_count + 1));
-	if (!s_data.dest)
-		return (NULL);
-	special_split_2(&s_data, str);
-	s_data.dest[s_data.w_count] = NULL;
-	return (s_data.dest);
 }

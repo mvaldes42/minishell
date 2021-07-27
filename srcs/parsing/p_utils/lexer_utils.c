@@ -6,11 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 15:48:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 16:00:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-// #include "../../minishell.h"
+#include "parsing_utils.h"
+#include "../../minishell.h"
 
 int	redir_case_general(char **dup, int count, char r_type, char other_r)
 {

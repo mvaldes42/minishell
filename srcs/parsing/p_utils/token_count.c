@@ -6,11 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 15:47:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 16:01:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
+#include "../../minishell.h"
 
 static int	word_case_count(char **dup, char c, int count)
 {

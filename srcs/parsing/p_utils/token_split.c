@@ -6,11 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 15:23:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 14:13:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 16:00:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
+#include "../../minishell.h"
 
 char	**token_split(char const *str, char c)
 {

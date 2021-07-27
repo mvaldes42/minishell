@@ -6,36 +6,20 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 14:39:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 15:59:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_UTILS_H
 # define PARSING_UTILS_H
 
-# include "../../../lib/libft/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <signal.h>
+// # include "../../minishell.h"
 # include <stddef.h>
-# include <stdio.h>
-# include <string.h>
-# include <stddef.h>
-# include <stdbool.h>
-# include <sys/wait.h>
-# include <unistd.h>
-# include <sys/stat.h>
-# include <dirent.h>
-# include <sys/ioctl.h>
-# include <stdlib.h>
-# include <termios.h>
-# include <curses.h>
-# include <term.h>
 
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
-# define RED_OUT '>'
-# define RED_IN '<'
+# define R_OUT '>'
+# define R_IN '<'
 # define PIPE_C '|'
 # define VAR '$'
 # define SPACE ' '
@@ -97,6 +81,9 @@ typedef struct s_split
 int		token_count(const char *s, char c);
 void	special_split_2(t_split *s, const char *str);
 char	**token_split(char const *str, char c);
-// void	wrong_input(t_data *data);
+
+int		quotes_case_general(char **dup, int count, char q_type);
+int		redir_case_general(char **dup, int count, char r_type, char other_r);
 
 #endif
+// echo -n bonjour|echo cool' $HOME top " $HOME    super$LANG' "|echo $HOME $?>txt1
