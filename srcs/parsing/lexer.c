@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 15:47:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 18:11:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < lx->tk_nbr)
 	{
-		lx->tk_lst[i].token_type = 0;
+		lx->tk_lst[i].token_type = WORD;
 		lx->tk_lst[i].token_ptr = ft_strdup(unspec_token[i]);
 		if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == PIPE_C)
 			lx->tk_lst[i].token_type = PIPE;
@@ -98,8 +98,6 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tk_lst[i].token_type = REDIR_IN;
 		else if (unspec_token[i][0] == R_OUT)
 			lx->tk_lst[i].token_type = REDIR_OUT;
-		else if (lx->tk_lst[i].token_type == 0)
-			lx->tk_lst[i].token_type = WORD;
 		i++;
 	}
 }

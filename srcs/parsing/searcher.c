@@ -93,7 +93,6 @@ static int	weak_word_search(t_token_id *token, t_searcher *srch)
 	if (!translated_var_length(srch))
 		return (0);
 	srch->t_token_len = ft_strlen(o_str) - srch->tot_o_len + srch->tot_t_len;
-	printf("srch->t_token_len = %zu\n", srch->t_token_len);
 	token->translated_tk = malloc(sizeof(char *) * (1 + srch->t_token_len));
 	free(srch->o_var_len);
 	free(srch->t_var_len);
@@ -132,6 +131,7 @@ int	searcher(t_data *data)
 	t_searcher	srch;
 
 	parsing = &data->s_tokens;
+	ft_memset(&srch, 0, sizeof(t_searcher));
 	i = 0;
 	while (i < parsing->tk_nbr)
 	{
@@ -139,7 +139,6 @@ int	searcher(t_data *data)
 		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
 			if (!search_variables(token, &srch))
 				return (0);
-		printf("%s\n", token->translated_tk);
 		i++;
 	}
 	return (1);

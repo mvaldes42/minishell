@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 16:01:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 17:19:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	token_count(const char *s, char c)
 		else if (*dup && (*dup == R_IN || *dup == R_OUT))
 			count = redir_case_count(&dup, count);
 		if (count == 0)
-			return (count);
+			break ;
 	}
 	free(ptr);
 	return (count);

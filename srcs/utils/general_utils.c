@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 15:47:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 18:33:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,21 @@ void	create_prompt(t_data *data)
 	int		size;
 
 	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
-	ft_strlen("\033[32m\u27A1\033[0m \033[38;5;117;1m") + \
-	ft_strlen(" \033[38;5;69m\u2613\033[0m ") + 1;
-	data->prompt = (char *)malloc(sizeof(char) * size);
-	strlcat(data->prompt, "\033[32m\u27A1\033[0m \033[38;5;117;1m", size);
-	strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
-	strlcat(data->prompt, " \033[38;5;69m\u2613\033[0m ", size);
+	ft_strlen("\u27A1 ") + \
+	ft_strlen(" \u2613 ");
+	data->prompt = (char *)malloc(sizeof(char) * (size + 1));
+	strcat(data->prompt, "\u27A1 ");
+	strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
+	strcat(data->prompt, " \u2613 ");
 }
+
+// size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
+// ft_strlen("\033[32m\u27A1\033[0m ") + \
+// ft_strlen(" \033[38;5;69m\u2613\033[0m ");
+// data->prompt = (char *)malloc(sizeof(char) * (size + 1));
+// strcat(data->prompt, "\033[32m\u27A1\033[0m ");
+// strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
+// strcat(data->prompt, " \033[38;5;69m\u2613\033[0m ");
 
 int	char_occu(char *str, char c)
 {
