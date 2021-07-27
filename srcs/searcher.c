@@ -139,6 +139,7 @@ int	searcher(t_data *data)
 		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
 			if (!search_variables(token, &srch))
 				return (0);
+		printf("%s\n", token->translated_tk);
 		i++;
 	}
 	return (1);
