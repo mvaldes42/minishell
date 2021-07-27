@@ -6,6 +6,7 @@ FILES =	minishell.c \
 		parsing/p_utils/lexer_utils.c \
 		parsing/p_utils/token_split.c \
 		parsing/p_utils/token_count.c \
+		parsing/p_utils/token_split_utils.c\
 
 SUB_DIR	=	utils\
 			parsing\

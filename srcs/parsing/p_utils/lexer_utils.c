@@ -6,26 +6,28 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 14:02:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:35:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../utils/general_utils.h"
+// #include "../../minishell.h"
 
-int	char_occu(char *str, char c)
-{
-	int		nbr;
-	char	*s;
+// void	wrong_input(t_data *data)
+// {
+// 	int	i;
 
-	s = str;
-	nbr = 0;
-	while (*s)
-	{
-		if (*s == c)
-			nbr++;
-		s++;
-	}
-	if (nbr > 0)
-		return (nbr);
-	return (0);
-}
+// 	i = 0;
+// 	if (data->s_tokens.tk_lst != NULL && \
+// 	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
+// 	{
+// 		while (i < data->s_tokens.tk_nbr)
+// 		{
+// 			printf("free: \"%s.\"\n", data->s_tokens.tk_lst[i].token_ptr);
+// 			free(data->s_tokens.tk_lst[i].token_ptr);
+// 			i++;
+// 		}
+// 		if (data->s_tokens.tk_lst != NULL)
+// 			free(data->s_tokens.tk_lst);
+// 	}
+// 	ft_putstr_fd("Error\n", STDERR);
+// }

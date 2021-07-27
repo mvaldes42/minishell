@@ -1,6 +1,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include "../lib/libft/libft.h"
+# include "parsing/p_utils/parsing_utils.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -25,58 +26,6 @@
 
 # define TRUE 1
 # define FALSE 0
-
-# define S_QUOTE '\''
-# define D_QUOTE '\"'
-# define RED_OUT '>'
-# define RED_IN '<'
-# define PIPE_C '|'
-# define VAR '$'
-# define SPACE ' '
-
-# define OPT_ECHO "-n"
-
-typedef enum e_tk_types
-{
-	UNDEF = 0,
-	WORD = 1,
-	PIPE = 2,
-	VARIABLE = 3,
-	REDIR_OUT = 4,
-	REDIR_IN = 5,
-	READ_IN = 6,
-	REDIR_OUT_A = 7,
-	EXIT_STS = 8,
-	WEAK_WORD = 9,
-	STRONG_WORD = 10
-}	t_tk_types;
-
-typedef struct s_token_id
-{
-	int		token_type;
-	char	*token_ptr;
-	char	*translated_tk;
-}	t_token_id;
-
-typedef struct s_searcher
-{
-	int		nbr_var;
-	size_t	*o_var_len;
-	size_t	*t_var_len;
-	size_t	tot_o_len;
-	size_t	tot_t_len;
-	char	**var_name;
-	char	**var_translated;
-	size_t	t_token_len;
-}	t_searcher;
-
-typedef struct s_parsing
-{
-	t_token_id	*tk_lst;
-	char		**unspec_tk;
-	int			tk_nbr;
-	t_tk_types	token_types;
-}	t_parsing;
 
 typedef struct s_commands
 {

@@ -6,12 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 14:01:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:41:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "p_utils/parsing_utils.h"
 #include "../minishell.h"
-#include "../utils/general_utils.h"
 
 static void	print_lexer_tab(t_parsing	*lx)
 {
@@ -56,10 +56,11 @@ static void	print_lexer_tab(t_parsing	*lx)
 static char	**scanning_tokens(t_data *data, t_parsing *lx, char *line)
 {
 	char	**unspec_token;
-
+	
+	(void)data;
 	lx->tk_nbr = token_count(line, ' ');
-	if (lx->tk_nbr == 0)
-		wrong_input(data);
+	// if (lx->tk_nbr == 0)
+		// wrong_input(data);
 	printf("count : %d\n", lx->tk_nbr);
 	unspec_token = token_split(line, ' ');
 	return (unspec_token);
@@ -112,11 +113,11 @@ int	lexer(t_data *data, char *line)
 
 	lx = &data->s_tokens;
 	ft_memset(lx, 0, sizeof(t_parsing));
-	if (char_occu(line, S_QUOTE) % 2 || char_occu(line, D_QUOTE) % 2)
-	{
-		printf("error: missing quote\n");
-		return (0);
-	}
+	// if (char_occu(line, S_QUOTE) % 2 || char_occu(line, D_QUOTE) % 2)
+	// {
+	// 	printf("error: missing quote\n");
+	// 	return (0);
+	// }
 	unspec_token = scanning_tokens(data, lx, line);
 	lx->tk_lst = (t_token_id *)malloc(sizeof(t_token_id) * \
 	(data->s_tokens.tk_nbr + 1));

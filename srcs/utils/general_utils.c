@@ -6,32 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/26 18:25:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 14:33:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
-
-void	wrong_input(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (data->s_tokens.tk_lst != NULL && \
-	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
-	{
-		while (i < data->s_tokens.tk_nbr)
-		{
-			printf("free: \"%s.\"\n", data->s_tokens.tk_lst[i].token_ptr);
-			free(data->s_tokens.tk_lst[i].token_ptr);
-			i++;
-		}
-		if (data->s_tokens.tk_lst != NULL)
-			free(data->s_tokens.tk_lst);
-	}
-	ft_putstr_fd("Error\n", STDERR);
-
-}
 
 void	exit_sucess(t_data *data, char *line)
 {
@@ -74,4 +53,22 @@ void	create_prompt(t_data *data)
 	strlcat(data->prompt, "\033[32m\u27A1\033[0m \033[38;5;117;1m", size);
 	strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
 	strlcat(data->prompt, " \033[38;5;69m\u2613\033[0m ", size);
+}
+
+int	char_occu(char *str, char c)
+{
+	int		nbr;
+	char	*s;
+
+	s = str;
+	nbr = 0;
+	while (*s)
+	{
+		if (*s == c)
+			nbr++;
+		s++;
+	}
+	if (nbr > 0)
+		return (nbr);
+	return (0);
 }
