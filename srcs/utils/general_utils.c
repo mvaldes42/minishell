@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 11:57:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:46:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,22 @@ void	create_prompt(t_data *data)
 	strlcat(data->prompt, "\033[32m\u27A1\033[0m \033[38;5;117;1m", size);
 	strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
 	strlcat(data->prompt, " \033[38;5;69m\u2613\033[0m ", size);
+}
+
+int	char_occu(char *str, char c)
+{
+	int		nbr;
+	char	*s;
+
+	s = str;
+	nbr = 0;
+	while (*s)
+	{
+		if (*s == c)
+			nbr++;
+		s++;
+	}
+	if (nbr > 0)
+		return (nbr);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 12:09:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/27 12:48:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,6 @@ static int	word_case_count(char **dup, char c, int count)
 	!= PIPE_C && **dup != R_IN && **dup != R_OUT && **dup != VAR)
 		*dup += 1;
 	count++;
-	return (count);
-}
-
-static int	quotes_case_general(char **dup, int count, char q_type)
-{
-	*dup += 1;
-	while (**dup != q_type)
-	{	
-		if (**dup == '\0')
-		{
-			printf("error: missing quote\n");
-			return (0);
-		}
-		*dup += 1;
-	}
-	if (**dup != '\0' && count != 0)
-	{
-		count++;
-		*dup += 1;
-	}
 	return (count);
 }
 
@@ -71,26 +51,6 @@ static int	spe_case_count(char **dup, char c, int count)
 		}
 		count += 1;
 	}
-	return (count);
-}
-
-static int	redir_case_general(char **dup, int count, char r_type, char other_r)
-{
-	*dup += 1;
-	if (**dup == other_r)
-	{
-		printf("error: near redirection symbol\n");
-		return (0);
-	}
-	else if (**dup == r_type)
-		*dup += 1;
-	if (**dup == r_type || **dup == other_r)
-	{
-		printf("error: near redirection symbol\n");
-		return (0);
-	}
-	else
-		count += 1;
 	return (count);
 }
 
