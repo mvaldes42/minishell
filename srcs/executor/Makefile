@@ -6,7 +6,7 @@
 #    By: cramdani <cramdani@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/07/26 18:00:40 by cramdani         ###   ########.fr        #
+#    Updated: 2021/07/28 18:27:04 by cramdani         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CYAN	=	\033[0;36m
 WHITE	=	\033[0;37m
 END		=	\033[m
 
-SRCS		=	main.c
+SRCS		=	executor.c
 
 NAME		=	executor	
 
