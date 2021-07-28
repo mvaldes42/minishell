@@ -237,3 +237,11 @@ ressource here : https://www.geeksforgeeks.org/making-linux-shell-c/
 <img src="rsc/callstackmap.png?raw=true" width="500">
 
 
+// size = ft_strlen(getcwd(cwd, sizeof(cwd))) +\
+// ft_strlen("\033[32m\u27A1\033[0m ") + \
+// ft_strlen(" \033[38;5;69m\u2613\033[0m ");
+// data->prompt = (char *)malloc(sizeof(char) * (size + 1));
+// strcat(data->prompt, "\033[32m\u27A1\033[0m ");
+// strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
+// strcat(data->prompt, " \033[38;5;69m\u2613\033[0m ");
+

@@ -6,31 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 14:51:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 14:54:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
-
-// void	wrong_input(t_data *data)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	if (data->s_tokens.tk_lst != NULL && \
-// 	data->s_tokens.tk_lst[i].token_ptr[0] != '\0')
-// 	{
-// 		while (i < data->s_tokens.tk_nbr)
-// 		{
-// 			printf("free: \"%s.\"\n", data->s_tokens.tk_lst[i].token_ptr);
-// 			free(data->s_tokens.tk_lst[i].token_ptr);
-// 			i++;
-// 		}
-// 		if (data->s_tokens.tk_lst != NULL)
-// 			free(data->s_tokens.tk_lst);
-// 	}
-// 	ft_putstr_fd("Error\n", STDERR);
-// }
 
 void	exit_sucess(t_data *data, char *line)
 {
@@ -76,14 +56,6 @@ void	create_prompt(t_data *data)
 	strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
 	strcat(data->prompt, " \u2613 ");
 }
-
-// size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
-// ft_strlen("\033[32m\u27A1\033[0m ") + \
-// ft_strlen(" \033[38;5;69m\u2613\033[0m ");
-// data->prompt = (char *)malloc(sizeof(char) * (size + 1));
-// strcat(data->prompt, "\033[32m\u27A1\033[0m ");
-// strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
-// strcat(data->prompt, " \033[38;5;69m\u2613\033[0m ");
 
 int	char_occu(char *str, char c)
 {
