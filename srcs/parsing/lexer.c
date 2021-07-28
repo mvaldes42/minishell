@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:24:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 16:01:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static char	**scanning_tokens(t_parsing *lx, char *line)
 	lx->tk_nbr = token_count(line, SPACE);
 	if (lx->tk_nbr == 0)
 		return (NULL);
-	printf("count : %d\n", lx->tk_nbr);
 	unspec_token = token_split(line, SPACE);
 	return (unspec_token);
 }
@@ -80,6 +79,5 @@ int	lexer(t_data *data, char *line)
 	while (i < lx->tk_nbr)
 		free(unspec_token[i++]);
 	free(unspec_token);
-	// print_lexer_tab(lx);
 	return (1);
 }

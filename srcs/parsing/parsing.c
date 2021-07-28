@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:36:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:58:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,8 @@ static void	print_parsing_tab(t_data *data)
 
 int	parsing(t_data *data, char *line)
 {
-	if (!lexer(data, line))
+	if (!lexer(data, line) || !searcher(data))
 		return (0);
-	searcher(data);
 	print_parsing_tab(data);
 	return (1);
 }

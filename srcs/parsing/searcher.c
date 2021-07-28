@@ -37,7 +37,6 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 			v.dest[i++] = str[j++];
 	}
 	v.dest[i] = '\0';
-	printf("dest = <%s>\n", v.dest);
 	return (v.dest);
 }
 
@@ -67,6 +66,11 @@ static int	search_variables(t_token_id *token, t_searcher *srch)
 		translated_str = ft_strdup(token->token_ptr);
 		translated_str++;
 		token->translated_var = getenv(translated_str);
+		if (token->translated_var == NULL)
+		{
+			printf("\n");
+			return (0);
+		}
 	}
 	else if (token->token_type == WEAK_WORD)
 		if (!weak_word_search(token, srch))

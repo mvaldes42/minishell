@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 14:46:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:57:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ int	translated_var_length(t_searcher *srch)
 		}
 		srch->t_var_len[i] = ft_strlen(srch->var_translated[i]);
 		srch->tot_t_len += srch->t_var_len[i];
-		printf("srch->var_name[%d] = %s, srch->var_translated[i] = %s\n", i, \
-		srch->var_name[i], srch->var_translated[i]);
 		i++;
 	}
 	return (1);
