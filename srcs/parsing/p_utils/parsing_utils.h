@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 14:46:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 15:24:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_token_id
 	int		token_type;
 	char	*token_ptr;
 	char	*translated_tk;
+	char	*translated_var;
 }	t_token_id;
 
 typedef struct s_searcher
@@ -90,6 +91,7 @@ char	**token_split(char const *str, char c);
 
 int		quotes_case_general(char **dup, int count, char q_type);
 int		redir_case_general(char **dup, int count, char r_type, char other_r);
+void	print_lexer_tab(t_parsing	*lx);
 
 int		count_variables(char *str);
 void	free_srch_struct(t_searcher *srch);

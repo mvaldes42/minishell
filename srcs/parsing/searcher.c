@@ -13,9 +13,6 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-// echo -n bonjour|echo cool' $HOME top '" $HOME    super'$LANG' "
-// echo " $HOME    super'$LANG' "
-
 static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 {
 	t_var_replace	v;
@@ -69,7 +66,7 @@ static int	search_variables(t_token_id *token, t_searcher *srch)
 	{
 		translated_str = ft_strdup(token->token_ptr);
 		translated_str++;
-		token->translated_tk = getenv(translated_str);
+		token->translated_var = getenv(translated_str);
 	}
 	else if (token->token_type == WEAK_WORD)
 		if (!weak_word_search(token, srch))
