@@ -80,23 +80,51 @@ static int	translated_var_length(t_searcher *srch)
 	}
 	return (1);
 }
+// echo " $HOME    super'$LANG' "
+
+static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
+{
+	t_var_replace	v;
+	int				i;
+	int				j;
+
+	i = 0;
+	j = 1;
+	v.var_nb = 0;
+	v.dest = malloc(sizeof(char *) * (dst_size));
+	while (i < dst_size - 1 && str[j] != '\0')
+	{
+		if (str[j] == VAR)
+		{
+			v.var_size = 0;
+			j++;
+			while (v.var_size < srch->t_var_len[v.var_nb])
+				v.dest[i++] = srch->var_translated[v.var_nb][v.var_size++];
+			j += srch->o_var_len[v.var_nb++];
+		}
+		else
+			v.dest[i++] = str[j++];
+	}
+	v.dest[i] = '\0';
+	printf("dest = <%s>\n", v.dest);
+	return (v.dest);
+}
 
 static int	weak_word_search(t_token_id *token, t_searcher *srch)
 {
-	char	*o_str;
-	int		i;
-
-	i = 0;
-	o_str = ft_strdup(token->token_ptr);
-	srch->nbr_var = count_variables(o_str);
-	original_var_length(o_str, srch);
+	char	*o_s;
+	// int		i;
+	o_s = ft_strdup(token->token_ptr);
+	srch->nbr_var = count_variables(o_s);
+	original_var_length(o_s, srch);
 	if (!translated_var_length(srch))
 		return (0);
-	srch->t_token_len = ft_strlen(o_str) - srch->tot_o_len + srch->tot_t_len;
-	token->translated_tk = malloc(sizeof(char *) * (1 + srch->t_token_len));
+	srch->t_token_len = ft_strlen(o_s) - \
+	(srch->tot_o_len + 1) + srch->tot_t_len - 2;
+	token->translated_tk = replace_substr(srch, o_s, srch->t_token_len);
 	free(srch->o_var_len);
 	free(srch->t_var_len);
-	i = 0;
+	// i = 0;
 	// while (i < srch->nbr_var)
 	// {
 	// 	free(srch->var_name[i]);

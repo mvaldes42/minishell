@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 17:47:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 13:49:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,13 @@ typedef struct s_split
 	int			i;
 	int			w_count;
 }	t_split;
+
+typedef struct s_var_replace
+{
+	char	*dest;
+	size_t	var_size;
+	int		var_nb;
+}	t_var_replace;
 
 int		token_count(const char *s, char c);
 void	special_split_2(t_split *s, const char *str);
