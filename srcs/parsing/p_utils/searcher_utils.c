@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:57:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 16:54:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,21 @@ void	original_var_length(char *str, t_searcher *srch)
 	j = 0;
 	srch->o_var_len = malloc(sizeof(size_t) * (srch->nbr_var + 1));
 	srch->var_name = malloc(sizeof(char **) * (srch->nbr_var + 1));
-	while (str[i++] && j < srch->nbr_var)
+	while (str[i] != '\0' && j < srch->nbr_var)
 	{
 		if (str[i] == VAR)
 		{
 			start = i;
 			srch->o_var_len[j] = 0;
 			while (str[i++] && str[i] != VAR && str[i] != ' ' && \
-			str[i] != '?' && str[i] != '\'' && str[i] != '\"')
+			str[i] != '\'' && str[i] != '\"')
 				srch->o_var_len[j] += 1;
 			srch->tot_o_len += srch->o_var_len[j];
 			srch->var_name[j] = ft_substr(str, start, i - start);
 			j += 1;
 		}
+		else
+			i++;
 	}
 }
 
