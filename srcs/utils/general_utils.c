@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/27 18:33:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/28 14:51:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	clear_data(t_data *data)
 		while (i < data->s_tokens.tk_nbr)
 		{
 			free(data->s_tokens.tk_lst[i].token_ptr);
+			if (data->s_tokens.tk_lst[i].translated_tk != NULL)
+				free(data->s_tokens.tk_lst[i].translated_tk);
 			i++;
 		}
 		free(data->s_tokens.tk_lst);
