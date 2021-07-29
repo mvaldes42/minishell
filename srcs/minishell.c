@@ -39,6 +39,25 @@
 // 	g_data.line = readline(g_data.prompt);
 // 	// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
 // }
+static void	search_path_str(t_data *data)
+{
+	int		i;
+	char	*path_ptr;
+	char	*path;
+
+	i = 0;
+	path = NULL;
+	path_ptr = path;
+	while (data->environ[i] != NULL)
+	{
+		if (ft_strnstr(data->environ[i], "PATH=", 5) != NULL)
+			path = ft_strnstr(data->environ[i], "PATH=", 5);
+		i++;
+	}
+	ft_memmove(path, path + 5, strlen(path));
+	data->path_str = ft_split(path, ':');
+	free(path_ptr);
+}
 
 static void	initialize_env(t_data *data, char **line)
 {
@@ -48,6 +67,7 @@ static void	initialize_env(t_data *data, char **line)
 	data->prompt = NULL;
 	line = NULL;
 	data->environ = environ;
+	search_path_str(data);
 }
 
 int	main(void)
@@ -71,5 +91,6 @@ int	main(void)
 		create_prompt(&data);
 		line = readline(data.prompt);
 	}
+	free(data.path_str);
 	return (1);
 }

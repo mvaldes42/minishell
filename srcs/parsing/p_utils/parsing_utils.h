@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 12:10:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 16:41:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSING_UTILS_H
 
 # include <stddef.h>
+# include <sys/stat.h>
 
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
@@ -58,7 +59,6 @@ typedef struct s_searcher
 	char	**var_name;
 	char	**var_translated;
 	size_t	t_token_len;
-	char	*path_str;
 }	t_searcher;
 
 typedef struct s_parsing

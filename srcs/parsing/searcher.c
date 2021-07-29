@@ -54,6 +54,8 @@ static int	search_variables(t_token_id *token, t_searcher *srch)
 static void	search_functions(t_data *data, t_token_id *token)
 {
 	int			i;
+	// struct stat	statbuf;
+	// char		*dest_dir;
 
 	i = 0;
 	while (i < 7)
@@ -65,22 +67,23 @@ static void	search_functions(t_data *data, t_token_id *token)
 		}
 		i++;
 	}
-}
-
-static void	search_path_str(t_data *data, t_searcher *srch)
-{
-	int	i;
-
-	i = 0;
-	while (data->environ[i] != NULL)
-	{
-		if (ft_strnstr(data->environ[i], "PATH=", 5) != NULL)
-			srch->path_str = ft_strnstr(data->environ[i], "PATH=", 5);
-		i++;
-	}
-	// ft_memmove(srch->path_str, srch->path_str + 4, strlen(srch->path_str));
-	printf("srch->path_str = %s\n", srch->path_str + 4);
-	free(srch->path_str);
+	// i = 0;
+	// while (data->path_str[i] != NULL)
+	// {
+	// 	dest_dir = malloc(sizeof(char) * (ft_strlen(data->path_str[i]) + \
+	// 	ft_strlen(data->s_tokens.tk_lst[i].token_ptr) + 2));
+	// 	// strcat(dest_dir, data->path_str[i]);
+	// 	// strcat(dest_dir, "/");
+	// 	// strcat(dest_dir, data->s_tokens.tk_lst[i].token_ptr);
+	// 	// if (stat(dest_dir, &statbuf) == 0)
+	// 	// {
+	// 	// 	printf("found\n");
+	// 	// 	break ;
+	// 	// }
+	// 	// printf("%s\n", dest_dir);
+	// 	free(dest_dir);
+	// 	i++;
+	// }
 }
 
 int	searcher(t_data *data)
@@ -92,7 +95,6 @@ int	searcher(t_data *data)
 
 	parsing = &data->s_tokens;
 	ft_memset(&srch, 0, sizeof(t_searcher));
-	search_path_str(data, &srch);
 	i = 0;
 	while (i < parsing->tk_nbr)
 	{
