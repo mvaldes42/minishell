@@ -65,7 +65,22 @@ static void	search_functions(t_data *data, t_token_id *token)
 		}
 		i++;
 	}
-	printf("environ[0]= %s\n", data->environ[0]);
+}
+
+static void	search_path_str(t_data *data, t_searcher *srch)
+{
+	int	i;
+
+	i = 0;
+	while (data->environ[i] != NULL)
+	{
+		if (ft_strnstr(data->environ[i], "PATH=", 5) != NULL)
+			srch->path_str = ft_strnstr(data->environ[i], "PATH=", 5);
+		i++;
+	}
+	// ft_memmove(srch->path_str, srch->path_str + 4, strlen(srch->path_str));
+	printf("srch->path_str = %s\n", srch->path_str + 4);
+	free(srch->path_str);
 }
 
 int	searcher(t_data *data)
@@ -77,6 +92,7 @@ int	searcher(t_data *data)
 
 	parsing = &data->s_tokens;
 	ft_memset(&srch, 0, sizeof(t_searcher));
+	search_path_str(data, &srch);
 	i = 0;
 	while (i < parsing->tk_nbr)
 	{

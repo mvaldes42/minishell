@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:18:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 12:10:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ typedef struct s_searcher
 	char	**var_name;
 	char	**var_translated;
 	size_t	t_token_len;
+	char	*path_str;
 }	t_searcher;
 
 typedef struct s_parsing
