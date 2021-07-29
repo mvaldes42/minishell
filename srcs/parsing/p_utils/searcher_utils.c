@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 16:54:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 10:55:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,13 @@ int	translated_var_length(t_searcher *srch)
 	i = 0;
 	while (i < srch->nbr_var)
 	{
-		srch->var_translated[i] = getenv(++srch->var_name[i]);
-		--srch->var_name[i];
+		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
+			srch->var_translated[i] = ft_strdup("exit_status(do do later)");
+		else
+		{
+			srch->var_translated[i] = getenv(++srch->var_name[i]);
+			--srch->var_name[i];
+		}
 		if (srch->var_translated[i] == NULL)
 		{
 			printf("\n");
