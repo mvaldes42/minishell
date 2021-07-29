@@ -42,9 +42,12 @@
 
 static void	initialize_env(t_data *data, char **line)
 {
+	extern char	**environ;
+
 	ft_memset(data, 0, sizeof(t_data));
 	data->prompt = NULL;
 	line = NULL;
+	data->environ = environ;
 }
 
 int	main(void)
