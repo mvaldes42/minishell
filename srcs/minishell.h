@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:46:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 15:31:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 
 typedef struct s_commands
 {
+	int		id;
 	char	*name;
 	char	*option;
 	char	*arguments;

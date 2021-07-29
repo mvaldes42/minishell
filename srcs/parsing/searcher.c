@@ -13,33 +13,6 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
-{
-	t_var_replace	v;
-	int				i;
-	int				j;
-
-	i = 0;
-	j = 1;
-	v.var_nb = 0;
-	v.dest = malloc(sizeof(char *) * (dst_size));
-	while (i < dst_size - 1 && str[j] != '\0')
-	{
-		if (str[j] == VAR)
-		{
-			v.var_size = 0;
-			j++;
-			while (v.var_size < srch->t_var_len[v.var_nb])
-				v.dest[i++] = srch->var_translated[v.var_nb][v.var_size++];
-			j += srch->o_var_len[v.var_nb++];
-		}
-		else
-			v.dest[i++] = str[j++];
-	}
-	v.dest[i] = '\0';
-	return (v.dest);
-}
-
 static int	weak_word_search(t_token_id *token, t_searcher *srch)
 {
 	char	*o_s;
@@ -78,6 +51,23 @@ static int	search_variables(t_token_id *token, t_searcher *srch)
 	return (1);
 }
 
+static void	search_functions(t_data *data, t_token_id *token)
+{
+	int			i;
+
+	i = 0;
+	while (i < 7)
+	{
+		if (ft_strncmp(token->token_ptr, g_build_in[i], \
+		ft_strlen(token->token_ptr)) == 0)
+		{
+			data->s_tokens.commands_nbr++;
+		}
+		i++;
+	}
+	printf("environ[0]= %s\n", environ[0]);
+}
+
 int	searcher(t_data *data)
 {
 	int			i;
@@ -96,6 +86,8 @@ int	searcher(t_data *data)
 				return (0);
 		if (token->token_type == EXIT_STS)
 			token->translated_tk = ft_strdup("exit_status(do do later)");
+		if (token->token_type == WORD)
+			search_functions(data, token);
 		i++;
 	}
 	return (1);
