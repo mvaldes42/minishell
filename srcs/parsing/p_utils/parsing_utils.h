@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:24:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 11:18:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct s_parsing
 	char		**unspec_tk;
 	int			tk_nbr;
 	t_tk_types	token_types;
+	int			commands_nbr;
 }	t_parsing;
 
 typedef struct s_split
@@ -97,5 +98,6 @@ int		count_variables(char *str);
 void	free_srch_struct(t_searcher *srch);
 void	original_var_length(char *str, t_searcher *srch);
 int		translated_var_length(t_searcher *srch);
+char	*replace_substr(t_searcher *srch, char *str, int dst_size);
 
 #endif

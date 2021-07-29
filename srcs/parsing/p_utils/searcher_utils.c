@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 10:55:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 11:18:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,31 @@ int	translated_var_length(t_searcher *srch)
 		i++;
 	}
 	return (1);
+}
+
+char	*replace_substr(t_searcher *srch, char *str, int dst_size)
+{
+	t_var_replace	v;
+	int				i;
+	int				j;
+
+	i = 0;
+	j = 1;
+	v.var_nb = 0;
+	v.dest = malloc(sizeof(char *) * (dst_size));
+	while (i < dst_size - 1 && str[j] != '\0')
+	{
+		if (str[j] == VAR)
+		{
+			v.var_size = 0;
+			j++;
+			while (v.var_size < srch->t_var_len[v.var_nb])
+				v.dest[i++] = srch->var_translated[v.var_nb][v.var_size++];
+			j += srch->o_var_len[v.var_nb++];
+		}
+		else
+			v.dest[i++] = str[j++];
+	}
+	v.dest[i] = '\0';
+	return (v.dest);
 }

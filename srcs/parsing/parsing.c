@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:02:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 11:24:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,25 @@ static void	print_parsing_tab(t_data *data)
 	}
 }
 
+static void	input_command_table(t_data *data)
+{
+	t_commands	*commands;
+	int			i;
+
+	commands = data->commands;
+	i = 0;
+	printf("command nbr = %d\n", data->s_tokens.commands_nbr);
+	while (i < data->s_tokens.commands_nbr)
+	{
+		i++;
+	}
+}
+
 int	parsing(t_data *data, char *line)
 {
 	if (!lexer(data, line) || !searcher(data))
 		return (0);
+	input_command_table(data);
 	print_parsing_tab(data);
 	return (1);
 }
