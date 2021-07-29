@@ -65,7 +65,7 @@ static void	search_functions(t_data *data, t_token_id *token)
 		}
 		i++;
 	}
-	printf("environ[0]= %s\n", environ[0]);
+	printf("environ[0]= %s\n", data->environ[0]);
 }
 
 int	searcher(t_data *data)
