@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:45:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 12:00:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct s_data
 	char		*prompt;
 	t_parsing	s_tokens;
 	t_commands	*commands;
+	char		**environ;
 
 }	t_data;
 
