@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:58:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/29 11:02:35 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	print_parsing_tab(t_data *data)
 		translated_word = NULL;
 		if (lx->tk_lst[i].token_type == VARIABLE)
 			translated_word = ft_strdup(lx->tk_lst[i].translated_var);
-		else if (lx->tk_lst[i].token_type == WEAK_WORD)
+		else if (lx->tk_lst[i].token_type == WEAK_WORD || \
+		lx->tk_lst[i].token_type == EXIT_STS)
 			translated_word = ft_strdup(lx->tk_lst[i].translated_tk);
 		printf("| %-*s | %-13s | %s\n", max_len, \
 		lx->tk_lst[i].token_ptr, \
@@ -61,6 +62,11 @@ static void	print_parsing_tab(t_data *data)
 			j++;
 		}
 		printf("\n");
+		if (lx->tk_lst[i].token_type == VARIABLE)
+			free(translated_word);
+		else if (lx->tk_lst[i].token_type == WEAK_WORD || \
+		lx->tk_lst[i].token_type == EXIT_STS)
+			free(translated_word);
 		i++;
 	}
 }

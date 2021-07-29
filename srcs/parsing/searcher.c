@@ -94,6 +94,8 @@ int	searcher(t_data *data)
 		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
 			if (!search_variables(token, &srch))
 				return (0);
+		if (token->token_type == EXIT_STS)
+			token->translated_tk = ft_strdup("exit_status(do do later)");
 		i++;
 	}
 	return (1);
