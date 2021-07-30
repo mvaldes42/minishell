@@ -71,6 +71,7 @@ static int	search_functions(t_data *data, t_token_id *token, t_searcher *srch)
 		if (ft_strncmp(token->token_ptr, buildin[i], \
 		ft_strlen(token->token_ptr)) == 0)
 		{
+			token->is_fct = 1;
 			token->builtin = 1;
 			data->parsing.command_nbr++;
 			return (1);

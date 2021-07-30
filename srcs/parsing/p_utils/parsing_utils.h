@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:35:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:51:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_token_id
 	char	*token_ptr;
 	char	*trans_weak;
 	char	*trans_var;
+	bool	is_fct;
 	bool	builtin;
 	char	*tk_fct_path;
 }	t_token_id;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:35:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:52:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	search_funct_ext(t_parsing *parsing, t_token_id *token, t_searcher *srch)
 			token->tk_fct_path = ft_strdup(dest_dir);
 			printf("%s\n", token->tk_fct_path);
 			parsing->command_nbr++;
+			token->is_fct = 1;
 			free(dest_dir);
 			return (1);
 		}

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:35:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 16:18:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,38 @@ static void	print_parsing_tab(t_data *data)
 
 static void	input_command_table(t_data *data)
 {
-	t_commands	*commands;
+	t_commands	*command;
 	int			i;
+	int			j;
+	t_token_id	*token;
 
-	commands = data->commands;
+	command = data->commands;
+	command = malloc(sizeof(t_commands) * data->parsing.command_nbr + 1);
 	i = 0;
+	j = 0;
 	printf("command nbr = %d\n", data->parsing.command_nbr);
-	while (i < data->parsing.command_nbr)
+	while (i < data->parsing.tk_nbr)
 	{
+		token = &data->parsing.tk_lst[i];
+		if (token->is_fct)
+		{
+			while (j < data->parsing.command_nbr)
+			{
+				command->id = j;
+				command->function.fct_name = ft_strdup(token->token_ptr);
+				command->function.builtin = token->builtin;
+				if (!token->builtin)
+				{
+					command->function.fct_path = ft_strdup(token->tk_fct_path);
+				}
+				while (data->parsing.tk_lst[i].token_type != PIPE)
+				{
+					token = &data->parsing.tk_lst[i];
+					i++;
+				}
+				j++;
+			}
+		}
 		i++;
 	}
 }
