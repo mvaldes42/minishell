@@ -4,10 +4,12 @@ FILES =	minishell.c\
 		parsing/lexer.c\
 		parsing/searcher.c\
 		parsing/p_utils/lexer_utils.c\
-		parsing/p_utils/searcher_utils.c\
 		parsing/p_utils/token_split.c\
 		parsing/p_utils/token_count.c\
+		parsing/p_utils/token_count_2.c\
 		parsing/p_utils/token_split_utils.c\
+		parsing/p_utils/searcher_utils.c\
+		parsing/p_utils/searcher_utils_2.c\
 
 SUB_DIR	=	utils\
 			parsing\

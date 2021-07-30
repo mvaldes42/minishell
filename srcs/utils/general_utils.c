@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 15:56:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:47:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	clear_data(t_data *data)
 		{
 			free(data->s_tokens.tk_lst[i].token_ptr);
 			if (data->s_tokens.tk_lst[i].token_type == WEAK_WORD)
-				free(data->s_tokens.tk_lst[i].translated_tk);
+				free(data->s_tokens.tk_lst[i].trans_weak);
 			i++;
 		}
 		free(data->s_tokens.tk_lst);

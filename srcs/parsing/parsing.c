@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:24:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:47:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static void	print_parsing_tab(t_data *data)
 		j = 0;
 		translated_word = NULL;
 		if (lx->tk_lst[i].token_type == VARIABLE)
-			translated_word = ft_strdup(lx->tk_lst[i].translated_var);
+			translated_word = ft_strdup(lx->tk_lst[i].trans_var);
 		else if (lx->tk_lst[i].token_type == WEAK_WORD || \
 		lx->tk_lst[i].token_type == EXIT_STS)
-			translated_word = ft_strdup(lx->tk_lst[i].translated_tk);
+			translated_word = ft_strdup(lx->tk_lst[i].trans_weak);
 		printf("| %-*s | %-13s | %s\n", max_len, \
 		lx->tk_lst[i].token_ptr, \
 		tk_t_name[lx->tk_lst[i].token_type], translated_word);

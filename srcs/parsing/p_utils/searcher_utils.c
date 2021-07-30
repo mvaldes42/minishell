@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 14:27:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:19:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-int	count_variables(char *str)
+static int	count_variables(char *str)
 {
 	int	i;
 	int	var_nbr;
@@ -28,25 +28,7 @@ int	count_variables(char *str)
 	return (var_nbr);
 }
 
-void	free_srch_struct(t_searcher *srch)
-{
-	int	i;
-
-	i = 0;
-	while (i < srch->nbr_var)
-	{
-		free(srch->var_name[i]);
-		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
-			free(srch->var_translated[i]);
-		i++;
-	}
-	free(srch->var_name);
-	free(srch->var_translated);
-	free(srch->o_var_len);
-	free(srch->t_var_len);
-}
-
-void	original_var_length(char *str, t_searcher *srch)
+static void	original_var_length(char *str, t_searcher *srch)
 {
 	int		j;
 	int		i;
@@ -74,7 +56,7 @@ void	original_var_length(char *str, t_searcher *srch)
 	}
 }
 
-int	translated_var_length(t_searcher *srch)
+static int	translated_var_length(t_searcher *srch)
 {
 	int		i;
 
@@ -102,7 +84,7 @@ int	translated_var_length(t_searcher *srch)
 	return (1);
 }
 
-char	*replace_substr(t_searcher *srch, char *str, int dst_size)
+static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 {
 	t_var_replace	v;
 	int				i;
@@ -127,4 +109,21 @@ char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	}
 	v.dest[i] = '\0';
 	return (v.dest);
+}
+
+int	weak_word_search(t_token_id *token, t_searcher *srch)
+{
+	char	*o_s;
+
+	o_s = ft_strdup(token->token_ptr);
+	srch->nbr_var = count_variables(o_s);
+	original_var_length(o_s, srch);
+	if (!translated_var_length(srch))
+		return (0);
+	srch->t_token_len = ft_strlen(o_s) - \
+	(srch->tot_o_len + 1) + srch->tot_t_len - 2;
+	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
+	free(o_s);
+	free_srch_struct(srch);
+	return (1);
 }
