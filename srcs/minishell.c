@@ -32,12 +32,12 @@
 // 	if (ft_strncmp(g_data.line, "exit", ft_strlen("exit")) == 0)
 // 		exit_sucess();
 // 	lexer();
-// 	// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
+// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // 	clear_data();
 // 	if (g_data.line)
 // 		free(g_data.line);
 // 	g_data.line = readline(g_data.prompt);
-// 	// printf("data: %s\n", data.s_tokens.tk_lst[0].token_ptr);
+// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // }
 
 static void	initialize_env(t_data *data, char **line)

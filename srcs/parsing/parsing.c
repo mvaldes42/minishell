@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 14:47:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:35:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	print_parsing_tab(t_data *data)
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
 	"WEAK_WORD", "STRONG_WORD"};
 
-	lx = &data->s_tokens;
+	lx = &data->parsing;
 	i = 0;
 	max_len = 0;
 	while (i < lx->tk_nbr && lx->tk_lst[i].token_ptr)
@@ -78,8 +78,8 @@ static void	input_command_table(t_data *data)
 
 	commands = data->commands;
 	i = 0;
-	printf("command nbr = %d\n", data->s_tokens.commands_nbr);
-	while (i < data->s_tokens.commands_nbr)
+	printf("command nbr = %d\n", data->parsing.command_nbr);
+	while (i < data->parsing.command_nbr)
 	{
 		i++;
 	}

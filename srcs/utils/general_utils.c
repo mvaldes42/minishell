@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 14:47:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:32:33 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ void	clear_data(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->s_tokens.tk_lst != NULL)
+	if (data->parsing.tk_lst != NULL)
 	{
-		while (i < data->s_tokens.tk_nbr)
+		while (i < data->parsing.tk_nbr)
 		{
-			free(data->s_tokens.tk_lst[i].token_ptr);
-			if (data->s_tokens.tk_lst[i].token_type == WEAK_WORD)
-				free(data->s_tokens.tk_lst[i].trans_weak);
+			free(data->parsing.tk_lst[i].token_ptr);
+			if (data->parsing.tk_lst[i].token_type == WEAK_WORD)
+				free(data->parsing.tk_lst[i].trans_weak);
 			i++;
 		}
-		free(data->s_tokens.tk_lst);
-		data->s_tokens.tk_lst = NULL;
+		free(data->parsing.tk_lst);
+		data->parsing.tk_lst = NULL;
 	}
 	if (data->prompt)
 		free(data->prompt);

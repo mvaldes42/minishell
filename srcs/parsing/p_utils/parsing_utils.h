@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:28:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:35:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct s_searcher
 	size_t	tot_o_len;
 	size_t	tot_t_len;
 	char	**var_name;
-	char	**var_translated;
+	char	**var_trans;
 	size_t	t_token_len;
 	char	**env_path;
 }	t_searcher;
@@ -70,8 +70,7 @@ typedef struct s_parsing
 	t_token_id	*tk_lst;
 	char		**unspec_tk;
 	int			tk_nbr;
-	t_tk_types	token_types;
-	int			commands_nbr;
+	int			command_nbr;
 }	t_parsing;
 
 typedef struct s_split

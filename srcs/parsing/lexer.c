@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/28 16:45:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:32:35 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ int	lexer(t_data *data, char *line)
 	t_parsing	*lx;
 	int			i;
 
-	lx = &data->s_tokens;
+	lx = &data->parsing;
 	ft_memset(lx, 0, sizeof(t_parsing));
 	unspec_token = scanning_tokens(lx, line);
 	if (unspec_token == NULL)
 		return (0);
 	lx->tk_lst = (t_token_id *)malloc(sizeof(t_token_id) * \
-	(data->s_tokens.tk_nbr + 1));
+	(data->parsing.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
 	i = 0;
 	while (i < lx->tk_nbr)

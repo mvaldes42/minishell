@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:27:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:35:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ void	free_srch_struct(t_searcher *srch)
 	{
 		free(srch->var_name[i]);
 		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
-			free(srch->var_translated[i]);
+			free(srch->var_trans[i]);
 		i++;
 	}
 	free(srch->var_name);
-	free(srch->var_translated);
+	free(srch->var_trans);
 	free(srch->o_var_len);
 	free(srch->t_var_len);
 }
@@ -53,7 +53,7 @@ int	search_funct_ext(t_parsing *parsing, t_token_id *token, t_searcher *srch)
 		{
 			token->tk_fct_path = ft_strdup(dest_dir);
 			printf("%s\n", token->tk_fct_path);
-			parsing->commands_nbr++;
+			parsing->command_nbr++;
 			free(dest_dir);
 			return (1);
 		}

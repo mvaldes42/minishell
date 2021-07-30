@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 11:42:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:32:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,11 @@ typedef struct s_commands
 typedef struct s_data
 {
 	char		*prompt;
-	t_parsing	s_tokens;
+	t_parsing	parsing;
 	t_commands	*commands;
 	char		**environ;
 
 }	t_data;
-
-// static const char	*g_build_in[7] = \
-// 		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);

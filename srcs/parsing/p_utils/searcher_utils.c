@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:19:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 15:36:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static void	original_var_length(char *str, t_searcher *srch)
 		{
 			start = i;
 			srch->o_var_len[j] = 0;
-			while (str[i++] && str[i] != VAR && str[i] != ' ' && \
-			str[i] != '\'' && str[i] != '\"')
+			while (str[i++] && str[i] != VAR && str[i] != SPACE && \
+			str[i] != S_QUOTE && str[i] != D_QUOTE)
 				srch->o_var_len[j] += 1;
 			srch->tot_o_len += srch->o_var_len[j];
 			srch->var_name[j] = ft_substr(str, start, i - start);
@@ -60,24 +60,24 @@ static int	translated_var_length(t_searcher *srch)
 {
 	int		i;
 
-	srch->var_translated = malloc(sizeof(char **) * (srch->nbr_var + 1));
+	srch->var_trans = malloc(sizeof(char **) * (srch->nbr_var + 1));
 	srch->t_var_len = malloc(sizeof(size_t *) * (srch->nbr_var + 1));
 	i = 0;
 	while (i < srch->nbr_var)
 	{
 		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
-			srch->var_translated[i] = ft_strdup("exit_status(do do later)");
+			srch->var_trans[i] = ft_strdup("exit_status(do do later)");
 		else
 		{
-			srch->var_translated[i] = getenv(++srch->var_name[i]);
+			srch->var_trans[i] = getenv(++srch->var_name[i]);
 			--srch->var_name[i];
 		}
-		if (srch->var_translated[i] == NULL)
+		if (srch->var_trans[i] == NULL)
 		{
 			printf("\n");
 			return (0);
 		}
-		srch->t_var_len[i] = ft_strlen(srch->var_translated[i]);
+		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
 	}
@@ -101,7 +101,7 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 			v.var_size = 0;
 			j++;
 			while (v.var_size < srch->t_var_len[v.var_nb])
-				v.dest[i++] = srch->var_translated[v.var_nb][v.var_size++];
+				v.dest[i++] = srch->var_trans[v.var_nb][v.var_size++];
 			j += srch->o_var_len[v.var_nb++];
 		}
 		else
