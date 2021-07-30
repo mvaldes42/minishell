@@ -33,12 +33,15 @@ static int	weak_word_search(t_token_id *token, t_searcher *srch)
 static int	search_variables(t_token_id *token, t_searcher *srch)
 {
 	char	*translated_str;
+	char	*ptr;
 
 	if (token->token_type == VARIABLE)
 	{
 		translated_str = ft_strdup(token->token_ptr);
+		ptr = translated_str;
 		translated_str++;
 		token->translated_var = getenv(translated_str);
+		free(ptr);
 		if (token->translated_var == NULL)
 		{
 			printf("\n");
@@ -60,14 +63,16 @@ static void	search_path_str(t_searcher *srch)
 
 	i = 0;
 	path = NULL;
-	path_ptr = path;
 	while (environ[i] != NULL)
 	{
-		if (ft_strnstr(environ[i], "PATH=", 5) != NULL)
-			path = ft_strnstr(environ[i], "PATH=", 5);
+		path_ptr = path;
+		path = ft_strnstr(environ[i], "PATH=", 5);
+		if (path != NULL)
+			break ;
+		free(path_ptr);
 		i++;
 	}
-	srch->path_str = ft_split(path + 5, ':');
+	srch->env_path = ft_split(path + 5, ':');
 	free(path_ptr);
 }
 
@@ -79,19 +84,20 @@ static int	search_funct_ext(t_data *data, t_token_id *token, t_searcher *srch)
 	int			i;
 
 	i = 0;
-	while (srch->path_str[i] != NULL)
+	while (srch->env_path[i] != NULL)
 	{
-		size = sizeof(char) * (ft_strlen(srch->path_str[i]) + ft_strlen("/") + \
-		ft_strlen(srch->path_str[i]) + 1);
+		size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/") + \
+		ft_strlen(srch->env_path[i]) + 1);
 		dest_dir = (char *)malloc(size);
 		if (dest_dir == NULL)
 			return (0);
-		ft_strlcat(dest_dir, srch->path_str[i], size);
+		ft_strlcat(dest_dir, srch->env_path[i], size);
 		ft_strlcat(dest_dir, "/", size);
 		ft_strlcat(dest_dir, token->token_ptr, size);
 		if (stat(dest_dir, &statbuf) == 0)
 		{
-			printf("%s\n", dest_dir);
+			token->tk_fct_path = ft_strdup(dest_dir);
+			printf("%s\n", token->tk_fct_path);
 			data->s_tokens.commands_nbr++;
 			free(dest_dir);
 			return (1);
@@ -106,13 +112,16 @@ static int	search_funct_ext(t_data *data, t_token_id *token, t_searcher *srch)
 static int	search_functions(t_data *data, t_token_id *token, t_searcher *srch)
 {
 	int			i;
+	const char	*build_in[7] = \
+	{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(token->token_ptr, g_build_in[i], \
+		if (ft_strncmp(token->token_ptr, build_in[i], \
 		ft_strlen(token->token_ptr)) == 0)
 		{
+			token->builtin = 1;
 			data->s_tokens.commands_nbr++;
 			return (1);
 		}
@@ -138,14 +147,20 @@ int	searcher(t_data *data)
 	{
 		token = &parsing->tk_lst[i];
 		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
+		{
 			if (!search_variables(token, &srch))
 				return (0);
-		if (token->token_type == EXIT_STS)
+		}
+		else if (token->token_type == EXIT_STS)
 			token->translated_tk = ft_strdup("exit_status(do do later)");
-		if (token->token_type == WORD && \
+		else if (token->token_type == WORD && \
 		(i == 0 || parsing->tk_lst[i - 1].token_type == PIPE))
 			search_functions(data, token, &srch);
 		i++;
 	}
+	i = 0;
+	while (srch.env_path[i])
+		free(srch.env_path[i++]);
+	free(srch.env_path);
 	return (1);
 }

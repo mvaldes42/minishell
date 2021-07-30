@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 11:18:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:27:33 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	free_srch_struct(t_searcher *srch)
 	while (i < srch->nbr_var)
 	{
 		free(srch->var_name[i]);
+		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
+			free(srch->var_translated[i]);
 		i++;
 	}
 	free(srch->var_name);

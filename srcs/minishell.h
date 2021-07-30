@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 17:10:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 11:42:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,23 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef struct s_functions
+{
+	char	*fct_name;
+	bool	builtin;
+	int		(*func)(void);
+	char	*fct_path;
+
+}	t_functions;
+
 typedef struct s_commands
 {
-	int		id;
-	char	*name;
-	char	*option;
-	char	*arguments;
-	int		fd_out;
-	bool	redir_out;
+	int			id;
+	t_functions	function;
+	char		*option;
+	char		*arguments;
+	int			fd_out;
+	bool		redir_out;
 }	t_commands;
 
 typedef struct s_data
@@ -58,8 +67,8 @@ typedef struct s_data
 
 }	t_data;
 
-static const char	*g_build_in[7] = \
-		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+// static const char	*g_build_in[7] = \
+// 		{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/29 18:32:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/07/30 14:27:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <sys/stat.h>
+# include <stdbool.h>
 
 # define S_QUOTE '\''
 # define D_QUOTE '\"'
@@ -47,7 +48,8 @@ typedef struct s_token_id
 	char	*token_ptr;
 	char	*translated_tk;
 	char	*translated_var;
-	char	*fct_path;
+	bool	builtin;
+	char	*tk_fct_path;
 }	t_token_id;
 
 typedef struct s_searcher
@@ -60,7 +62,7 @@ typedef struct s_searcher
 	char	**var_name;
 	char	**var_translated;
 	size_t	t_token_len;
-	char	**path_str;
+	char	**env_path;
 }	t_searcher;
 
 typedef struct s_parsing
