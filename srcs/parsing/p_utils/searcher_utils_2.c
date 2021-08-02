@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:52:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:33:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	free_srch_struct(t_searcher *srch)
 	free(srch->t_var_len);
 }
 
-int	search_funct_ext(t_parsing *parsing, t_token_id *token, t_searcher *srch)
+int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 {
 	struct stat	statbuf;
 	char		*dest_dir;
@@ -48,13 +48,13 @@ int	search_funct_ext(t_parsing *parsing, t_token_id *token, t_searcher *srch)
 			return (0);
 		ft_strlcat(dest_dir, srch->env_path[i], size);
 		ft_strlcat(dest_dir, "/", size);
-		ft_strlcat(dest_dir, token->token_ptr, size);
+		ft_strlcat(dest_dir, token->ptr, size);
 		if (stat(dest_dir, &statbuf) == 0)
 		{
 			token->tk_fct_path = ft_strdup(dest_dir);
 			printf("%s\n", token->tk_fct_path);
-			parsing->command_nbr++;
-			token->is_fct = 1;
+			parsing->cmd_nbr++;
+			token->type = FUNCTION;
 			free(dest_dir);
 			return (1);
 		}

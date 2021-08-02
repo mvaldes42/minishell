@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 16:18:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:36:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ static void	print_parsing_tab(t_data *data)
 	char		*translated_word;
 	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
-	"WEAK_WORD", "STRONG_WORD"};
+	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN"};
 
-	lx = &data->parsing;
+	lx = &data->prng;
 	i = 0;
 	max_len = 0;
-	while (i < lx->tk_nbr && lx->tk_lst[i].token_ptr)
+	while (i < lx->tk_nbr && lx->tks[i].ptr)
 	{
-		if (max_len < (int)ft_strlen(lx->tk_lst[i].token_ptr))
-			max_len = (int)ft_strlen(lx->tk_lst[i].token_ptr);
+		if (max_len < (int)ft_strlen(lx->tks[i].ptr))
+			max_len = (int)ft_strlen(lx->tks[i].ptr);
 		i++;
 	}
 	i = 0;
@@ -44,28 +44,25 @@ static void	print_parsing_tab(t_data *data)
 		j++;
 	}
 	printf("\n");
-	while (i < lx->tk_nbr && lx->tk_lst[i].token_ptr)
+	while (i < lx->tk_nbr && lx->tks[i].ptr)
 	{
 		j = 0;
 		translated_word = NULL;
-		if (lx->tk_lst[i].token_type == VARIABLE)
-			translated_word = ft_strdup(lx->tk_lst[i].trans_var);
-		else if (lx->tk_lst[i].token_type == WEAK_WORD || \
-		lx->tk_lst[i].token_type == EXIT_STS)
-			translated_word = ft_strdup(lx->tk_lst[i].trans_weak);
-		printf("| %-*s | %-13s | %s\n", max_len, \
-		lx->tk_lst[i].token_ptr, \
-		tk_t_name[lx->tk_lst[i].token_type], translated_word);
+		if (lx->tks[i].type == VARIABLE)
+			translated_word = ft_strdup(lx->tks[i].trans_var);
+		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS)
+			translated_word = ft_strdup(lx->tks[i].trans_weak);
+		printf("| %-*s | %-13s | %s\n", max_len, lx->tks[i].ptr, \
+		tk_t_name[lx->tks[i].type], translated_word);
 		while (j < max_len + 13 + 7)
 		{
 			printf("-");
 			j++;
 		}
 		printf("\n");
-		if (lx->tk_lst[i].token_type == VARIABLE)
+		if (lx->tks[i].type == VARIABLE)
 			free(translated_word);
-		else if (lx->tk_lst[i].token_type == WEAK_WORD || \
-		lx->tk_lst[i].token_type == EXIT_STS)
+		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS)
 			free(translated_word);
 		i++;
 	}
@@ -73,37 +70,65 @@ static void	print_parsing_tab(t_data *data)
 
 static void	input_command_table(t_data *data)
 {
-	t_commands	*command;
+	t_commands	*cmds;
 	int			i;
 	int			j;
-	t_token_id	*token;
+	int			k;
+	t_token		*tks;
 
-	command = data->commands;
-	command = malloc(sizeof(t_commands) * data->parsing.command_nbr + 1);
+	cmds = data->cmds;
+	tks = data->prng.tks;
+	cmds = malloc(sizeof(t_commands) * data->prng.cmd_nbr + 1);
+	i = -1;
+	j = -1;
+	while (++j < data->prng.cmd_nbr && ++i < data->prng.tk_nbr)
+	{
+		cmds[j].id = j;
+		cmds[j].fct.name = ft_strdup(tks[i].ptr);
+		printf("name: %s\n", cmds[j].fct.name);
+		if (tks[i].type == BUILTIN)
+			cmds[j].fct.builtin = 1;
+		else
+			cmds[j].fct.fct_path = ft_strdup(tks[i].tk_fct_path);
+		cmds[j].args = malloc(sizeof(char *) * (data->prng.argv_size[j] + 1));
+		k = -1;
+		while (++k < data->prng.argv_size[j] && ++i < data->prng.tk_nbr)
+		{
+			cmds[j].args[k] = ft_strdup(tks[i].ptr);
+			printf("args: %s\n", cmds[j].args[k]);
+		}
+		i++;
+	}
+}
+
+static void	get_argv_size(t_data *data)
+{
+	int			i;
+	int			j;
+	t_token		*tk;
+
 	i = 0;
 	j = 0;
-	printf("command nbr = %d\n", data->parsing.command_nbr);
-	while (i < data->parsing.tk_nbr)
+	data->prng.argv_size = malloc(sizeof(int) * data->prng.cmd_nbr + 1);
+	while (i < data->prng.tk_nbr && j < data->prng.cmd_nbr)
 	{
-		token = &data->parsing.tk_lst[i];
-		if (token->is_fct)
+		tk = &data->prng.tks[i];
+		if (tk->type == FUNCTION || tk->type == BUILTIN)
 		{
-			while (j < data->parsing.command_nbr)
+			i += 1;
+			tk = &data->prng.tks[i];
+			data->prng.argv_size[j] = 0;
+			while (tk->type != PIPE && tk->type != REDIR_IN && tk->type != \
+			REDIR_OUT && tk->type != READ_IN && tk->type != REDIR_OUT_A \
+			&& i < data->prng.tk_nbr)
 			{
-				command->id = j;
-				command->function.fct_name = ft_strdup(token->token_ptr);
-				command->function.builtin = token->builtin;
-				if (!token->builtin)
-				{
-					command->function.fct_path = ft_strdup(token->tk_fct_path);
-				}
-				while (data->parsing.tk_lst[i].token_type != PIPE)
-				{
-					token = &data->parsing.tk_lst[i];
-					i++;
-				}
-				j++;
+				tk = &data->prng.tks[i];
+				data->prng.argv_size[j] += 1;
+				i++;
 			}
+			data->prng.argv_size[j] -= 1;
+			i -= 1;
+			j++;
 		}
 		i++;
 	}
@@ -113,7 +138,8 @@ int	parsing(t_data *data, char *line)
 {
 	if (!lexer(data, line) || !searcher(data))
 		return (0);
-	input_command_table(data);
 	print_parsing_tab(data);
+	get_argv_size(data);
+	input_command_table(data);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:58:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:33:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 typedef struct s_functions
 {
-	char	*fct_name;
+	char	*name;
 	bool	builtin;
 	int		(*func)(void);
 	char	*fct_path;
@@ -51,9 +51,9 @@ typedef struct s_functions
 typedef struct s_commands
 {
 	int			id;
-	t_functions	function;
-	char		*option;
-	char		*arguments;
+	t_functions	fct;
+	bool		echo_opt;
+	char		**args;
 	int			fd_out;
 	bool		redir_out;
 }	t_commands;
@@ -61,8 +61,8 @@ typedef struct s_commands
 typedef struct s_data
 {
 	char		*prompt;
-	t_parsing	parsing;
-	t_commands	*commands;
+	t_parsing	prng;
+	t_commands	*cmds;
 	char		**environ;
 
 }	t_data;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:36:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:34:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,17 +111,17 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	return (v.dest);
 }
 
-int	weak_word_search(t_token_id *token, t_searcher *srch)
+int	weak_word_search(t_token *token, t_searcher *srch)
 {
 	char	*o_s;
 
-	o_s = ft_strdup(token->token_ptr);
+	o_s = ft_strdup(token->ptr);
 	srch->nbr_var = count_variables(o_s);
 	original_var_length(o_s, srch);
 	if (!translated_var_length(srch))
 		return (0);
-	srch->t_token_len = ft_strlen(o_s) - \
-	(srch->tot_o_len + 1) + srch->tot_t_len - 2;
+	srch->t_token_len = ft_strlen(o_s) - (srch->tot_o_len + 1) + \
+	srch->tot_t_len - 2;
 	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
 	free(o_s);
 	free_srch_struct(srch);

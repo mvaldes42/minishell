@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:32:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:34:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ void	clear_data(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->parsing.tk_lst != NULL)
+	if (data->prng.tks != NULL)
 	{
-		while (i < data->parsing.tk_nbr)
+		while (i < data->prng.tk_nbr)
 		{
-			free(data->parsing.tk_lst[i].token_ptr);
-			if (data->parsing.tk_lst[i].token_type == WEAK_WORD)
-				free(data->parsing.tk_lst[i].trans_weak);
+			free(data->prng.tks[i].ptr);
+			if (data->prng.tks[i].type == WEAK_WORD)
+				free(data->prng.tks[i].trans_weak);
 			i++;
 		}
-		free(data->parsing.tk_lst);
-		data->parsing.tk_lst = NULL;
+		free(data->prng.tks);
+		data->prng.tks = NULL;
 	}
 	if (data->prompt)
 		free(data->prompt);
@@ -48,8 +48,7 @@ void	create_prompt(t_data *data)
 	char	cwd[256];
 	int		size;
 
-	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + \
-	ft_strlen("\u27A1 ") + \
+	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + ft_strlen("\u27A1 ") + \
 	ft_strlen(" \u2613 ");
 	data->prompt = (char *)malloc(sizeof(char) * (size + 1));
 	strcat(data->prompt, "\u27A1 ");

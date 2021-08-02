@@ -35,14 +35,14 @@ static void	search_path_str(t_searcher *srch)
 	free(path_ptr);
 }
 
-static int	search_variables(t_token_id *token, t_searcher *srch)
+static int	search_variables(t_token *token, t_searcher *srch)
 {
 	char	*translated_str;
 	char	*ptr;
 
-	if (token->token_type == VARIABLE)
+	if (token->type == VARIABLE)
 	{
-		translated_str = ft_strdup(token->token_ptr);
+		translated_str = ft_strdup(token->ptr);
 		ptr = translated_str;
 		translated_str++;
 		token->trans_var = getenv(translated_str);
@@ -53,13 +53,13 @@ static int	search_variables(t_token_id *token, t_searcher *srch)
 			return (0);
 		}
 	}
-	else if (token->token_type == WEAK_WORD)
+	else if (token->type == WEAK_WORD)
 		if (!weak_word_search(token, srch))
 			return (0);
 	return (1);
 }
 
-static int	search_functions(t_data *data, t_token_id *token, t_searcher *srch)
+static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
 	const char	*buildin[7] = \
@@ -68,17 +68,16 @@ static int	search_functions(t_data *data, t_token_id *token, t_searcher *srch)
 	i = 0;
 	while (i < 7)
 	{
-		if (ft_strncmp(token->token_ptr, buildin[i], \
-		ft_strlen(token->token_ptr)) == 0)
+		if (ft_strncmp(token->ptr, buildin[i], \
+		ft_strlen(token->ptr)) == 0)
 		{
-			token->is_fct = 1;
-			token->builtin = 1;
-			data->parsing.command_nbr++;
+			token->type = BUILTIN;
+			data->prng.cmd_nbr++;
 			return (1);
 		}
 		i++;
 	}
-	if (search_funct_ext(&data->parsing, token, srch) == 1)
+	if (search_funct_ext(&data->prng, token, srch) == 1)
 		return (1);
 	return (0);
 }
@@ -87,23 +86,23 @@ int	searcher(t_data *data)
 {
 	int			i;
 	t_parsing	*parsing;
-	t_token_id	*token;
+	t_token	*token;
 	t_searcher	srch;
 
-	parsing = &data->parsing;
+	parsing = &data->prng;
 	ft_memset(&srch, 0, sizeof(t_searcher));
 	search_path_str(&srch);
 	i = 0;
 	while (i < parsing->tk_nbr)
 	{
-		token = &parsing->tk_lst[i];
-		if (token->token_type == VARIABLE || token->token_type == WEAK_WORD)
+		token = &parsing->tks[i];
+		if (token->type == VARIABLE || token->type == WEAK_WORD)
 			if (!search_variables(token, &srch))
 				return (0);
-		if (token->token_type == EXIT_STS)
+		if (token->type == EXIT_STS)
 			token->trans_weak = ft_strdup("exit_status(do do later)");
-		else if (token->token_type == WORD && \
-		(i == 0 || parsing->tk_lst[i - 1].token_type == PIPE))
+		else if (token->type == WORD && \
+		(i == 0 || parsing->tks[i - 1].type == PIPE))
 			search_functions(data, token, &srch);
 		i++;
 	}
