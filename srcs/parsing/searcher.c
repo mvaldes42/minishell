@@ -103,7 +103,8 @@ int	searcher(t_data *data)
 			token->trans_weak = ft_strdup("exit_status(do do later)");
 		else if (token->type == WORD && \
 		(i == 0 || parsing->tks[i - 1].type == PIPE))
-			search_functions(data, token, &srch);
+			if (!search_functions(data, token, &srch))
+				return (0);
 		i++;
 	}
 	i = 0;

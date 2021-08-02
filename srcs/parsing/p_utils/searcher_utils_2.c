@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:33:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:58:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 		free(dest_dir);
 		i++;
 	}
-	return (1);
+	printf("function does not exist\n");
+	return (0);
 }
