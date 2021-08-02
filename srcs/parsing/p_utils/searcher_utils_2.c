@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 15:58:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 17:23:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,30 +37,37 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	char		*dest_dir;
 	int			size;
 	int			i;
+	char		*ptr;
 
 	i = 0;
 	while (srch->env_path[i] != NULL)
 	{
-		size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/") + \
-		ft_strlen(srch->env_path[i]) + 1);
+		size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
+		ft_strlen(token->ptr) + 1);
 		dest_dir = (char *)malloc(size);
+		ptr = dest_dir;
 		if (dest_dir == NULL)
 			return (0);
 		ft_strlcat(dest_dir, srch->env_path[i], size);
-		ft_strlcat(dest_dir, "/", size);
+		ft_strlcat(dest_dir, "/\0", size);
 		ft_strlcat(dest_dir, token->ptr, size);
 		if (stat(dest_dir, &statbuf) == 0)
 		{
 			token->tk_fct_path = ft_strdup(dest_dir);
-			printf("%s\n", token->tk_fct_path);
 			parsing->cmd_nbr++;
 			token->type = FUNCTION;
-			free(dest_dir);
+			memset(dest_dir, 0, sizeof(&dest_dir));
+			free(ptr);
 			return (1);
 		}
-		free(dest_dir);
+		memset(dest_dir, 0, sizeof(&dest_dir));
+		free(ptr);
 		i++;
 	}
 	printf("function does not exist\n");
+	i = 0;
+	while (srch->env_path[i])
+		free(srch->env_path[i++]);
+	free(srch->env_path);
 	return (0);
 }

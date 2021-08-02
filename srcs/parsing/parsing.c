@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 15:46:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 16:03:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static void	input_command_table(t_data *data)
 		{
 			if (tks[i].type == WEAK_WORD)
 				cmds[j].args[k] = tks[i].trans_weak;
-			else if (tks[i].type == VAR)
+			else if (tks[i].type == VARIABLE)
 				cmds[j].args[k] = tks[i].trans_var;
 			else
 				cmds[j].args[k] = tks[i].ptr;

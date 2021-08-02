@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 15:48:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 17:22:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	clear_data(t_data *data)
 	if (data->prompt)
 		free(data->prompt);
 	i = 0;
-	while (i < data->prng.cmd_nbr)
+	while (i < data->prng.cmd_nbr && data->cmds)
 	{
 		free(data->cmds[i].args);
 		i++;
