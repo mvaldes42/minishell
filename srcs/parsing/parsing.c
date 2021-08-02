@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:52:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 15:46:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,36 +76,43 @@ static void	input_command_table(t_data *data)
 	int			k;
 	t_token		*tks;
 
-	cmds = data->cmds;
 	tks = data->prng.tks;
-	cmds = malloc(sizeof(t_commands) * data->prng.cmd_nbr + 1);
-	memset(cmds, 0, sizeof(t_commands));
+	data->cmds = malloc(sizeof(t_commands) * data->prng.cmd_nbr + 1);
+	memset(data->cmds, 0, sizeof(t_commands));
+	cmds = data->cmds;
 	i = -1;
 	j = -1;
 	while (++j < data->prng.cmd_nbr && ++i < data->prng.tk_nbr)
 	{
 		cmds[j].id = j;
-		cmds[j].fct.name = ft_strdup(tks[i].ptr);
+		cmds[j].fct.name = tks[i].ptr;
 		if (tks[i].type == BUILTIN)
 			cmds[j].fct.builtin = 1;
 		else
-			cmds[j].fct.fct_path = ft_strdup(tks[i].tk_fct_path);
-		cmds[j].args = malloc(sizeof(char *) * (data->prng.argv_size[j] + 1));
+			cmds[j].fct.fct_path = tks[i].tk_fct_path;
+		data->cmds[j].args = malloc(sizeof(char *) * (data->prng.argv_size[j] + 1));
+		cmds[j].args = data->cmds[j].args;
 		printf("name: %s\n", cmds[j].fct.name);
 		printf("	->echo_opt: %d\n", cmds[j].echo_opt);
 		printf("	->builtin: %d\n", cmds[j].fct.builtin);
 		printf("	->fct_ptr: %p\n", cmds[j].fct.func);
 		printf("	->fct_path: %s\n", cmds[j].fct.fct_path);
 		k = -1;
-		while (++k < data->prng.argv_size[j] && ++i < data->prng.tk_nbr)
+		while (k++ < data->prng.argv_size[j] && i++ < data->prng.tk_nbr)
 		{
-			cmds[j].args[k] = ft_strdup(tks[i].ptr);
+			if (tks[i].type == WEAK_WORD)
+				cmds[j].args[k] = tks[i].trans_weak;
+			else if (tks[i].type == VAR)
+				cmds[j].args[k] = tks[i].trans_var;
+			else
+				cmds[j].args[k] = tks[i].ptr;
 			printf("		->args: %s\n", cmds[j].args[k]);
 		}
 		printf("	->fd_out: %d\n", cmds[j].fd_out);
 		printf("	->redir_out: %d\n", cmds[j].redir_out);
 		i++;
 	}
+	free(data->prng.argv_size);
 }
 
 static void	get_argv_size(t_data *data)
