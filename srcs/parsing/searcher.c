@@ -96,6 +96,9 @@ int	searcher(t_data *data)
 	while (i < parsing->tk_nbr)
 	{
 		token = &parsing->tks[i];
+		if (ft_strncmp(".", token->ptr, 1) == 0 || \
+		ft_strncmp("..", token->ptr, 1) == 0)
+			break ;
 		if (token->type == VARIABLE || token->type == WEAK_WORD)
 			if (!search_variables(token, &srch))
 				return (0);
@@ -113,7 +116,7 @@ int	searcher(t_data *data)
 	free(srch.env_path);
 	if (parsing->cmd_nbr == 0)
 	{
-		printf("no recognized functions\n");
+		printf("function does not exist\n");
 		return (0);
 	}
 	return (1);
