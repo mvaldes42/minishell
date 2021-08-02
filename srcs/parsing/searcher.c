@@ -69,7 +69,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	while (i < 7)
 	{
 		if (ft_strncmp(token->ptr, buildin[i], \
-		ft_strlen(token->ptr)) == 0)
+		ft_strlen(buildin[i])) == 0)
 		{
 			token->type = BUILTIN;
 			data->prng.cmd_nbr++;
