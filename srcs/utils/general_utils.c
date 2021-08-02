@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 17:22:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 17:34:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ void	create_prompt(t_data *data)
 	int		size;
 
 	size = ft_strlen(getcwd(cwd, sizeof(cwd))) + ft_strlen("\u27A1 ") + \
-	ft_strlen(" \u2613 ");
-	data->prompt = (char *)malloc(sizeof(char) * (size + 1));
-	strcat(data->prompt, "\u27A1 ");
-	strcat(data->prompt, getcwd(cwd, sizeof(cwd)));
-	strcat(data->prompt, " \u2613 ");
+	ft_strlen(" \u2613 ") + 1;
+	data->prompt = (char *)malloc(sizeof(char) * size);
+	ft_strlcat(data->prompt, "\u27A1 ", size);
+	ft_strlcat(data->prompt, getcwd(cwd, sizeof(cwd)), size);
+	ft_strlcat(data->prompt, " \u2613 ", size);
 }
 
 int	char_occu(char *str, char c)

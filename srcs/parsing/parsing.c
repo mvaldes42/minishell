@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 17:27:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 17:49:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ static void	input_command_table(t_data *data)
 	j = -1;
 	while (++j < data->prng.cmd_nbr && ++i < data->prng.tk_nbr)
 	{
+		memset(&cmds[j], 0, sizeof(t_commands));
 		cmds[j].id = j;
 		cmds[j].fct.name = tks[i].ptr;
 		if (tks[i].type == BUILTIN)
@@ -98,7 +99,7 @@ static void	input_command_table(t_data *data)
 		printf("	->fct_ptr: %p\n", cmds[j].fct.func);
 		printf("	->fct_path: %s\n", cmds[j].fct.fct_path);
 		k = -1;
-		while (k++ < data->prng.argv_size[j] && i++ < data->prng.tk_nbr)
+		while (++k < data->prng.argv_size[j] && ++i < data->prng.tk_nbr)
 		{
 			if (tks[i].type == WEAK_WORD)
 				cmds[j].args[k] = tks[i].trans_weak;
@@ -106,7 +107,7 @@ static void	input_command_table(t_data *data)
 				cmds[j].args[k] = tks[i].trans_var;
 			else
 				cmds[j].args[k] = tks[i].ptr;
-			printf("		->args: %s\n", cmds[j].args[k]);
+			printf("		->args %d/%d: %s\n", k, data->prng.argv_size[j], cmds[j].args[k]);
 		}
 		printf("	->fd_out: %d\n", cmds[j].fd_out);
 		printf("	->redir_out: %d\n", cmds[j].redir_out);
@@ -134,7 +135,7 @@ static void	get_argv_size(t_data *data)
 			data->prng.argv_size[j] = 0;
 			while (tk->type != PIPE && tk->type != REDIR_IN && tk->type != \
 			REDIR_OUT && tk->type != READ_IN && tk->type != REDIR_OUT_A \
-			&& i < data->prng.tk_nbr)
+			&& i <= data->prng.tk_nbr)
 			{
 				tk = &data->prng.tks[i];
 				data->prng.argv_size[j] += 1;
