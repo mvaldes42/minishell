@@ -111,5 +111,10 @@ int	searcher(t_data *data)
 	while (srch.env_path[i])
 		free(srch.env_path[i++]);
 	free(srch.env_path);
+	if (parsing->cmd_nbr == 0)
+	{
+		printf("no recognized functions\n");
+		return (0);
+	}
 	return (1);
 }
