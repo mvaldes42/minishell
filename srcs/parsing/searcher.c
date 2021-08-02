@@ -86,7 +86,7 @@ int	searcher(t_data *data)
 {
 	int			i;
 	t_parsing	*parsing;
-	t_token	*token;
+	t_token		*token;
 	t_searcher	srch;
 
 	parsing = &data->prng;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:33:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/02 14:38:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,10 @@ typedef struct s_searcher
 typedef struct s_parsing
 {
 	t_token	*tks;
-	char		**unspec_tk;
-	int			tk_nbr;
-	int			cmd_nbr;
-	int			*argv_size;
+	char	**unspec_tk;
+	int		tk_nbr;
+	int		cmd_nbr;
+	int		*argv_size;
 }	t_parsing;
 
 typedef struct s_split
