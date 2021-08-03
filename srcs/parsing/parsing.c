@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lou <lou@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 17:49:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/03 19:20:00 by lou              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,17 @@ static void	input_command_table(t_data *data)
 		memset(&cmds[j], 0, sizeof(t_commands));
 		cmds[j].id = j;
 		cmds[j].fct.name = tks[i].ptr;
-		if (tks[i].type == BUILTIN)
-			cmds[j].fct.builtin = 1;
-		else
+		if (tks[i].type == FUNCTION)
 			cmds[j].fct.fct_path = tks[i].tk_fct_path;
+		else if (tks[i].type == BUILTIN)
+		{
+			cmds[j].fct.builtin = 1;
+			if (!ft_strncmp(tks[i].ptr, "echo", 4) && tks[i].echo_opt)
+			{
+				cmds[j].echo_opt = 1;
+				i++;
+			}
+		}
 		data->cmds[j].args = malloc(sizeof(char *) * (data->prng.argv_size[j] + 1));
 		cmds[j].args = data->cmds[j].args;
 		printf("name: %s\n", cmds[j].fct.name);
@@ -107,7 +114,7 @@ static void	input_command_table(t_data *data)
 				cmds[j].args[k] = tks[i].trans_var;
 			else
 				cmds[j].args[k] = tks[i].ptr;
-			printf("		->args %d/%d: %s\n", k, data->prng.argv_size[j], cmds[j].args[k]);
+			printf("		->args %d/%d: %s\n", k + 1, data->prng.argv_size[j], cmds[j].args[k]);
 		}
 		printf("	->fd_out: %d\n", cmds[j].fd_out);
 		printf("	->redir_out: %d\n", cmds[j].redir_out);
@@ -128,11 +135,17 @@ static void	get_argv_size(t_data *data)
 	while (i < data->prng.tk_nbr && j < data->prng.cmd_nbr)
 	{
 		tk = &data->prng.tks[i];
+		data->prng.argv_size[j] = 0;
 		if (tk->type == FUNCTION || tk->type == BUILTIN)
 		{
+			if (!ft_strncmp("echo", tk->ptr, ft_strlen("echo")) && i + 1 < data->prng.tk_nbr \
+			&& !ft_strncmp("-n", data->prng.tks[i + 1].ptr, ft_strlen("-n")))
+			{
+				tk->echo_opt = 1;
+				tk = &data->prng.tks[++i];
+			}
 			i += 1;
 			tk = &data->prng.tks[i];
-			data->prng.argv_size[j] = 0;
 			while (tk->type != PIPE && tk->type != REDIR_IN && tk->type != \
 			REDIR_OUT && tk->type != READ_IN && tk->type != REDIR_OUT_A \
 			&& i <= data->prng.tk_nbr)
