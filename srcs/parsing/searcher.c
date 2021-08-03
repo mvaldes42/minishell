@@ -100,14 +100,17 @@ int	searcher(t_data *data)
 		ft_strncmp("..", token->ptr, 1) == 0)
 			break ;
 		if (token->type == VARIABLE || token->type == WEAK_WORD)
+		{
 			if (!search_variables(token, &srch))
 				return (0);
+			search_functions(data, token, &srch);
+		}
 		if (token->type == EXIT_STS)
 			token->trans_weak = ft_strdup("exit_status(do do later)");
 		else if (token->type == WORD && \
 		(i == 0 || parsing->tks[i - 1].type == PIPE))
 			if (!search_functions(data, token, &srch))
-				return (0);
+				break ;
 		i++;
 	}
 	i = 0;

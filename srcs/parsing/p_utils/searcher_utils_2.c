@@ -38,19 +38,23 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	int			size;
 	int			i;
 	char		*ptr;
+	char		*tmp_ptr;
 
 	i = 0;
+	tmp_ptr = token->ptr;
+	if (token->type == VARIABLE)
+		tmp_ptr = token->trans_var;
 	while (srch->env_path[i] != NULL)
 	{
 		size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
-		ft_strlen(token->ptr) + 1);
+		ft_strlen(tmp_ptr) + 1);
 		dest_dir = (char *)malloc(size);
 		ptr = dest_dir;
 		if (dest_dir == NULL)
 			return (0);
 		ft_strlcat(dest_dir, srch->env_path[i], size);
 		ft_strlcat(dest_dir, "/\0", size);
-		ft_strlcat(dest_dir, token->ptr, size);
+		ft_strlcat(dest_dir, tmp_ptr, size);
 		if (stat(dest_dir, &statbuf) == 0)
 		{
 			token->tk_fct_path = ft_strdup(dest_dir);
@@ -64,10 +68,5 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 		free(ptr);
 		i++;
 	}
-	printf("function does not exist\n");
-	i = 0;
-	while (srch->env_path[i])
-		free(srch->env_path[i++]);
-	free(srch->env_path);
 	return (0);
 }

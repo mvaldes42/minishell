@@ -75,12 +75,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 {
 	int			start;
 	int			end;
-	size_t		i;
 	char		*result;
 
 	if (!s1 || set == NULL || s1[0] == '\0')
 		return (ft_strdup(""));
-	i = 0;
 	if (ft_occurs(set, s1) == ft_strlen(s1))
 	{
 		result = (char *)malloc((ft_strlen(s1)) * sizeof(char));

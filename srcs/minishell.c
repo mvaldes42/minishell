@@ -47,6 +47,7 @@ static void	initialize_env(t_data *data, char **line)
 	ft_memset(data, 0, sizeof(t_data));
 	data->prompt = NULL;
 	line = NULL;
+	(void)line;
 	data->environ = environ;
 }
 
