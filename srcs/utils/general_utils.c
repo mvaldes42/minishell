@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 17:34:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 16:00:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exit_sucess(t_data *data, char *line)
 	exit(EXIT_SUCCESS);
 }
 
-void	clear_data(t_data *data)
+void	free_tks(t_data *data)
 {
 	int	i;
 
@@ -40,9 +40,16 @@ void	clear_data(t_data *data)
 		free(data->prng.tks);
 		data->prng.tks = NULL;
 	}
+}
+
+void	clear_data(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	free_tks(data);
 	if (data->prompt)
 		free(data->prompt);
-	i = 0;
 	while (i < data->prng.cmd_nbr && data->cmds)
 	{
 		free(data->cmds[i].args);

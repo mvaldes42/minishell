@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 12:40:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 17:42:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 {
 	int	i;
 
-	i = 0;
-	while (i < lx->tk_nbr)
+	i = -1;
+	while (++i < lx->tk_nbr)
 	{
 		lx->tks[i].type = WORD;
 		lx->tks[i].ptr = ft_strdup(unspec_token[i]);
@@ -60,7 +60,6 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 		if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
 		|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
 			lx->tks[i].redir = 1;
-		i++;
 	}
 }
 

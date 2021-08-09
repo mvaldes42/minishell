@@ -4,8 +4,7 @@ FILES =	minishell.c\
 		parsing/lexer.c\
 		parsing/searcher.c\
 		parsing/command_table.c\
-		parsing/p_utils/cmd_table_utils.c\
-		parsing/p_utils/lexer_utils.c\
+		parsing/p_utils/print_tabs.c\
 		parsing/p_utils/token_split.c\
 		parsing/p_utils/token_count.c\
 		parsing/p_utils/token_count_2.c\

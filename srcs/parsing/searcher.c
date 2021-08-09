@@ -82,45 +82,41 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-int	searcher(t_data *data)
+static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
+{
+	if (tk->type == VARIABLE || tk->type == WEAK_WORD)
+	{
+		if (!search_variables(tk, srch))
+			return (0);
+		search_functions(d, tk, srch);
+	}
+	if (tk->type == EXIT_STS)
+		tk->trans_weak = ft_strdup("exit_status(do do later)");
+	return (1);
+}
+
+int	searcher(t_data *d)
 {
 	int			i;
-	t_parsing	*parsing;
-	t_token		*token;
-	t_searcher	srch;
+	t_token		*tk;
+	t_searcher	s;
 
-	parsing = &data->prng;
-	ft_memset(&srch, 0, sizeof(t_searcher));
-	search_path_str(&srch);
-	i = 0;
-	while (i < parsing->tk_nbr)
+	ft_memset(&s, 0, sizeof(t_searcher));
+	search_path_str(&s);
+	i = -1;
+	while (++i < d->prng.tk_nbr)
 	{
-		token = &parsing->tks[i];
-		if (ft_strncmp(".", token->ptr, 1) == 0 || \
-		ft_strncmp("..", token->ptr, 1) == 0)
+		tk = &d->prng.tks[i];
+		if (is_point_case(d->prng.tks[i]))
 			break ;
-		if (token->type == VARIABLE || token->type == WEAK_WORD)
-		{
-			if (!search_variables(token, &srch))
-				return (0);
-			search_functions(data, token, &srch);
-		}
-		if (token->type == EXIT_STS)
-			token->trans_weak = ft_strdup("exit_status(do do later)");
-		else if (token->type == WORD && \
-		(i == 0 || parsing->tks[i - 1].type == PIPE))
-			if (!search_functions(data, token, &srch))
+		if (!searcher_bis(d, tk, &s))
+			return (0);
+		else if (tk->type == WORD && \
+		(i == 0 || d->prng.tks[i - 1].type == PIPE))
+			if (!search_functions(d, tk, &s))
 				break ;
-		i++;
 	}
-	i = 0;
-	while (srch.env_path[i])
-		free(srch.env_path[i++]);
-	free(srch.env_path);
-	if (parsing->cmd_nbr == 0)
-	{
-		printf("function does not exist\n");
+	if (!free_searcher(d, &s))
 		return (0);
-	}
 	return (1);
 }

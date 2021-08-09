@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 17:23:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 17:58:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,69 @@ void	free_srch_struct(t_searcher *srch)
 	free(srch->t_var_len);
 }
 
+static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
+{
+	int			size;
+
+	size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
+	ft_strlen(ext->func_name) + 1);
+	ext->dest_dir = (char *)malloc(size);
+	memset(ext->dest_dir, 0, sizeof(&ext->dest_dir));
+	ext->d_ptr = ext->dest_dir;
+	ft_strlcat(ext->dest_dir, srch->env_path[i], size);
+	ft_strlcat(ext->dest_dir, "/\0", size);
+	ft_strlcat(ext->dest_dir, ext->func_name, size);
+}
+
 int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 {
-	struct stat	statbuf;
-	char		*dest_dir;
-	int			size;
+	t_funct_ext	ext;
 	int			i;
-	char		*ptr;
-	char		*tmp_ptr;
 
-	i = 0;
-	tmp_ptr = token->ptr;
+	i = -1;
+	ext.func_name = token->ptr;
 	if (token->type == VARIABLE)
-		tmp_ptr = token->trans_var;
-	while (srch->env_path[i] != NULL)
+		ext.func_name = token->trans_var;
+	while (srch->env_path[++i] != NULL)
 	{
-		size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
-		ft_strlen(tmp_ptr) + 1);
-		dest_dir = (char *)malloc(size);
-		ptr = dest_dir;
-		if (dest_dir == NULL)
+		make_dest_dir(srch, &ext, i);
+		if (ext.dest_dir == NULL)
 			return (0);
-		ft_strlcat(dest_dir, srch->env_path[i], size);
-		ft_strlcat(dest_dir, "/\0", size);
-		ft_strlcat(dest_dir, tmp_ptr, size);
-		if (stat(dest_dir, &statbuf) == 0)
+		if (stat(ext.dest_dir, &ext.statbuf) == 0)
 		{
-			token->tk_fct_path = ft_strdup(dest_dir);
+			token->tk_fct_path = ft_strdup(ext.dest_dir);
 			parsing->cmd_nbr++;
 			token->type = FUNCTION;
-			memset(dest_dir, 0, sizeof(&dest_dir));
-			free(ptr);
+			free(ext.d_ptr);
 			return (1);
 		}
-		memset(dest_dir, 0, sizeof(&dest_dir));
-		free(ptr);
-		i++;
+		free(ext.d_ptr);
 	}
 	return (0);
+}
+
+// memset(ext.dest_dir, 0, sizeof(&ext.dest_dir));
+
+int	is_point_case(t_token token)
+{
+	if (ft_strncmp(".", token.ptr, 1) == 0 || \
+		ft_strncmp("..", token.ptr, 1) == 0)
+		return (1);
+	return (0);
+}
+
+int	free_searcher(t_data *data, t_searcher *srch)
+{
+	int	i;
+
+	i = 0;
+	while (srch->env_path[i])
+		free(srch->env_path[i++]);
+	free(srch->env_path);
+	if (data->prng.cmd_nbr == 0)
+	{
+		printf("function does not exist\n");
+		return (0);
+	}
+	return (1);
 }

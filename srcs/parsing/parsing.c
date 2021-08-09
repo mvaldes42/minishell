@@ -6,49 +6,53 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 15:35:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 18:13:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
+static int	is_args(t_token tk)
+{
+	if (tk.type != PIPE && tk.type != REDIR_IN && tk.type != \
+		REDIR_OUT && tk.type != READ_IN && tk.type != REDIR_OUT_A)
+		return (1);
+	return (0);
+}
+
+static int	echo_opt(t_data *data, int i)
+{
+	if (!ft_strncmp("echo", data->prng.tks[i].ptr, ft_strlen("echo")) \
+	&& i + 1 < data->prng.tk_nbr \
+	&& !ft_strncmp("-n", data->prng.tks[i + 1].ptr, ft_strlen("-n")))
+	{
+		data->prng.tks[i].echo_opt = 1;
+		i += 1;
+	}
+	return (i);
+}
+
 static void	get_argv_size(t_data *data)
 {
 	int			i;
 	int			j;
-	t_token		*tk;
 
-	i = 0;
+	i = -1;
 	j = 0;
 	data->prng.argv_size = malloc(sizeof(int) * data->prng.cmd_nbr + 1);
-	while (i < data->prng.tk_nbr && j < data->prng.cmd_nbr)
+	while (++i < data->prng.tk_nbr && j < data->prng.cmd_nbr)
 	{
-		tk = &data->prng.tks[i];
 		data->prng.argv_size[j] = 0;
-		if (tk->type == FUNCTION || tk->type == BUILTIN)
+		if (data->prng.tks[i].type == FUNCTION || \
+		data->prng.tks[i].type == BUILTIN)
 		{
-			if (!ft_strncmp("echo", tk->ptr, ft_strlen("echo")) && i + 1 < data->prng.tk_nbr \
-			&& !ft_strncmp("-n", data->prng.tks[i + 1].ptr, ft_strlen("-n")))
-			{
-				tk->echo_opt = 1;
-				tk = &data->prng.tks[++i];
-			}
-			i += 1;
-			tk = &data->prng.tks[i];
-			while (tk->type != PIPE && tk->type != REDIR_IN && tk->type != \
-			REDIR_OUT && tk->type != READ_IN && tk->type != REDIR_OUT_A \
-			&& i <= data->prng.tk_nbr)
-			{
-				tk = &data->prng.tks[i];
+			i = echo_opt(data, i);
+			while (is_args(data->prng.tks[++i]) && i < data->prng.tk_nbr)
 				data->prng.argv_size[j] += 1;
-				i++;
-			}
-			data->prng.argv_size[j] -= 1;
 			i -= 1;
-			j++;
+			j += 1;
 		}
-		i++;
 	}
 }
 

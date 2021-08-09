@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 15:46:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 17:59:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,14 @@ typedef struct s_var_replace
 	int		var_nb;
 }	t_var_replace;
 
+typedef struct s_funct_ext
+{
+	struct stat	statbuf;
+	char		*dest_dir;
+	char		*d_ptr;
+	char		*func_name;
+}	t_funct_ext;
+
 typedef struct s_data		t_data;
 typedef struct s_parsing	t_parsing;
 
@@ -103,17 +111,18 @@ char	**token_split(char const *str, char c);
 
 int		quotes_case_general(char **dup, int count, char q_type);
 int		redir_case_general(char **dup, int count, char r_type, char other_r);
-void	print_lexer_tab(t_parsing	*lx);
 
 int		weak_word_search(t_token *token, t_searcher *srch);
+
 void	free_srch_struct(t_searcher *srch);
-
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
+int		is_point_case(t_token token);
+int		free_searcher(t_data *data, t_searcher *srch);
 
+void	print_lexer_tab(t_parsing	*lx);
 void	print_parsing_tab(t_data *data);
 void	print_cmd_tab(t_data *d);
 
 void	input_command_table(t_data *d);
-
 
 #endif

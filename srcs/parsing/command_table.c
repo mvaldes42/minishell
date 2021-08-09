@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 15:57:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 18:05:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ static void	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	int	k;
 
 	k = -1;
+	printf("nb args: %d\n", d->prng.argv_size[cmd->id]);
 	while (++k < d->prng.argv_size[cmd->id] && ++i < d->prng.tk_nbr)
 	{
 		if (tks[i].type == WEAK_WORD)
