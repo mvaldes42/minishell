@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 12:45:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 15:46:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,9 @@ typedef struct s_var_replace
 	int		var_nb;
 }	t_var_replace;
 
+typedef struct s_data		t_data;
+typedef struct s_parsing	t_parsing;
+
 int		token_count(const char *s, char c);
 void	special_split_2(t_split *s, const char *str);
 char	**token_split(char const *str, char c);
@@ -106,5 +109,11 @@ int		weak_word_search(t_token *token, t_searcher *srch);
 void	free_srch_struct(t_searcher *srch);
 
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
+
+void	print_parsing_tab(t_data *data);
+void	print_cmd_tab(t_data *d);
+
+void	input_command_table(t_data *d);
+
 
 #endif
