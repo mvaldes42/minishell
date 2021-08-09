@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:33:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 12:45:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,33 @@ typedef struct s_functions
 
 }	t_functions;
 
+typedef struct s_fd_table
+{
+	int		v_stdin;
+	int		v_stdout;
+	int		v_stderr;
+
+}	t_fd_table;
+
+typedef struct s_redirect
+{
+	bool	r_input;
+	bool	r_output;
+	bool	read_input;
+	bool	r_app_output;
+
+}	t_redirect;
+
 typedef struct s_commands
 {
 	int			id;
 	t_functions	fct;
 	bool		echo_opt;
 	char		**args;
-	int			fd_out;
-	bool		redir_out;
+	t_fd_table	fd_table;
+	t_redirect	redirect_table;
+	bool		is_piped;
+	bool		gets_pipe_in;
 }	t_commands;
 
 typedef struct s_data

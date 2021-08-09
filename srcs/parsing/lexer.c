@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:33:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/09 12:40:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 	if (!ft_strncmp(unspec_token[i], ">>", 2))
 		lx->tks[i].type = REDIR_OUT_A;
 	if (!ft_strncmp(unspec_token[i], "<<", 2))
-		lx->tks[i].type = REDIR_IN;
+		lx->tks[i].type = READ_IN;
 	if (!ft_strncmp(unspec_token[i], "$?", 2))
 		lx->tks[i].type = EXIT_STS;
 }
@@ -57,6 +57,9 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tks[i].type = REDIR_IN;
 		else if (unspec_token[i][0] == R_OUT)
 			lx->tks[i].type = REDIR_OUT;
+		if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
+		|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
+			lx->tks[i].redir = 1;
 		i++;
 	}
 }

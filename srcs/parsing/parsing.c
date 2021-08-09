@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lou <lou@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/03 19:20:00 by lou              ###   ########.fr       */
+/*   Updated: 2021/08/09 13:04:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,18 @@ static void	print_parsing_tab(t_data *data)
 	}
 }
 
+static void	cmd_redir_case(t_token *tk, t_commands *cmds)
+{
+	if (tk->type == REDIR_OUT)
+		cmds->redirect_table.r_output = 1;
+	if (tk->type == REDIR_OUT_A)
+		cmds->redirect_table.r_app_output = 1;
+	if (tk->type == REDIR_IN)
+		cmds->redirect_table.r_input = 1;
+	if (tk->type == READ_IN)
+		cmds->redirect_table.read_input = 1;
+}
+
 static void	input_command_table(t_data *data)
 {
 	t_commands	*cmds;
@@ -82,6 +94,7 @@ static void	input_command_table(t_data *data)
 	cmds = data->cmds;
 	i = -1;
 	j = -1;
+	printf("nb cmds : %d\n", data->prng.cmd_nbr);
 	while (++j < data->prng.cmd_nbr && ++i < data->prng.tk_nbr)
 	{
 		memset(&cmds[j], 0, sizeof(t_commands));
@@ -116,8 +129,10 @@ static void	input_command_table(t_data *data)
 				cmds[j].args[k] = tks[i].ptr;
 			printf("		->args %d/%d: %s\n", k + 1, data->prng.argv_size[j], cmds[j].args[k]);
 		}
-		printf("	->fd_out: %d\n", cmds[j].fd_out);
-		printf("	->redir_out: %d\n", cmds[j].redir_out);
+		if (tks[i].redir)
+			cmd_redir_case(&tks[i], &cmds[j]);
+		printf("	->is_piped: %d\n", cmds[j].is_piped);
+		printf("	->gets_pipe_in: %d\n", cmds[j].gets_pipe_in);
 		i++;
 	}
 	free(data->prng.argv_size);
