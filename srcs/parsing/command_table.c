@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 18:05:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 11:24:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,11 @@ static void	cmd_redir_case(t_token *tk, t_commands *cmds)
 		cmds->redirect_table.read_input = 1;
 }
 
-static void	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
+static int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
 	int	k;
 
 	k = -1;
-	printf("nb args: %d\n", d->prng.argv_size[cmd->id]);
 	while (++k < d->prng.argv_size[cmd->id] && ++i < d->prng.tk_nbr)
 	{
 		if (tks[i].type == WEAK_WORD)
@@ -43,6 +42,7 @@ static void	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 		else
 			cmd->args[k] = tks[i].ptr;
 	}
+	return (i);
 }
 
 static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
@@ -59,10 +59,11 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 			i++;
 		}
 	}
-	cmd_args(d, cmd, tks, i);
+	i = cmd_args(d, cmd, tks, i);
 	if (tks[i].redir)
 		cmd_redir_case(&tks[i], cmd);
-	return (i + 1);
+	i++;
+	return (i);
 }
 
 void	input_command_table(t_data *d)
