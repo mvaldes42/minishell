@@ -6,12 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:26:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 18:45:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
+#include "../execute/execute.h"
 
 // echo -n bonjour|echo cool' $HOME top '" $HOME    super'$LANG' "
 // echo " $HOME    super'$LANG' "
@@ -79,6 +80,24 @@ static int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	return (i);
 }
 
+static void	input_cmd_fct_builtin(t_commands *cmd)
+{
+	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_echo;
+	else if (ft_strncmp(cmd->fct.name, "cd", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_cd;
+	else if (ft_strncmp(cmd->fct.name, "pwd", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_pwd;
+	else if (ft_strncmp(cmd->fct.name, "export", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_export;
+	else if (ft_strncmp(cmd->fct.name, "unset", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_unset;
+	else if (ft_strncmp(cmd->fct.name, "env", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_env;
+	else if (ft_strncmp(cmd->fct.name, "exit", ft_strlen(cmd->fct.name)) == 0)
+		cmd->fct.builtin_ptr = builtin_exit;
+}
+
 static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
 	cmd->fct.name = tks[i].ptr;
@@ -87,6 +106,8 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 	else if (tks[i].type == BUILTIN)
 	{
 		cmd->fct.builtin = 1;
+		cmd->fct.name = tks[i].ptr;
+		input_cmd_fct_builtin(cmd);
 		if (!ft_strncmp(tks[i].ptr, "echo", 4) && tks[i].echo_opt)
 		{
 			cmd->echo_opt = 1;

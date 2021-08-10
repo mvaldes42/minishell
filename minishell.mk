@@ -11,10 +11,19 @@ FILES =	minishell.c\
 		parsing/p_utils/token_split_utils.c\
 		parsing/p_utils/searcher_utils.c\
 		parsing/p_utils/searcher_utils_2.c\
+		execute/cmd_builtin/cd.c\
+		execute/cmd_builtin/echo.c\
+		execute/cmd_builtin/env.c\
+		execute/cmd_builtin/exit.c\
+		execute/cmd_builtin/export.c\
+		execute/cmd_builtin/pwd.c\
+		execute/cmd_builtin/unset.c\
 
 SUB_DIR	=	utils\
 			parsing\
 			parsing/p_utils\
+			execute\
+			execute/cmd_builtin\
 
 BLACK	=	\033[0;30m
 RED		=	\033[0;31m

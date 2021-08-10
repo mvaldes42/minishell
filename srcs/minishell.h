@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:16:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 18:25:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef void	(*t_builtin)(char *path);
+
 typedef struct s_functions
 {
-	char	*name;
-	bool	builtin;
-	int		(*func)(void);
-	char	*fct_path;
+	char		*name;
+	bool		builtin;
+	t_builtin	builtin_ptr;
+	char		*fct_path;
 
 }	t_functions;
 
