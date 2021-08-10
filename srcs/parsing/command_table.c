@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 14:32:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:11:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 	{
 		if (!tks[i].redir)
 		{
-			printf("error too many filenames\n");
-			exit(1);
+			printf("redirection error\n");
+			return (0);
 		}
 		i += 2;
 		size++;
@@ -41,6 +41,8 @@ static int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 	int	size;
 
 	size = get_redir_size(d, tks, i);
+	if (size == 0)
+		return (-1);
 	cmd->redirs = malloc(sizeof(t_redir_token) * (size + 1));
 	ft_memset(cmd->redirs, 0, sizeof(cmd->redirs));
 	j = 0;
@@ -92,11 +94,15 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 	}
 	i = cmd_args(d, cmd, tks, i) + 1;
 	if (tks[i].redir)
+	{
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
+		if (i == 0)
+			return (-1);
+	}
 	return (i);
 }
 
-void	input_command_table(t_data *d)
+int	input_command_table(t_data *d)
 {
 	t_commands	*cmds;
 	int			i;
@@ -116,6 +122,11 @@ void	input_command_table(t_data *d)
 		cmds[j].args = d->cmds[j].args;
 		cmds[j].id = j;
 		i = input_command_fct(d, &cmds[j], tks, i);
+		if (i == -1)
+			break ;
 	}
 	free(d->prng.argv_size);
+	if (i == -1)
+		return (0);
+	return (1);
 }

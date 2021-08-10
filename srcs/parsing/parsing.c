@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 18:13:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:02:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ int	parsing(t_data *data, char *line)
 		return (0);
 	print_parsing_tab(data);
 	get_argv_size(data);
-	input_command_table(data);
+	if (!input_command_table(data))
+		return (0);
 	print_cmd_tab(data);
 	return (1);
 }
