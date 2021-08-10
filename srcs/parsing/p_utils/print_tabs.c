@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 13:40:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:16:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	print_parsing_tab(t_data *data)
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
 	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN"};
 
-	lx = &data->prng;
+	lx = &data->pars;
 	i = 0;
 	max_len = 0;
 	while (i < lx->tk_nbr && lx->tks[i].ptr)
@@ -113,8 +113,8 @@ void	print_cmd_tab(t_data *d)
 
 	cmds = d->cmds;
 	j = -1;
-	printf("nb cmds : %d\n", d->prng.cmd_nbr);
-	while (++j < d->prng.cmd_nbr)
+	printf("nb cmds : %d\n", d->pars.cmd_nbr);
+	while (++j < d->pars.cmd_nbr)
 	{
 		printf("name: %s\n", cmds[j].fct.name);
 		printf("	->echo_opt: %d\n", cmds[j].echo_opt);
@@ -122,10 +122,10 @@ void	print_cmd_tab(t_data *d)
 		printf("	->fct_ptr: %p\n", cmds[j].fct.func);
 		printf("	->fct_path: %s\n", cmds[j].fct.fct_path);
 		k = -1;
-		while (++k < d->prng.argv_size[j])
+		while (++k < d->pars.argv_size[j])
 		{
 			printf("		->args %d/%d: %s\n", k + 1, \
-			d->prng.argv_size[cmds[j].id], cmds[j].args[k]);
+			d->pars.argv_size[cmds[j].id], cmds[j].args[k]);
 		}
 	}
 }

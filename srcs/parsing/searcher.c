@@ -72,12 +72,12 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 		ft_strlen(buildin[i])) == 0)
 		{
 			token->type = BUILTIN;
-			data->prng.cmd_nbr++;
+			data->pars.cmd_nbr++;
 			return (1);
 		}
 		i++;
 	}
-	if (search_funct_ext(&data->prng, token, srch) == 1)
+	if (search_funct_ext(&data->pars, token, srch) == 1)
 		return (1);
 	return (0);
 }
@@ -104,16 +104,16 @@ int	searcher(t_data *d)
 	ft_memset(&s, 0, sizeof(t_searcher));
 	search_path_str(&s);
 	i = -1;
-	while (++i < d->prng.tk_nbr)
+	while (++i < d->pars.tk_nbr)
 	{
-		tk = &d->prng.tks[i];
+		tk = &d->pars.tks[i];
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
 		if (!searcher_bis(d, tk, &s))
 			return (0);
 		else if (tk->type == WORD && \
-		(i == 0 || d->prng.tks[i - 1].type == PIPE))
+		(i == 0 || d->pars.tks[i - 1].type == PIPE))
 			if (!search_functions(d, tk, &s))
 				break ;
 	}

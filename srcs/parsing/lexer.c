@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 17:42:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:16:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 		lx->tks[i].type = EXIT_STS;
 }
 
+static int	is_redir(t_parsing *lx, int i)
+{
+	if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
+	|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
+		return (1);
+	return (0);
+}
+
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 {
 	int	i;
@@ -42,6 +50,7 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 	while (++i < lx->tk_nbr)
 	{
 		lx->tks[i].type = WORD;
+		lx->tks[i].redir = 0;
 		lx->tks[i].ptr = ft_strdup(unspec_token[i]);
 		if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == PIPE_C)
 			lx->tks[i].type = PIPE;
@@ -57,9 +66,9 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tks[i].type = REDIR_IN;
 		else if (unspec_token[i][0] == R_OUT)
 			lx->tks[i].type = REDIR_OUT;
-		if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
-		|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
+		if (is_redir(lx, i))
 			lx->tks[i].redir = 1;
+		printf("lx->tks[i].redir: %d\n", lx->tks[i].redir);
 	}
 }
 
@@ -69,12 +78,12 @@ int	lexer(t_data *data, char *line)
 	t_parsing	*lx;
 	int			i;
 
-	lx = &data->prng;
+	lx = &data->pars;
 	ft_memset(lx, 0, sizeof(t_parsing));
 	unspec_token = scanning_tokens(lx, line);
 	if (unspec_token == NULL)
 		return (0);
-	lx->tks = (t_token *)malloc(sizeof(t_token) * (data->prng.tk_nbr + 1));
+	lx->tks = (t_token *)malloc(sizeof(t_token) * (data->pars.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
 	i = 0;
 	while (i < lx->tk_nbr)

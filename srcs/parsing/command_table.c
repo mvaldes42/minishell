@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 15:11:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:16:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 	int	size;
 
 	size = 0;
-	while (i < d->prng.tk_nbr && tks[i].type != PIPE)
+	while (i < d->pars.tk_nbr && tks[i].type != PIPE)
 	{
 		if (!tks[i].redir)
 		{
@@ -46,7 +46,7 @@ static int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 	cmd->redirs = malloc(sizeof(t_redir_token) * (size + 1));
 	ft_memset(cmd->redirs, 0, sizeof(cmd->redirs));
 	j = 0;
-	while (i < d->prng.tk_nbr && j < size)
+	while (i < d->pars.tk_nbr && j < size)
 	{
 		i += 1;
 		if (tks[i].type == WEAK_WORD)
@@ -66,7 +66,7 @@ static int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	int	k;
 
 	k = -1;
-	while (++k < d->prng.argv_size[cmd->id] && ++i < d->prng.tk_nbr)
+	while (++k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
 		if (tks[i].type == WEAK_WORD)
 			cmd->args[k] = tks[i].trans_weak;
@@ -93,8 +93,10 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 		}
 	}
 	i = cmd_args(d, cmd, tks, i) + 1;
+	printf("tks[i].redir: %d\n", tks[i].redir);
 	if (tks[i].redir)
 	{
+		printf("hello\n");
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
 		if (i == 0)
 			return (-1);
@@ -109,23 +111,23 @@ int	input_command_table(t_data *d)
 	int			j;
 	t_token		*tks;
 
-	tks = d->prng.tks;
-	d->cmds = malloc(sizeof(t_commands) * d->prng.cmd_nbr + 1);
+	tks = d->pars.tks;
+	d->cmds = malloc(sizeof(t_commands) * d->pars.cmd_nbr + 1);
 	memset(d->cmds, 0, sizeof(t_commands));
 	cmds = d->cmds;
 	i = -1;
 	j = -1;
-	while (++j < d->prng.cmd_nbr && ++i < d->prng.tk_nbr)
+	while (++j < d->pars.cmd_nbr && ++i < d->pars.tk_nbr)
 	{
 		memset(&cmds[j], 0, sizeof(t_commands));
-		d->cmds[j].args = malloc(sizeof(char *) * (d->prng.argv_size[j] + 1));
+		d->cmds[j].args = malloc(sizeof(char *) * (d->pars.argv_size[j] + 1));
 		cmds[j].args = d->cmds[j].args;
 		cmds[j].id = j;
 		i = input_command_fct(d, &cmds[j], tks, i);
 		if (i == -1)
 			break ;
 	}
-	free(d->prng.argv_size);
+	free(d->pars.argv_size);
 	if (i == -1)
 		return (0);
 	return (1);

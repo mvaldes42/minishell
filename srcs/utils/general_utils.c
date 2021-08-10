@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 14:51:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:16:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ void	free_tks(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->prng.tks != NULL)
+	if (data->pars.tks != NULL)
 	{
-		while (i < data->prng.tk_nbr)
+		while (i < data->pars.tk_nbr)
 		{
-			free(data->prng.tks[i].ptr);
-			if (data->prng.tks[i].type == WEAK_WORD)
-				free(data->prng.tks[i].trans_weak);
-			if (data->prng.tks[i].type == FUNCTION)
-				free(data->prng.tks[i].tk_fct_path);
+			free(data->pars.tks[i].ptr);
+			if (data->pars.tks[i].type == WEAK_WORD)
+				free(data->pars.tks[i].trans_weak);
+			if (data->pars.tks[i].type == FUNCTION)
+				free(data->pars.tks[i].tk_fct_path);
 			i++;
 		}
-		free(data->prng.tks);
-		data->prng.tks = NULL;
+		free(data->pars.tks);
+		data->pars.tks = NULL;
 	}
 }
 
@@ -50,7 +50,7 @@ void	clear_data(t_data *data)
 	free_tks(data);
 	if (data->prompt != NULL)
 		free(data->prompt);
-	while (i < data->prng.cmd_nbr && data->cmds)
+	while (i < data->pars.cmd_nbr && data->cmds)
 	{
 		free(data->cmds[i].args);
 		if (data->cmds[i].redirs != NULL)
