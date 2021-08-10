@@ -107,8 +107,8 @@ int	searcher(t_data *d)
 	while (++i < d->prng.tk_nbr)
 	{
 		tk = &d->prng.tks[i];
-		if (ft_strncmp(".", tk->ptr, 1) == 0 \
-		|| ft_strncmp("..", tk->ptr, 1) == 0)
+		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
+		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
 		if (!searcher_bis(d, tk, &s))
 			return (0);

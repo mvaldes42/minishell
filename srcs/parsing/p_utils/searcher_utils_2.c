@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 15:39:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:56:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,11 @@ static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
 	ft_strlcat(ext->dest_dir, ext->func_name, size);
 }
 
-int	is_funct_ext_found(t_parsing *parsing, t_token *token, t_funct_ext	*ext)
+static void	funct_ext_found(t_parsing *parsing, t_token *token, char *path)
 {
-	if (stat(ext->dest_dir, &ext->statbuf) == 0)
-		token->tk_fct_path = ft_strdup(ext->dest_dir);
-	else if (stat(ext->func_name, &ext->statbuf) == 0)
-		token->tk_fct_path = ft_strdup(ext->func_name);
-	if (token->tk_fct_path != NULL)
-	{
-		parsing->cmd_nbr++;
-		token->type = FUNCTION;
-		free(ext->d_ptr);
-		return (1);
-	}
-	return (0);
+	token->tk_fct_path = ft_strdup(path);
+	parsing->cmd_nbr++;
+	token->type = FUNCTION;
 }
 
 int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
@@ -70,13 +61,21 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	ext.func_name = token->ptr;
 	if (token->type == VARIABLE)
 		ext.func_name = token->trans_var;
+	if (stat(ext.func_name, &ext.statbuf) == 0)
+	{
+		funct_ext_found(parsing, token, ext.func_name);
+		return (1);
+	}
 	while (srch->env_path[++i] != NULL)
 	{
 		make_dest_dir(srch, &ext, i);
 		if (ext.dest_dir == NULL)
 			return (0);
-		if (is_funct_ext_found(parsing, token, &ext))
+		if (stat(ext.dest_dir, &ext.statbuf) == 0)
+		{
+			funct_ext_found(parsing, token, ext.dest_dir);
 			return (1);
+		}
 		free(ext.d_ptr);
 	}
 	return (0);
