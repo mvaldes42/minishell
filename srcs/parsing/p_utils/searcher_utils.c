@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/02 14:34:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 11:27:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	j = 1;
 	v.var_nb = 0;
 	v.dest = malloc(sizeof(char *) * (dst_size));
-	while (i < dst_size - 1 && str[j] != '\0')
+	while (i < dst_size && str[j] != '\0')
 	{
 		if (str[j] == VAR)
 		{
@@ -122,6 +122,7 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 		return (0);
 	srch->t_token_len = ft_strlen(o_s) - (srch->tot_o_len + 1) + \
 	srch->tot_t_len - 2;
+	printf("srch->t_token_len: %zu\n", srch->t_token_len);
 	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
 	free(o_s);
 	free_srch_struct(srch);
