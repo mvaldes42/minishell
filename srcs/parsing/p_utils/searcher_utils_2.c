@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 17:58:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 15:39:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
 	ft_strlcat(ext->dest_dir, ext->func_name, size);
 }
 
+int	is_funct_ext_found(t_parsing *parsing, t_token *token, t_funct_ext	*ext)
+{
+	if (stat(ext->dest_dir, &ext->statbuf) == 0)
+		token->tk_fct_path = ft_strdup(ext->dest_dir);
+	else if (stat(ext->func_name, &ext->statbuf) == 0)
+		token->tk_fct_path = ft_strdup(ext->func_name);
+	if (token->tk_fct_path != NULL)
+	{
+		parsing->cmd_nbr++;
+		token->type = FUNCTION;
+		free(ext->d_ptr);
+		return (1);
+	}
+	return (0);
+}
+
 int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 {
 	t_funct_ext	ext;
@@ -59,26 +75,10 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 		make_dest_dir(srch, &ext, i);
 		if (ext.dest_dir == NULL)
 			return (0);
-		if (stat(ext.dest_dir, &ext.statbuf) == 0)
-		{
-			token->tk_fct_path = ft_strdup(ext.dest_dir);
-			parsing->cmd_nbr++;
-			token->type = FUNCTION;
-			free(ext.d_ptr);
+		if (is_funct_ext_found(parsing, token, &ext))
 			return (1);
-		}
 		free(ext.d_ptr);
 	}
-	return (0);
-}
-
-// memset(ext.dest_dir, 0, sizeof(&ext.dest_dir));
-
-int	is_point_case(t_token token)
-{
-	if (ft_strncmp(".", token.ptr, 1) == 0 || \
-		ft_strncmp("..", token.ptr, 1) == 0)
-		return (1);
 	return (0);
 }
 
