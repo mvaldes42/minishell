@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:16:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:21:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tks[i].type = REDIR_OUT;
 		if (is_redir(lx, i))
 			lx->tks[i].redir = 1;
-		printf("lx->tks[i].redir: %d\n", lx->tks[i].redir);
 	}
 }
 

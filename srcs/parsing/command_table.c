@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:16:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 16:26:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 	int	size;
 
 	size = 0;
+	printf("tks[i]: %s\n", tks[i].ptr);
 	while (i < d->pars.tk_nbr && tks[i].type != PIPE)
 	{
 		if (!tks[i].redir)
@@ -92,15 +93,16 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 			i++;
 		}
 	}
-	i = cmd_args(d, cmd, tks, i) + 1;
-	printf("tks[i].redir: %d\n", tks[i].redir);
-	if (tks[i].redir)
+	i = cmd_args(d, cmd, tks, i);
+	if (i + 1 < d->pars.tk_nbr && tks[i + 1].redir)
 	{
-		printf("hello\n");
+		i += 1;
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
 		if (i == 0)
 			return (-1);
 	}
+	if (i + 1 < d->pars.tk_nbr)
+		i += 1;
 	return (i);
 }
 
