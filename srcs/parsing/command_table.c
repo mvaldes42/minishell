@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 11:24:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 14:32:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,48 @@
 
 // echo -n bonjour|echo cool' $HOME top '" $HOME    super'$LANG' "
 // echo " $HOME    super'$LANG' "
+// ls -a > file1 > file2 >> file3
 
-static void	cmd_redir_case(t_token *tk, t_commands *cmds)
+static int	get_redir_size(t_data *d, t_token *tks, int i)
 {
-	if (tk->type == REDIR_OUT)
-		cmds->redirect_table.r_output = 1;
-	if (tk->type == REDIR_OUT_A)
-		cmds->redirect_table.r_app_output = 1;
-	if (tk->type == REDIR_IN)
-		cmds->redirect_table.r_input = 1;
-	if (tk->type == READ_IN)
-		cmds->redirect_table.read_input = 1;
+	int	size;
+
+	size = 0;
+	while (i < d->prng.tk_nbr && tks[i].type != PIPE)
+	{
+		if (!tks[i].redir)
+		{
+			printf("error too many filenames\n");
+			exit(1);
+		}
+		i += 2;
+		size++;
+	}
+	return (size);
+}
+
+static int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
+{
+	int	j;
+	int	size;
+
+	size = get_redir_size(d, tks, i);
+	cmd->redirs = malloc(sizeof(t_redir_token) * (size + 1));
+	ft_memset(cmd->redirs, 0, sizeof(cmd->redirs));
+	j = 0;
+	while (i < d->prng.tk_nbr && j < size)
+	{
+		i += 1;
+		if (tks[i].type == WEAK_WORD)
+			cmd->redirs[j].filename = tks[i].trans_weak;
+		else if (tks[i].type == VARIABLE)
+			cmd->redirs[j].filename = tks[i].trans_var;
+		else
+			cmd->redirs[j].filename = tks[i].ptr;
+		j++;
+		i += 1;
+	}
+	return (i);
 }
 
 static int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
@@ -59,10 +90,9 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 			i++;
 		}
 	}
-	i = cmd_args(d, cmd, tks, i);
+	i = cmd_args(d, cmd, tks, i) + 1;
 	if (tks[i].redir)
-		cmd_redir_case(&tks[i], cmd);
-	i++;
+		i = cmd_redir_case(d, tks, cmd, i) + 1;
 	return (i);
 }
 

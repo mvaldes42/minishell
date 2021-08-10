@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/09 16:33:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/10 13:40:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,5 @@ void	print_cmd_tab(t_data *d)
 			printf("		->args %d/%d: %s\n", k + 1, \
 			d->prng.argv_size[cmds[j].id], cmds[j].args[k]);
 		}
-		printf("	->is_piped: %d\n", cmds[j].is_piped);
-		printf("	->gets_pipe_in: %d\n", cmds[j].gets_pipe_in);
 	}
 }
