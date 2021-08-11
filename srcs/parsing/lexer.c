@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:21:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:44:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	lexer(t_data *data, char *line)
 	evaluating_tokens(lx, unspec_token);
 	i = 0;
 	while (i < lx->tk_nbr)
-		free(unspec_token[i++]);
-	free(unspec_token);
+		ft_free(unspec_token[i++]);
+	ft_free(unspec_token);
 	return (1);
 }

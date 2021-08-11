@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 12:56:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:45:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 // 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // 	clear_data();
 // 	if (g_data.line)
-// 		free(g_data.line);
+// 		ft_free(g_data.line);
 // 	g_data.line = readline(g_data.prompt);
 // 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // }
@@ -79,8 +79,7 @@ int	main(void)
 		if (!parsing(&data, line))
 			error_handling();
 		clear_data(&data);
-		if (line)
-			free(line);
+		ft_free(line);
 		create_prompt(&data);
 		line = readline(data.prompt);
 	}

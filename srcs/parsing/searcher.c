@@ -28,11 +28,11 @@ static void	search_path_str(t_searcher *srch)
 		path = ft_strnstr(environ[i], "PATH=", 5);
 		if (path != NULL)
 			break ;
-		free(path_ptr);
+		ft_free(path_ptr);
 		i++;
 	}
 	srch->env_path = ft_split(path + 5, ':');
-	free(path_ptr);
+	ft_free(path_ptr);
 }
 
 static int	search_variables(t_token *token, t_searcher *srch)
@@ -40,13 +40,14 @@ static int	search_variables(t_token *token, t_searcher *srch)
 	char	*translated_str;
 	char	*ptr;
 
+	errno = VAR_NOT_FOUND;
 	if (token->type == VARIABLE)
 	{
 		translated_str = ft_strdup(token->ptr);
 		ptr = translated_str;
 		translated_str++;
 		token->trans_var = getenv(translated_str);
-		free(ptr);
+		ft_free(ptr);
 		if (token->trans_var == NULL)
 			return (0);
 	}

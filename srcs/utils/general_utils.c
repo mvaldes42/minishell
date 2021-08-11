@@ -6,11 +6,20 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:13:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:45:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
+
+void	ft_free(void *ptr)
+{
+	if (ptr != NULL)
+	{
+		free(ptr);
+		ptr = NULL;
+	}
+}
 
 void	error_handling(void)
 {
@@ -21,7 +30,10 @@ void	error_handling(void)
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
-		printf("minishell: %s\n", errors[i]);
+		if (i == 1)
+			printf("%s\n", errors[i]);
+		else
+			printf("minishell: %s\n", errors[i]);
 	}
 	else
 		printf("minishell: %s\n", strerror(errno));
@@ -30,8 +42,7 @@ void	error_handling(void)
 void	exit_sucess(t_data *data, char *line)
 {
 	clear_data(data);
-	if (line)
-		free(line);
+	ft_free(line);
 	ft_putstr_fd("Sucess\n", STDERR);
 	exit(EXIT_SUCCESS);
 }
@@ -45,15 +56,14 @@ void	free_tks(t_data *data)
 	{
 		while (i < data->pars.tk_nbr)
 		{
-			free(data->pars.tks[i].ptr);
+			ft_free(data->pars.tks[i].ptr);
 			if (data->pars.tks[i].type == WEAK_WORD)
-				free(data->pars.tks[i].trans_weak);
+				ft_free(data->pars.tks[i].trans_weak);
 			if (data->pars.tks[i].type == FUNCTION)
-				free(data->pars.tks[i].tk_fct_path);
+				ft_free(data->pars.tks[i].tk_fct_path);
 			i++;
 		}
-		free(data->pars.tks);
-		data->pars.tks = NULL;
+		ft_free(data->pars.tks);
 	}
 }
 
@@ -63,17 +73,14 @@ void	clear_data(t_data *data)
 
 	i = 0;
 	free_tks(data);
-	if (data->prompt != NULL)
-		free(data->prompt);
+	ft_free(data->prompt);
 	while (i < data->pars.cmd_nbr && data->cmds)
 	{
-		free(data->cmds[i].args);
-		if (data->cmds[i].redirs != NULL)
-			free(data->cmds[i].redirs);
+		ft_free(data->cmds[i].args);
+		ft_free(data->cmds[i].redirs);
 		i++;
 	}
-	if (data->cmds != NULL)
-		free(data->cmds);
+	ft_free(data->cmds);
 	ft_memset(data, 0, sizeof(t_data));
 	errno = 0;
 }

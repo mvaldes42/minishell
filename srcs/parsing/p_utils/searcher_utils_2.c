@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 12:45:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:45:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ void	free_srch_struct(t_searcher *srch)
 	i = 0;
 	while (i < srch->nbr_var)
 	{
-		free(srch->var_name[i]);
+		ft_free(srch->var_name[i]);
 		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
-			free(srch->var_trans[i]);
+			ft_free(srch->var_trans[i]);
 		i++;
 	}
-	free(srch->var_name);
-	free(srch->var_trans);
-	free(srch->o_var_len);
-	free(srch->t_var_len);
+	ft_free(srch->var_name);
+	ft_free(srch->var_trans);
+	ft_free(srch->o_var_len);
+	ft_free(srch->t_var_len);
 }
 
 static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
@@ -76,7 +76,7 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 			funct_ext_found(parsing, token, ext.dest_dir);
 			return (1);
 		}
-		free(ext.d_ptr);
+		ft_free(ext.d_ptr);
 	}
 	return (0);
 }
@@ -88,8 +88,8 @@ int	free_searcher(t_data *data, t_searcher *srch)
 	errno = 134;
 	i = 0;
 	while (srch->env_path[i])
-		free(srch->env_path[i++]);
-	free(srch->env_path);
+		ft_free(srch->env_path[i++]);
+	ft_free(srch->env_path);
 	if (data->pars.cmd_nbr == 0)
 		return (0);
 	return (1);
