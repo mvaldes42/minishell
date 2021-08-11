@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:25:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 11:05:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 # include "../lib/libft/libft.h"
 # include "parsing/p_utils/parsing_utils.h"
+# include "utils/general_utils.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
@@ -31,6 +32,7 @@
 # include <termios.h>
 # include <curses.h>
 # include <term.h>
+# include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1

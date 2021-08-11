@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:45:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 13:36:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 {
 	int	size;
 
+	errno = ENOENT;
 	size = 0;
-	printf("tks[i]: %s\n", tks[i].ptr);
 	while (i < d->pars.tk_nbr && tks[i].type != PIPE)
 	{
 		if (!tks[i].redir)
-		{
-			printf("redirection error\n");
 			return (0);
-		}
 		i += 2;
 		size++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:16:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:45:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,12 @@ int	free_searcher(t_data *data, t_searcher *srch)
 {
 	int	i;
 
+	errno = 134;
 	i = 0;
 	while (srch->env_path[i])
 		free(srch->env_path[i++]);
 	free(srch->env_path);
 	if (data->pars.cmd_nbr == 0)
-	{
-		printf("function does not exist\n");
 		return (0);
-	}
 	return (1);
 }

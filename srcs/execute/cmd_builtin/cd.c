@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:47:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:50:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void	builtin_cd(char *path)
 		printf("dir found\n");
 	}
 	else
-		printf("dir not found\n");
+		errno = ENOENT;
 }

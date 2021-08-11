@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 11:29:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 13:53:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 		if (str[i] == VAR)
 		{
 			start = i;
-			srch->o_var_len[j] = 0;
+			srch->o_var_len[j] = 1;
 			while (str[i++] && str[i] != VAR && str[i] != SPACE && \
 			str[i] != S_QUOTE && str[i] != D_QUOTE)
 				srch->o_var_len[j] += 1;
@@ -60,6 +60,7 @@ static int	translated_var_length(t_searcher *srch)
 {
 	int		i;
 
+	errno = VAR_NOT_FOUND;
 	srch->var_trans = malloc(sizeof(char **) * (srch->nbr_var + 1));
 	srch->t_var_len = malloc(sizeof(size_t *) * (srch->nbr_var + 1));
 	i = 0;
@@ -73,10 +74,7 @@ static int	translated_var_length(t_searcher *srch)
 			--srch->var_name[i];
 		}
 		if (srch->var_trans[i] == NULL)
-		{
-			printf("\n");
 			return (0);
-		}
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
@@ -120,8 +118,11 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 	original_var_length(o_s, srch);
 	if (!translated_var_length(srch))
 		return (0);
-	srch->t_token_len = ft_strlen(o_s) - (srch->tot_o_len + 1) + \
-	srch->tot_t_len - 2;
+	srch->t_token_len = ft_strlen(o_s) - 2 \
+	- srch->tot_o_len + srch->tot_t_len;
+	printf("srch->tot_o_len: %d\n", (int)srch->tot_o_len);
+	printf("srch->tot_t_len: %d\n", (int)srch->tot_t_len);
+	printf("srch->t_token_len: %d\n", (int)srch->t_token_len);
 	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
 	free(o_s);
 	free_srch_struct(srch);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/30 15:22:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:46:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,14 @@
 
 int	redir_case_general(char **dup, int count, char r_type, char other_r)
 {
-	char	*error_str;
-
-	error_str = "error: wrong redirection symbol\n";
+	errno = UNEXPECTED_TK;
 	*dup += 1;
 	if (**dup == other_r)
-	{
-		printf("%s", error_str);
 		return (0);
-	}
 	else if (**dup == r_type)
 		*dup += 1;
 	if (**dup == r_type || **dup == other_r)
-	{
-		printf("%s", error_str);
 		return (0);
-	}
 	else
 		count += 1;
 	return (count);
@@ -38,14 +30,12 @@ int	redir_case_general(char **dup, int count, char r_type, char other_r)
 
 int	quotes_case_general(char **dup, int count, char q_type)
 {
+	errno = MISSING_QUOTE;
 	*dup += 1;
 	while (**dup != q_type && **dup != '\0')
 		*dup += 1;
 	if (**dup == '\0')
-	{
-		printf("error: missing quote\n");
 		return (0);
-	}
 	count++;
 	*dup += 1;
 	return (count);

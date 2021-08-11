@@ -6,12 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 14:53:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:56:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "utils/general_utils.h"
 
 // void	handdle_signals(void)
 // {
@@ -77,7 +76,8 @@ int	main(void)
 			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
-		parsing(&data, line);
+		if (!parsing(&data, line))
+			error_handling();
 		clear_data(&data);
 		if (line)
 			free(line);

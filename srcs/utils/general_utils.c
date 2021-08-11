@@ -6,11 +6,26 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 16:16:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 12:57:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
+
+void	error_handling(void)
+{
+	static char	*errors[] = {"missing quote", "", "command not found", \
+	"syntax error near unexpected token"};
+	int			i;
+
+	if (errno > 131)
+	{
+		i = errno - 131 - 1;
+		printf("minishell: %s\n", errors[i]);
+	}
+	else
+		printf("minishell: %s\n", strerror(errno));
+}
 
 void	exit_sucess(t_data *data, char *line)
 {
@@ -60,6 +75,7 @@ void	clear_data(t_data *data)
 	if (data->cmds != NULL)
 		free(data->cmds);
 	ft_memset(data, 0, sizeof(t_data));
+	errno = 0;
 }
 
 void	create_prompt(t_data *data)
