@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 16:06:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,17 @@ static void	initialize_env(t_data *data, char **line)
 	data->environ = environ;
 }
 
+static int	is_line_empty(char *line)
+{
+	if (char_occu(line, SPACE) == (int)ft_strlen(line))
+	{
+		errno = 136;
+		return (0);
+	}
+	add_history(line);
+	return (1);
+}
+
 int	main(void)
 {
 	t_data		data;
@@ -72,11 +83,9 @@ int	main(void)
 	line = readline(data.prompt);
 	while (line)
 	{
-		if (char_occu(line, SPACE) != (int)ft_strlen(line))
-			add_history(line);
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
-		if (!parsing(&data, line))
+		if (!is_line_empty(line) || !parsing(&data, line))
 			error_handling();
 		clear_data(&data);
 		ft_free(line);

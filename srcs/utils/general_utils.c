@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 16:09:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ void	ft_free(void *ptr)
 void	error_handling(void)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
-	"syntax error near unexpected token"};
+	"syntax error near unexpected token", ""};
 	int			i;
 
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
-		if (i == 1)
+		if (errno == 133)
 			printf("%s\n", errors[i]);
+		else if (errno == 136)
+			;
 		else
 			printf("minishell: %s\n", errors[i]);
 	}
@@ -93,7 +95,7 @@ void	create_prompt(t_data *data)
 	char	*cross;
 
 	arrow = "\033[32m\u27A1\033[0m \033[48;5;57m";
-	cross = "\033[0m \033[38;5;69m\u2613\033[0m ";
+	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
 	getcwd(cwd, sizeof(cwd));
 	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
 	data->prompt = (char *)malloc(sizeof(char) * size);

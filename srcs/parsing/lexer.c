@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:44:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:51:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	**scanning_tokens(t_parsing *lx, char *line)
 {
 	char	**unspec_token;
 
+	unspec_token = NULL;
 	lx->tk_nbr = token_count(line, SPACE);
 	if (lx->tk_nbr == 0)
 		return (NULL);
