@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 18:12:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 18:18:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,13 @@ void	ft_free(void *ptr)
 	}
 }
 
-void	error_handling(void)
+void	error_handling(t_data *data)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
 	"syntax error near unexpected token", ""};
 	int			i;
 
+	data->is_cmd_fail = 1;
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
@@ -39,7 +40,7 @@ void	error_handling(void)
 	}
 	else
 		printf("minishell: %s\n", strerror(errno));
-	rl_redisplay();
+	// rl_redisplay();
 	// rl_replace_line();
 }
 
