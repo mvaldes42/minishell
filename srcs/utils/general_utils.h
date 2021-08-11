@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 18:18:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 18:28:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef enum e_err_codes
 typedef struct s_data		t_data;
 
 void		ft_free(void *ptr);
-void		error_handling(t_data *data);
+int			error_handling(void);
 void		exit_sucess(t_data *data, char *line);
 void		clear_data(t_data *data);
 void		create_prompt(t_data *data);
