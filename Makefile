@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/09 15:42:33 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/08/11 17:57:38 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,12 @@ HEADER		=	./srcs/minishell.h
 CC			=	gcc
 RM			=	/bin/rm -rf
 CC_FLAGS	=	-Wall -Wextra -Werror
-INC			=	-I $(HEADER)
+INC			=	-I $(HEADER) \
+				-lreadline \
+				-L /usr/local/opt/readline/lib \
+				-I /usr/local/opt/readline/include
+				# -L /Users/$(USER)/.brew/opt/readline/lib \
+				# -I /Users/$(USER)/.brew/opt/readline/include \
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
@@ -34,7 +39,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIBFT_F)
-			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) -lreadline  $(LIBFT) $(GNL) -o $(NAME)
+			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 

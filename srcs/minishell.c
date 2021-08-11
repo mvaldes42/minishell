@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 16:06:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 18:09:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,19 +77,27 @@ int	main(void)
 {
 	t_data		data;
 	char		*line;
+	int			is_fail;
 
 	initialize_env(&data, &line);
 	create_prompt(&data);
 	line = readline(data.prompt);
 	while (line)
 	{
+		is_fail = 0;
 		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
 			exit_sucess(&data, line);
 		if (!is_line_empty(line) || !parsing(&data, line))
+		{
 			error_handling();
+			is_fail = 1;
+		}
 		clear_data(&data);
 		ft_free(line);
-		create_prompt(&data);
+		if (is_fail)
+			create_prompt_fail(&data);
+		else
+			create_prompt(&data);
 		line = readline(data.prompt);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 16:09:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 18:12:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	error_handling(void)
 	}
 	else
 		printf("minishell: %s\n", strerror(errno));
+	rl_redisplay();
+	// rl_replace_line();
 }
 
 void	exit_sucess(t_data *data, char *line)
@@ -46,6 +48,7 @@ void	exit_sucess(t_data *data, char *line)
 	clear_data(data);
 	ft_free(line);
 	ft_putstr_fd("Sucess\n", STDERR);
+	// rl_clear_history();
 	exit(EXIT_SUCCESS);
 }
 
@@ -94,7 +97,25 @@ void	create_prompt(t_data *data)
 	char	*arrow;
 	char	*cross;
 
-	arrow = "\033[32m\u27A1\033[0m \033[48;5;57m";
+	arrow = "\033[92m\u27A1\033[0m \033[48;5;57m";
+	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
+	getcwd(cwd, sizeof(cwd));
+	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
+	data->prompt = (char *)malloc(sizeof(char) * size);
+	ft_memset(data->prompt, 0, sizeof(data->prompt));
+	ft_strlcat(data->prompt, arrow, size);
+	ft_strlcat(data->prompt, cwd, size);
+	ft_strlcat(data->prompt, cross, size);
+}
+
+void	create_prompt_fail(t_data *data)
+{
+	char	cwd[256];
+	int		size;
+	char	*arrow;
+	char	*cross;
+
+	arrow = "\033[91m\u27A1\033[0m \033[48;5;57m";
 	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
 	getcwd(cwd, sizeof(cwd));
 	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
