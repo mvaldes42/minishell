@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 12:57:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 14:13:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,18 @@ void	create_prompt(t_data *data)
 {
 	char	cwd[256];
 	int		size;
+	char	*arrow;
+	char	*cross;
 
+	arrow = "\033[32m\u27A1\033[0m \033[48;5;57m";
+	cross = "\033[0m \033[38;5;69m\u2613\033[0m ";
 	getcwd(cwd, sizeof(cwd));
-	size = ft_strlen(cwd) + ft_strlen("\u27A1 ") + \
-	ft_strlen(" \u2613 ") + 1;
+	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
 	data->prompt = (char *)malloc(sizeof(char) * size);
 	ft_memset(data->prompt, 0, sizeof(data->prompt));
-	ft_strlcat(data->prompt, "\u27A1 ", size);
+	ft_strlcat(data->prompt, arrow, size);
 	ft_strlcat(data->prompt, cwd, size);
-	ft_strlcat(data->prompt, " \u2613 ", size);
+	ft_strlcat(data->prompt, cross, size);
 }
 
 int	char_occu(char *str, char c)

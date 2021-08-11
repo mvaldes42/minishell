@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 13:53:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/11 13:59:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,6 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 		return (0);
 	srch->t_token_len = ft_strlen(o_s) - 2 \
 	- srch->tot_o_len + srch->tot_t_len;
-	printf("srch->tot_o_len: %d\n", (int)srch->tot_o_len);
-	printf("srch->tot_t_len: %d\n", (int)srch->tot_t_len);
-	printf("srch->t_token_len: %d\n", (int)srch->t_token_len);
 	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
 	free(o_s);
 	free_srch_struct(srch);
