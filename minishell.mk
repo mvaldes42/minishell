@@ -18,6 +18,7 @@ FILES =	minishell.c\
 		execute/cmd_builtin/export.c\
 		execute/cmd_builtin/pwd.c\
 		execute/cmd_builtin/unset.c\
+		execute/execute.c\
 
 SUB_DIR	=	utils\
 			parsing\

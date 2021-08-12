@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/10 18:43:56 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 12:32:23 by mvaldes          ###   ########.fr       */
+/*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
+/*   Updated: 2021/08/12 12:29:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../execute.h"
+#include "execute.h"
+#include "../minishell.h"
 
-void	builtin_pwd(char **args)
+int	execute(t_data *data)
 {
-	(void)args;
+	(void)data;
+	return (1);
 }
