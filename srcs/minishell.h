@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/12 14:26:28 by mvaldes          ###   ########.fr       */
+=======
+/*   Updated: 2021/08/12 12:36:10 by fcavillo         ###   ########.fr       */
+>>>>>>> pwd
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +19,7 @@
 # include "../lib/libft/libft.h"
 # include "parsing/p_utils/parsing_utils.h"
 # include "utils/general_utils.h"
+# include "execute/execute.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
