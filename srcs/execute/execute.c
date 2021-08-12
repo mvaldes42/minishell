@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 14:35:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 16:28:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	execute(t_data *data)
 			if (!cmd.fct.builtin_ptr(cmd.args))
 				return (0);
 		}
+		else
+			execve(cmd.fct.fct_path, cmd.args, data->environ);
 		i++;
 	}
 	return (1);
