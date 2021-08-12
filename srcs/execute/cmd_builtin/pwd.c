@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:56 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 12:22:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 12:32:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-void	builtin_pwd(char *path)
+void	builtin_pwd(char **args)
 {
-	(void)path;
+	(void)args;
 }

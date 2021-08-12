@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 18:26:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 12:31:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef void	(*t_builtin)(char *path);
+typedef void	(*t_builtin)(char **args);
 
 typedef struct s_functions
 {
@@ -79,6 +79,7 @@ typedef struct s_data
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);
 int		searcher(t_data *data);
+int		execute(t_data *data);
 
 #endif
 
