@@ -6,12 +6,15 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 16:30:31 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/12 16:31:33 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "../minishell.h"
+
+// returns 0 if there is a problem -> error handling
+// 
 
 int	execute(t_data *data)
 {
