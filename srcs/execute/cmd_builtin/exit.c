@@ -6,13 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:42:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 12:22:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 14:27:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-void	builtin_exit(char **args)
+int	builtin_exit(char **args)
 {
 	(void)args;
+	return (1);
 }

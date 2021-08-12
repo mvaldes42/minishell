@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 14:20:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 14:35:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int	execute(t_data *data)
 	{
 		cmd = data->cmds[i];
 		if (cmd.fct.builtin)
-			cmd.fct.builtin_ptr(cmd.args);
+		{
+			if (!cmd.fct.builtin_ptr(cmd.args))
+				return (0);
+		}
 		i++;
 	}
 	return (1);

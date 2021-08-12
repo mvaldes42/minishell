@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:44:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 14:46:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 		else
 			cmd->args[k] = tks[i].ptr;
 	}
+	cmd->args[k] = NULL;
 	return (i);
 }
 
@@ -142,6 +143,7 @@ int	input_command_table(t_data *d)
 		memset(&cmds[j], 0, sizeof(t_commands));
 		d->cmds[j].args = malloc(sizeof(char *) * (d->pars.argv_size[j] + 1));
 		cmds[j].args = d->cmds[j].args;
+		ft_memset(cmds[j].args, 0, sizeof(cmds[j].args));
 		cmds[j].id = j;
 		i = input_command_fct(d, &cmds[j], tks, i);
 		if (i == -1)
