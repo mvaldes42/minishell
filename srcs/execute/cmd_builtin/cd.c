@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 14:51:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 17:27:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	builtin_cd(char **args)
 	char	*directory;
 	int		i;
 
-	i = 0;
+	i = 1;
 	while (args[i] != NULL)
 		i++;
-	if (i == 0)
+	if (i == 1)
 		directory = getenv("HOME");
 	else
-		directory = args[0];	
+		directory = args[1];	
 	// if (getenv("CDPATH") != NULL && directory[0] != '/')
 	// use as a search path;
 	if (chdir(directory) == -1)
