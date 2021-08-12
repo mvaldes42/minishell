@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:43:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 12:22:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-void	builtin_unset(char *path)
+void	builtin_unset(char **args)
 {
-	(void)path;
+	(void)args;
 }
