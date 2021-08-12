@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:42:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:43:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 12:22:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-void	builtin_env(char *path)
+void	builtin_env(char **args)
 {
-	(void)path;
+	(void)args;
 }
