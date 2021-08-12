@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 14:25:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/12 16:38:19 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+
+#include "../minishell.h"
 
 int	builtin_cd(char **args);
 int	builtin_echo(char **args);
