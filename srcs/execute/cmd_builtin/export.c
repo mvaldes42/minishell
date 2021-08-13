@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 11:46:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/13 16:57:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,11 @@ int	builtin_export(char **args)
 			printf("declare -x %s\n", environ[i]);
 	else
 	{
-		printf("args[1]: %s\n", args[1]);
 		while (environ[size])
 			size++;
 		p = malloc(sizeof(char *) * (size + 2));
 		if (!p)
-			return (-1);
+			return (0);
 		memmove(p, *environ, size * sizeof(char *));
 		// *environ = p;
 		environ[size] = ft_strdup(args[1]);
