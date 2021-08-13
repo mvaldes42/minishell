@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 18:36:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/13 14:12:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	get_argv_size(t_data *data)
 	data->pars.argv_size = malloc(sizeof(int) * data->pars.cmd_nbr + 1);
 	while (++i < data->pars.tk_nbr && j < data->pars.cmd_nbr)
 	{
-		data->pars.argv_size[j] = 0;
+		data->pars.argv_size[j] = 1;
 		if (data->pars.tks[i].type == FUNCTION || \
 		data->pars.tks[i].type == BUILTIN)
 		{

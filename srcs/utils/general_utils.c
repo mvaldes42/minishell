@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 18:29:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/13 15:04:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int	error_handling(void)
 
 void	exit_sucess(t_data *data, char *line)
 {
+	extern char	**environ;
+	int			i;
+
+	i = -1;
+	while (environ[++i] != NULL)
+		ft_free(environ[i]);
 	clear_data(data);
 	ft_free(line);
 	ft_putstr_fd("Sucess\n", STDERR);

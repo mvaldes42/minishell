@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 12:36:07 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/13 15:00:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,16 @@
 static void	initialize_env(t_data *data, char **line)
 {
 	extern char	**environ;
+	int			i;
 
+	data->environ = environ;
 	ft_memset(data, 0, sizeof(t_data));
 	data->prompt = NULL;
 	line = NULL;
 	(void)line;
-	data->environ = environ;
+	i = -1;
+	while (environ[++i])
+		environ[i] = ft_strdup(environ[i]);
 }
 
 static int	is_line_empty(char *line)

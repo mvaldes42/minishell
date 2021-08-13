@@ -22,16 +22,20 @@ static void	search_path_str(t_searcher *srch)
 
 	i = 0;
 	path = NULL;
+	// printf("environ[i] = %s\n", environ[i]);
 	while (environ[i] != NULL)
 	{
 		path_ptr = path;
+		// printf("environ[i]: %s\n", environ[i]);
 		path = ft_strnstr(environ[i], "PATH=", 5);
 		if (path != NULL)
 			break ;
 		ft_free(path_ptr);
 		i++;
 	}
+	// printf("path :%s\n", path);
 	srch->env_path = ft_split(path + 5, ':');
+	// printf("hello\n");
 	ft_free(path_ptr);
 }
 
