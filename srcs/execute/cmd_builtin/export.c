@@ -6,37 +6,80 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 16:57:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/13 17:58:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
+static int	reatribute_var(char **args, char *env_value)
+{
+	extern char	**environ;
+	char		*old_var;
+	int			old_var_s;
+	char		**split;
+	int			i;
+
+	split = ft_split(args[1], '=');
+	old_var_s = ft_strlen(env_value) + ft_strlen("=") + ft_strlen(split[0]) + 1;
+	old_var = (char *)malloc(sizeof(char) * old_var_s);
+	if (!old_var)
+		return (0);
+	ft_memset(old_var, 0, sizeof(old_var));
+	ft_strlcat(old_var, split[0], old_var_s);
+	ft_strlcat(old_var, "=", old_var_s);
+	ft_strlcat(old_var, env_value, old_var_s);
+	i = -1;
+	while (environ[++i])
+	{
+		if (ft_strncmp(environ[i], old_var, ft_strlen(old_var)) == 0)
+		{
+			free(environ[i]);
+			environ[i] = ft_strdup(args[1]);
+		}
+	}
+	return (1);
+}
+
+static int	create_var(char **args)
+{
+	extern char	**environ;
+	char		*p;
+	int			size;
+
+	p = NULL;
+	size = 0;
+	while (environ[size])
+		size++;
+	p = malloc(sizeof(char *) * (size + 2));
+	if (!p)
+		return (0);
+	memmove(p, *environ, size * sizeof(char *));
+	// *environ = p;
+	environ[size] = ft_strdup(args[1]);
+	environ[size + 1] = NULL;
+	free(p);
+	return (1);
+}
+
 int	builtin_export(char **args)
 {
 	extern char	**environ;
-	int			size;
-	char		*p;
 	int			i;
+	char		*env_value;
 
-	size = 0;
-	p = NULL;
 	i = -1;
 	if (args[1] == NULL)
 		while (environ[++i])
 			printf("declare -x %s\n", environ[i]);
-	else
+	env_value = getenv(args[1]);
+	if (env_value != NULL)
 	{
-		while (environ[size])
-			size++;
-		p = malloc(sizeof(char *) * (size + 2));
-		if (!p)
+		if (!reatribute_var(args, env_value))
 			return (0);
-		memmove(p, *environ, size * sizeof(char *));
-		// *environ = p;
-		environ[size] = ft_strdup(args[1]);
-		environ[size + 1] = NULL;
-		free(p);
 	}
+	else if (env_value == NULL)
+		if (!create_var(args))
+			return (0);
 	return (1);
 }
