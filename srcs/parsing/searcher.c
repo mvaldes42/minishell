@@ -13,28 +13,6 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static void	search_path_str(t_searcher *srch)
-{
-	int			i;
-	char		*path_ptr;
-	char		*path;
-	extern char	**environ;
-
-	i = 0;
-	path = NULL;
-	while (environ[i] != NULL)
-	{
-		path_ptr = path;
-		path = ft_strnstr(environ[i], "PATH=", 5);
-		if (path != NULL)
-			break ;
-		ft_free(path_ptr);
-		i++;
-	}
-	srch->env_path = ft_split(path + 5, ':');
-	ft_free(path_ptr);
-}
-
 static int	search_variables(t_token *token, t_searcher *srch)
 {
 	char	*translated_str;
@@ -91,6 +69,48 @@ static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
 	if (tk->type == EXIT_STS)
 		tk->trans_weak = ft_strdup("exit_status(do do later)");
 	return (1);
+}
+
+static int	free_searcher(t_data *data, t_searcher *srch)
+{
+	int	i;
+
+	errno = 134;
+	i = 0;
+	while (srch->env_path != NULL && srch->env_path[i])
+		ft_free(srch->env_path[i++]);
+	ft_free(srch->env_path);
+	if (data->pars.cmd_nbr == 0)
+		return (0);
+	return (1);
+}
+
+static void	search_path_str(t_searcher *srch)
+{
+	int			i;
+	char		*path_ptr;
+	char		*path;
+	extern char	**environ;
+
+	i = 0;
+	path = NULL;
+	errno = ENOENT;
+	while (environ[i] != NULL)
+	{
+		path_ptr = path;
+		path = ft_strnstr(environ[i], "PATH=", 5);
+		if (path != NULL)
+			break ;
+		ft_free(path_ptr);
+		i++;
+	}
+	if (environ[i] == NULL)
+		srch->env_path = NULL;
+	else
+	{
+		srch->env_path = ft_split(path + 5, ':');
+		ft_free(path_ptr);
+	}
 }
 
 int	searcher(t_data *d)

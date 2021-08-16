@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 12:04:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 14:09:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int		weak_word_search(t_token *token, t_searcher *srch);
 
 void	free_srch_struct(t_searcher *srch);
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
-int		free_searcher(t_data *data, t_searcher *srch);
 
 void	print_lexer_tab(t_parsing	*lx);
 void	print_parsing_tab(t_data *data);

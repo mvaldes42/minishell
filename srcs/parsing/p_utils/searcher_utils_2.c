@@ -6,30 +6,12 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:16:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 14:17:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
-
-void	free_srch_struct(t_searcher *srch)
-{
-	int	i;
-
-	i = 0;
-	while (i < srch->nbr_var)
-	{
-		ft_free(srch->var_name[i]);
-		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
-			ft_free(srch->var_trans[i]);
-		i++;
-	}
-	ft_free(srch->var_name);
-	ft_free(srch->var_trans);
-	ft_free(srch->o_var_len);
-	ft_free(srch->t_var_len);
-}
 
 static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
 {
@@ -66,7 +48,7 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 		funct_ext_found(parsing, token, e.func_name);
 		return (1);
 	}
-	while (srch->env_path[++i] != NULL)
+	while (srch->env_path != NULL && srch->env_path[++i] != NULL)
 	{
 		make_dest_dir(srch, &e, i);
 		if (e.dest_dir == NULL)
@@ -81,16 +63,20 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-int	free_searcher(t_data *data, t_searcher *srch)
+void	free_srch_struct(t_searcher *srch)
 {
 	int	i;
 
-	errno = 134;
 	i = 0;
-	while (srch->env_path[i])
-		ft_free(srch->env_path[i++]);
-	ft_free(srch->env_path);
-	if (data->pars.cmd_nbr == 0)
-		return (0);
-	return (1);
+	while (i < srch->nbr_var)
+	{
+		ft_free(srch->var_name[i]);
+		if (ft_strncmp(srch->var_name[i], "$?", 2) == 0)
+			ft_free(srch->var_trans[i]);
+		i++;
+	}
+	ft_free(srch->var_name);
+	ft_free(srch->var_trans);
+	ft_free(srch->o_var_len);
+	ft_free(srch->t_var_len);
 }
