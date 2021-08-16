@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 16:22:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 18:07:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,18 +96,11 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	{
 		if (str[j] == VAR)
 		{
-			printf("%c\n", str[j]);
 			v.var_size = 0;
 			j++;
-			printf("%c\n", str[j]);
 			while (v.var_size < srch->t_var_len[v.var_nb])
-			{
-				printf("%c\n", str[j]);
 				v.dest[i++] = srch->var_trans[v.var_nb][v.var_size++];
-			}
-			printf("%c\n", str[j]);
-			j += srch->o_var_len[v.var_nb++];
-			printf("%c\n", str[j]);
+			j += srch->o_var_len[v.var_nb++] - 1;
 		}
 		else
 			v.dest[i++] = str[j++];
