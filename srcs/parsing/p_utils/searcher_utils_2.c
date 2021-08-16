@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 14:17:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 14:30:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,18 @@ void	free_srch_struct(t_searcher *srch)
 	ft_free(srch->var_trans);
 	ft_free(srch->o_var_len);
 	ft_free(srch->t_var_len);
+}
+
+int	free_searcher(t_data *data, t_searcher *srch)
+{
+	int	i;
+
+	errno = 134;
+	i = 0;
+	while (srch->env_path != NULL && srch->env_path[i])
+		ft_free(srch->env_path[i++]);
+	ft_free(srch->env_path);
+	if (data->pars.cmd_nbr == 0)
+		return (0);
+	return (1);
 }

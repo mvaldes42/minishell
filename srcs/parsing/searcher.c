@@ -71,20 +71,6 @@ static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
 	return (1);
 }
 
-static int	free_searcher(t_data *data, t_searcher *srch)
-{
-	int	i;
-
-	errno = 134;
-	i = 0;
-	while (srch->env_path != NULL && srch->env_path[i])
-		ft_free(srch->env_path[i++]);
-	ft_free(srch->env_path);
-	if (data->pars.cmd_nbr == 0)
-		return (0);
-	return (1);
-}
-
 static void	search_path_str(t_searcher *srch)
 {
 	int			i;
