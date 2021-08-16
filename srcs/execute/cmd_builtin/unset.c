@@ -6,11 +6,21 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 16:49:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 10:51:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
+
+static void	free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i])
+		ft_free(split[i]);
+	free(split);
+}
 
 int	builtin_unset(char **args)
 {
@@ -18,6 +28,7 @@ int	builtin_unset(char **args)
 	int			i;
 	int			size;
 	char		*p;
+	char		**split;
 
 	(void)args;
 	size = 0;
@@ -29,7 +40,8 @@ int	builtin_unset(char **args)
 	i = 0;
 	while (i < size)
 	{
-		if (ft_strncmp(environ[i], args[1], ft_strlen(args[1])) == 0)
+		split = ft_split(environ[i], '=');
+		if (ft_strncmp(split[0], args[1], ft_strlen(split[0])) == 0)
 		{
 			while (i < size)
 			{
@@ -42,6 +54,7 @@ int	builtin_unset(char **args)
 				i++;
 			}
 		}
+		free_split(split);
 		i++;
 	}
 	environ[size] = NULL;

@@ -6,11 +6,21 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 17:58:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 10:50:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
+
+static void	free_split(char **split)
+{
+	int	i;
+
+	i = -1;
+	while (split[++i])
+		ft_free(split[i]);
+	free(split);
+}
 
 static int	reatribute_var(char **args, char *env_value)
 {
@@ -38,6 +48,7 @@ static int	reatribute_var(char **args, char *env_value)
 			environ[i] = ft_strdup(args[1]);
 		}
 	}
+	free_split(split);
 	return (1);
 }
 
