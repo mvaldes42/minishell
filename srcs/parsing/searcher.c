@@ -55,6 +55,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	}
 	if (search_funct_ext(&data->pars, token, srch) == 1)
 		return (1);
+	errno = 134;
 	return (0);
 }
 
@@ -119,7 +120,7 @@ int	searcher(t_data *d)
 		else if (tk->type == WORD && \
 		(i == 0 || d->pars.tks[i - 1].type == PIPE))
 			if (!search_functions(d, tk, &s))
-				break ;
+				return (0);
 	}
 	if (!free_searcher(d, &s))
 		return (0);
