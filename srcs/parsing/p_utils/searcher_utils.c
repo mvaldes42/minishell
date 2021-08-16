@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 16:22:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ static int	translated_var_length(t_searcher *srch)
 			srch->var_trans[i] = getenv(++srch->var_name[i]);
 			--srch->var_name[i];
 		}
-		if (srch->var_trans[i] == NULL)
-			return (0);
+		// if (srch->var_trans[i] == NULL)
+		// 	srch->t_var_len[i] = 0;
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
@@ -96,11 +96,18 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	{
 		if (str[j] == VAR)
 		{
+			printf("%c\n", str[j]);
 			v.var_size = 0;
 			j++;
+			printf("%c\n", str[j]);
 			while (v.var_size < srch->t_var_len[v.var_nb])
+			{
+				printf("%c\n", str[j]);
 				v.dest[i++] = srch->var_trans[v.var_nb][v.var_size++];
+			}
+			printf("%c\n", str[j]);
 			j += srch->o_var_len[v.var_nb++];
+			printf("%c\n", str[j]);
 		}
 		else
 			v.dest[i++] = str[j++];
@@ -116,11 +123,7 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 	o_s = ft_strdup(token->ptr);
 	srch->nbr_var = count_variables(o_s);
 	original_var_length(o_s, srch);
-	if (!translated_var_length(srch))
-	{
-		ft_free(o_s);
-		return (0);
-	}
+	translated_var_length(srch);
 	srch->t_token_len = ft_strlen(o_s) - 2 \
 	- srch->tot_o_len + srch->tot_t_len;
 	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);

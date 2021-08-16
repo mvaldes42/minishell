@@ -26,8 +26,8 @@ static int	search_variables(t_token *token, t_searcher *srch)
 		translated_str++;
 		token->trans_var = getenv(translated_str);
 		ft_free(ptr);
-		if (token->trans_var == NULL)
-			return (0);
+		// if (token->trans_var == NULL)
+		// 	token->trans_var = NULL;
 	}
 	else if (token->type == WEAK_WORD)
 		if (!weak_word_search(token, srch))
