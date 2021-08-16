@@ -6,80 +6,70 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 16:24:42 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/16 16:27:34 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "../minishell.h"
 
-int		piping(t_data *data)
+void	testos(char **s)
 {
-        int     fd[2], nbytes;
-        pid_t   childpid;
-        char    string[] = "Hello, world!\n";
-        char    readbuffer[80];
-		(void)	data;
-        pipe(fd);
-        
-        if((childpid = fork()) == -1)
-        {
-                perror("fork");
-                exit(1);
-        }
-
-        if(childpid == 0)
-        {
-                /* Child process closes up input side of pipe */
-                close(fd[0]);
-
-                /* Send "string" through the output side of pipe */
-                write(fd[1], string, (strlen(string)+1));
-                exit(0);
-        }
-        else
-        {
-                /* Parent process closes up output side of pipe */
-                close(fd[1]);
-
-                /* Read in a string from the pipe */
-                nbytes = read(fd[0], readbuffer, sizeof(readbuffer));
-                printf("Received string: %s", readbuffer);
-        }
-        
-        return(0);
+	int i = 0;
+	while (i < 3)
+	{
+		printf("TESTOS : %d = %s\n", i, s[i]);
+		i++;
+	}
 }
 
-/*{
-	int		fd[2];
-	pid_t   childpid;
+int		piping(t_data *data)
+{
+	int	fd[2]; //0 = read, 1 = write
+	int	pid1; //process id from the forks
+	int i;
+	int	pid2;
+	
+	i = 0;
+	data->pars.cmd_nbr--;
+	testos(data->cmds[i].args);
 
-	(void)data;
-	pipe(fd);
-	childpid = fork(); //sets child pid to 0 first passage
-	if (childpid == -1) // if error
-		return (0);
-	if (childpid == 0)
-	{
-		// Child process closes up input side of pipe 
-		close(fd[0]);
+	if (pipe(fd) == -1) //returns 0 if everything's okay
+		return (0); //should it return a specific ERRNO ? 
+	pid1 = fork(); //first fork
+	if (pid1 == 0)
+	{ //child pid 1
+		close (fd[0]); //closing reading fd since first pipe should not read
+		dup2(fd[1], STDOUT_FILENO); // duplicates fd[1] to write on a copy only
+		close (fd[1]); // closing writing fd
+//		testos(data->cmds[i].args);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
 	}
-	else
-	{
-		// Parent process closes up output side of pipe 
-		close(fd[1]);
-	}	
-	return (1);	
-}*/
+	waitpid(pid1, NULL, 0); // waiting for child1 to finish
+	// back to parent
+	i++;
+	pid2 = fork(); //2nd fork for 2nd fct
+	if (pid2 == 0)
+	{ //child pid 2
+		close (fd[1]); //closing writing fd since second  pipe should not read
+		dup2(fd[0], STDIN_FILENO); // duplicates fd[1] to write on a copy only
+		close (fd[0]); // closing reading fd
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	}
+	// back to parent
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(pid2, NULL, 0); // waiting for child2 to finish
+
+	return (0);
+}
 
 int		builtouts(t_data *data, t_commands cmd)
 {
 	pid_t	pid;
 	pid_t	wpid;
 	int		status;
-
-	piping(data);
-	printf("done\n");
+	printf("executing %s\n", cmd.fct.fct_path);
 	pid = fork();
 	if (pid == 0) 
 	{		// Child process
@@ -104,22 +94,27 @@ int	execute(t_data *data)
 	extern char	**environ;
 
 	i = 0;
-	while (i < data->pars.cmd_nbr)
+	if (data->pars.cmd_nbr > 1)
+		piping(data);
+	else
 	{
-		cmd = data->cmds[i];
-		if (cmd.fct.builtin)
+		while (i < data->pars.cmd_nbr)
 		{
-			if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
-				data->is_exit = TRUE;
-			if (!cmd.fct.builtin_ptr(cmd.args))
-				return (0);
+			cmd = data->cmds[i];
+						if (cmd.fct.builtin)
+			{
+				if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+					data->is_exit = TRUE;
+				if (!cmd.fct.builtin_ptr(cmd.args))
+					return (0);
+			}
+			else
+			{
+				if (builtouts(data, cmd) == 0)
+					return (0);
+			}
+			i++;
 		}
-		else
-		{
-			if (builtouts(data, cmd) == 0)
-				return (0);
-		}
-		i++;
 	}
 	return (1);
 }
