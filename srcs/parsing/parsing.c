@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:30:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:32:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	get_argv_size(t_data *data)
 		{
 			while (is_args(data->pars.tks[++i]) && i < data->pars.tk_nbr)
 				data->pars.argv_size[j] += 1;
-			i -= 1;
 			j += 1;
 		}
 	}

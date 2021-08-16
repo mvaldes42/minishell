@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 15:23:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:34:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 
 	k = 0;
 	cmd->args[k] = cmd->fct.name;
-	while (++k < d->pars.argv_size[cmd->id] + 1 && ++i < d->pars.tk_nbr)
+	while (++k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
 		if (tks[i].type == WEAK_WORD)
 			cmd->args[k] = tks[i].trans_weak;

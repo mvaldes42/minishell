@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:58:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:36:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 		if (i == 0)
 			return (-1);
 	}
-	return (i);
+	return (i + 1);
 }
 
 int	input_command_table(t_data *d)
