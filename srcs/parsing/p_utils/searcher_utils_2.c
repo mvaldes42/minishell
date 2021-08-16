@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:16:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,29 +54,29 @@ static void	funct_ext_found(t_parsing *parsing, t_token *token, char *path)
 
 int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 {
-	t_funct_ext	ext;
+	t_funct_ext	e;
 	int			i;
 
 	i = -1;
-	ext.func_name = token->ptr;
+	e.func_name = token->ptr;
 	if (token->type == VARIABLE)
-		ext.func_name = token->trans_var;
-	if (stat(ext.func_name, &ext.statbuf) == 0)
+		e.func_name = token->trans_var;
+	if (stat(e.func_name, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 	{
-		funct_ext_found(parsing, token, ext.func_name);
+		funct_ext_found(parsing, token, e.func_name);
 		return (1);
 	}
 	while (srch->env_path[++i] != NULL)
 	{
-		make_dest_dir(srch, &ext, i);
-		if (ext.dest_dir == NULL)
+		make_dest_dir(srch, &e, i);
+		if (e.dest_dir == NULL)
 			return (0);
-		if (stat(ext.dest_dir, &ext.statbuf) == 0)
+		if (stat(e.dest_dir, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 		{
-			funct_ext_found(parsing, token, ext.dest_dir);
+			funct_ext_found(parsing, token, e.dest_dir);
 			return (1);
 		}
-		ft_free(ext.d_ptr);
+		ft_free(e.d_ptr);
 	}
 	return (0);
 }
