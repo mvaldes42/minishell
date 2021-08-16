@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 18:11:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:27:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,11 +107,6 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 		cmd->fct.builtin = 1;
 		cmd->fct.name = tks[i].ptr;
 		input_cmd_fct_builtin(cmd);
-		if (!ft_strncmp(tks[i].ptr, "echo", 4) && tks[i].echo_opt)
-		{
-			cmd->echo_opt = 1;
-			i++;
-		}
 	}
 	i = cmd_args(d, cmd, tks, i);
 	if (i + 1 < d->pars.tk_nbr && tks[i + 1].redir)
