@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 16:20:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:26:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,9 @@ static void	initialize_env(t_data *data, char **line)
 	extern char	**environ;
 	int			i;
 
-	data->environ = environ;
 	ft_memset(data, 0, sizeof(t_data));
+	data->environ = environ;
+	data->is_exit = FALSE;
 	data->prompt = NULL;
 	line = NULL;
 	(void)line;
@@ -80,16 +81,21 @@ static int	is_line_empty(char *line)
 static void	main_loop(t_data *data, char *line)
 {
 	bool	is_cmd_fail;
+	int		is_exit;
 
+	is_exit = 0;
 	while (line)
 	{
 		is_cmd_fail = 0;
-		if (ft_strncmp(line, "exit", ft_strlen("exit")) == 0)
-			exit_sucess(data, line);
-		if (!is_line_empty(line) || !parsing(data, line) || !execute(data))
+		if (!is_line_empty(line) || !parsing(data, line) || \
+		!execute(data))
 			is_cmd_fail = error_handling();
+		if (data->is_exit)
+			is_exit = 1;
 		clear_data(data);
 		ft_free(line);
+		if (is_exit)
+			break ;
 		if (is_cmd_fail)
 			create_prompt_fail(data);
 		else
@@ -107,5 +113,5 @@ int	main(void)
 	create_prompt(&data);
 	line = readline(data.prompt);
 	main_loop(&data, line);
-	return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 12:09:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:15:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,6 @@
 // while (environ[++i] != NULL)
 // 	ft_free(environ[i]);
 // rl_clear_history();
-
-void	exit_sucess(t_data *data, char *line)
-{
-	clear_data(data);
-	ft_free(line);
-	ft_putstr_fd("Sucess\n", STDERR);
-	exit(EXIT_SUCCESS);
-}
 
 static void	free_tks(t_data *data)
 {

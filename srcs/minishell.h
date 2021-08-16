@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:30:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:22:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_data
 	t_parsing	pars;
 	t_commands	*cmds;
 	char		**environ;
+	bool		is_exit;
 
 }	t_data;
 

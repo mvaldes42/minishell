@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/12 17:26:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 15:24:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	execute(t_data *data)
 		cmd = data->cmds[i];
 		if (cmd.fct.builtin)
 		{
+			if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+				data->is_exit = TRUE;
 			if (!cmd.fct.builtin_ptr(cmd.args))
 				return (0);
 		}
