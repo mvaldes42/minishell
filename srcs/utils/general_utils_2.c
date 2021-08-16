@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 12:09:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 13:45:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	create_prompt_fail(t_data *data)
 int	error_handling(void)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
-	"syntax error near unexpected token", ""};
+	"syntax error near unexpected token", "", "not a valid identifier"};
 	int			i;
 
 	if (errno > 131)

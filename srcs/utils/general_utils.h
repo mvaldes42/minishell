@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 18:28:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 13:45:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef enum e_err_codes
 	CMD_NOT_FOUND = 134,
 	UNEXPECTED_TK = 135,
 	EMPTY_LINE = 136,
+	INV_NAME = 137,
 }	t_err_codes;
 
 typedef struct s_data		t_data;

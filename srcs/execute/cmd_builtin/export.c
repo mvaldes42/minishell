@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:42:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 13:47:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,22 @@ static int	reatribute_var(char **args, char *env_value)
 	return (1);
 }
 
+static int	is_name_valid(char *str)
+{
+	int		i;
+	char	**split;
+
+	split = ft_split(str, '=');
+	i = -1;
+	while (split[0][++i])
+	{
+		if (!((split[0][i] >= 'A' && split[0][i] <= 'Z') || \
+		(split[0][i] >= 'a' && split[0][i] <= 'z') || split[0][i] == '_'))
+			return (0);
+	}
+	return (1);
+}
+
 static int	create_var(char **args)
 {
 	extern char	**environ;
@@ -59,8 +75,11 @@ static int	create_var(char **args)
 
 	p = NULL;
 	size = 0;
+	errno = 137;
 	while (environ[size])
 		size++;
+	if (!is_name_valid(args[1]))
+		return (0);
 	p = malloc(sizeof(char *) * (size + 2));
 	if (!p)
 		return (0);
