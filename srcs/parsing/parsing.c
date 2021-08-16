@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:30:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:30:35 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,6 @@ static int	is_args(t_token tk)
 		return (1);
 	return (0);
 }
-
-// static int	echo_opt(t_data *data, int i)
-// {
-// 	if (!ft_strncmp("echo", data->pars.tks[i].ptr, ft_strlen("echo")) \
-// 	&& i + 1 < data->pars.tk_nbr \
-// 	&& !ft_strncmp("-n", data->pars.tks[i + 1].ptr, ft_strlen("-n")))
-// 	{
-// 		data->pars.tks[i].echo_opt = 1;
-// 		i += 1;
-// 	}
-// 	return (i);
-// }
 
 static void	get_argv_size(t_data *data)
 {
@@ -47,7 +35,6 @@ static void	get_argv_size(t_data *data)
 		if (data->pars.tks[i].type == FUNCTION || \
 		data->pars.tks[i].type == BUILTIN)
 		{
-			// i = echo_opt(data, i);
 			while (is_args(data->pars.tks[++i]) && i < data->pars.tk_nbr)
 				data->pars.argv_size[j] += 1;
 			i -= 1;
