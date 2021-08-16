@@ -6,29 +6,17 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 10:50:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:42:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-static void	free_split(char **split)
+static char	*recreate_old_var(char **args, char *env_value)
 {
-	int	i;
-
-	i = -1;
-	while (split[++i])
-		ft_free(split[i]);
-	free(split);
-}
-
-static int	reatribute_var(char **args, char *env_value)
-{
-	extern char	**environ;
+	char		**split;
 	char		*old_var;
 	int			old_var_s;
-	char		**split;
-	int			i;
 
 	split = ft_split(args[1], '=');
 	old_var_s = ft_strlen(env_value) + ft_strlen("=") + ft_strlen(split[0]) + 1;
@@ -39,6 +27,17 @@ static int	reatribute_var(char **args, char *env_value)
 	ft_strlcat(old_var, split[0], old_var_s);
 	ft_strlcat(old_var, "=", old_var_s);
 	ft_strlcat(old_var, env_value, old_var_s);
+	free_split(split);
+	return (old_var);
+}
+
+static int	reatribute_var(char **args, char *env_value)
+{
+	extern char	**environ;
+	char		*old_var;
+	int			i;
+
+	old_var = recreate_old_var(args, env_value);
 	i = -1;
 	while (environ[++i])
 	{
@@ -48,7 +47,7 @@ static int	reatribute_var(char **args, char *env_value)
 			environ[i] = ft_strdup(args[1]);
 		}
 	}
-	free_split(split);
+	free(old_var);
 	return (1);
 }
 
@@ -66,12 +65,12 @@ static int	create_var(char **args)
 	if (!p)
 		return (0);
 	memmove(p, *environ, size * sizeof(char *));
-	// *environ = p;
 	environ[size] = ft_strdup(args[1]);
 	environ[size + 1] = NULL;
 	free(p);
 	return (1);
 }
+// *environ = p;
 
 int	builtin_export(char **args)
 {

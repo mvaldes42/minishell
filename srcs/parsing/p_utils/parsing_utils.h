@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/10 15:39:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 12:04:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct s_funct_ext
 
 typedef struct s_data		t_data;
 typedef struct s_parsing	t_parsing;
+typedef struct s_commands	t_commands;
 
 int		token_count(const char *s, char c);
 void	special_split_2(t_split *s, const char *str);
@@ -121,6 +122,10 @@ int		free_searcher(t_data *data, t_searcher *srch);
 void	print_lexer_tab(t_parsing	*lx);
 void	print_parsing_tab(t_data *data);
 void	print_cmd_tab(t_data *d);
+
+int		cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i);
+int		cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i);
+void	input_cmd_fct_builtin(t_commands *cmd);
 
 int		input_command_table(t_data *d);
 

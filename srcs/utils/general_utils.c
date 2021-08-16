@@ -6,59 +6,29 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 17:52:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 12:09:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
 
-void	ft_free(void *ptr)
-{
-	if (ptr != NULL)
-	{
-		free(ptr);
-		ptr = NULL;
-	}
-}
+// extern char	**environ;
+// int			i;
 
-int	error_handling(void)
-{
-	static char	*errors[] = {"missing quote", "", "command not found", \
-	"syntax error near unexpected token", ""};
-	int			i;
-
-	if (errno > 131)
-	{
-		i = errno - 131 - 1;
-		if (errno == 133)
-			printf("%s\n", errors[i]);
-		else if (errno == 136)
-			;
-		else
-			printf("minishell: %s\n", errors[i]);
-	}
-	else
-		printf("minishell: %s\n", strerror(errno));
-	// rl_replace_line();
-	return (1);
-}
+// i = -1;
+// while (environ[++i] != NULL)
+// 	ft_free(environ[i]);
+// rl_clear_history();
 
 void	exit_sucess(t_data *data, char *line)
 {
-	// extern char	**environ;
-	// int			i;
-
-	// i = -1;
-	// while (environ[++i] != NULL)
-	// 	ft_free(environ[i]);
 	clear_data(data);
 	ft_free(line);
 	ft_putstr_fd("Sucess\n", STDERR);
-	// rl_clear_history();
 	exit(EXIT_SUCCESS);
 }
 
-void	free_tks(t_data *data)
+static void	free_tks(t_data *data)
 {
 	int	i;
 
@@ -94,42 +64,6 @@ void	clear_data(t_data *data)
 	ft_free(data->cmds);
 	ft_memset(data, 0, sizeof(t_data));
 	errno = 0;
-}
-
-void	create_prompt(t_data *data)
-{
-	char	cwd[256];
-	int		size;
-	char	*arrow;
-	char	*cross;
-
-	arrow = "\033[92m\u27A1\033[0m \033[48;5;57m";
-	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
-	getcwd(cwd, sizeof(cwd));
-	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
-	data->prompt = (char *)malloc(sizeof(char) * size);
-	ft_memset(data->prompt, 0, sizeof(data->prompt));
-	ft_strlcat(data->prompt, arrow, size);
-	ft_strlcat(data->prompt, cwd, size);
-	ft_strlcat(data->prompt, cross, size);
-}
-
-void	create_prompt_fail(t_data *data)
-{
-	char	cwd[256];
-	int		size;
-	char	*arrow;
-	char	*cross;
-
-	arrow = "\033[91m\u27A1\033[0m \033[48;5;57m";
-	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
-	getcwd(cwd, sizeof(cwd));
-	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
-	data->prompt = (char *)malloc(sizeof(char) * size);
-	ft_memset(data->prompt, 0, sizeof(data->prompt));
-	ft_strlcat(data->prompt, arrow, size);
-	ft_strlcat(data->prompt, cwd, size);
-	ft_strlcat(data->prompt, cross, size);
 }
 
 int	char_occu(char *str, char c)

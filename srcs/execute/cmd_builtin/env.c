@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:42:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/13 14:21:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/16 11:37:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,6 @@ int	builtin_env(char **args)
 	(void)args;
 	i = -1;
 	while (environ[++i])
-		printf("%d %s\n", i, environ[i]);
+		printf("%s\n", environ[i]);
 	return (1);
 }

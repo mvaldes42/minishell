@@ -1,9 +1,11 @@
 FILES =	minishell.c\
 		utils/general_utils.c\
+		utils/general_utils_2.c\
 		parsing/parsing.c\
 		parsing/lexer.c\
 		parsing/searcher.c\
 		parsing/command_table.c\
+		parsing/p_utils/cmd_table_utils.c\
 		parsing/p_utils/print_tabs.c\
 		parsing/p_utils/token_split.c\
 		parsing/p_utils/token_count.c\
@@ -19,6 +21,7 @@ FILES =	minishell.c\
 		execute/cmd_builtin/pwd.c\
 		execute/cmd_builtin/unset.c\
 		execute/execute.c\
+		execute/execute_utils.c\
 
 SUB_DIR	=	utils\
 			parsing\
