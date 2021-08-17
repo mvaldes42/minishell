@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 13:47:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:13:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static int	is_name_valid(char *str)
 		(split[0][i] >= 'a' && split[0][i] <= 'z') || split[0][i] == '_'))
 			return (0);
 	}
+	free_split(split);
 	return (1);
 }
 
