@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/26 17:53:35 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:54:18 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,72 @@ void	testos(char **s)
 	}
 }
 
+//for 3 pipes :
+int		piping(t_data *data)
+{
+	int fd[3][2];
+	int j;
+	int i;
+	int pid1;
+	int pid2;
+
+	i = 0;
+	j = -1;
+	while (++j < 3)
+		if (pipe(fd[j]) < 0)
+			return (1); //close opened pipes
+	pid1 = fork(); //a proteger
+//	printf("Executing %s\n", data->cmds[i].fct.fct_path);
+	if (pid1 == 0)
+	{ //child pid 1
+		printf("Executing %s\n", data->cmds[i].fct.fct_path);
+		close(fd[0][1]);
+		close(fd[1][0]);
+		close(fd[2][0]);
+		close(fd[2][1]);
+		dup2(fd[1][1], STDOUT_FILENO); // duplicates fd[1] to write on a copy only
+		close(fd[0][0]);
+		close(fd[1][1]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+
+		return (0);
+	}	
+	i++;
+	pid2 = fork(); //a proteger
+	if (pid2 == 0)
+	{ //child pid 2
+		printf("Executing %s\n", data->cmds[i].fct.fct_path);
+		close(fd[0][0]);
+		close(fd[0][1]);
+		close(fd[1][1]);
+		close(fd[2][0]);
+		dup2(fd[1][0], STDIN_FILENO); // duplicates fd[0] to read on a copy only
+		dup2(fd[2][1], STDOUT_FILENO); // duplicates fd[1] to write on a copy only
+		close(fd[1][0]);
+		close(fd[2][1]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+
+		return (0);
+	}	
+	i++; 
+	//parent pid
+	printf("Executing %s\n", data->cmds[i].fct.fct_path);
+	close(fd[0][0]);
+	close(fd[1][0]);
+	close(fd[1][1]);
+	close(fd[2][1]);
+	dup2(fd[2][0], STDIN_FILENO); // duplicates fd[0] to read on a copy only
+	dup2(fd[0][1], STDOUT_FILENO); // duplicates fd[1] to write on a copy only
+	close(fd[2][0]);
+	close(fd[0][1]);
+	execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+
+
+	waitpid(pid1, NULL, 0);
+	waitpid(pid2, NULL, 0);
+	return (0);
+}
+/*
 int		piping(t_data *data)
 {
 	int	fd[2]; //0 = read, 1 = write
@@ -54,6 +120,7 @@ int		piping(t_data *data)
 		close (fd[1]); //closing writing fd since second  pipe should not read
 		dup2(fd[0], STDIN_FILENO); // duplicates fd[1] to write on a copy only
 		close (fd[0]); // closing reading fd
+//		execute(data);
 		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
 	}
 	// back to parent
@@ -64,7 +131,7 @@ int		piping(t_data *data)
 
 	return (0);
 }
-
+*/
 int		builtouts(t_data *data, t_commands cmd)
 {
 	pid_t	pid;
