@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 16:27:34 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/17 10:59:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int		piping(t_data *data)
 	int	pid1; //process id from the forks
 	int i;
 	int	pid2;
-	
+
 	i = 0;
 	data->pars.cmd_nbr--;
 	testos(data->cmds[i].args);
 
 	if (pipe(fd) == -1) //returns 0 if everything's okay
-		return (0); //should it return a specific ERRNO ? 
+		return (0); //should it return a specific ERRNO ?
 	pid1 = fork(); //first fork
 	if (pid1 == 0)
 	{ //child pid 1
@@ -71,14 +71,14 @@ int		builtouts(t_data *data, t_commands cmd)
 	int		status;
 	printf("executing %s\n", cmd.fct.fct_path);
 	pid = fork();
-	if (pid == 0) 
+	if (pid == 0)
 	{		// Child process
-		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1) 
+		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
 	  		return (0);
-	} 
+	}
 	else if (pid < 0)
 		return (0);
-	else 
+	else
   	{     // Parent process
 		wpid = waitpid(pid, &status, WUNTRACED); //waiting for a status change
 		while (!WIFEXITED(status) && !WIFSIGNALED(status)) //while status is not exit or killed
@@ -140,7 +140,7 @@ main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	if (cpid == 0) {    // Le fils lit dans le tube 
+	if (cpid == 0) {    // Le fils lit dans le tube
 		close(pipefd[1]);  // Ferme l'extrémité d'écriture inutilisée
 
 		while (read(pipefd[0], &buf, 1) > 0)
@@ -150,11 +150,11 @@ main(int argc, char *argv[])
 		close(pipefd[0]);
 		_exit(EXIT_SUCCESS);
 
-	} else {                    // Le père écrit argv[1] dans le tube 
-		close(pipefd[0]);       // Ferme l'extrémité de lecture inutilisée 
+	} else {                    // Le père écrit argv[1] dans le tube
+		close(pipefd[0]);       // Ferme l'extrémité de lecture inutilisée
 		write(pipefd[1], argv[1], strlen(argv[1]));
-		close(pipefd[1]);       // Le lecteur verra EOF 
-		wait(NULL);             // Attente du fils 
+		close(pipefd[1]);       // Le lecteur verra EOF
+		wait(NULL);             // Attente du fils
 		exit(EXIT_SUCCESS);
 	}
 }

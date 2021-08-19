@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 11:46:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/17 11:08:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	builtin_unset(char **args)
 	while (i < size)
 	{
 		split = ft_split(environ[i], '=');
-		if (ft_strncmp(split[0], args[1], ft_strlen(split[0])) == 0)
+		if (split[0] != NULL && \
+		ft_strncmp(split[0], args[1], ft_strlen(split[0])) == 0)
 			i = shift_all_env_var(environ, i, size);
 		free_split(split);
 		i++;
