@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: lou <lou@student.42.fr>                    +#+  +:+       +#+         #
+#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/11 19:32:14 by lou              ###   ########.fr        #
+#    Updated: 2021/08/19 14:15:36 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-CC_FLAGS	=	-Wall -Wextra -Werror
+CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 INC			=	-I $(HEADER) \
 				-lreadline \
 				-L /usr/local/opt/readline/lib \
