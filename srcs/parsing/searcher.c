@@ -19,15 +19,18 @@ static int	search_variables(t_token *token, t_searcher *srch)
 	char	*ptr;
 
 	errno = VAR_NOT_FOUND;
-	if (token->type == VARIABLE)
+	if (token->type == WORD)
+	{
+		if (!weak_word_search(token, srch))
+			return (0);
+	}
+	else if (token->type == VARIABLE)
 	{
 		translated_str = ft_strdup(token->ptr);
 		ptr = translated_str;
 		translated_str++;
 		token->trans_var = getenv(translated_str);
 		ft_free(ptr);
-		// if (token->trans_var == NULL)
-		// 	token->trans_var = NULL;
 	}
 	else if (token->type == WEAK_WORD)
 		if (!weak_word_search(token, srch))
@@ -61,7 +64,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 
 static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
 {
-	if (tk->type == VARIABLE || tk->type == WEAK_WORD)
+	if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
 	{
 		if (!search_variables(tk, srch))
 			return (0);

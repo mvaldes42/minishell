@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/18 14:29:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/20 12:02:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 		{
 			start = i;
 			srch->o_var_len[j] = 1;
-			while (str[i++] && str[i] != VAR && str[i] != SPACE && \
+			while (str[++i] && str[i] != VAR && str[i] != SPACE && \
 			str[i] != S_QUOTE && str[i] != D_QUOTE)
 				srch->o_var_len[j] += 1;
 			srch->tot_o_len += srch->o_var_len[j];
@@ -82,14 +82,17 @@ static int	translated_var_length(t_searcher *srch)
 	return (1);
 }
 
-static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
+static char	*replace_substr(t_searcher *srch, char *str, int dst_size, int type)
 {
 	t_var_replace	v;
 	int				i;
 	int				j;
 
 	i = 0;
-	j = 1;
+	if (type == WORD)
+		j = 0;
+	else
+		j = 1;
 	v.var_nb = 0;
 	v.dest = malloc(sizeof(char *) * (dst_size));
 	while (i < dst_size && str[j] != '\0')
@@ -117,9 +120,19 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 	srch->nbr_var = count_variables(o_s);
 	original_var_length(o_s, srch);
 	translated_var_length(srch);
-	srch->t_token_len = ft_strlen(o_s) - 2 \
+	if (token->type == WORD)
+	{
+		srch->t_token_len = ft_strlen(o_s) \
 	- srch->tot_o_len + srch->tot_t_len;
-	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len);
+	}
+	else
+	{
+		srch->t_token_len = ft_strlen(o_s) - 2 \
+		- srch->tot_o_len + srch->tot_t_len;
+	}
+	token->trans_weak = replace_substr(srch, o_s, srch->t_token_len, token->type);
+	printf("token->trans_weak: %zu, srch->tot_o_len: %zu, srch->tot_t_len: %zu\n", srch->t_token_len, srch->tot_o_len, srch->tot_t_len);
+	printf("token->trans_weak: %s\n", token->trans_weak);
 	ft_free(o_s);
 	free_srch_struct(srch);
 	return (1);
