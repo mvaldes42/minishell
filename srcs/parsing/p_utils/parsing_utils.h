@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/20 11:33:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/20 14:12:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef enum e_tk_types
 	STRONG_WORD = 10,
 	FUNCTION = 11,
 	BUILTIN = 12,
+	WORD_VAR = 13,
 }	t_tk_types;
 
 typedef struct s_token

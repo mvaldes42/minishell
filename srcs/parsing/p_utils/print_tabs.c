@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/19 14:57:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/20 14:17:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_parsing_tab(t_data *data)
 	char		*translated_word;
 	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
-	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN"};
+	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN", "WORD & VAR"};
 
 	lx = &data->pars;
 	i = 0;
@@ -87,7 +87,8 @@ void	print_parsing_tab(t_data *data)
 		translated_word = NULL;
 		if (lx->tks[i].type == VARIABLE)
 			translated_word = ft_strdup(lx->tks[i].trans_var);
-		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS)
+		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS\
+		|| lx->tks[i].type == WORD_VAR)
 			translated_word = ft_strdup(lx->tks[i].trans_weak);
 		printf("| %-*s | %-13s | %s\n", max_len, lx->tks[i].ptr, \
 		tk_t_name[lx->tks[i].type], translated_word);
@@ -99,7 +100,8 @@ void	print_parsing_tab(t_data *data)
 		printf("\n");
 		if (lx->tks[i].type == VARIABLE)
 			ft_free(translated_word);
-		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS)
+		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS\
+		|| lx->tks[i].type == WORD_VAR)
 			ft_free(translated_word);
 		i++;
 	}
