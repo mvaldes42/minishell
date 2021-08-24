@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 13:45:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/24 16:37:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	create_prompt_fail(t_data *data)
 	ft_strlcat(data->prompt, arrow, size);
 	ft_strlcat(data->prompt, cwd, size);
 	ft_strlcat(data->prompt, cross, size);
+	rl_replace_line();
 }
 
 int	error_handling(void)
