@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/20 14:21:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/24 15:01:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size, int type)
 	else
 		j = 1;
 	v.var_nb = 0;
+	if (dst_size <= 0)
+		return (NULL);
 	v.dest = malloc(sizeof(char *) * (dst_size));
 	while (i < dst_size && str[j] != '\0')
 	{
@@ -127,6 +129,8 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 		srch->t_token_len = ft_strlen(s) - 2 \
 		- srch->tot_o_len + srch->tot_t_len;
 	token->trans_weak = replace_substr(srch, s, srch->t_token_len, token->type);
+	if (!token->trans_weak)
+		return (0);
 	ft_free(s);
 	free_srch_struct(srch);
 	return (1);

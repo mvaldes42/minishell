@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/19 14:15:36 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/08/24 14:27:00 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,10 @@ RM			=	/bin/rm -rf
 CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 INC			=	-I $(HEADER) \
 				-lreadline \
-				-L /usr/local/opt/readline/lib \
-				-I /usr/local/opt/readline/include
-				# -L /Users/$(USER)/.brew/opt/readline/lib \
-				# -I /Users/$(USER)/.brew/opt/readline/include \
+				# -L /usr/local/opt/readline/lib \
+				# -I /usr/local/opt/readline/include
+				# # -L /Users/$(USER)/.brew/opt/readline/lib \
+				# # -I /Users/$(USER)/.brew/opt/readline/include \
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
