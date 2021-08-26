@@ -3,17 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-<<<<<<< HEAD
-#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/19 14:15:36 by mvaldes          ###   ########.fr        #
-=======
 #    By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/26 17:51:04 by fcavillo         ###   ########.fr        #
->>>>>>> wip
+#    Updated: 2021/08/26 17:55:48 by fcavillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,11 +20,7 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-<<<<<<< HEAD
-CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address
-=======
 CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
->>>>>>> wip
 INC			=	-I $(HEADER) \
 				-lreadline \
 				-L /usr/local/opt/readline/lib \
