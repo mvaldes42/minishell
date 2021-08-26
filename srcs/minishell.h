@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/19 14:46:58 by mvaldes          ###   ########.fr       */
+=======
+/*   Updated: 2021/08/24 14:23:11 by fcavillo         ###   ########.fr       */
+>>>>>>> pipes waitpid
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +78,7 @@ typedef struct s_data
 	t_commands	*cmds;
 	char		**environ;
 	bool		is_exit;
+	
 
 }	t_data;
 

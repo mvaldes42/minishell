@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/26 17:55:03 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/26 17:55:09 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ int	execute(t_data *data)
 	extern char	**environ;
 		
 	i = 0;
-	if (data->pars.cmd_nbr > 1)
+	if (data->pars.cmd_nbr > 2)
 		piping(data, data->pars.cmd_nbr);
 	else
 	{
