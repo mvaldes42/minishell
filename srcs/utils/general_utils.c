@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 15:15:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:31:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ void	clear_data(t_data *data)
 		i++;
 	}
 	ft_free(data->cmds);
-	ft_memset(data, 0, sizeof(t_data));
+	ft_memset(&data->pars, 0, sizeof(t_parsing));
+	ft_memset(data->cmds, 0, sizeof(t_commands));
+	data->is_exit = 0;
 	errno = 0;
 }
 

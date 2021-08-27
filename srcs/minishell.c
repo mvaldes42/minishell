@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 17:20:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:32:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,16 @@ static void	initialize_env(t_data *data, char **line)
 		data->environ[i] = ft_strdup(environ[i]);
 		i++;
 	}
-	printf("i = %d, size= %d\n", i, size);
-	data->environ[size] = "\0";
+	data->environ[size] = NULL;
 }
 
 void	free_environ(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (data->environ[i])
-		ft_free(data->environ[i++]);
+	i = -1;
+	while (data->environ[++i])
+		ft_free(data->environ[i]);
 	ft_free(data->environ);
 }
 
