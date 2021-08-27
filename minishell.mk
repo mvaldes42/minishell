@@ -22,6 +22,7 @@ FILES =	minishell.c\
 		execute/cmd_builtin/unset.c\
 		execute/execute.c\
 		execute/execute_utils.c\
+		execute/pipes.c\
 
 SUB_DIR	=	utils\
 			parsing\

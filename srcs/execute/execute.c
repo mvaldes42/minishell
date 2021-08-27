@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 18:33:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:35:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,124 @@
 void	testos(char **s)
 {
 	int i = 0;
-	while (i < 3)
+
+	while (s[i])
 	{
 		printf("TESTOS : %d = %s\n", i, s[i]);
 		i++;
 	}
 }
+/*
+int		piping(t_data data)
+{
+	int	pipe_nb;
+	int	fd[data.pars.cmd_nbr - 1][2];
+	int	pid_grandma;
 
-int		piping(t_data *data)
+	pipe_nb = data.pars.cmd_nbr - 1;
+	while (pipe_nb >= 0) // = or not ?
+		if (pipe(fd[pipe_nb]) < 0)
+			return (1);
+	pid_grandma = fork();
+	if (pid_grandma == 0)
+	{
+
+	}
+	waitpid(pid_grandma, NULL, 0);
+	return (0);
+}*/
+//for 3 pipes : DOES WORK
+int		piping3(t_data *data)
+{
+	int fd[3][2];
+	int j;
+	int i;
+	int pid1;
+	int pid2;
+	int pid1_2;
+	int pid2_2;
+
+	i = 0;
+	j = -1;
+	while (++j < 4)
+		if (pipe(fd[j]) < 0)
+			return (1); //close opened pipes
+	pid2_2 = fork();
+	if (pid2_2 == 0)
+	{
+		printf("Executing 4 %s, i = %d\n", data->cmds[i].fct.fct_path, i);
+		close(fd[0][0]);
+		close(fd[1][0]);
+		close(fd[1][1]);
+		close(fd[2][1]);
+		close(fd[2][0]);
+		dup2(fd[0][1], STDOUT_FILENO); // duplicates fd[0] to read on a copy only
+		close(fd[0][1]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	}
+	pid1 = fork(); //a proteger
+	if (pid1 == 0)
+	{ //child pid 1
+		i = 1;
+		printf("Executing 1 %s with arg %s, i = %d\n", data->cmds[i].fct.fct_path, data->cmds[i].args[1], i);
+		close(fd[0][1]);
+		close(fd[1][0]);
+		close(fd[2][0]);
+		close(fd[2][1]);
+		dup2(fd[0][0], STDIN_FILENO);
+		dup2(fd[1][1], STDOUT_FILENO);
+		close(fd[0][0]);
+		close(fd[1][1]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	}
+	pid1_2 = fork(); //a proteger
+	if (pid1_2 == 0)
+	{ //child pid 1_2
+		i = 2;
+		printf("Executing 2 %s with arg %s, i = %d\n", data->cmds[i].fct.fct_path, data->cmds[i].args[1], i);
+		close(fd[0][1]);
+		close(fd[0][0]);
+		close(fd[2][0]);
+		close(fd[1][1]);
+		dup2(fd[1][0], STDIN_FILENO);
+		dup2(fd[2][1], STDOUT_FILENO);
+		close(fd[1][0]);
+		close(fd[2][1]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	}
+	pid2 = fork(); //a proteger
+	if (pid2 == 0)
+	{ //child pid 2
+		i = 3;
+		printf("Executing 3 %s with arg %s, i = %d\n", data->cmds[i].fct.fct_path, data->cmds[i].args[1], i);
+		close(fd[0][0]);
+		close(fd[0][1]);
+		close(fd[1][1]);
+		close(fd[1][0]);
+		close(fd[2][1]);
+		dup2(fd[2][0], STDIN_FILENO);
+//		dup(STDOUT_FILENO); // duplicates fd[1] to write on a copy only
+		close(fd[2][0]);
+		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	}
+	//parent pid
+
+	close(fd[0][0]);
+	close(fd[0][1]);
+	close(fd[1][1]);
+	close(fd[1][0]);
+	close(fd[2][0]);
+	close(fd[2][1]);
+
+	waitpid(pid2_2, NULL, 0);
+	waitpid(pid1, NULL, 0);
+	waitpid(pid1_2, NULL, 0);
+	waitpid(pid2, NULL, 0);
+
+	return (0);
+}
+
+int		piping2(t_data *data)
 {
 	int	fd[2]; //0 = read, 1 = write
 	int	pid1; //process id from the forks
@@ -32,7 +142,7 @@ int		piping(t_data *data)
 
 	i = 0;
 	data->pars.cmd_nbr--;
-	testos(data->cmds[i].args);
+//	testos(data->cmds[i].args);
 
 	if (pipe(fd) == -1) //returns 0 if everything's okay
 		return (0); //should it return a specific ERRNO ?
@@ -42,10 +152,9 @@ int		piping(t_data *data)
 		close (fd[0]); //closing reading fd since first pipe should not read
 		dup2(fd[1], STDOUT_FILENO); // duplicates fd[1] to write on a copy only
 		close (fd[1]); // closing writing fd
-//		testos(data->cmds[i].args);
+//		execute(data);
 		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
 	}
-	waitpid(pid1, NULL, 0); // waiting for child1 to finish
 	// back to parent
 	i++;
 	pid2 = fork(); //2nd fork for 2nd fct
@@ -54,11 +163,13 @@ int		piping(t_data *data)
 		close (fd[1]); //closing writing fd since second  pipe should not read
 		dup2(fd[0], STDIN_FILENO); // duplicates fd[1] to write on a copy only
 		close (fd[0]); // closing reading fd
+//		execute(data);
 		execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
 	}
 	// back to parent
 	close(fd[0]);
 	close(fd[1]);
+	waitpid(pid1, NULL, 0); // waiting for child1 to finish
 	waitpid(pid2, NULL, 0); // waiting for child2 to finish
 
 	return (0);
@@ -94,14 +205,16 @@ int	execute(t_data *data)
 	extern char	**environ;
 
 	i = 0;
-	if (data->pars.cmd_nbr > 1)
-		piping(data);
+	if (data->pars.cmd_nbr >= 2)
+	{
+		piping(data, data->pars.cmd_nbr);
+	}
 	else
 	{
 		while (i < data->pars.cmd_nbr)
 		{
 			cmd = data->cmds[i];
-						if (cmd.fct.builtin)
+			if (cmd.fct.builtin)
 			{
 				if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 					data->is_exit = TRUE;
