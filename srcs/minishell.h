@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/19 14:46:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 12:05:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include "parsing/p_utils/parsing_utils.h"
 # include "utils/general_utils.h"
 # include "execute/execute.h"
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <stddef.h>
-# include <stdio.h>
 # include <string.h>
 # include <stddef.h>
 # include <stdbool.h>

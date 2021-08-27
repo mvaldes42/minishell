@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/24 16:45:15 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/08/27 17:02:54 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,13 +20,11 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address
+CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 INC			=	-I $(HEADER) \
-				-lreadline \
-				-L /Users/$(USER)/.brew/opt/readline/lib \
-				-I /Users/$(USER)/.brew/opt/readline/include
-				# -L /Users/$(USER)/.brew/opt/readline/lib \
-				# -I /Users/$(USER)/.brew/opt/readline/include
+				-lreadline -L/usr/local/opt/readline/lib
+#				-L /Users/$(USER)/.brew/opt/readline/lib \
+#				-I /Users/$(USER)/.brew/opt/readline/include\
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
@@ -39,12 +37,12 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIBFT_F)
-			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
+			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) -o $(NAME)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	    	@$(CC) $(CC_FLAGS) -c $< -o $@
+	    	@$(CC) -I/usr/local/opt/readline/include $(CC_FLAGS) -c $< -o $@
 
 $(OBJS_DIR):
 		@mkdir -p $@

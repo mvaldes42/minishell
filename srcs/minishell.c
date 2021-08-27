@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 15:26:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 17:20:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,34 @@ static void	initialize_env(t_data *data, char **line)
 {
 	extern char	**environ;
 	int			i;
+	int			size;
 
 	ft_memset(data, 0, sizeof(t_data));
-	data->environ = environ;
 	data->is_exit = FALSE;
 	data->prompt = NULL;
 	line = NULL;
-	(void)line;
-	i = -1;
-	while (environ[++i])
-		environ[i] = ft_strdup(environ[i]);
+	size = -1;
+	while (environ[++size])
+		;
+	data->environ = malloc(sizeof(char *) * (size + 1));
+	i = 0;
+	while (i < size)
+	{
+		data->environ[i] = ft_strdup(environ[i]);
+		i++;
+	}
+	printf("i = %d, size= %d\n", i, size);
+	data->environ[size] = "\0";
+}
+
+void	free_environ(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (data->environ[i])
+		ft_free(data->environ[i++]);
+	ft_free(data->environ);
 }
 
 static int	is_line_empty(char *line)
@@ -96,10 +114,7 @@ static void	main_loop(t_data *data, char *line)
 		ft_free(line);
 		if (is_exit)
 			break ;
-		if (is_cmd_fail)
-			create_prompt_fail(data);
-		else
-			create_prompt(data);
+		create_prompt(data, is_cmd_fail);
 		line = readline(data->prompt);
 	}
 }
@@ -110,8 +125,9 @@ int	main(void)
 	char		*line;
 
 	initialize_env(&data, &line);
-	create_prompt(&data);
+	create_prompt(&data, 0);
 	line = readline(data.prompt);
 	main_loop(&data, line);
+	rl_clear_history();
 	return (1);
 }
