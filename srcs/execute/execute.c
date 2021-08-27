@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 18:31:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:33:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,7 @@ int	execute(t_data *data)
 						if (cmd.fct.builtin)
 			{
 				if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
-				{
-					free_environ(data);
 					data->is_exit = TRUE;
-				}
 				if (!cmd.fct.builtin_ptr(cmd.args))
 					return (0);
 			}
