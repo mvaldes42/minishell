@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/19 15:02:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:44:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
-	errno = 134;
+	errno = CMD_NOT_FOUND;
 	cmd->fct.name = tks[i].ptr;
 	if (tks[i].type == FUNCTION)
 		cmd->fct.fct_path = tks[i].tk_fct_path;

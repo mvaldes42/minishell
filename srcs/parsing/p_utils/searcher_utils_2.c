@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/17 11:20:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 18:51:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	free_searcher(t_data *data, t_searcher *srch)
 {
 	int	i;
 
-	errno = 134;
+	errno = CMD_NOT_FOUND;
 	i = 0;
 	while (srch->env_path != NULL && srch->env_path[i])
 		ft_free(srch->env_path[i++]);
