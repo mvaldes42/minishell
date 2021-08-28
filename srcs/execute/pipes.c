@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/08/26 18:03:21 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/28 19:14:10 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 
 // pipe apres les forks
+
 
 
 int pipe_first(t_data *data, int cmd_nb, int **fd)
@@ -29,7 +30,8 @@ int pipe_first(t_data *data, int cmd_nb, int **fd)
 	}
 	dup2(fd[0][1], STDOUT_FILENO);
 	close(fd[0][1]);
-	execve(data->cmds[0].fct.fct_path, data->cmds[0].args, data->environ);
+	execute_one(data, 0);
+//	execve(data->cmds[0].fct.fct_path, data->cmds[0].args, data->environ);
 	return (0);
 }
 
@@ -56,7 +58,8 @@ int pipe_middle(t_data *data, int idx, int cmd_nb, int **fd)
 	dup2(fd[idx][1], STDOUT_FILENO);
 	close(fd[idx - 1][0]);
 	close(fd[idx][1]);
-	execve(data->cmds[idx].fct.fct_path, data->cmds[idx].args, data->environ);
+	execute_one(data, idx);
+//	execve(data->cmds[idx].fct.fct_path, data->cmds[idx].args, data->environ);
 	return (0);
 }
 
@@ -74,7 +77,8 @@ int pipe_last(t_data *data, int cmd_nb, int **fd)
 	dup2(fd[i][0], STDIN_FILENO);
 	close(fd[i][0]);
 	i++;
-	execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
+	execute_one(data, i);
+//	execve(data->cmds[i].fct.fct_path, data->cmds[i].args, data->environ);
 	return (0);	
 }
 
@@ -85,7 +89,8 @@ int piping(t_data *data, int cmd_nb)
 	int j;
 	int idx;
 
-	fd = malloc(sizeof(int*) * cmd_nb);
+	if (!(fd = malloc(sizeof(int*) * cmd_nb)))
+		return (0);
 	idx = cmd_nb - 2;
 	while (idx >= 0)
 	{
