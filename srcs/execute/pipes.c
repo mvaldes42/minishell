@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/08/28 19:14:10 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/30 14:11:22 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 
 // pipe apres les forks
-
-
 
 int pipe_first(t_data *data, int cmd_nb, int **fd)
 {
