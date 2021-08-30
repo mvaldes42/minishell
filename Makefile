@@ -22,9 +22,9 @@ CC			=	gcc
 RM			=	/bin/rm -rf
 CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 INC			=	-I $(HEADER) \
-				-lreadline -L/usr/local/opt/readline/lib
-#				-L /Users/$(USER)/.brew/opt/readline/lib \
-#				-I /Users/$(USER)/.brew/opt/readline/include\
+				-lreadline \
+				-L/Users/$(USER)/.brew/opt/readline/lib
+#				-L/usr/local/opt/readline/lib
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
@@ -42,7 +42,10 @@ $(NAME):	$(OBJS) $(HEADER)
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	    	@$(CC) -I/usr/local/opt/readline/include $(CC_FLAGS) -c $< -o $@
+	    	@$(CC)\
+			-I/Users/$(USER)/.brew/opt/readline/include \
+			$(CC_FLAGS) -c $< -o $@
+#			-I/usr/local/opt/readline/include
 
 $(OBJS_DIR):
 		@mkdir -p $@
