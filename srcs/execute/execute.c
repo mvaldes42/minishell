@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 16:31:00 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:09:16 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	execute_one(t_data *data, int i)
 	{
 		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 			data->is_exit = TRUE;
-		if (!cmd.fct.builtin_ptr(cmd.args))
+		if (!cmd.fct.builtin_ptr(cmd.args, data->environ))
 			return (0);
 	}
 	else

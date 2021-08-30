@@ -59,12 +59,8 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 
 static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
 {
-	if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
-	{
-		if (!search_variables(tk, srch))
-			return (0);
-		search_functions(d, tk, srch);
-	}
+	(void)d;
+	(void)srch;
 	if (tk->type == EXIT_STS)
 		tk->trans_weak = ft_strdup("exit_status(do do later)");
 	return (1);
@@ -115,6 +111,14 @@ int	searcher(t_data *d)
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
+		if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
+		{
+			if (!search_variables(tk, &s))
+				return (0);
+			if (tk->type == WORD && \
+			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
+				search_functions(d, tk, &s);
+		}
 		if (!searcher_bis(d, tk, &s))
 			error = 1;
 	}
