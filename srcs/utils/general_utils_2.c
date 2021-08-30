@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 13:45:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 16:48:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,20 @@ void	ft_free(void *ptr)
 	}
 }
 
-void	create_prompt(t_data *data)
+void	create_prompt(t_data *data, int fail)
 {
 	char	cwd[256];
 	int		size;
-	char	*arrow;
 	char	*cross;
-
-	arrow = "\033[92m\u27A1\033[0m \033[48;5;57m";
-	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
-	getcwd(cwd, sizeof(cwd));
-	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
-	data->prompt = (char *)malloc(sizeof(char) * size);
-	ft_memset(data->prompt, 0, sizeof(data->prompt));
-	ft_strlcat(data->prompt, arrow, size);
-	ft_strlcat(data->prompt, cwd, size);
-	ft_strlcat(data->prompt, cross, size);
-}
-
-void	create_prompt_fail(t_data *data)
-{
-	char	cwd[256];
-	int		size;
 	char	*arrow;
-	char	*cross;
 
-	arrow = "\033[91m\u27A1\033[0m \033[48;5;57m";
-	cross = "\033[0m \033[38;5;11m\u2613\033[0m ";
+	cross = P_ESC_SEQ " " RL_S "\033[38;5;11m" RL_E "\u2613" P_ESC_SEQ " ";
+	if (fail)
+		arrow = RL_S "\033[91m" RL_E "\u27A1" P_ESC_SEQ " " \
+		RL_S "\033[48;5;57m" RL_E;
+	else
+		arrow = RL_S "\033[92m" RL_E "\u27A1" P_ESC_SEQ " " \
+		RL_S "\033[48;5;57m" RL_E;
 	getcwd(cwd, sizeof(cwd));
 	size = ft_strlen(cwd) + ft_strlen(arrow) + ft_strlen(cross) + 1;
 	data->prompt = (char *)malloc(sizeof(char) * size);

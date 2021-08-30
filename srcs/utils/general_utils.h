@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 13:45:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/27 16:49:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,10 @@
 # define GENERAL_UTILS_H
 
 # include "../minishell.h"
+
+# define RL_S "\1"
+# define RL_E "\2"
+# define P_ESC_SEQ "\1\033[0m\2"
 
 typedef enum e_err_codes
 {
@@ -29,10 +33,9 @@ typedef struct s_data		t_data;
 
 void		ft_free(void *ptr);
 int			error_handling(void);
-void		exit_sucess(t_data *data, char *line);
 void		clear_data(t_data *data);
-void		create_prompt(t_data *data);
-void		create_prompt_fail(t_data *data);
+void		create_prompt(t_data *data, int fail);
 int			char_occu(char *str, char c);
+void		free_environ(t_data *data);
 
 #endif

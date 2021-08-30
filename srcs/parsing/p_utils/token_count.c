@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/11 14:45:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/20 11:35:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	word_case_count(char **dup, char c, int count)
 {
 	while (**dup && **dup != c && **dup != S_QUOTE && **dup != D_QUOTE && **dup \
-	!= PIPE_C && **dup != R_IN && **dup != R_OUT && **dup != VAR)
+	!= PIPE_C && **dup != R_IN && **dup != R_OUT)
 		*dup += 1;
 	count++;
 	return (count);
@@ -66,26 +66,26 @@ static int	redir_case_count(char **dup, int count)
 
 int	token_count(const char *s, char c)
 {
-	char			*dup;
+	char			*str;
 	unsigned int	count;
 	char			*ptr;
 
 	count = 0;
-	dup = ft_strdup(s);
-	ptr = dup;
-	while (*dup)
+	str = ft_strdup(s);
+	ptr = str;
+	while (*str)
 	{
-		while (*dup && *dup == c)
-			dup++;
-		if (*dup && *dup != c && *dup != S_QUOTE && *dup != D_QUOTE && \
-		*dup != PIPE_C && *dup != R_IN && *dup != R_OUT && *dup != VAR)
-			count = word_case_count(&dup, c, count);
-		else if (*dup && (*dup == S_QUOTE || *dup == D_QUOTE))
-			count = quotes_case_count(&dup, count);
-		else if (*dup && (*dup == PIPE_C || *dup == VAR))
-			count = spe_case_count(&dup, c, count);
-		else if (*dup && (*dup == R_IN || *dup == R_OUT))
-			count = redir_case_count(&dup, count);
+		while (*str && *str == c)
+			str++;
+		if (*str && *str != c && *str != S_QUOTE && *str != D_QUOTE && \
+		*str != PIPE_C && *str != R_IN && *str != R_OUT)
+			count = word_case_count(&str, c, count);
+		else if (*str && (*str == S_QUOTE || *str == D_QUOTE))
+			count = quotes_case_count(&str, count);
+		else if (*str && (*str == PIPE_C || *str == VAR))
+			count = spe_case_count(&str, c, count);
+		else if (*str && (*str == R_IN || *str == R_OUT))
+			count = redir_case_count(&str, count);
 		if (count == 0)
 			break ;
 	}

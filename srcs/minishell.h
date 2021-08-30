@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/26 17:56:09 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/30 11:39:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 # include "parsing/p_utils/parsing_utils.h"
 # include "utils/general_utils.h"
 # include "execute/execute.h"
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <signal.h>
 # include <stddef.h>
-# include <stdio.h>
 # include <string.h>
 # include <stddef.h>
 # include <stdbool.h>
@@ -74,8 +74,6 @@ typedef struct s_data
 	t_commands	*cmds;
 	char		**environ;
 	bool		is_exit;
-	
-
 }	t_data;
 
 int		parsing(t_data *data, char *line);

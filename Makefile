@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/26 17:55:48 by fcavillo         ###   ########.fr        #
+#    Updated: 2021/08/27 18:35:28 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,10 +23,8 @@ RM			=	/bin/rm -rf
 CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 INC			=	-I $(HEADER) \
 				-lreadline \
-				-L /usr/local/opt/readline/lib \
-				-I /usr/local/opt/readline/include
-				# -L /Users/$(USER)/.brew/opt/readline/lib \
-				# -I /Users/$(USER)/.brew/opt/readline/include \
+				-L/Users/$(USER)/.brew/opt/readline/lib
+#				-L/usr/local/opt/readline/lib
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
@@ -39,12 +37,15 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIBFT_F)
-			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) $(GNL) -o $(NAME)
+			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) -o $(NAME)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
 $(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	    	@$(CC) $(CC_FLAGS) -c $< -o $@
+	    	@$(CC)\
+			-I/Users/$(USER)/.brew/opt/readline/include \
+			$(CC_FLAGS) -c $< -o $@
+#			-I/usr/local/opt/readline/include
 
 $(OBJS_DIR):
 		@mkdir -p $@
