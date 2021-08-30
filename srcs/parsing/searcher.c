@@ -59,13 +59,6 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 
 static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
 {
-//	if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
-//	{
-//		if (!search_variables(tk, srch))
-//			return (0);
-//		if (tk->type == WORD && )
-//		search_functions(d, tk, srch);
-//	}
 	(void)d;
 	(void)srch;
 	if (tk->type == EXIT_STS)
