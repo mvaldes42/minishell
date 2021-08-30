@@ -12,14 +12,6 @@
 
 #include "general_utils.h"
 
-// extern char	**environ;
-// int			i;
-
-// i = -1;
-// while (environ[++i] != NULL)
-// 	ft_free(environ[i]);
-// rl_clear_history();
-
 static void	free_tks(t_data *data)
 {
 	int	i;
@@ -53,7 +45,8 @@ void	clear_data(t_data *data)
 		ft_free(data->cmds[i].redirs);
 		i++;
 	}
-	ft_free(data->cmds);
+	if (data->pars.cmd_nbr)
+		ft_free(data->cmds);
 	ft_memset(&data->pars, 0, sizeof(t_parsing));
 	ft_memset(data->cmds, 0, sizeof(t_commands));
 	data->is_exit = 0;

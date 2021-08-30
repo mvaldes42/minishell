@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 18:51:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 12:03:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
 {
 	int			size;
 
-	size = sizeof(char) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
+	size = sizeof(char *) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
 	ft_strlen(ext->func_name) + 1);
 	ext->dest_dir = (char *)malloc(size);
-	memset(ext->dest_dir, 0, sizeof(&ext->dest_dir));
+	memset(ext->dest_dir, 0, sizeof(char *));
 	ext->d_ptr = ext->dest_dir;
 	ft_strlcat(ext->dest_dir, srch->env_path[i], size);
 	ft_strlcat(ext->dest_dir, "/\0", size);
@@ -39,7 +39,6 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	t_funct_ext	e;
 	int			i;
 
-	i = -1;
 	e.func_name = token->ptr;
 	if (token->type == VARIABLE)
 		e.func_name = token->trans_var;
@@ -48,6 +47,7 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 		funct_ext_found(parsing, token, e.func_name);
 		return (1);
 	}
+	i = -1;
 	while (srch->env_path != NULL && srch->env_path[++i] != NULL)
 	{
 		make_dest_dir(srch, &e, i);

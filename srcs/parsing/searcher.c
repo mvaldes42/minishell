@@ -112,19 +112,11 @@ int	searcher(t_data *d)
 	while (++i < d->pars.tk_nbr)
 	{
 		tk = &d->pars.tks[i];
-		printf("i: %d\n", i);
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
 		if (!searcher_bis(d, tk, &s))
 			error = 1;
-		else if (tk->type == WORD && \
-		(i == 0 || d->pars.tks[i - 1].type == PIPE))
-		{
-			printf("ok\n");
-			if (!search_functions(d, tk, &s))
-				error = 1;
-		}
 	}
 	if (!free_searcher(d, &s) || error)
 		return (0);
