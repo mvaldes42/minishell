@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:17:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 16:42:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	is_name_valid(char *str)
 	return (1);
 }
 
-static int	create_var(char **args)
+static int	create_var(char **args, char **environ_var)
 {
 	extern char	**environ;
 	char		*p;
@@ -77,6 +77,8 @@ static int	create_var(char **args)
 	p = NULL;
 	size = 0;
 	errno = 137;
+	(void)environ_var;
+//	free()
 	while (environ[size])
 		size++;
 	if (!is_name_valid(args[1]))
@@ -98,17 +100,23 @@ int	builtin_export(char **args, char **environ_var)
 	char		*env_value;
 
 	i = -1;
+	env_value = NULL;
 	if (args[1] == NULL)
 		while (environ_var[++i])
 			printf("declare -x %s\n", environ_var[i]);
-	env_value = getenv(args[1]);
+	i = -1;
+	while (environ_var[++i])
+	{
+		if (ft_strncmp(args[1], environ_var[i], ft_strlen(environ_var[i])) == 0)
+			env_value = environ_var[i];
+	}
 	if (env_value != NULL)
 	{
 		if (!reatribute_var(args, env_value))
 			return (0);
 	}
 	else if (env_value == NULL)
-		if (!create_var(args))
+		if (!create_var(args, environ_var))
 			return (0);
 	return (1);
 }
