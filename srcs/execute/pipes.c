@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/08/30 14:11:22 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:05:22 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,21 +103,30 @@ int piping(t_data *data, int cmd_nb)
 		}
 	}
 	idx = 0;
-
-	pid[0] = fork(); // a proteger
+//	pid[idx] = ft_fork(data, idx, &pid[idx]);
+	pid[0] = 0;
+	if (!data->cmds[idx].fct.builtin)
+		pid[idx] = fork();
 	if (pid[0] == 0)
 		pipe_first(data, cmd_nb, fd);
 	idx = 1;
 	while (idx < cmd_nb - 1)
 	{
-		pid[idx] = fork();
+//		pid[idx] = ft_fork(data, idx, &pid[idx]);
+		pid[idx] = 0;
+		if (!data->cmds[idx].fct.builtin)
+			pid[idx] = fork();
 		if (pid[idx] == 0)
 			pipe_middle(data, idx, cmd_nb, fd);
 		idx++;
 	}
-	pid[idx] = fork();
+//	pid[idx] = ft_fork(data, idx, &pid[idx]);
+	pid[idx] = 0;
+	if (!data->cmds[idx].fct.builtin)
+		pid[idx] = fork();
 	if (pid[idx] == 0)
 		pipe_last(data, cmd_nb, fd);
+
 	j = idx;
 	idx--;
 	while(idx >= 0)

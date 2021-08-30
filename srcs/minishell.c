@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 18:33:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 14:39:29 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ static void	main_loop(t_data *data, char *line)
 			is_cmd_fail = error_handling();
 		if (data->is_exit)
 			is_exit = 1;
+		printf("%d\n", data->is_exit);
 		clear_data(data);
 		ft_free(line);
 		if (is_exit)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 12:20:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 16:31:00 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,25 @@
 #include "../minishell.h"
 
 //handle all errors
+
+/*
+** checks wether the function is a builtin -> no fork
+** or a builtout -> fork
+*/
+
+int	ft_fork(t_data *data, int i, pid_t *pid)
+{
+	if (!data->cmds[i].fct.builtin)
+	{
+			printf("builtout\n");
+			pid[i] = fork();
+			return (pid[i]);
+	}
+	printf("builtin\n");
+	return (0);
+}
+
+/*executes a builtin if it is, a builtout if it is not*/
 
 int	execute_one(t_data *data, int i)
 {
@@ -45,10 +64,15 @@ int	execute(t_data *data)
 	}
 	else
 	{
-		pid = fork();
-		if (pid == 0)
+		if (!data->cmds[0].fct.builtin)
+		{
+			pid = fork();
+			if (pid == 0)
+				execute_one(data, 0);
+			waitpid(pid, NULL, 0);
+		}
+		else
 			execute_one(data, 0);
-		waitpid(pid, NULL, 0);
 	}
 	return (1);
 }
