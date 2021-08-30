@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 16:42:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 17:44:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,55 +68,68 @@ static int	is_name_valid(char *str)
 	return (1);
 }
 
-static int	create_var(char **args, char **environ_var)
+static int	create_var(char **args, char ***environ_var)
 {
-	extern char	**environ;
-	char		*p;
 	int			size;
+	int			i;
+	char		**tmp_environ;
 
-	p = NULL;
-	size = 0;
 	errno = 137;
-	(void)environ_var;
-//	free()
-	while (environ[size])
-		size++;
 	if (!is_name_valid(args[1]))
 		return (0);
-	p = malloc(sizeof(char *) * (size + 2));
-	if (!p)
+	size = 0;
+	while (*environ_var[size])
+		size++;
+	tmp_environ = malloc(sizeof(char *) * (size + 2));
+	if (!tmp_environ)
 		return (0);
-	memmove(p, *environ, size * sizeof(char *));
-	environ[size] = ft_strdup(args[1]);
-	environ[size + 1] = NULL;
-	free(p);
+	i = -1;
+	while (*environ_var[++i])
+	{
+		tmp_environ[i] = ft_strdup(*environ_var[i]);
+		ft_free(*environ_var[i]);
+	}
+	tmp_environ[size] = ft_strdup(args[1]);
+	tmp_environ[size + 1] = NULL;
+	ft_free(*environ_var);
+	*environ_var = malloc(sizeof(char *) * (size + 2));
+	if (!*environ_var)
+		return (0);
+	i = -1;
+	while (tmp_environ[++i])
+	{
+		*environ_var[i] = ft_strdup(tmp_environ[i]);
+		ft_free(tmp_environ[i]);
+	}
+	ft_free(tmp_environ);
 	return (1);
 }
-// *environ = p;
 
-int	builtin_export(char **args, char **environ_var)
+int	builtin_export(char **args, char ***environ_var)
 {
 	int			i;
-	char		*env_value;
+//	char		*env_value;
 
 	i = -1;
-	env_value = NULL;
-	if (args[1] == NULL)
-		while (environ_var[++i])
-			printf("declare -x %s\n", environ_var[i]);
-	i = -1;
-	while (environ_var[++i])
-	{
-		if (ft_strncmp(args[1], environ_var[i], ft_strlen(environ_var[i])) == 0)
-			env_value = environ_var[i];
-	}
-	if (env_value != NULL)
-	{
-		if (!reatribute_var(args, env_value))
-			return (0);
-	}
-	else if (env_value == NULL)
-		if (!create_var(args, environ_var))
-			return (0);
+	printf("%s\n", *environ_var[0]);
+	(void)args;
+	// env_value = NULL;
+	// if (args[1] == NULL)
+	// 	while (*environ_var[++i])
+	// 		printf("declare -x %s\n", *environ_var[i]);
+	// i = -1;
+	// while (*environ_var[++i])
+	// {
+	// 	if (ft_strncmp(args[1], *environ_var[i], ft_strlen(*environ_var[i])) == 0)
+	// 		env_value = *environ_var[i];
+	// }
+	// if (env_value != NULL)
+	// {
+	// 	if (!reatribute_var(args, env_value))
+	// 		return (0);
+	// }
+	// else if (env_value == NULL)
+	// 	if (!create_var(args, environ_var))
+	// 		return (0);
 	return (1);
 }

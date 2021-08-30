@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 17:09:28 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/08/30 17:38:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 # include "../minishell.h"
 
-int		builtin_cd(char **args, char **environ_var);
-int		builtin_echo(char **args, char **environ_var);
-int		builtin_env(char **args, char **environ_var);
-int		builtin_export(char **args, char **environ_var);
-int		builtin_pwd(char **args, char **environ_var);
-int		builtin_unset(char **args, char **environ_var);
-int		builtin_exit(char **args, char **environ_var);
+int		builtin_cd(char **args, char ***environ_var);
+int		builtin_echo(char **args, char ***environ_var);
+int		builtin_env(char **args, char ***environ_var);
+int		builtin_export(char **args, char ***environ_var);
+int		builtin_pwd(char **args, char ***environ_var);
+int		builtin_unset(char **args, char ***environ_var);
+int		builtin_exit(char **args, char ***environ_var);
 
 void	free_split(char **split);
 int     piping(t_data *data, int cmd_nb);

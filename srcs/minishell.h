@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:17:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 17:38:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef int	(*t_builtin)(char **args, char **environ_var);
+typedef int	(*t_builtin)(char **args, char ***environ_var);
 
 typedef struct s_functions
 {
