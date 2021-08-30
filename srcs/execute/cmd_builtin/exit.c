@@ -6,14 +6,15 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:42:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 15:19:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 15:17:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-int	builtin_exit(char **args)
+int	builtin_exit(char **args, char **environ_var)
 {
 	(void)args;
+	(void)environ_var;
 	return (1);
 }

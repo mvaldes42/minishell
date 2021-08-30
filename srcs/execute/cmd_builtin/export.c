@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 12:07:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/30 15:17:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,16 +92,15 @@ static int	create_var(char **args)
 }
 // *environ = p;
 
-int	builtin_export(char **args)
+int	builtin_export(char **args, char **environ_var)
 {
-	extern char	**environ;
 	int			i;
 	char		*env_value;
 
 	i = -1;
 	if (args[1] == NULL)
-		while (environ[++i])
-			printf("declare -x %s\n", environ[i]);
+		while (environ_var[++i])
+			printf("declare -x %s\n", environ_var[i]);
 	env_value = getenv(args[1]);
 	if (env_value != NULL)
 	{
