@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:42:19 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 10:15:29 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 16:36:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,6 @@ int	builtin_exit(char **args, char ***environ_var)
 {
 	(void)args;
 	(void)environ_var;
+	ft_putstr_fd("exit\n", 1);
 	return (1);
 }

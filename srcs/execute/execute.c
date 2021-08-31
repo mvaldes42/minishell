@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 17:39:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 16:58:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	execute_one(t_data *data, int i)
 	cmd = data->cmds[i];
 	if (cmd.fct.builtin)
 	{
-		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+		if (data->pars.cmd_nbr == 1 && \
+		ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 			data->is_exit = TRUE;
 		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
 			return (0);
