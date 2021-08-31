@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 18:13:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 18:15:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	execute_one(t_data *data, int i)
 	int			fd;
 
 	fd = open("out.txt", O_WRONLY | O_CREAT | O_TRUNC, \
-	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1);
+	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 	dprintf(fd, "hello fd\n");
 	cmd = data->cmds[i];
 	if (cmd.fct.builtin)
