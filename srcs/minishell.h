@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/30 17:38:44 by mvaldes          ###   ########.fr       */
+=======
+/*   Updated: 2021/08/31 15:20:24 by fcavillo         ###   ########.fr       */
+>>>>>>> dancing queen 🕺🏾
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +78,7 @@ typedef struct s_data
 	t_commands	*cmds;
 	char		**environ;
 	bool		is_exit;
+	pid_t 		*pid;
 }	t_data;
 
 int		parsing(t_data *data, char *line);

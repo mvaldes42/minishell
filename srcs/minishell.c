@@ -6,7 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/08/31 11:38:45 by mvaldes          ###   ########.fr       */
+=======
+/*   Updated: 2021/08/31 15:28:58 by fcavillo         ###   ########.fr       */
+>>>>>>> dancing queen 🕺🏾
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +64,7 @@ static void	initialize_env(t_data *data, char **line)
 	ft_memset(data, 0, sizeof(t_data));
 	data->is_exit = FALSE;
 	data->prompt = NULL;
+	data->pid = NULL;
 	line = NULL;
 	size = -1;
 	while (environ[++size])
