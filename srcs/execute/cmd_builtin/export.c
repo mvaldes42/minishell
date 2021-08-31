@@ -6,37 +6,35 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:52:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:57:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-static char	*recreate_old_var(char **args, char *env_value)
-{
-	char		**split;
-	char		*old_var;
-	int			old_var_s;
+// static char	*recreate_old_var(char **args, char *env_value)
+// {
+// 	char		**split;
+// 	char		*old_var;
+// 	int			old_var_s;
 
-	split = ft_split(args[1], '=');
-	old_var_s = ft_strlen(env_value) + ft_strlen("=") + ft_strlen(split[0]) + 1;
-	old_var = (char *)malloc(sizeof(char) * old_var_s);
-	if (!old_var)
-		return (0);
-	ft_memset(old_var, 0, sizeof(old_var));
-	ft_strlcat(old_var, split[0], old_var_s);
-	ft_strlcat(old_var, "=", old_var_s);
-	ft_strlcat(old_var, env_value, old_var_s);
-	free_split(split);
-	return (old_var);
-}
+// 	split = ft_split(args[1], '=');
+// 	old_var_s = ft_strlen(env_value) + ft_strlen("=") + ft_strlen(split[0]) + 1;
+// 	old_var = (char *)malloc(sizeof(char) * old_var_s);
+// 	if (!old_var)
+// 		return (0);
+// 	ft_memset(old_var, 0, sizeof(old_var));
+// 	ft_strlcat(old_var, split[0], old_var_s);
+// 	ft_strlcat(old_var, "=", old_var_s);
+// 	ft_strlcat(old_var, env_value, old_var_s);
+// 	free_split(split);
+// 	return (old_var);
+// }
 
-static int	reatribute_var(char **args, char *env_value, char ***environ_var)
+static int	reatribute_var(char **args, char ***environ_var, char *old_var)
 {
-	char		*old_var;
 	int			i;
 
-	old_var = recreate_old_var(args, env_value);
 	i = -1;
 	while ((*environ_var)[++i])
 	{
@@ -46,7 +44,6 @@ static int	reatribute_var(char **args, char *env_value, char ***environ_var)
 			(*environ_var)[i] = ft_strdup(args[1]);
 		}
 	}
-	free(old_var);
 	return (1);
 }
 
@@ -127,12 +124,12 @@ int	builtin_export(char **args, char ***environ_var)
 			split_env = ft_split((*environ_var)[i], '=');
 			if (ft_strncmp(split_arg[0], split_env[0], \
 			ft_strlen(split_env[0])) == 0)
-				env_value = args[1];
+				env_value = (*environ_var)[i];
 			free_split(split_env);
 		}
 		free_split(split_arg);
 		if (env_value != NULL)
-			if (!reatribute_var(args, env_value, environ_var))
+			if (!reatribute_var(args, environ_var, env_value))
 				return (0);
 		if (env_value == NULL)
 			if (!create_var(args, environ_var))
