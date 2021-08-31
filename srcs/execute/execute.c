@@ -6,12 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 16:58:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 18:13:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "execute.h"
 #include "../minishell.h"
+#include <fcntl.h>
+#include <sys/stat.h>
 
 //handle all errors
 
@@ -37,21 +39,38 @@ int	ft_fork(t_data *data, int i, pid_t *pid)
 int	execute_one(t_data *data, int i)
 {
 	t_commands	cmd;
-	
+	int			fd;
+
+	fd = open("out.txt", O_WRONLY | O_CREAT | O_TRUNC, \
+	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH)) == -1);
+	dprintf(fd, "hello fd\n");
 	cmd = data->cmds[i];
 	if (cmd.fct.builtin)
 	{
-		if (data->pars.cmd_nbr == 1 && \
-		ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
-			data->is_exit = TRUE;
-		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
+		dprintf(fd, "hello builtin\n");
+		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+		{
+			if (data->pars.cmd_nbr == 1)
+			{
+				data->is_exit = TRUE;
+				dprintf(fd, "hello real exit\n");
+				close(fd);
+				return (1);
+			}
+		}
+		else if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
+		{
+			dprintf(fd, "hello random builtin\n");
 			return (0);
+		}
+		dprintf(fd, "hello exit in pipe\n");
 	}
 	else
 	{
 		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
 			return (0); //error to handle
 	}
+	close(fd);
 	return (0);
 }
 

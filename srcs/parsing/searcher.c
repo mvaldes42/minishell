@@ -103,7 +103,8 @@ static int	searcher_bis(t_data *d, t_searcher	*s)
 				return (0);
 			if (tk->type == WORD && \
 			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
-				search_functions(d, tk, s);
+				if (!search_functions(d, tk, s))
+					return (0);
 		}
 		if (tk->type == EXIT_STS)
 			tk->trans_weak = ft_strdup("exit_status(do do later)");
