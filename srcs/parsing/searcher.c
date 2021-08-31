@@ -57,15 +57,6 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-static int	searcher_bis(t_data *d, t_token *tk, t_searcher	*srch)
-{
-	(void)d;
-	(void)srch;
-	if (tk->type == EXIT_STS)
-		tk->trans_weak = ft_strdup("exit_status(do do later)");
-	return (1);
-}
-
 static void	search_path_str(t_searcher *srch)
 {
 	int			i;
@@ -94,16 +85,11 @@ static void	search_path_str(t_searcher *srch)
 	}
 }
 
-int	searcher(t_data *d)
+static int	searcher_bis(t_data *d, t_searcher	*s)
 {
 	int			i;
 	t_token		*tk;
-	t_searcher	s;
-	int			error;
 
-	ft_memset(&s, 0, sizeof(t_searcher));
-	search_path_str(&s);
-	error = 0;
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
@@ -113,16 +99,27 @@ int	searcher(t_data *d)
 			break ;
 		if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
 		{
-			if (!search_variables(tk, &s))
+			if (!search_variables(tk, s))
 				return (0);
 			if (tk->type == WORD && \
 			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
-				search_functions(d, tk, &s);
+				search_functions(d, tk, s);
 		}
-		if (!searcher_bis(d, tk, &s))
-			error = 1;
+		if (tk->type == EXIT_STS)
+			tk->trans_weak = ft_strdup("exit_status(do do later)");
 	}
-	if (!free_searcher(d, &s) || error)
+	return (1);
+}
+
+int	searcher(t_data *d)
+{
+	t_searcher	s;
+
+	ft_memset(&s, 0, sizeof(t_searcher));
+	search_path_str(&s);
+	if (!searcher_bis(d, &s))
+		return (0);
+	if (!free_searcher(d, &s))
 		return (0);
 	return (1);
 }
