@@ -25,7 +25,7 @@ static int	search_variables(t_token *token, t_searcher *srch)
 		ptr = translated_str;
 		translated_str++;
 		token->trans_var = getenv(translated_str);
-		ft_free(ptr);
+		ft_free_str(&ptr);
 	}
 	else if (token->type == WEAK_WORD || token->type == WORD)
 		if (!weak_word_search(token, srch))
@@ -82,7 +82,7 @@ static void	search_path_str(t_searcher *srch)
 		path = ft_strnstr(environ[i], "PATH=", 5);
 		if (path != NULL)
 			break ;
-		ft_free(path_ptr);
+		ft_free_str(&path_ptr);
 		i++;
 	}
 	if (environ[i] == NULL)
@@ -90,7 +90,7 @@ static void	search_path_str(t_searcher *srch)
 	else
 	{
 		srch->env_path = ft_split(path + 5, ':');
-		ft_free(path_ptr);
+		ft_free_str(&path_ptr);
 	}
 }
 

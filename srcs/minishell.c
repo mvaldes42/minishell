@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 17:23:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:38:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 // 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // 	clear_data();
 // 	if (g_data.line)
-// 		ft_free(g_data.line);
+// 		ft_free_str(&g_data.line);
 // 	g_data.line = readline(g_data.prompt);
 // 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
 // }
@@ -79,9 +79,16 @@ void	free_environ(t_data *data)
 	int	i;
 
 	i = -1;
-	while (data->environ[++i])
-		ft_free(data->environ[i]);
-	ft_free(data->environ);
+	if (data->environ != NULL)
+	{
+		while (data->environ[++i] != NULL)
+		{
+			free(data->environ[i]);
+			data->environ[i] = NULL;
+		}
+	}
+	free(data->environ);
+	data->environ = NULL;
 }
 
 static int	is_line_empty(char *line)
@@ -110,7 +117,7 @@ static void	main_loop(t_data *data, char *line)
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);
-		ft_free(line);
+		ft_free_str(&line);
 		if (is_exit)
 			break ;
 		create_prompt(data, is_cmd_fail);

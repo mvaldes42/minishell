@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 11:36:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:25:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,7 +133,7 @@ int	weak_word_search(t_token *token, t_searcher *srch)
 	token->trans_weak = replace_substr(srch, s, srch->t_token_len, token->type);
 	if (!token->trans_weak)
 		return (0);
-	ft_free(s);
+	ft_free_str(&s);
 	free_srch_struct(srch);
 	return (1);
 }

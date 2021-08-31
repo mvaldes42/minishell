@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:17:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 10:15:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	shift_all_env_var(char	**environ, int i, int size)
 	return (i);
 }
 
-int	builtin_unset(char **args, char **environ_var)
+int	builtin_unset(char **args, char ***environ_var)
 {
 	int			i;
 	int			size;
@@ -38,18 +38,18 @@ int	builtin_unset(char **args, char **environ_var)
 	p = NULL;
 	if (getenv(args[1]) == NULL)
 		return (0);
-	while (environ_var[size])
+	while (*environ_var[size])
 		size++;
 	i = 0;
 	while (i < size)
 	{
-		split = ft_split(environ_var[i], '=');
+		split = ft_split(*environ_var[i], '=');
 		if (split[0] != NULL && \
 		ft_strncmp(split[0], args[1], ft_strlen(split[0])) == 0)
-			i = shift_all_env_var(environ_var, i, size);
+			i = shift_all_env_var(*environ_var, i, size);
 		free_split(split);
 		i++;
 	}
-	environ_var[size] = NULL;
+	*environ_var[size] = NULL;
 	return (1);
 }
