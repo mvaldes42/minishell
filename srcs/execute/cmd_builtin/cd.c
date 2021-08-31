@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:16:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 10:15:23 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 #include "../../minishell.h"
 
-int	builtin_cd(char **args, char **environ_var)
+int	builtin_cd(char **args, char ***environ_var)
 {
 	char	*directory;
 	int		i;

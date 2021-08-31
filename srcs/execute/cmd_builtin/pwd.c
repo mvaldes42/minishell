@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:56 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:17:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 10:15:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-int	builtin_pwd(char **args, char **environ_var)
+int	builtin_pwd(char **args, char ***environ_var)
 {
 	char	*pwd;
 

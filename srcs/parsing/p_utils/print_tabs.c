@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 17:04:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:22:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,10 @@ void	print_parsing_tab(t_data *data)
 		}
 		printf("\n");
 		if (lx->tks[i].type == VARIABLE)
-			ft_free(translated_word);
+			ft_free_str(&translated_word);
 		else if (lx->tks[i].type == WEAK_WORD || lx->tks[i].type == EXIT_STS\
 		|| lx->tks[i].type == WORD_VAR)
-			ft_free(translated_word);
+			ft_free_str(&translated_word);
 		i++;
 	}
 }
@@ -131,5 +131,5 @@ void	print_cmd_tab(t_data *d)
 		}
 		j++;
 	}
-	ft_free(d->pars.argv_size);
+	ft_free_int(&d->pars.argv_size);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:34:58 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/16 12:01:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:19:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,23 @@ void	free_split(char **split)
 
 	i = -1;
 	while (split[++i])
-		ft_free(split[i]);
+		ft_free_str(&split[i]);
 	free(split);
+}
+
+int	is_name_valid(char *str)
+{
+	int		i;
+	char	**split;
+
+	split = ft_split(str, '=');
+	i = -1;
+	while (split[0][++i])
+	{
+		if (!((split[0][i] >= 'A' && split[0][i] <= 'Z') || \
+		(split[0][i] >= 'a' && split[0][i] <= 'z') || split[0][i] == '_'))
+			return (0);
+	}
+	free_split(split);
+	return (1);
 }

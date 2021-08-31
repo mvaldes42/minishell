@@ -6,50 +6,65 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:17:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 15:05:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-static int	shift_all_env_var(char	**environ, int i, int size)
+static int	shift_all_env_var(char	***env_var, char **tmp_env, int i, int size)
 {
-	while (i < size)
+	ft_free_str(&tmp_env[i]);
+	while (i < size - 1)
 	{
-		free(environ[i]);
-		environ[i] = NULL;
-		if (i == size - 1)
-			break ;
-		else
-			environ[i] = ft_strdup(environ[i + 1]);
+		(*env_var)[i] = ft_strdup(tmp_env[i + 1]);
+		ft_free_str(&tmp_env[i + 1]);
 		i++;
 	}
+	(*env_var)[i] = NULL;
 	return (i);
 }
 
-int	builtin_unset(char **args, char **environ_var)
+static void	init_unset(char ***environ_var, char ***tmp_env, int *size)
+{
+	int		i;
+
+	i = -1;
+	(*size) = -1;
+	while ((*environ_var)[++(*size)])
+		;
+	(*tmp_env) = malloc(sizeof(char *) * (*size + 1));
+	while ((*environ_var)[++i])
+	{
+		(*tmp_env)[i] = ft_strdup((*environ_var)[i]);
+		ft_free_str(&(*environ_var)[i]);
+	}
+	ft_free_str(*environ_var);
+	(*environ_var) = malloc(sizeof(char *) * *size);
+}
+
+int	builtin_unset(char **args, char ***environ_var)
 {
 	int			i;
+	char		**split_env;
 	int			size;
-	char		*p;
-	char		**split;
+	char		**tmp_env;
 
-	size = 0;
-	p = NULL;
-	if (getenv(args[1]) == NULL)
-		return (0);
-	while (environ_var[size])
-		size++;
-	i = 0;
-	while (i < size)
+	init_unset(environ_var, &tmp_env, &size);
+	i = -1;
+	while (i < size - 1 && tmp_env[++i])
 	{
-		split = ft_split(environ_var[i], '=');
-		if (split[0] != NULL && \
-		ft_strncmp(split[0], args[1], ft_strlen(split[0])) == 0)
-			i = shift_all_env_var(environ_var, i, size);
-		free_split(split);
-		i++;
+		split_env = ft_split(tmp_env[i], '=');
+		if (ft_strncmp(args[1], split_env[0], \
+		ft_strlen(split_env[0])) == 0)
+		{
+			i = shift_all_env_var(environ_var, tmp_env, i, size);
+			free_split(split_env);
+			return (1);
+		}
+		(*environ_var)[i] = ft_strdup(tmp_env[i]);
+		ft_free_str(&tmp_env[i]);
+		free_split(split_env);
 	}
-	environ_var[size] = NULL;
-	return (1);
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/30 15:16:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 10:15:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-int	builtin_echo(char **args, char **environ_var)
+int	builtin_echo(char **args, char ***environ_var)
 {
 	int		i;
 	bool	opt;

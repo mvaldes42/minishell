@@ -6,19 +6,28 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/27 16:48:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:39:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
 
-void	ft_free(void *ptr)
+void	ft_free_int(int **int_ptr)
 {
-	if (ptr != NULL)
+	if (*int_ptr != NULL)
 	{
-		free(ptr);
-		ptr = NULL;
-	}
+		free(*int_ptr);
+		*int_ptr = NULL;
+	}	
+}
+
+void	ft_free_str(char **str_ptr)
+{
+	if (*str_ptr != NULL)
+	{
+		free(*str_ptr);
+		*str_ptr = NULL;
+	}	
 }
 
 void	create_prompt(t_data *data, int fail)

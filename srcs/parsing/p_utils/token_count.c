@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/20 11:35:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 11:25:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,6 @@ int	token_count(const char *s, char c)
 		if (count == 0)
 			break ;
 	}
-	ft_free(ptr);
+	ft_free_str(&ptr);
 	return (count);
 }
