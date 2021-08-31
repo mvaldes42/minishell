@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:39:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 18:26:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,21 @@ int	error_handling(void)
 		printf("minishell: %s\n", strerror(errno));
 	return (1);
 }
-// rl_replace_line();
+
+char	*ft_getenv(const char *name, char **env_var)
+{
+	int		i;
+	char	**split_env;
+
+	i = -1;
+	printf("name: %s\n", name);
+	while (env_var[++i])
+	{
+		split_env = ft_split(env_var[i], '=');
+		if (ft_strncmp(name, split_env[0], \
+		ft_strlen(split_env[0])) == 0)
+			return (env_var[i]);
+		free_split(split_env);
+	}
+	return (NULL);
+}

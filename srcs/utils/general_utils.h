@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:21:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 18:21:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_data		t_data;
 void		ft_free_int(int **int_ptr);
 void		ft_free_str(char **str_ptr);
 int			error_handling(void);
+char		*ft_getenv(const char *name, char **environ_var);
+
 void		clear_data(t_data *data);
 void		create_prompt(t_data *data, int fail);
 int			char_occu(char *str, char c);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:25:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/08/31 18:28:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 	}
 }
 
-static int	translated_var_length(t_searcher *srch)
+static int	translated_var_length(t_searcher *srch, char **environ)
 {
 	int		i;
 
@@ -70,7 +70,7 @@ static int	translated_var_length(t_searcher *srch)
 			srch->var_trans[i] = ft_strdup("exit_status(do do later)");
 		else
 		{
-			srch->var_trans[i] = getenv(++srch->var_name[i]);
+			srch->var_trans[i] = ft_getenv(++srch->var_name[i], environ);
 			--srch->var_name[i];
 		}
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
@@ -112,14 +112,14 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size, int type)
 	return (v.dest);
 }
 
-int	weak_word_search(t_token *token, t_searcher *srch)
+int	weak_word_search(t_token *token, t_searcher *srch, char **environ)
 {
 	char	*s;
 
 	s = ft_strdup(token->ptr);
 	srch->nbr_var = count_variables(s);
 	original_var_length(s, srch);
-	translated_var_length(srch);
+	translated_var_length(srch, environ);
 	if (token->type == WORD && srch->nbr_var == 0)
 		return (1);
 	else if (token->type == WORD && srch->nbr_var > 0)

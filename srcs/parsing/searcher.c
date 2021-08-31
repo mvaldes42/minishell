@@ -13,7 +13,7 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static int	search_variables(t_token *token, t_searcher *srch)
+static int	search_variables(t_token *token, t_searcher *srch, char **environ)
 {
 	char	*translated_str;
 	char	*ptr;
@@ -24,7 +24,7 @@ static int	search_variables(t_token *token, t_searcher *srch)
 		translated_str = ft_strdup(token->ptr);
 		ptr = translated_str;
 		translated_str++;
-		token->trans_var = getenv(translated_str);
+		token->trans_var = ft_getenv(translated_str, environ);
 		ft_free_str(&ptr);
 	}
 	else if (token->type == WEAK_WORD || token->type == WORD)
@@ -99,7 +99,7 @@ static int	searcher_bis(t_data *d, t_searcher	*s)
 			break ;
 		if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
 		{
-			if (!search_variables(tk, s))
+			if (!search_variables(tk, s, d->environ))
 				return (0);
 			if (tk->type == WORD && \
 			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
