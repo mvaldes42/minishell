@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 10:15:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/01 13:54:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@ int	builtin_cd(char **args, char ***environ_var)
 	char	*directory;
 	int		i;
 
-	(void)environ_var;
 	i = 1;
 	while (args[i] != NULL)
 		i++;
 	if (i == 1)
-		directory = getenv("HOME");
+	{
+		errno = 138;
+		directory = ft_getenv("HOME", *environ_var);
+		if (directory == NULL)
+			return (0);
+	}
 	else
 		directory = args[1];
 	if (chdir(directory) == -1)

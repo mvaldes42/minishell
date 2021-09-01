@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 18:15:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/01 13:54:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ int	execute_one(t_data *data, int i)
 	}
 	else
 	{
-		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
+		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
 			return (0); //error to handle
 	}
 	close(fd);
-	return (0);
+	return (1);
 }
 
 int	execute(t_data *data)
 {
 	pid_t		pid;
-		
+
 	if (data->pars.cmd_nbr >= 2)
 	{
 		piping(data, data->pars.cmd_nbr);
@@ -88,11 +88,13 @@ int	execute(t_data *data)
 		{
 			pid = fork();
 			if (pid == 0)
-				execute_one(data, 0);
+				if (!execute_one(data, 0))
+					return (0);
 			waitpid(pid, NULL, 0);
 		}
 		else
-			execute_one(data, 0);
+			if (!execute_one(data, 0))
+				return (0);
 	}
 	return (1);
 }
