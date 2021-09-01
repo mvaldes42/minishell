@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:30:16 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:31:42 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,85 +16,46 @@
 #include <sys/stat.h>
 
 //handle all errors
-
-/*
-** checks wether the function is a builtin -> no fork
-** or a builtout -> fork
-*/
-
-int	ft_fork(t_data *data, int i, pid_t *pid)
-{
-	if (!data->cmds[i].fct.builtin)
-	{
-			printf("builtout\n");
-			pid[i] = fork();
-			return (pid[i]);
-	}
-	printf("builtin\n");
-	return (0);
-}
-
-/*executes a builtin if it is, a builtout if it is not*/
+//EXIT que ce soit un builtin ou out + garder en memoire le code de sortie d'erreur
+// EXIT SUCCESS et EXIT FAILURE
 
 int	execute_one(t_data *data, int i)
 {
 	t_commands	cmd;
-	int			fd;
-
-	fd = open("out.txt", O_WRONLY | O_CREAT | O_TRUNC, \
-	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
-	dprintf(fd, "hello fd\n");
+	
 	cmd = data->cmds[i];
 	if (cmd.fct.builtin)
 	{
-		dprintf(fd, "hello builtin\n");
 		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
-		{
-			if (data->pars.cmd_nbr == 1)
-			{
-				data->is_exit = TRUE;
-				dprintf(fd, "hello real exit\n");
-				close(fd);
-				return (1);
-			}
-		}
-		else if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
-		{
-			dprintf(fd, "hello random builtin\n");
-			return (0);
-		}
-		dprintf(fd, "hello exit in pipe\n");
+			data->is_exit = TRUE;
+		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
+			return (0); // a preciser
 	}
 	else
 	{
-		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
+		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
 			return (0); //error to handle
 	}
-	close(fd);
-	return (1);
+	exit (0); // a preciser
 }
 
 int	execute(t_data *data)
 {
-	pid_t		pid;
-
+	int			pipe_nb;
+	
+	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
+	pipe_nb = data->pars.cmd_nbr - 1;
+	if (!data->pid)
+		printf("malloc error\n");
 	if (data->pars.cmd_nbr >= 2)
 	{
 		piping(data, data->pars.cmd_nbr);
+		while (pipe_nb >= 0)
+			waitpid(data->pid[pipe_nb--], NULL, 0);
 	}
 	else
 	{
-		if (!data->cmds[0].fct.builtin)
-		{
-			pid = fork();
-			if (pid == 0)
-				if (!execute_one(data, 0))
-					return (0);
-			waitpid(pid, NULL, 0);
-		}
-		else
-			if (!execute_one(data, 0))
-				return (0);
+			execute_one(data, 0);  // gerer erreur
 	}
 	return (1);
 }

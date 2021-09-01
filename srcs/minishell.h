@@ -6,11 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/08/30 17:38:44 by mvaldes          ###   ########.fr       */
-=======
-/*   Updated: 2021/08/31 15:20:24 by fcavillo         ###   ########.fr       */
->>>>>>> dancing queen 🕺🏾
+/*   Updated: 2021/09/01 14:12:50 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +34,7 @@
 # include <curses.h>
 # include <term.h>
 # include <errno.h>
+# include <fcntl.h>
 
 # define STDIN 0
 # define STDOUT 1
