@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 18:26:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/01 11:10:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_free_int(int **int_ptr)
 	{
 		free(*int_ptr);
 		*int_ptr = NULL;
-	}	
+	}
 }
 
 void	ft_free_str(char **str_ptr)
@@ -27,7 +27,7 @@ void	ft_free_str(char **str_ptr)
 	{
 		free(*str_ptr);
 		*str_ptr = NULL;
-	}	
+	}
 }
 
 void	create_prompt(t_data *data, int fail)
@@ -80,13 +80,12 @@ char	*ft_getenv(const char *name, char **env_var)
 	char	**split_env;
 
 	i = -1;
-	printf("name: %s\n", name);
 	while (env_var[++i])
 	{
 		split_env = ft_split(env_var[i], '=');
 		if (ft_strncmp(name, split_env[0], \
 		ft_strlen(split_env[0])) == 0)
-			return (env_var[i]);
+			return (split_env[1]);
 		free_split(split_env);
 	}
 	return (NULL);

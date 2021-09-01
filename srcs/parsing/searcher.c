@@ -28,7 +28,7 @@ static int	search_variables(t_token *token, t_searcher *srch, char **environ)
 		ft_free_str(&ptr);
 	}
 	else if (token->type == WEAK_WORD || token->type == WORD)
-		if (!weak_word_search(token, srch))
+		if (!weak_word_search(token, srch, environ))
 			return (0);
 	return (1);
 }
