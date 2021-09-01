@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/08/27 18:35:28 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/09/01 11:03:59 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,8 +23,8 @@ RM			=	/bin/rm -rf
 CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 INC			=	-I $(HEADER) \
 				-lreadline \
-				-L/Users/$(USER)/.brew/opt/readline/lib
-#				-L/usr/local/opt/readline/lib
+				-L/Users/$(USER)/.brew/opt/readline/lib \
+				-L/usr/local/opt/readline/lib
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
@@ -41,11 +41,11 @@ $(NAME):	$(OBJS) $(HEADER)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
-$(OBJS_DIR)/%.o : $(SRCS_DIR)/%.c | $(OBJS_DIR)
-	    	@$(CC)\
-			-I/Users/$(USER)/.brew/opt/readline/include \
-			$(CC_FLAGS) -c $< -o $@
-#			-I/usr/local/opt/readline/include
+$(OBJS_DIR)/%.o :	$(SRCS_DIR)/%.c | $(OBJS_DIR)
+					@$(CC) \
+					-I/Users/$(USER)/.brew/opt/readline/include \
+					-I/usr/local/opt/readline/include \
+					$(CC_FLAGS) -c $< -o $@
 
 $(OBJS_DIR):
 		@mkdir -p $@
