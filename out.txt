@@ -1,3 +1,3 @@
 hello fd
 hello builtin
-hello exit in pipe
+hello real exit

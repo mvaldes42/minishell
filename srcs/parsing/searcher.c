@@ -36,12 +36,12 @@ static int	search_variables(t_token *token, t_searcher *srch, char **environ)
 static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
-	const char	*buildin[13] = \
-	{"echo", "cd", "pwd", "export", "unset", "env", "exit"\
-	"ECHO", "CD", "PWD", "EXPORT", "UNSET", "ENV"};
+	const char	*buildin[14] = \
+	{"echo", "cd", "pwd", "export", "unset", "env", "exit", \
+	"ECHO", "CD", "PWD", "EXPORT", "UNSET", "ENV", NULL};
 
-	i = 0;
-	while (i < 7)
+	i = -1;
+	while (buildin[++i])
 	{
 		if (ft_strncmp(token->ptr, buildin[i], \
 		ft_strlen(buildin[i])) == 0)
@@ -50,7 +50,6 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 			data->pars.cmd_nbr++;
 			return (1);
 		}
-		i++;
 	}
 	if (search_funct_ext(&data->pars, token, srch) == 1)
 		return (1);
