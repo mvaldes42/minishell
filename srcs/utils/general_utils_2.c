@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/01 14:05:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 10:33:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_free_int(int **int_ptr)
 
 void	ft_free_str(char **str_ptr)
 {
-	if (*str_ptr != NULL)
+	if (*str_ptr)
 	{
 		free(*str_ptr);
 		*str_ptr = NULL;

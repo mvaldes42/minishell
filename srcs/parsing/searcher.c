@@ -116,7 +116,7 @@ int	searcher(t_data *d)
 {
 	t_searcher	s;
 
-	ft_memset(&s, 0, sizeof(t_searcher));
+	ft_memset(&s, 0, sizeof(s));
 	search_path_str(&s);
 	if (!searcher_bis(d, &s))
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 10:21:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 11:02:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,19 +120,23 @@ int	weak_word_search(t_token *token, t_searcher *srch, char **environ)
 	srch->nbr_var = count_variables(s);
 	original_var_length(s, srch);
 	translated_var_length(srch, environ);
-	if (token->type == WORD && srch->nbr_var == 0)
+	if ((token->type == WORD || token->type == WEAK_WORD) && srch->nbr_var == 0)
+	{
+		token->trans_weak = ft_strdup(token->ptr);
 		return (1);
-	else if (token->type == WORD && srch->nbr_var > 0)
+	}
+	if (token->type == WORD && srch->nbr_var > 0)
 	{
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
 		token->type = WORD_VAR;
 	}
-	else
+	else if (srch->tot_o_len > 0)
 		srch->t_token_len = ft_strlen(s) - 2 \
 		- srch->tot_o_len + srch->tot_t_len;
 	token->trans_weak = replace_substr(srch, s, srch->t_token_len, token->type);
 	if (!token->trans_weak)
 		return (0);
+	printf("ft_strlen(s): %zu\n", ft_strlen(s));
 	ft_free_str(&s);
 	free_srch_struct(srch);
 	return (1);
