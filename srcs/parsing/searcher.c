@@ -36,8 +36,9 @@ static int	search_variables(t_token *token, t_searcher *srch, char **environ)
 static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
-	const char	*buildin[7] = \
-	{"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	const char	*buildin[13] = \
+	{"echo", "cd", "pwd", "export", "unset", "env", "exit"\
+	"ECHO", "CD", "PWD", "EXPORT", "UNSET", "ENV"};
 
 	i = 0;
 	while (i < 7)
