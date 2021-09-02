@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:31:53 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:32:04 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-// handle all errors
-// EXIT que ce soit un builtin ou out + garder en memoire le code de sortie d'erreur
-// EXIT SUCCESS et EXIT FAILURE
+/*
+** handle all errors
+** EXIT que ce soit builtin/out + garder en memoire le code de sortie d'erreur
+** EXIT_SUCCESS et EXIT_FAILURE macros
+**
+** Louski :
+*/
+/*
+** executes a single function
+** forks when it's not a builtin
+*/
 
 int	execute_fct(t_data *data)
 {
 	t_commands	cmd;
 	pid_t		pid;
-	
+
 	cmd = data->cmds[0];
 	if (cmd.fct.builtin)
 	{
@@ -36,29 +44,34 @@ int	execute_fct(t_data *data)
 	{
 		pid = fork(); // a proteger
 		if (pid == 0)
-			if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
+			if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
 				return (0); //error to handle
 		waitpid(pid, NULL, 0);
 	}
 	return (0); // a preciser
 }
 
+/*
+** executes a single piped function
+** the function is already forked
+*/
+
 int	execute_piped_fct(t_data *data, int i)
 {
 	t_commands	cmd;
-	
+
 	cmd = data->cmds[i];
 	if (cmd.fct.builtin)
 	{
 		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 			data->is_exit = TRUE;
 		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
-			return (0); // a preciser
+			exit (0); // a preciser
 	}
 	else
 	{
-		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
-			return (0); //error to handle
+		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
+			exit (0); //error to handle
 	}
 	exit (0); // a preciser
 }
@@ -66,7 +79,8 @@ int	execute_piped_fct(t_data *data, int i)
 int	execute(t_data *data)
 {
 	int			pipe_nb;
-	
+
+//	printf("%s\n", data->cmds[0].redirs[0].filename);
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	pipe_nb = data->pars.cmd_nbr - 1;
 	if (!data->pid)
@@ -79,7 +93,7 @@ int	execute(t_data *data)
 	}
 	else
 	{
-			execute_fct(data);  // gerer erreur
+		execute_fct(data); // gerer erreur
 	}
 	return (1);
 }

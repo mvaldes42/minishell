@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 12:21:31 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/02 14:11:18 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int		builtin_exit(char **args, char ***environ_var);
 
 void	free_split(char **split);
 int		is_name_valid(char *str);
-
 int		piping(t_data *data, int cmd_nb);
 int		execute_piped_fct(t_data *data, int i);
 int		ft_fork(t_data *data, int i, pid_t *pid);

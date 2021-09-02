@@ -23,6 +23,7 @@ FILES =	minishell.c\
 		execute/execute.c\
 		execute/execute_utils.c\
 		execute/pipes.c\
+		execute/redirections.c\
 
 SUB_DIR	=	utils\
 			parsing\
