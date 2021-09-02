@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:31:42 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/02 15:31:53 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,35 @@
 #include <fcntl.h>
 #include <sys/stat.h>
 
-//handle all errors
-//EXIT que ce soit un builtin ou out + garder en memoire le code de sortie d'erreur
+// handle all errors
+// EXIT que ce soit un builtin ou out + garder en memoire le code de sortie d'erreur
 // EXIT SUCCESS et EXIT FAILURE
 
-int	execute_one(t_data *data, int i)
+int	execute_fct(t_data *data)
+{
+	t_commands	cmd;
+	pid_t		pid;
+	
+	cmd = data->cmds[0];
+	if (cmd.fct.builtin)
+	{
+		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+			data->is_exit = TRUE;
+		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
+			return (0); // a preciser
+	}
+	else
+	{
+		pid = fork(); // a proteger
+		if (pid == 0)
+			if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)			
+				return (0); //error to handle
+		waitpid(pid, NULL, 0);
+	}
+	return (0); // a preciser
+}
+
+int	execute_piped_fct(t_data *data, int i)
 {
 	t_commands	cmd;
 	
@@ -55,7 +79,7 @@ int	execute(t_data *data)
 	}
 	else
 	{
-			execute_one(data, 0);  // gerer erreur
+			execute_fct(data);  // gerer erreur
 	}
 	return (1);
 }

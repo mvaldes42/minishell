@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/01 17:44:36 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/02 12:21:15 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int pipe_first(t_data *data, int **fd)
 		close(fd[0][0]);
 		dup2(fd[0][1], STDOUT_FILENO);
 		close(fd[0][1]);
-		execute_one(data, 0);
+		execute_piped_fct(data, 0);
 	}
 	return (0);	
 }
@@ -62,7 +62,7 @@ int pipe_middle(t_data *data, int idx, int **fd)
 		dup2(fd[idx][1], STDOUT_FILENO);
 		close(fd[idx - 1][0]);
 		close(fd[idx][1]);
-		execute_one(data, idx);
+		execute_piped_fct(data, idx);
 	}
 	return (0);
 }
@@ -85,7 +85,7 @@ int pipe_last(t_data *data, int idx, int **fd)
 		dup2(fd[idx - 1][0], STDIN_FILENO);
 		close(fd[idx - 1][0]);
 		i++;
-		execute_one(data, i);
+		execute_piped_fct(data, i);
 	}
 	return (0);	
 }
