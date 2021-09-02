@@ -6,17 +6,17 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:25:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 16:49:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	word_case_count(char **dup, char c, int count)
+static int	word_case_count(char **dup, int count)
 {
-	while (**dup && **dup != c && **dup != S_QUOTE && **dup != D_QUOTE && **dup \
-	!= PIPE_C && **dup != R_IN && **dup != R_OUT)
+	while (**dup && **dup != SPACE && **dup != TAB && **dup != PIPE_C \
+	&& **dup != R_IN && **dup != R_OUT)
 		*dup += 1;
 	count++;
 	return (count);
@@ -31,7 +31,7 @@ static int	quotes_case_count(char **dup, int count)
 	return (count);
 }
 
-static int	spe_case_count(char **dup, char c, int count)
+static int	spe_case_count(char **dup, int count)
 {
 	if (**dup == PIPE_C)
 	{
@@ -45,9 +45,8 @@ static int	spe_case_count(char **dup, char c, int count)
 			*dup += 1;
 		else
 		{
-			while (**dup && **dup != c && **dup != S_QUOTE && **dup != D_QUOTE \
-			&& **dup != PIPE_C && **dup != R_IN && **dup != R_OUT && **dup != \
-			VAR && **dup != '?')
+			while (**dup && **dup != SPACE &&  **dup != TAB && **dup != PIPE_C \
+			&& **dup != R_IN && **dup != R_OUT && **dup != VAR && **dup != '?')
 				*dup += 1;
 		}
 		count += 1;
@@ -64,7 +63,7 @@ static int	redir_case_count(char **dup, int count)
 	return (count);
 }
 
-int	token_count(const char *s, char c)
+int	token_count(const char *s)
 {
 	char			*str;
 	unsigned int	count;
@@ -75,15 +74,15 @@ int	token_count(const char *s, char c)
 	ptr = str;
 	while (*str)
 	{
-		while (*str && *str == c)
+		while (*str && (*str == SPACE || *str == TAB))
 			str++;
-		if (*str && *str != c && *str != S_QUOTE && *str != D_QUOTE && \
-		*str != PIPE_C && *str != R_IN && *str != R_OUT)
-			count = word_case_count(&str, c, count);
+		if (*str && *str != SPACE && *str != TAB && *str != PIPE_C && \
+		*str != R_IN && *str != R_OUT)
+			count = word_case_count(&str, count);
 		else if (*str && (*str == S_QUOTE || *str == D_QUOTE))
 			count = quotes_case_count(&str, count);
 		else if (*str && (*str == PIPE_C || *str == VAR))
-			count = spe_case_count(&str, c, count);
+			count = spe_case_count(&str, count);
 		else if (*str && (*str == R_IN || *str == R_OUT))
 			count = redir_case_count(&str, count);
 		if (count == 0)

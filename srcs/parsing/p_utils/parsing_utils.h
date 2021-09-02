@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 11:32:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 17:17:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define PIPE_C '|'
 # define VAR '$'
 # define SPACE ' '
+# define TAB '\t'
 
 # define OPT_ECHO "-n"
 
@@ -83,7 +84,6 @@ typedef struct s_parsing
 typedef struct s_split
 {
 	char		**dest;
-	char		c;
 	int			start;
 	int			end;
 	int			i;
@@ -109,9 +109,9 @@ typedef struct s_data		t_data;
 typedef struct s_parsing	t_parsing;
 typedef struct s_commands	t_commands;
 
-int		token_count(const char *s, char c);
+int		token_count(const char *s);
+char	**token_split(char const *str);
 void	special_split_2(t_split *s, const char *str);
-char	**token_split(char const *str, char c);
 
 int		quotes_case_general(char **dup, int count, char q_type);
 int		redir_case_general(char **dup, int count, char r_type, char other_r);
