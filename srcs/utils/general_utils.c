@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:38:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 11:48:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	free_tks(t_data *data)
 			i++;
 		}
 		free(data->pars.tks);
+		ft_memset(data->pars.tks, 0, sizeof(data->pars.tks));
 	}
 }
 

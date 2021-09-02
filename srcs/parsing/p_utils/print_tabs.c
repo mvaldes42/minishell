@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:22:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 11:33:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	print_parsing_tab(t_data *data)
 	char		*translated_word;
 	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "VARIABLE", \
 	"REDIR_OUT", "REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", \
-	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN", "WORD & VAR"};
+	"WEAK_WORD", "STRONG_WORD", "FUNCTION", "BUILTIN", "WORD & VAR", \
+	"WORD & STRONG", "WORD & WEAK"};
 
 	lx = &data->pars;
 	i = 0;

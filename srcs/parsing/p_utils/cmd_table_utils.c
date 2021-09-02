@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/20 14:12:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/02 15:26:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 	j = 0;
 	while (i < d->pars.tk_nbr && j < size)
 	{
+		cmd->redirs[j].type = tks[i].type;
 		i += 1;
 		if (tks[i].type == WEAK_WORD)
 			cmd->redirs[j].filename = tks[i].trans_weak;
