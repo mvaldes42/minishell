@@ -6,47 +6,47 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 14:29:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 15:34:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
+int	quotes_case_general(char **dup, char q_type)
+{
+	errno = MISSING_QUOTE;
+	*dup += 1;
+	while (**dup != '\0' && **dup != q_type)
+		*dup += 1;
+	if (**dup == '\0')
+		return (0);
+	return (1);
+}
+
 static int	word_case_count(char **dup, int count)
 {
-	int		inside_quote_s;
-	int		inside_quote_d;
-
-	inside_quote_s = 0;
-	inside_quote_d = 0;
-	while (**dup)
+	errno = MISSING_QUOTE;
+	while (**dup != '\0')
 	{
-		if ((!inside_quote_s && !inside_quote_d) && (**dup == SPACE || \
-		**dup == TAB || **dup == PIPE_C || **dup == R_IN || **dup == R_OUT))
+		if ((**dup == SPACE || **dup == TAB || **dup == PIPE_C || \
+		**dup == R_IN || **dup == R_OUT))
 			break ;
-		else if (**dup == S_QUOTE && !inside_quote_s)
-			inside_quote_s = 1;
-		else if (**dup == S_QUOTE && inside_quote_s)
-			inside_quote_s = 0;
-		else if (**dup == D_QUOTE && !inside_quote_d)
-			inside_quote_d = 1;
-		else if (**dup == D_QUOTE && inside_quote_d)
-			inside_quote_d = 0;
+		else if (**dup == S_QUOTE)
+		{
+			if (!quotes_case_general(dup, S_QUOTE))
+				return (0);
+		}
+		else if (**dup == D_QUOTE)
+		{
+			if (!quotes_case_general(dup, D_QUOTE))
+				return (0);
+		}
 		*dup += 1;
 	}
 	count++;
 	return (count);
 }
-
-// static int	quotes_case_count(char **dup, int count)
-// {
-// 	if (**dup && **dup == S_QUOTE)
-// 		count = quotes_case_general(dup, count, S_QUOTE);
-// 	else if (**dup && **dup == D_QUOTE)
-// 		count = quotes_case_general(dup, count, D_QUOTE);
-// 	return (count);
-// }
 
 static int	spe_case_count(char **dup, int count)
 {

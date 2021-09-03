@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 13:37:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 15:43:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,6 @@ int		token_count(const char *s);
 char	**token_split(char const *str, int token_nbr);
 void	special_split_2(t_split *s, const char *str);
 
-int		quotes_case_general(char **dup, int count, char q_type);
 int		redir_case_general(char **dup, int count, char r_type, char other_r);
 
 int		weak_word_search(t_token *token, t_searcher *srch, char **environ);
