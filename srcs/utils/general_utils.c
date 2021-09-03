@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 11:48:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:22:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static void	free_tks(t_data *data)
 		while (i < data->pars.tk_nbr)
 		{
 			ft_free_str(&data->pars.tks[i].ptr);
-			if (data->pars.tks[i].type == WEAK_WORD)
-				ft_free_str(&data->pars.tks[i].trans_weak);
+			if (data->pars.tks[i].type == WORD)
+				ft_free_str(&data->pars.tks[i].modif_word);
 			if (data->pars.tks[i].type == FUNCTION)
 				ft_free_str(&data->pars.tks[i].tk_fct_path);
 			i++;

@@ -13,26 +13,6 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static int	search_variables(t_token *token, t_searcher *srch, char **environ)
-{
-	char	*translated_str;
-	char	*ptr;
-
-	errno = VAR_NOT_FOUND;
-	if (token->type == VARIABLE)
-	{
-		translated_str = ft_strdup(token->ptr);
-		ptr = translated_str;
-		translated_str++;
-		token->trans_var = ft_getenv(translated_str, environ);
-		ft_free_str(&ptr);
-	}
-	else if (token->type == WEAK_WORD || token->type == WORD)
-		if (!weak_word_search(token, srch, environ))
-			return (0);
-	return (1);
-}
-
 static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
@@ -43,8 +23,8 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	i = -1;
 	while (buildin[++i])
 	{
-		if (ft_strncmp(token->ptr, buildin[i], \
-		ft_strlen(buildin[i])) == 0)
+		if (ft_strncmp(token->ptr, buildin[i], ft_strlen(token->ptr)) == 0 \
+		&& ft_strncmp(token->ptr, buildin[i], ft_strlen(buildin[i])) == 0)
 		{
 			token->type = BUILTIN;
 			data->pars.cmd_nbr++;
@@ -85,7 +65,51 @@ static void	search_path_str(t_searcher *srch)
 	}
 }
 
-static int	searcher_bis(t_data *d, t_searcher	*s)
+static int	rm_quotes_next(char *expanded_word, char *unquoted, int size)
+{
+	int		i;
+	int		j;
+	int		quotes_removed;
+
+	i = 0;
+	j = 0;
+	quotes_removed = 0;
+	while (i < size + 2 && j < size)
+	{
+		if (expanded_word[i] == S_QUOTE)
+		{
+			i += 1;
+			while (i < size + 1 && j < size && expanded_word[i] != S_QUOTE)
+				unquoted[j++] = expanded_word[i++];
+			quotes_removed = 1;
+			i += 1;
+		}
+		unquoted[j++] = expanded_word[i++];
+	}
+	unquoted[j] = 0;
+	return (quotes_removed);
+}
+
+static int	remove_quotes(char **expanded_word)
+{
+	int		quotes_removed;
+	char	*unquoted;
+	int		size;
+
+	size = ft_strlen(*expanded_word) - 1;
+	unquoted = malloc(sizeof(char *) * size);
+	quotes_removed = rm_quotes_next(*expanded_word, unquoted, size);
+	if (quotes_removed)
+	{
+		ft_free_str (expanded_word);
+		(*expanded_word) = unquoted;
+	}
+	else
+		ft_free_str(&unquoted);
+	return (1);
+}
+
+static int	expand_word(t_data *d, t_searcher	*s)
 {
 	int			i;
 	t_token		*tk;
@@ -93,21 +117,23 @@ static int	searcher_bis(t_data *d, t_searcher	*s)
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
+		printf("d->pars.tk_nbr: %d\n", d->pars.tk_nbr);
 		tk = &d->pars.tks[i];
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
-		if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
+		if (tk->type == WORD)
 		{
 			if (!search_variables(tk, s, d->environ))
 				return (0);
-			if (tk->type == WORD && \
-			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
+			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
 				if (!search_functions(d, tk, s))
 					return (0);
 		}
 		if (tk->type == EXIT_STS)
-			tk->trans_weak = ft_strdup("exit_status(do do later)");
+			tk->modif_word = ft_strdup("exit_status(do do later)");
+		if (!remove_quotes(&tk->modif_word))
+			return (0);
 	}
 	return (1);
 }
@@ -118,7 +144,7 @@ int	searcher(t_data *d)
 
 	ft_memset(&s, 0, sizeof(s));
 	search_path_str(&s);
-	if (!searcher_bis(d, &s))
+	if (!expand_word(d, &s))
 		return (0);
 	if (!free_searcher(d, &s))
 		return (0);

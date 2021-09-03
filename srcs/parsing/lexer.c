@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 13:49:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 15:49:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static char	**scanning_tokens(t_parsing *lx, char *line)
 
 	unspec_token = NULL;
 	lx->tk_nbr = token_count(line);
-	printf("token count: %d\n", lx->tk_nbr);
 	if (lx->tk_nbr == 0)
 		return (NULL);
 	unspec_token = token_split(line, lx->tk_nbr);
@@ -34,14 +33,6 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 		lx->tks[i].type = READ_IN;
 	if (!ft_strncmp(unspec_token[i], "$?", 2))
 		lx->tks[i].type = EXIT_STS;
-}
-
-static int	is_redir(t_parsing *lx, int i)
-{
-	if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
-	|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
-		return (1);
-	return (0);
 }
 
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
@@ -59,17 +50,12 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 			lx->tks[i].type = PIPE;
 		else if (ft_strlen(unspec_token[i]) == 2)
 			eval_double_char(lx, unspec_token, i);
-		else if (unspec_token[i][0] == VAR)
-			lx->tks[i].type = VARIABLE;
-		else if (unspec_token[i][0] == S_QUOTE)
-			lx->tks[i].type = STRONG_WORD;
-		else if (unspec_token[i][0] == D_QUOTE)
-			lx->tks[i].type = WEAK_WORD;
 		else if (unspec_token[i][0] == R_IN)
 			lx->tks[i].type = REDIR_IN;
 		else if (unspec_token[i][0] == R_OUT)
 			lx->tks[i].type = REDIR_OUT;
-		if (is_redir(lx, i))
+		if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
+		|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
 			lx->tks[i].redir = 1;
 	}
 }

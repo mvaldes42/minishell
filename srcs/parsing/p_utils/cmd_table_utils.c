@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:26:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:22:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 	{
 		cmd->redirs[j].type = tks[i].type;
 		i += 1;
-		if (tks[i].type == WEAK_WORD)
-			cmd->redirs[j].filename = tks[i].trans_weak;
-		else if (tks[i].type == VARIABLE)
-			cmd->redirs[j].filename = tks[i].trans_var;
+		if (tks[i].type == WORD)
+			cmd->redirs[j].filename = tks[i].modif_word;
 		else
 			cmd->redirs[j].filename = tks[i].ptr;
 		j++;
@@ -65,10 +63,8 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	cmd->args[k] = cmd->fct.name;
 	while (++k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
-		if (tks[i].type == WEAK_WORD || tks[i].type == WORD_VAR)
-			cmd->args[k] = tks[i].trans_weak;
-		else if (tks[i].type == VARIABLE)
-			cmd->args[k] = tks[i].trans_var;
+		if (tks[i].type == WORD)
+			cmd->args[k] = tks[i].modif_word;
 		else
 			cmd->args[k] = tks[i].ptr;
 	}

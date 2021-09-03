@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 15:43:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:27:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,13 @@ typedef enum e_tk_types
 	UNDEF = 0,
 	WORD = 1,
 	PIPE = 2,
-	VARIABLE = 3,
-	REDIR_OUT = 4,
-	REDIR_IN = 5,
-	READ_IN = 6,
-	REDIR_OUT_A = 7,
-	EXIT_STS = 8,
-	WEAK_WORD = 9,
-	STRONG_WORD = 10,
-	FUNCTION = 11,
-	BUILTIN = 12,
-	WORD_VAR = 13,
-	WORD_STRONG = 14,
-	WORD_WEAK = 15
+	REDIR_OUT = 3,
+	REDIR_IN = 4,
+	READ_IN = 5,
+	REDIR_OUT_A = 6,
+	EXIT_STS = 7,
+	FUNCTION = 8,
+	BUILTIN = 9
 }	t_tk_types;
 
 typedef struct s_token
@@ -54,8 +48,7 @@ typedef struct s_token
 	char	*ptr;
 	bool	redir;
 	bool	echo_opt;
-	char	*trans_weak;
-	char	*trans_var;
+	char	*modif_word;
 	char	*tk_fct_path;
 }	t_token;
 
@@ -111,11 +104,10 @@ typedef struct s_commands	t_commands;
 
 int		token_count(const char *s);
 char	**token_split(char const *str, int token_nbr);
-void	special_split_2(t_split *s, const char *str);
 
 int		redir_case_general(char **dup, int count, char r_type, char other_r);
 
-int		weak_word_search(t_token *token, t_searcher *srch, char **environ);
+int		search_variables(t_token *token, t_searcher *srch, char **environ);
 
 void	free_srch_struct(t_searcher *srch);
 int		free_searcher(t_data *data, t_searcher *srch);

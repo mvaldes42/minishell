@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 14:34:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 15:53:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,3 @@ int	redir_case_general(char **dup, int count, char r_type, char other_r)
 		count += 1;
 	return (count);
 }
-

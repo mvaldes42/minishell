@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 16:57:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:22:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ static int	count_variables(char *str)
 	var_nbr = 0;
 	while (str[++i])
 	{
+		if (str[i] == S_QUOTE)
+			while (str[++i] && str[i] != S_QUOTE)
+				;
 		if (str[i] == VAR)
 			var_nbr++;
 	}
@@ -45,7 +48,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 			start = i;
 			srch->o_var_len[j] = 1;
 			while (str[++i] && str[i] != VAR && str[i] != SPACE && \
-			str[i] != S_QUOTE && str[i] != D_QUOTE)
+			str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE)
 				srch->o_var_len[j] += 1;
 			srch->tot_o_len += srch->o_var_len[j];
 			srch->var_name[j] = ft_substr(str, start, i - start);
@@ -80,17 +83,14 @@ static int	translated_var_length(t_searcher *srch, char **environ)
 	return (1);
 }
 
-static char	*replace_substr(t_searcher *srch, char *str, int dst_size, int type)
+static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 {
 	t_var_replace	v;
 	int				i;
 	int				j;
 
 	i = 0;
-	if (type == WORD_VAR)
-		j = 0;
-	else
-		j = 1;
+	j = 0;
 	v.var_nb = 0;
 	if (dst_size <= 0)
 		return (NULL);
@@ -112,31 +112,25 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size, int type)
 	return (v.dest);
 }
 
-int	weak_word_search(t_token *token, t_searcher *srch, char **environ)
+int	search_variables(t_token *token, t_searcher *srch, char **environ)
 {
 	char	*s;
 
 	s = ft_strdup(token->ptr);
 	srch->nbr_var = count_variables(s);
-	original_var_length(s, srch);
-	translated_var_length(srch, environ);
-	if ((token->type == WORD || token->type == WEAK_WORD) && srch->nbr_var == 0)
+	if (srch->nbr_var == 0)
+		token->modif_word = ft_strdup(token->ptr);
+	else
 	{
-		token->trans_weak = ft_strdup(token->ptr);
-		return (1);
-	}
-	if (token->type == WORD && srch->nbr_var > 0)
-	{
+		original_var_length(s, srch);
+		translated_var_length(srch, environ);
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
-		token->type = WORD_VAR;
+		token->modif_word = \
+		replace_substr(srch, s, srch->t_token_len);
+		free_srch_struct(srch);
 	}
-	else if (srch->tot_o_len > 0)
-		srch->t_token_len = ft_strlen(s) - 2 \
-		- srch->tot_o_len + srch->tot_t_len;
-	token->trans_weak = replace_substr(srch, s, srch->t_token_len, token->type);
-	if (!token->trans_weak)
-		return (0);
 	ft_free_str(&s);
-	free_srch_struct(srch);
+	if (!token->modif_word)
+		return (0);
 	return (1);
 }

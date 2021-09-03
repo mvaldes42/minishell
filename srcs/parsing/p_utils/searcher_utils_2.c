@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 10:20:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:28:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,7 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, t_searcher *srch)
 	t_funct_ext	e;
 	int			i;
 
-	e.func_name = token->ptr;
-	if (token->type == VARIABLE)
-		e.func_name = token->trans_var;
+	e.func_name = token->modif_word;
 	if (stat(e.func_name, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 	{
 		funct_ext_found(parsing, token, e.func_name);
