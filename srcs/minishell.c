@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 16:54:41 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/03 19:47:01 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,6 @@ static void	initialize_env(t_data *data, char **line)
 		i++;
 	}
 	data->environ[size] = NULL;
-}
-
-void	free_environ(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	if (data->environ != NULL)
-	{
-		while (data->environ[++i] != NULL)
-		{
-			free(data->environ[i]);
-			data->environ[i] = NULL;
-		}
-	}
-	free(data->environ);
-	data->environ = NULL;
 }
 
 static int	is_line_empty(char *line)

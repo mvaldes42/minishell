@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:22:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:47:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,21 @@ int	char_occu(char *str, char c)
 	if (nbr > 0)
 		return (nbr);
 	return (0);
+}
+
+void	free_environ(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	if (data->environ != NULL)
+	{
+		while (data->environ[++i] != NULL)
+		{
+			free(data->environ[i]);
+			data->environ[i] = NULL;
+		}
+	}
+	free(data->environ);
+	data->environ = NULL;
 }

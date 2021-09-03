@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 11:21:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 20:02:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,12 @@
 static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
 	errno = CMD_NOT_FOUND;
-	cmd->fct.name = tks[i].ptr;
+	cmd->fct.name = tks[i].modif_word;
 	if (tks[i].type == FUNCTION)
 		cmd->fct.fct_path = tks[i].tk_fct_path;
 	else if (tks[i].type == BUILTIN)
 	{
 		cmd->fct.builtin = 1;
-		cmd->fct.name = tks[i].ptr;
 		input_cmd_fct_builtin(cmd);
 	}
 	i = cmd_args(d, cmd, tks, i);

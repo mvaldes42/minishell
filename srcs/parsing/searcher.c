@@ -56,6 +56,14 @@ static int	rm_quotes_next(char *expanded_word, char *unquoted, int size)
 			quotes_removed = 1;
 			i += 1;
 		}
+		if (expanded_word[i] == D_QUOTE)
+		{
+			i += 1;
+			while (i < size + 1 && j < size && expanded_word[i] != D_QUOTE)
+				unquoted[j++] = expanded_word[i++];
+			quotes_removed = 1;
+			i += 1;
+		}
 		unquoted[j++] = expanded_word[i++];
 	}
 	unquoted[j] = 0;

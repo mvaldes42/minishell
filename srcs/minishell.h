@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:43:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:45:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,24 +80,6 @@ typedef struct s_data
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);
-int		searcher(t_data *data);
 int		execute(t_data *data);
 
 #endif
-
-// COMMAND EXAMPLE
-// commands[0] = {
-// name = "echo"
-// option = "-n"
-// arguments = "bonjour"
-// fd_out = STDOUT
-// redir_out = 0
-// }
-
-// commands[1] = {
-// name = "echo"
-// option = NULL
-// arguments = "cool$HOME top/Usr/user42 super"
-// fd_out = 3
-// redir_out = 1
-// }

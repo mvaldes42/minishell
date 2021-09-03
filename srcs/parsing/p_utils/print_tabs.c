@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:27:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 20:05:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	print_parsing_tab(t_data *data)
 	int			i;
 	int			j;
 	int			max_len;
-	char		*translated_word;
 	const char	*tk_t_name[] = {"undefined", "WORD", "PIPE", "REDIR_OUT", \
 	"REDIR_IN", "READ_IN", "REDIR_OUT_A", "EXIT_STATUS", "FUNCTION", "BUILTIN"};
 
@@ -82,19 +81,14 @@ void	print_parsing_tab(t_data *data)
 	while (i < lx->tk_nbr && lx->tks[i].ptr)
 	{
 		j = 0;
-		translated_word = NULL;
-		if (lx->tks[i].type == WORD || lx->tks[i].type == EXIT_STS)
-			translated_word = ft_strdup(lx->tks[i].modif_word);
-		printf("| %-*s | %-13s | %s\n", max_len, lx->tks[i].ptr, \
-		tk_t_name[lx->tks[i].type], translated_word);
+		printf("| %-*s | %-13s | -> %s\n", max_len, lx->tks[i].ptr, \
+		tk_t_name[lx->tks[i].type], lx->tks[i].modif_word);
 		while (j < max_len + 13 + 7)
 		{
 			printf("-");
 			j++;
 		}
 		printf("\n");
-		if (lx->tks[i].type == WORD || lx->tks[i].type == EXIT_STS)
-			ft_free_str(&translated_word);
 		i++;
 	}
 }

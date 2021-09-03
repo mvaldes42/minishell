@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:42:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:48:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ typedef struct s_commands	t_commands;
 
 // TOKEN_COUNT.C
 int		token_count(const char *s);
+// TOKEN_COUNT_2.C
+int		redir_case_general(char **dup, int count, char r_type, char other_r);
 // TOKEN_SPLIT.C
 char	**token_split(char const *str, int token_nbr);
 // SEARCHER.C
