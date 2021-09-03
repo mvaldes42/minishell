@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 13:58:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 14:29:38 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static int	word_case_count(char **dup, int count)
 
 	inside_quote_s = 0;
 	inside_quote_d = 0;
-	while (**dup && **dup != TAB && **dup != PIPE_C && \
-	**dup != R_IN && **dup != R_OUT)
+	while (**dup)
 	{
-		if (**dup == SPACE && (!inside_quote_s && !inside_quote_d))
+		if ((!inside_quote_s && !inside_quote_d) && (**dup == SPACE || \
+		**dup == TAB || **dup == PIPE_C || **dup == R_IN || **dup == R_OUT))
 			break ;
 		else if (**dup == S_QUOTE && !inside_quote_s)
 			inside_quote_s = 1;
