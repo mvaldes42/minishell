@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:27:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:42:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,25 +102,28 @@ typedef struct s_data		t_data;
 typedef struct s_parsing	t_parsing;
 typedef struct s_commands	t_commands;
 
+// TOKEN_COUNT.C
 int		token_count(const char *s);
+// TOKEN_SPLIT.C
 char	**token_split(char const *str, int token_nbr);
-
-int		redir_case_general(char **dup, int count, char r_type, char other_r);
-
+// SEARCHER.C
+void	search_path_str(t_searcher *srch);
+int		expand_word(t_data *d, t_searcher *s);
+// SEARCHER_UTILS.C
 int		search_variables(t_token *token, t_searcher *srch, char **environ);
-
+// SEARCHER_UTILS_2.C
+int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
 void	free_srch_struct(t_searcher *srch);
 int		free_searcher(t_data *data, t_searcher *srch);
-int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
-
-void	print_lexer_tab(t_parsing	*lx);
-void	print_parsing_tab(t_data *data);
-void	print_cmd_tab(t_data *d);
-
+//CMD_TABlE_.C
+int		input_command_table(t_data *d);
+// CMD_TABLE_UTILS.C
 int		cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i);
 int		cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i);
 void	input_cmd_fct_builtin(t_commands *cmd);
-
-int		input_command_table(t_data *d);
+// PRINT_TABS.C
+void	print_lexer_tab(t_parsing	*lx);
+void	print_parsing_tab(t_data *data);
+void	print_cmd_tab(t_data *d);
 
 #endif

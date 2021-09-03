@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/01 14:12:50 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/03 19:43:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct s_data
 	t_commands	*cmds;
 	char		**environ;
 	bool		is_exit;
-	pid_t 		*pid;
+	pid_t		*pid;
 }	t_data;
 
 int		parsing(t_data *data, char *line);

@@ -37,34 +37,6 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-static void	search_path_str(t_searcher *srch)
-{
-	int			i;
-	char		*path_ptr;
-	char		*path;
-	extern char	**environ;
-
-	i = 0;
-	path = NULL;
-	errno = ENOENT;
-	while (environ[i] != NULL)
-	{
-		path_ptr = path;
-		path = ft_strnstr(environ[i], "PATH=", 5);
-		if (path != NULL)
-			break ;
-		ft_free_str(&path_ptr);
-		i++;
-	}
-	if (environ[i] == NULL)
-		srch->env_path = NULL;
-	else
-	{
-		srch->env_path = ft_split(path + 5, ':');
-		ft_free_str(&path_ptr);
-	}
-}
-
 static int	rm_quotes_next(char *expanded_word, char *unquoted, int size)
 {
 	int		i;
@@ -109,7 +81,35 @@ static int	remove_quotes(char **expanded_word)
 	return (1);
 }
 
-static int	expand_word(t_data *d, t_searcher	*s)
+void	search_path_str(t_searcher *srch)
+{
+	int			i;
+	char		*path_ptr;
+	char		*path;
+	extern char	**environ;
+
+	i = 0;
+	path = NULL;
+	errno = ENOENT;
+	while (environ[i] != NULL)
+	{
+		path_ptr = path;
+		path = ft_strnstr(environ[i], "PATH=", 5);
+		if (path != NULL)
+			break ;
+		ft_free_str(&path_ptr);
+		i++;
+	}
+	if (environ[i] == NULL)
+		srch->env_path = NULL;
+	else
+	{
+		srch->env_path = ft_split(path + 5, ':');
+		ft_free_str(&path_ptr);
+	}
+}
+
+int	expand_word(t_data *d, t_searcher *s)
 {
 	int			i;
 	t_token		*tk;
@@ -117,7 +117,6 @@ static int	expand_word(t_data *d, t_searcher	*s)
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
-		printf("d->pars.tk_nbr: %d\n", d->pars.tk_nbr);
 		tk = &d->pars.tks[i];
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
@@ -135,18 +134,5 @@ static int	expand_word(t_data *d, t_searcher	*s)
 		if (!remove_quotes(&tk->modif_word))
 			return (0);
 	}
-	return (1);
-}
-
-int	searcher(t_data *d)
-{
-	t_searcher	s;
-
-	ft_memset(&s, 0, sizeof(s));
-	search_path_str(&s);
-	if (!expand_word(d, &s))
-		return (0);
-	if (!free_searcher(d, &s))
-		return (0);
 	return (1);
 }

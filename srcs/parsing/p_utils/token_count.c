@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 15:34:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 19:40:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-int	quotes_case_general(char **dup, char q_type)
+static int	quotes_case_general(char **dup, char q_type)
 {
 	errno = MISSING_QUOTE;
 	*dup += 1;
@@ -62,7 +62,7 @@ static int	spe_case_count(char **dup, int count)
 			*dup += 1;
 		else
 		{
-			while (**dup && **dup != SPACE &&  **dup != TAB && **dup != PIPE_C \
+			while (**dup && **dup != SPACE && **dup != TAB && **dup != PIPE_C \
 			&& **dup != R_IN && **dup != R_OUT && **dup != VAR && **dup != '?')
 				*dup += 1;
 		}
@@ -106,4 +106,3 @@ int	token_count(const char *s)
 	ft_free_str(&ptr);
 	return (count);
 }
-			// 	count = quotes_case_count(&str, count);
