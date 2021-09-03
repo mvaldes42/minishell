@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 16:49:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/03 13:58:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,38 @@
 
 static int	word_case_count(char **dup, int count)
 {
-	while (**dup && **dup != SPACE && **dup != TAB && **dup != PIPE_C \
-	&& **dup != R_IN && **dup != R_OUT)
+	int		inside_quote_s;
+	int		inside_quote_d;
+
+	inside_quote_s = 0;
+	inside_quote_d = 0;
+	while (**dup && **dup != TAB && **dup != PIPE_C && \
+	**dup != R_IN && **dup != R_OUT)
+	{
+		if (**dup == SPACE && (!inside_quote_s && !inside_quote_d))
+			break ;
+		else if (**dup == S_QUOTE && !inside_quote_s)
+			inside_quote_s = 1;
+		else if (**dup == S_QUOTE && inside_quote_s)
+			inside_quote_s = 0;
+		else if (**dup == D_QUOTE && !inside_quote_d)
+			inside_quote_d = 1;
+		else if (**dup == D_QUOTE && inside_quote_d)
+			inside_quote_d = 0;
 		*dup += 1;
+	}
 	count++;
 	return (count);
 }
 
-static int	quotes_case_count(char **dup, int count)
-{
-	if (**dup && **dup == S_QUOTE)
-		count = quotes_case_general(dup, count, S_QUOTE);
-	else if (**dup && **dup == D_QUOTE)
-		count = quotes_case_general(dup, count, D_QUOTE);
-	return (count);
-}
+// static int	quotes_case_count(char **dup, int count)
+// {
+// 	if (**dup && **dup == S_QUOTE)
+// 		count = quotes_case_general(dup, count, S_QUOTE);
+// 	else if (**dup && **dup == D_QUOTE)
+// 		count = quotes_case_general(dup, count, D_QUOTE);
+// 	return (count);
+// }
 
 static int	spe_case_count(char **dup, int count)
 {
@@ -79,8 +96,6 @@ int	token_count(const char *s)
 		if (*str && *str != SPACE && *str != TAB && *str != PIPE_C && \
 		*str != R_IN && *str != R_OUT)
 			count = word_case_count(&str, count);
-		else if (*str && (*str == S_QUOTE || *str == D_QUOTE))
-			count = quotes_case_count(&str, count);
 		else if (*str && (*str == PIPE_C || *str == VAR))
 			count = spe_case_count(&str, count);
 		else if (*str && (*str == R_IN || *str == R_OUT))
@@ -91,3 +106,4 @@ int	token_count(const char *s)
 	ft_free_str(&ptr);
 	return (count);
 }
+			// 	count = quotes_case_count(&str, count);
