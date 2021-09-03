@@ -6,11 +6,11 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/02 14:48:36 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/03 15:18:15 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 int	**ft_malloc_fds(int cmd_nb) //a proteger
 {

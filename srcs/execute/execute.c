@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:32:04 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/03 14:22:34 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@
 ** EXIT_SUCCESS et EXIT_FAILURE macros
 **
 ** Louski :
+** oko | oko | oko | oko should print 4 error messages
 */
+
 /*
 ** executes a single function
 ** forks when it's not a builtin
@@ -80,7 +82,11 @@ int	execute(t_data *data)
 {
 	int			pipe_nb;
 
-//	printf("%s\n", data->cmds[0].redirs[0].filename);
+	if (check_redir(data) == -1) // a modifier
+		return (0); //erreur dramatique
+	printf("redir done\n");
+	exit (1);
+//	printf("redir = %d\n", check_redir(data));
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	pipe_nb = data->pars.cmd_nbr - 1;
 	if (!data->pid)
