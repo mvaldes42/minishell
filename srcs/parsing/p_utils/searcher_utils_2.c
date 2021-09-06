@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:28:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 16:47:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	funct_ext_found(t_parsing *parsing, t_token *token, char *path)
 {
 	token->tk_fct_path = ft_strdup(path);
 	parsing->cmd_nbr++;
+	token->modif_word = ft_strdup(token->ptr);
 	token->type = FUNCTION;
 }
 

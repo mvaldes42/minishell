@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:22:51 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 14:36:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,25 +112,25 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	return (v.dest);
 }
 
-int	search_variables(t_token *token, t_searcher *srch, char **environ)
+int	search_variables(t_token *tk, t_searcher *srch, char **environ)
 {
 	char	*s;
 
-	s = ft_strdup(token->ptr);
+	s = ft_strdup(tk->ptr);
 	srch->nbr_var = count_variables(s);
 	if (srch->nbr_var == 0)
-		token->modif_word = ft_strdup(token->ptr);
+		tk->modif_word = ft_strdup(tk->ptr);
 	else
 	{
 		original_var_length(s, srch);
 		translated_var_length(srch, environ);
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
-		token->modif_word = \
+		tk->modif_word = \
 		replace_substr(srch, s, srch->t_token_len);
 		free_srch_struct(srch);
 	}
 	ft_free_str(&s);
-	if (!token->modif_word)
+	if (!tk->modif_word)
 		return (0);
 	return (1);
 }

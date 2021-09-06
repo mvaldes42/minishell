@@ -28,6 +28,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 		{
 			token->type = BUILTIN;
 			data->pars.cmd_nbr++;
+			token->modif_word = ft_strdup(token->ptr);
 			return (1);
 		}
 	}
@@ -76,8 +77,14 @@ static int	remove_quotes(char **expanded_word)
 	char	*unquoted;
 	int		size;
 
+	if (*expanded_word == NULL)
+		return (1);
 	size = ft_strlen(*expanded_word) - 1;
+	if (size <= 0)
+		return (1);
 	unquoted = malloc(sizeof(char *) * size);
+	if (!unquoted)
+		return (0);
 	quotes_removed = rm_quotes_next(*expanded_word, unquoted, size);
 	if (quotes_removed)
 	{
@@ -117,14 +124,6 @@ void	search_path_str(t_searcher *srch)
 	}
 }
 
-static int	do_word_splitting(t_data *d, t_token *tk)
-{
-	(void)d;
-	(void)tk;
-
-	return (1);
-}
-
 int	expand_word(t_data *d, t_searcher *s)
 {
 	int			i;
@@ -138,20 +137,17 @@ int	expand_word(t_data *d, t_searcher *s)
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
 		if (tk->type == WORD)
+		{
 			if (!search_variables(tk, s, d->environ))
 				return (0);
-		if (tk->type == EXIT_STS)
-			tk->modif_word = ft_strdup("exit_status(do do later)");
-	}
-	if (!do_word_splitting(d, tk))
-		return (0);
-	i = -1;
-	while (++i < d->pars.tk_nbr)
-	{
-		tk = &d->pars.tks[i];
-		if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
+			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
 				if (!search_functions(d, tk, s))
 					return (0);
+		}
+		if (tk->type == EXIT_STS)
+			tk->modif_word = ft_strdup("exit_status(do do later)");
+		else
+			tk->modif_word = ft_strdup(tk->ptr);
 		if (!remove_quotes(&tk->modif_word))
 			return (0);
 	}
