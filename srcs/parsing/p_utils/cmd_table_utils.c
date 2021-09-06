@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/06 14:35:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 18:10:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,28 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 
 int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
-	int	k;
+	int		k;
+	int		l;
+	char	**args_split;
+	int		tk_count;
 
-	k = 0;
-	cmd->args[k] = cmd->fct.name;
-	while (++k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
+	cmd->args[0] = cmd->fct.name;
+	k = 1;
+	while (k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
-		if (tks[i].type == WORD)
-			cmd->args[k] = tks[i].modif_word;
+		l = -1;
+		tk_count = token_count(tks[i].modif_word);
+		if (tk_count > 1)
+		{	
+			args_split = token_split(tks[i].modif_word, tk_count);
+			while (args_split[++l] && k < d->pars.argv_size[cmd->id])
+				cmd->args[k++] = ft_strdup(args_split[l]);
+			free_split(args_split);
+		}
 		else
-			cmd->args[k] = tks[i].ptr;
+			cmd->args[k++] = tks[i].modif_word;
 	}
-	cmd->args[k] = NULL;
+	cmd->args[d->pars.argv_size[cmd->id]] = NULL;
 	return (i);
 }
 

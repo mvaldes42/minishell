@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/06 14:36:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 17:19:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int	search_variables(t_token *tk, t_searcher *srch, char **environ)
 	{
 		original_var_length(s, srch);
 		translated_var_length(srch, environ);
+		// if (token_count())
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
 		tk->modif_word = \
 		replace_substr(srch, s, srch->t_token_len);

@@ -136,7 +136,7 @@ int	expand_word(t_data *d, t_searcher *s)
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
-		if (tk->type == WORD)
+		else if (tk->type == WORD)
 		{
 			if (!search_variables(tk, s, d->environ))
 				return (0);
@@ -144,7 +144,7 @@ int	expand_word(t_data *d, t_searcher *s)
 				if (!search_functions(d, tk, s))
 					return (0);
 		}
-		if (tk->type == EXIT_STS)
+		else if (tk->type == EXIT_STS)
 			tk->modif_word = ft_strdup("exit_status(do do later)");
 		else
 			tk->modif_word = ft_strdup(tk->ptr);

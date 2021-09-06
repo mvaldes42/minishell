@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/06 17:03:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 18:04:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ static void	get_argv_size(t_data *data)
 {
 	int			i;
 	int			j;
-	int			tk_nbr_to_add;
-	char		**tk_split;
 
 	i = -1;
 	j = 0;
@@ -38,13 +36,10 @@ static void	get_argv_size(t_data *data)
 		data->pars.tks[i].type == BUILTIN)
 		{
 			i += 1;
-			while (i < data->pars.tk_nbr)
+			while (is_args(data->pars.tks[i]) && i < data->pars.tk_nbr)
 			{
-				tk_nbr_to_add = token_count(data->pars.tks[i].modif_word);
-				tk_split = token_split(data->pars.tks[i].modif_word, tk_nbr_to_add);
-				if (!is_args(data->pars.tks[i]))
-					break ;
-				data->pars.argv_size[j] += 1;
+				data->pars.argv_size[j] += \
+				token_count(data->pars.tks[i].modif_word);
 				i++;
 			}
 			j += 1;
