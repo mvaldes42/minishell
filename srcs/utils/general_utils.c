@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:47:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 11:35:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "general_utils.h"
 
-static void	free_tks(t_data *data)
+void	free_tks(t_data *data)
 {
 	int	i;
 

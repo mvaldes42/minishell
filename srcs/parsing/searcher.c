@@ -117,6 +117,14 @@ void	search_path_str(t_searcher *srch)
 	}
 }
 
+static int	do_word_splitting(t_data *d, t_token *tk)
+{
+	(void)d;
+	(void)tk;
+
+	return (1);
+}
+
 int	expand_word(t_data *d, t_searcher *s)
 {
 	int			i;
@@ -130,15 +138,20 @@ int	expand_word(t_data *d, t_searcher *s)
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
 		if (tk->type == WORD)
-		{
 			if (!search_variables(tk, s, d->environ))
 				return (0);
-			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
-				if (!search_functions(d, tk, s))
-					return (0);
-		}
 		if (tk->type == EXIT_STS)
 			tk->modif_word = ft_strdup("exit_status(do do later)");
+	}
+	if (!do_word_splitting(d, tk))
+		return (0);
+	i = -1;
+	while (++i < d->pars.tk_nbr)
+	{
+		tk = &d->pars.tks[i];
+		if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
+				if (!search_functions(d, tk, s))
+					return (0);
 		if (!remove_quotes(&tk->modif_word))
 			return (0);
 	}

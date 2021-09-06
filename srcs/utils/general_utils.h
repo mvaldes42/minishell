@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:47:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/06 11:35:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum e_err_codes
 typedef struct s_data		t_data;
 
 // GENERAL_UTILS_2.C
+void		free_tks(t_data *data);
 void		ft_free_int(int **int_ptr);
 void		ft_free_str(char **str_ptr);
 void		create_prompt(t_data *data, int fail);
