@@ -6,33 +6,36 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/07 17:55:04 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/07 18:34:49 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 /*
-create temp file /
-stdout toward it
-write in it until end
-close it
-stdin towards it
-exec
-r
-*/
+int	remove_here_doc()
+{
+	pid_t pid;
 
+	pid = fork();
+	if (pid == 0)
+	{
+		
+	}
+}
+*/
 int	exec_read_in(t_data *data, int i)
 {
 	char	*line;
 	int	pid[2];
 	int	fd[2];
 	char *end;
+	size_t	len;
 	t_commands	cmd;
 
 	
 	cmd = data->cmds[i];
 	end = data->cmds[i].redirs->filename;
+	len = ft_strlen(end);
 	printf("end = %s\n", end);
 	fd[1] = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777); // open/create a file
 	fd[0] = open("here_doc", O_RDONLY, 0777);
@@ -41,15 +44,21 @@ int	exec_read_in(t_data *data, int i)
 	{
 		close(fd[0]);
 		line = readline("> ");
-		while (ft_strncmp(line, end, ft_strlen(end) != 0))
+		if (ft_strlen(line) < len) //to avoid segfaults
+			len = ft_strlen(line);
+		while (ft_strncmp(line, end, len + 1) != 0)
 		{
+			len = ft_strlen(end);
 			write(fd[1], line, ft_strlen(line));
 			write(fd[1], &"\n", 1);
 			line = readline("> ");
+			if (ft_strlen(line) < len)
+				len = ft_strlen(line);
 		}
 		close(fd[1]);
 		exit(0);
 	}
+	waitpid(pid[0], NULL, 0);
 	pid[1] = fork();
 	if (pid[1] == 0)
 	{
@@ -63,7 +72,6 @@ int	exec_read_in(t_data *data, int i)
 	close(fd[0]);
 	close(fd[1]);
 	waitpid(pid[1], NULL, 0);
-	waitpid(pid[0], NULL, 0);
+	//remove_here_doc();
 	return (0);
-
 }
