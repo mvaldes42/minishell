@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/03 15:18:15 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:44:38 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,5 @@ int	piping(t_data *data, int cmd_nb)
 		close(fd[idx][1]);
 		idx--;
 	}
-	idx = j;
 	return (0);
 }

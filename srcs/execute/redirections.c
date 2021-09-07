@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/03 15:23:40 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/06 17:17:47 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,9 @@ int	check_redir(t_data *data)
 {
 	int	i;
 	int	type;
+	int	has;
 
+	has = 0;
 	i = 0;
 	while (i < data->pars.cmd_nbr)
 	{
@@ -115,8 +117,11 @@ int	check_redir(t_data *data)
 			type = data->cmds[i].redirs[0].type;
 			printf("type = %d\n", type);
 			handle_redir(data, type, i);
+			has++;
 		}
 		i++;
 	}
+	if (has)
+		return (-1);
 	return (0);
 }
