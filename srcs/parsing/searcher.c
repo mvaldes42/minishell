@@ -133,10 +133,11 @@ int	expand_word(t_data *d, t_searcher *s)
 	while (++i < d->pars.tk_nbr)
 	{
 		tk = &d->pars.tks[i];
+		tk->modif_word = NULL;
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
-		else if (tk->type == WORD)
+		if (tk->type == WORD)
 		{
 			if (!search_variables(tk, s, d->environ))
 				return (0);

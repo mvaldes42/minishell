@@ -6,27 +6,37 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/06 17:19:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/07 20:00:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	count_variables(char *str)
+static int	count_variables(t_token *tk, char *str)
 {
 	int	i;
 	int	var_nbr;
 
 	i = -1;
 	var_nbr = 0;
+	tk->flag_expanded = 0;
 	while (str[++i])
 	{
 		if (str[i] == S_QUOTE)
 			while (str[++i] && str[i] != S_QUOTE)
 				;
-		if (str[i] == VAR)
+		else if (str[i] == D_QUOTE)
+		{
+			while (str[++i] && str[i] != D_QUOTE)
+				if (str[i] == VAR)
+					var_nbr++;
+		}
+		else if (str[i] == VAR)
+		{
+			tk->flag_expanded = 1;
 			var_nbr++;
+		}
 	}
 	return (var_nbr);
 }
@@ -117,14 +127,13 @@ int	search_variables(t_token *tk, t_searcher *srch, char **environ)
 	char	*s;
 
 	s = ft_strdup(tk->ptr);
-	srch->nbr_var = count_variables(s);
+	srch->nbr_var = count_variables(tk, s);
 	if (srch->nbr_var == 0)
 		tk->modif_word = ft_strdup(tk->ptr);
 	else
 	{
 		original_var_length(s, srch);
 		translated_var_length(srch, environ);
-		// if (token_count())
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
 		tk->modif_word = \
 		replace_substr(srch, s, srch->t_token_len);
