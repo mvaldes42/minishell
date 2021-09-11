@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/07 14:24:38 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/11 09:46:22 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 ** EXIT_SUCCESS et EXIT_FAILURE macros
 **
 ** Louski :
+** bash-3.2$ sort <<
+** bash: syntax error near unexpected token `newline'
 */
 
 /*
@@ -28,7 +30,7 @@
 ** forks when it's not a builtin
 */
 
-int	execute_fct(t_data *data)
+int	execute_fct(t_data *data) //int i??
 {
 	t_commands	cmd;
 	pid_t		pid;
