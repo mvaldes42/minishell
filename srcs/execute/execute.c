@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/11 11:35:25 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/11 11:41:10 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 ** EXIT_SUCCESS et EXIT_FAILURE macros
 ** should I handle other signals
 ** handle ctrl D
+** handle multiple redirs
 **
 ** Louski :
 ** bash-3.2$ sort <<
@@ -87,7 +88,6 @@ int	execute(t_data *data)
 
 	if (check_redir(data) == -1) // a modifier
 		return (1); //erreur dramatique
-//	printf("redir = %d\n", check_redir(data));
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	pipe_nb = data->pars.cmd_nbr - 1;
 	if (!data->pid)
