@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/11 11:02:03 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/11 11:33:59 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ void	sig_handler(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-	}
-	if (signum == SIGQUIT)
-	{
-		write(0, "", 0);
 	}
 }
 
@@ -148,7 +144,7 @@ int	main(void)
 
 	initialize_env(&data, &line);
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
 	create_prompt(&data, 0);
 	line = readline(data.prompt);
 	main_loop(&data, line);
