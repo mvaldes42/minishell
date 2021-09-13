@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/07 20:02:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 14:05:09 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,7 @@ static void	get_argv_size(t_data *data)
 			i += 1;
 			while (i < data->pars.tk_nbr && is_args(data->pars.tks[i]))
 			{
-				if (data->pars.tks[i].flag_expanded)
-					data->pars.argv_size[j] += \
-					token_count(data->pars.tks[i].modif_word);
-				else
-					data->pars.argv_size[j] += 1;
+				data->pars.argv_size[j] += 1;
 				i++;
 			}
 			j += 1;

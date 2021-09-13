@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 11:37:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 14:05:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ static int	count_variables(t_token *tk, char *str)
 {
 	int	i;
 	int	var_nbr;
-	(void)tk;
 
+	(void)tk;
 	i = -1;
 	var_nbr = 0;
-	// tk->flag_expanded = 0;
 	while (str[++i])
 	{
 		if (str[i] == S_QUOTE)
@@ -34,10 +33,7 @@ static int	count_variables(t_token *tk, char *str)
 					var_nbr++;
 		}
 		else if (str[i] == VAR)
-		{
-			// tk->flag_expanded = 1;
 			var_nbr++;
-		}
 	}
 	return (var_nbr);
 }
