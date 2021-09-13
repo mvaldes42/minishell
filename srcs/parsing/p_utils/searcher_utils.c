@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 14:05:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 16:42:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,30 +122,61 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	return (v.dest);
 }
 
-static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
+static int	count_word_split(t_searcher *srch)
 {
 	int		i;
-	char	*tmp;
+	int		count;
+	char	*tmp;	
 
-	(void)d;
 	i = 0;
+	count = 0;
 	tmp = srch->tmp_modif_word;
 	while (tmp[i])
 	{
 		if (tmp[i] == D_QUOTE)
 			while (tmp[++i] && tmp[i] != D_QUOTE)
 				;
-		if (tmp[i] == VAR)
-		{
-			while (tmp[++i])
-			{
-				if (tmp[i] == SPACE || tmp[i] == TAB)
-				{
-					tk->modif_word = ft_substr(tmp, 0, i - 1);
-				}
-			}
-		}
+		if (tmp[i] == SPACE || tmp[i] == TAB)
+			count += 1;
+		i++;
 	}
+	return (count);
+}
+
+static int	reattribute_tokens(t_data *d, int tk_to_add)
+{
+	t_token	*tmp_tokens;
+	t_token	tk;
+	int		i;
+
+	i = 0;
+	tmp_tokens = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
+	if (!(tmp_tokens))
+		return (0);
+	while (i < d->pars.tk_nbr)
+	{
+		tk = d->pars.tks[i];
+		tmp_tokens[i].type = tk.type;
+		tmp_tokens[i].ptr = ft_strdup(tk.ptr);
+		printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[i].ptr);
+		ft_free_str(&tk.ptr);
+		tmp_tokens[i].redir = tk.redir;
+		tmp_tokens[i].echo_opt = tk.echo_opt;
+		i++;
+	}
+	free(d->pars.tks);
+	return (1);
+}
+
+static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
+{
+	int		tk_to_add;
+
+	(void)d;
+	(void)tk;
+	tk_to_add = count_word_split(srch);
+	printf("tk_to_add : %d\n", tk_to_add);
+	reattribute_tokens(d, tk_to_add);
 	return (1);
 }
 
