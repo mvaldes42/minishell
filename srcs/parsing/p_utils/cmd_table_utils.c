@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/07 20:03:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 11:16:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,13 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
 	int		k;
 	int		l;
-	char	**args_split;
-	int		tk_count;
 
 	cmd->args[0] = cmd->fct.name;
 	k = 1;
 	while (k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
 		l = -1;
-		tk_count = 0;
-		if (tks[i].flag_expanded)
-			tk_count = token_count(tks[i].modif_word);
-		if (tk_count > 1)
-		{
-			args_split = token_split(tks[i].modif_word, tk_count);
-			while (args_split[++l] && k < d->pars.argv_size[cmd->id])
-				cmd->args[k++] = ft_strdup(args_split[l]);
-			free_split(args_split);
-		}
-		else
-			cmd->args[k++] = tks[i].modif_word;
+		cmd->args[k++] = tks[i].modif_word;
 	}
 	cmd->args[d->pars.argv_size[cmd->id]] = NULL;
 	return (i);

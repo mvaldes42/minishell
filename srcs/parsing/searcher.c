@@ -139,7 +139,7 @@ int	expand_word(t_data *d, t_searcher *s)
 			break ;
 		if (tk->type == WORD)
 		{
-			if (!search_variables(tk, s, d->environ))
+			if (!search_variables(d, tk, s, d->environ))
 				return (0);
 			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
 				if (!search_functions(d, tk, s))

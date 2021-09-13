@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/07 19:41:11 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 11:29:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_token
 	bool	redir;
 	bool	echo_opt;
 	char	*modif_word;
-	bool	flag_expanded;
 	char	*tk_fct_path;
 }	t_token;
 
@@ -60,6 +59,7 @@ typedef struct s_searcher
 	size_t	*t_var_len;
 	size_t	tot_o_len;
 	size_t	tot_t_len;
+	char	*tmp_modif_word;
 	char	**var_name;
 	char	**var_trans;
 	size_t	t_token_len;
@@ -113,7 +113,8 @@ char	**token_split(char const *str, int token_nbr);
 void	search_path_str(t_searcher *srch);
 int		expand_word(t_data *d, t_searcher *s);
 // SEARCHER_UTILS.C
-int		search_variables(t_token *tk, t_searcher *srch, char **environ);
+int		search_variables(t_data *d, t_token *tk, t_searcher *srch, \
+																char **environ);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
 void	free_srch_struct(t_searcher *srch);

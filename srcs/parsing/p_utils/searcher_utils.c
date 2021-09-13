@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/07 20:00:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/13 11:37:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ static int	count_variables(t_token *tk, char *str)
 {
 	int	i;
 	int	var_nbr;
+	(void)tk;
 
 	i = -1;
 	var_nbr = 0;
-	tk->flag_expanded = 0;
+	// tk->flag_expanded = 0;
 	while (str[++i])
 	{
 		if (str[i] == S_QUOTE)
@@ -34,7 +35,7 @@ static int	count_variables(t_token *tk, char *str)
 		}
 		else if (str[i] == VAR)
 		{
-			tk->flag_expanded = 1;
+			// tk->flag_expanded = 1;
 			var_nbr++;
 		}
 	}
@@ -86,6 +87,8 @@ static int	translated_var_length(t_searcher *srch, char **environ)
 			srch->var_trans[i] = ft_getenv(++srch->var_name[i], environ);
 			--srch->var_name[i];
 		}
+		printf("srch->var_trans[%d]: %s\n", i, srch->var_trans[i]);
+		printf("%s\n", srch->var_name[i]);
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
@@ -119,10 +122,38 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 			v.dest[i++] = str[j++];
 	}
 	v.dest[i] = '\0';
+	printf("v.dest: %s\n", v.dest);
 	return (v.dest);
 }
 
-int	search_variables(t_token *tk, t_searcher *srch, char **environ)
+static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
+{
+	int		i;
+	char	*tmp;
+
+	(void)d;
+	i = 0;
+	tmp = srch->tmp_modif_word;
+	while (tmp[i])
+	{
+		if (tmp[i] == D_QUOTE)
+			while (tmp[++i] && tmp[i] != D_QUOTE)
+				;
+		if (tmp[i] == VAR)
+		{
+			while (tmp[++i])
+			{
+				if (tmp[i] == SPACE || tmp[i] == TAB)
+				{
+					tk->modif_word = ft_substr(tmp, 0, i - 1);
+				}
+			}
+		}
+	}
+	return (1);
+}
+
+int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 {
 	char	*s;
 
@@ -135,8 +166,9 @@ int	search_variables(t_token *tk, t_searcher *srch, char **environ)
 		original_var_length(s, srch);
 		translated_var_length(srch, environ);
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
-		tk->modif_word = \
-		replace_substr(srch, s, srch->t_token_len);
+		srch->tmp_modif_word = replace_substr(srch, s, srch->t_token_len);
+		if (!word_splitting(d, tk, srch))
+			return (0);
 		free_srch_struct(srch);
 	}
 	ft_free_str(&s);
