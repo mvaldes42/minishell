@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/11 11:41:10 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:23:39 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 #include "../minishell.h"
 #include <fcntl.h>
 #include <sys/stat.h>
+
+#include <curses.h>
+#include <term.h>
 
 /*
 ** handle all errors
@@ -26,6 +29,7 @@
 ** Louski :
 ** bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
+** oko | oko | oko
 */
 
 /*
@@ -82,10 +86,42 @@ int	execute_piped_fct(t_data *data, int i)
 	exit (0); // a preciser
 }
 
+void check_tty()
+{
+	int 	fd;
+	char	*term_type;
+	int		ret;
+
+	term_type = getenv("TERM");		//get terminal type
+	ret = tgetent(NULL, term_type);	//initialise termcap library by recovering infos from terminal + A PROTEGER
+//	printf("tgetent = %d\n", ret);
+//	int 	col = tgetnum("co");
+	int 	li = tgetnum("li");
+	char *cl_cap; //clean screen
+	char *cm_cap;
+	cl_cap = tgetstr("cl", NULL); //clean screen
+	cm_cap = tgetstr("cm", NULL); //clean screen
+
+//	tputs(cl_cap, 1, putchar);
+	tgoto(cm_cap, 5, li);
+//	printf("tgetnum co = %d li = %d\n", col, li);
+
+//	tputs(tgoto(cm_cap, col - 2, li), 1, putchar);
+
+//	if (tgetflag("os") == 0)
+	fd = ttyslot();
+//	tputs(tgoto(cm_cap, 5, 5), 1, putchar);
+
+//	printf("ttyslot = %d\n", fd);
+//	printf("ttyname = %s\n", ttyname(fd));
+	
+}
+
 int	execute(t_data *data)
 {
 	int			pipe_nb;
 
+	check_tty();
 	if (check_redir(data) == -1) // a modifier
 		return (1); //erreur dramatique
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);

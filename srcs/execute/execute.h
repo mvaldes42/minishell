@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/11 09:47:29 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/14 12:23:57 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_fork(t_data *data, int i, pid_t *pid);
 int     check_redir(t_data *data);
 int	    exec_read_in(t_data *data, int i);
 int	    execute_fct(t_data *data);
+void    check_tty();
 
 
 

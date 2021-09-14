@@ -6,14 +6,31 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/11 13:51:41 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/14 16:00:00 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+int		ft_putint(int c)
+{
+	write(1, &c, 1);
+	return(0);
+}
+
 void	sig_handler(int sig)
 {
+	char	*term_type;
+	int		ret;
+	int 	li;
+	char 	*cm_cap;
+
+	term_type = getenv("TERM");		//get terminal type
+	ret = tgetent(NULL, term_type);	//initialise termcap library by recovering infos from terminal + A PROTEGER
+	cm_cap = tgetstr("cm", NULL); //move cursor
+	li = tgetnum("li");
+	tputs(tgoto(cm_cap, 38, li + 1), 1, ft_putint); //38 a changer en fonction du prompt - tputs execute tgoto 
+	write(1, "  ", 2);
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -21,7 +38,6 @@ void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-	
 }
 
 // void	handdle_signals(void)
@@ -142,11 +158,11 @@ int	main(void)
 {
 	t_data		data;
 	char		*line;
-
+	check_tty();
 	initialize_env(&data, &line);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
 	create_prompt(&data, 0);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);	
 	line = readline(data.prompt);
 	main_loop(&data, line);
 	rl_clear_history();
