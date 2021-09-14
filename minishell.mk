@@ -25,6 +25,7 @@ FILES =	minishell.c\
 		execute/pipes.c\
 		execute/redirections.c\
 		execute/redirection_read_in.c\
+		execute/signals.c\
 
 SUB_DIR	=	utils\
 			parsing\
