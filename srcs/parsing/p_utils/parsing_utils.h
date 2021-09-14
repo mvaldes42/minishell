@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 16:52:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:33:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_token
 	char	*ptr;
 	bool	redir;
 	bool	echo_opt;
+	bool	var_not_quoted;
 	bool	flag_split;
 	char	*modif_word;
 	char	*tk_fct_path;

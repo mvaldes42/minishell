@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 16:42:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/14 16:37:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static int	count_variables(t_token *tk, char *str)
 	int	i;
 	int	var_nbr;
 
-	(void)tk;
 	i = -1;
 	var_nbr = 0;
 	while (str[++i])
@@ -33,7 +32,10 @@ static int	count_variables(t_token *tk, char *str)
 					var_nbr++;
 		}
 		else if (str[i] == VAR)
+		{
+			tk->var_not_quoted = 1;
 			var_nbr++;
+		}
 	}
 	return (var_nbr);
 }
@@ -66,7 +68,7 @@ static void	original_var_length(char *str, t_searcher *srch)
 	}
 }
 
-static int	translated_var_length(t_searcher *srch, char **environ)
+static int	translated_var_length(t_searcher *srch, t_token *tk, char **environ)
 {
 	int		i;
 
@@ -83,6 +85,9 @@ static int	translated_var_length(t_searcher *srch, char **environ)
 			srch->var_trans[i] = ft_getenv(++srch->var_name[i], environ);
 			--srch->var_name[i];
 		}
+		if (tk->var_not_quoted && (ft_strchr(srch->var_trans[i], SPACE) || \
+		ft_strchr(srch->var_trans[i], TAB)))
+			tk->flag_split = 1;
 		printf("srch->var_trans[%d]: %s\n", i, srch->var_trans[i]);
 		printf("%s\n", srch->var_name[i]);
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
@@ -126,7 +131,7 @@ static int	count_word_split(t_searcher *srch)
 {
 	int		i;
 	int		count;
-	char	*tmp;	
+	char	*tmp;
 
 	i = 0;
 	count = 0;
@@ -156,12 +161,20 @@ static int	reattribute_tokens(t_data *d, int tk_to_add)
 	while (i < d->pars.tk_nbr)
 	{
 		tk = d->pars.tks[i];
-		tmp_tokens[i].type = tk.type;
-		tmp_tokens[i].ptr = ft_strdup(tk.ptr);
-		printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[i].ptr);
-		ft_free_str(&tk.ptr);
-		tmp_tokens[i].redir = tk.redir;
-		tmp_tokens[i].echo_opt = tk.echo_opt;
+		if (tk.flag_split)
+		{
+			printf("%d: %s, tk.flag_split: %d\n", i, tk.ptr, tk.flag_split);
+		}
+		else if (!tk.flag_split)
+		{
+			tmp_tokens[i].type = tk.type;
+			tmp_tokens[i].ptr = ft_strdup(tk.ptr);
+			printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[i].ptr);
+			ft_free_str(&tk.ptr);
+			tmp_tokens[i].redir = tk.redir;
+			tmp_tokens[i].echo_opt = tk.echo_opt;
+			tmp_tokens[i].flag_split = tk.flag_split;
+		}
 		i++;
 	}
 	free(d->pars.tks);
@@ -191,7 +204,7 @@ int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 	else
 	{
 		original_var_length(s, srch);
-		translated_var_length(srch, environ);
+		translated_var_length(srch, tk, environ);
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
 		srch->tmp_modif_word = replace_substr(srch, s, srch->t_token_len);
 		if (!word_splitting(d, tk, srch))
