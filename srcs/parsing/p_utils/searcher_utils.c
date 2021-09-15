@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/14 16:37:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/15 15:15:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,36 +148,60 @@ static int	count_word_split(t_searcher *srch)
 	return (count);
 }
 
-static int	reattribute_tokens(t_data *d, int tk_to_add)
+static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 {
 	t_token	*tmp_tokens;
 	t_token	tk;
 	int		i;
+	int		j;
+	int		k;
+	int		nbr_split;
+	char	**split;
 
-	i = 0;
 	tmp_tokens = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
 	if (!(tmp_tokens))
 		return (0);
-	while (i < d->pars.tk_nbr)
+	i = 0;
+	j = 0;
+	while (i < d->pars.tk_nbr || j < d->pars.tk_nbr + tk_to_add)
 	{
 		tk = d->pars.tks[i];
 		if (tk.flag_split)
 		{
-			printf("%d: %s, tk.flag_split: %d\n", i, tk.ptr, tk.flag_split);
+			k = 0;
+			nbr_split = token_count(modif_word);
+			printf("nbr_split: %d, tk_to_add: %d\n", nbr_split, tk_to_add);
+			split = token_split(modif_word, nbr_split);
+			while (k < nbr_split)
+			{
+				ft_memset(&tmp_tokens[j], 0, sizeof(t_token));
+				tmp_tokens[j].type = WORD;
+				tmp_tokens[j].ptr = ft_strdup(tk.ptr);
+				tmp_tokens[j].modif_word = ft_strdup(split[k]);
+				printf("%s\n", tmp_tokens[j].modif_word);
+				j++;
+				k++;
+			}
+			free_split(split);
+			i++;
 		}
 		else if (!tk.flag_split)
 		{
-			tmp_tokens[i].type = tk.type;
-			tmp_tokens[i].ptr = ft_strdup(tk.ptr);
-			printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[i].ptr);
+			tmp_tokens[j].type = tk.type;
+			tmp_tokens[j].ptr = ft_strdup(tk.ptr);
+			printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[j].ptr);
+			tmp_tokens[j].redir = tk.redir;
+			tmp_tokens[j].echo_opt = tk.echo_opt;
+			tmp_tokens[j].flag_split = tk.flag_split;
+			tmp_tokens[j].modif_word = tk.modif_word;
 			ft_free_str(&tk.ptr);
-			tmp_tokens[i].redir = tk.redir;
-			tmp_tokens[i].echo_opt = tk.echo_opt;
-			tmp_tokens[i].flag_split = tk.flag_split;
+			j++;
+			i++;
 		}
-		i++;
 	}
 	free(d->pars.tks);
+	d->pars.tks = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
+	d->pars.tks = tmp_tokens;
 	return (1);
 }
 
@@ -189,7 +213,7 @@ static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
 	(void)tk;
 	tk_to_add = count_word_split(srch);
 	printf("tk_to_add : %d\n", tk_to_add);
-	reattribute_tokens(d, tk_to_add);
+	reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
 	return (1);
 }
 
