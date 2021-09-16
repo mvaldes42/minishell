@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 10:48:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:39:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 	else if (tks[i].type == BUILTIN)
 	{
 		cmd->fct.builtin = 1;
-		input_cmd_fct_builtin(cmd);
+		if (!input_cmd_fct_builtin(cmd))
+			return (-1);
 	}
 	i = cmd_args(d, cmd, tks, i);
 	if (i + 1 < d->pars.tk_nbr && tks[i + 1].redir)

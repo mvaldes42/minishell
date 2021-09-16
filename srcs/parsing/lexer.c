@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/14 16:33:47 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:19:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 	{
 		ft_memset(&lx->tks[i], 0, sizeof(lx->tks[i]));
 		lx->tks[i].type = WORD;
-		lx->tks[i].redir = 0;
-		lx->tks[i].flag_split = 0;
-		lx->tks[i].var_not_quoted = 0;
 		lx->tks[i].ptr = ft_strdup(unspec_token[i]);
 		if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == PIPE_C)
 			lx->tks[i].type = PIPE;

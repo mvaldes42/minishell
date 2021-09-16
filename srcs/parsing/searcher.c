@@ -16,9 +16,9 @@
 static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
-	const char	*buildin[14] = \
+	const char	*buildin[] = \
 	{"echo", "cd", "pwd", "export", "unset", "env", "exit", \
-	"ECHO", "CD", "PWD", "EXPORT", "UNSET", "ENV", NULL};
+	"ECHO", "PWD", "ENV", NULL};
 
 	i = -1;
 	while (buildin[++i])
@@ -38,44 +38,41 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-static int	rm_quotes_next(char *expanded_word, char *unquoted, int size)
+static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
 {
 	int		i;
-	int		j;
-	int		quotes_removed;
 
 	i = 0;
-	j = 0;
-	quotes_removed = 0;
-	while (i < size + 2 && j < size)
+	while (i < size + 2 && *unquoted)
 	{
-		if (expanded_word[i] == S_QUOTE)
+		if (exp_word[i] == S_QUOTE)
 		{
 			i += 1;
-			while (i < size + 1 && j < size && expanded_word[i] != S_QUOTE)
-				unquoted[j++] = expanded_word[i++];
-			quotes_removed = 1;
+			while (i < size + 1 && *unquoted && exp_word[i] != S_QUOTE)
+				*(unquoted++) = exp_word[i++];
+			q_rm = 1;
 			i += 1;
 		}
-		if (expanded_word[i] == D_QUOTE)
+		if (exp_word[i] == D_QUOTE)
 		{
 			i += 1;
-			while (i < size + 1 && j < size && expanded_word[i] != D_QUOTE)
-				unquoted[j++] = expanded_word[i++];
-			quotes_removed = 1;
+			while (i < size + 1 && *unquoted && exp_word[i] != D_QUOTE)
+				*(unquoted++) = exp_word[i++];
+			q_rm = 1;
 			i += 1;
 		}
-		unquoted[j++] = expanded_word[i++];
+		*(unquoted++) = exp_word[i++];
 	}
-	unquoted[j] = 0;
-	return (quotes_removed);
+	*unquoted = 0;
+	return (q_rm);
 }
 
 static int	remove_quotes(char **expanded_word)
 {
-	int		quotes_removed;
+	int		q_rm;
 	char	*unquoted;
 	int		size;
+	char	*unquoted_ptr;
 
 	if (*expanded_word == NULL)
 		return (1);
@@ -85,14 +82,16 @@ static int	remove_quotes(char **expanded_word)
 	unquoted = malloc(sizeof(char *) * size);
 	if (!unquoted)
 		return (0);
-	quotes_removed = rm_quotes_next(*expanded_word, unquoted, size);
-	if (quotes_removed)
+	q_rm = 0;
+	unquoted_ptr = unquoted;
+	q_rm = rm_quotes_next(*expanded_word, unquoted, size, q_rm);
+	if (q_rm)
 	{
-		ft_free_str (expanded_word);
-		(*expanded_word) = unquoted;
+		ft_free_str(expanded_word);
+		(*expanded_word) = unquoted_ptr;
 	}
 	else
-		ft_free_str(&unquoted);
+		ft_free_str(&unquoted_ptr);
 	return (1);
 }
 
@@ -127,32 +126,30 @@ void	search_path_str(t_searcher *srch)
 int	expand_word(t_data *d, t_searcher *s)
 {
 	int			i;
-	t_token		*tk;
 
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
-		tk = &d->pars.tks[i];
-		// tk->modif_word = NULL;
-		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
-		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
+		if (ft_str_in_str(".", d->pars.tks[i].ptr) || \
+		ft_str_in_str("..", d->pars.tks[i].ptr))
 			break ;
-		if (tk->type == WORD)
+		if (d->pars.tks[i].type == WORD)
 		{
-			if (!search_variables(d, tk, s, d->environ))
+			if (!search_variables(d, &d->pars.tks[i], s, d->environ))
 				return (0);
-			tk = &d->pars.tks[i];
-			printf("(expand word) > tk[%d]: %s, d->pars.tk_nbr: %d\n", i, tk->modif_word, d->pars.tk_nbr);
 			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
-				if (!search_functions(d, tk, s))
+				if (!search_functions(d, &d->pars.tks[i], s))
 					return (0);
 		}
-		else if (tk->type == EXIT_STS)
-			tk->modif_word = ft_strdup("exit_status(do do later)");
+		else if (d->pars.tks[i].type == EXIT_STS)
+			d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
 		else
-			tk->modif_word = ft_strdup(tk->ptr);
-		if (!remove_quotes(&tk->modif_word))
+			d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
+		if (!remove_quotes(&d->pars.tks[i].modif_word))
 			return (0);
 	}
 	return (1);
 }
+
+// printf("(expand word) > tk[%d]: %s, d->pars.tk_nbr: %d\n",
+// i, tk->modif_word, d->pars.tk_nbr);

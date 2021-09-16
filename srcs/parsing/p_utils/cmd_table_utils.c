@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 11:16:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:39:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,27 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	return (i);
 }
 
-void	input_cmd_fct_builtin(t_commands *cmd)
+int	input_cmd_fct_builtin(t_commands *cmd)
 {
-	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0)
+	errno = 139;
+	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "ECHO", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_echo;
 	else if (ft_strncmp(cmd->fct.name, "cd", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_cd;
-	else if (ft_strncmp(cmd->fct.name, "pwd", ft_strlen(cmd->fct.name)) == 0)
+	else if (ft_strncmp(cmd->fct.name, "pwd", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "PWD", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_pwd;
 	else if (ft_strncmp(cmd->fct.name, "export", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_export;
 	else if (ft_strncmp(cmd->fct.name, "unset", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_unset;
-	else if (ft_strncmp(cmd->fct.name, "env", ft_strlen(cmd->fct.name)) == 0)
+	else if (ft_strncmp(cmd->fct.name, "env", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "ENV", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_env;
 	else if (ft_strncmp(cmd->fct.name, "exit", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_exit;
+	if (cmd->fct.builtin_ptr == NULL)
+		return (0);
+	return (1);
 }

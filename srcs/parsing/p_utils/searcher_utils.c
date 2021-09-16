@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 15:08:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:32:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,16 @@ static int	translated_var_length(t_searcher *srch, t_token *tk, char **environ)
 		if (tk->var_not_quoted && (ft_strchr(srch->var_trans[i], SPACE) || \
 		ft_strchr(srch->var_trans[i], TAB)))
 			tk->flag_split = 1;
-		printf("(translated_var_length) > srch->var_trans[%d]: %s\n", i, srch->var_trans[i]);
-		printf("srch->var_name[%d]: %s\n", i, srch->var_name[i]);
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
 	}
 	return (1);
 }
+
+// printf("(translated_var_length) > srch->var_trans[%d]: %s\n",
+// i, srch->var_trans[i]);
+// printf("srch->var_name[%d]: %s\n", i, srch->var_name[i]);
 
 static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 {
@@ -123,107 +125,7 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 			v.dest[i++] = str[j++];
 	}
 	v.dest[i] = '\0';
-	printf("(replace_substr) > v.dest: %s\n", v.dest);
 	return (v.dest);
-}
-
-static int	count_word_split(t_searcher *srch)
-{
-	int		i;
-	int		count;
-	char	*tmp;
-
-	i = 0;
-	count = 0;
-	tmp = srch->tmp_modif_word;
-	while (tmp[i])
-	{
-		if (tmp[i] == D_QUOTE)
-			while (tmp[++i] && tmp[i] != D_QUOTE)
-				;
-		if (tmp[i] == SPACE || tmp[i] == TAB)
-			count += 1;
-		i++;
-	}
-	return (count);
-}
-
-static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
-{
-	t_token	*tmp_tokens;
-	t_token	tk;
-	int		i;
-	int		j;
-	int		k;
-	int		nbr_split;
-	char	**split;
-
-	tmp_tokens = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
-	ft_memset(tmp_tokens, 0, sizeof(tmp_tokens));
-	if (!(tmp_tokens))
-		return (0);
-	i = 0;
-	j = 0;
-	printf("(reattribute tk) > d->pars.tk_nbr: %d\n", d->pars.tk_nbr);
-	while (i < d->pars.tk_nbr || j < d->pars.tk_nbr + tk_to_add)
-	{
-		tk = d->pars.tks[i];
-		if (tk.flag_split)
-		{
-			k = 0;
-			nbr_split = token_count(modif_word);
-			split = token_split(modif_word, nbr_split);
-			while (k < nbr_split)
-			{
-				ft_memset(&tmp_tokens[j], 0, sizeof(t_token));
-				tmp_tokens[j].type = WORD;
-				tmp_tokens[j].ptr = ft_strdup(split[k]);
-				tmp_tokens[j].modif_word = ft_strdup(split[k]);
-				printf("tmp_tokens[%d].modif_word: %s\n", j, tmp_tokens[j].modif_word);
-				j++;
-				k++;
-			}
-			free_split(split);
-			i++;
-		}
-		else if (!tk.flag_split)
-		{
-			tmp_tokens[j].type = tk.type;
-			tmp_tokens[j].ptr = ft_strdup(tk.ptr);
-			printf("tmp_tokens[%d].ptr: %s\n", j, tmp_tokens[j].ptr);
-			tmp_tokens[j].redir = tk.redir;
-			tmp_tokens[j].echo_opt = tk.echo_opt;
-			tmp_tokens[j].flag_split = tk.flag_split;
-			tmp_tokens[j].modif_word = tk.modif_word;
-			ft_free_str(&tk.ptr);
-			j++;
-			i++;
-		}
-	}
-	printf("i: %d, d->pars.tk_nbr: %d, j: %d, d->pars.tk_nbr + tk_to_add: %d\n", i, d->pars.tk_nbr,j, d->pars.tk_nbr + tk_to_add);
-	tmp_tokens[j].modif_word = NULL;
-	tmp_tokens[j].ptr = NULL;
-	free(d->pars.tks);
-	d->pars.tks = tmp_tokens;
-	return (1);
-}
-
-static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
-{
-	int		tk_to_add;
-
-	(void)d;
-	(void)tk;
-	tk_to_add = count_word_split(srch);
-	printf("(word_splitting) > tk_to_add : %d\n", tk_to_add);
-	if (tk_to_add > 0)
-	{
-		reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
-		d->pars.tk_nbr += tk_to_add;
-	}
-	else
-		tk->modif_word = srch->tmp_modif_word;
-	return (1);
 }
 
 int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
@@ -245,7 +147,7 @@ int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 		free_srch_struct(srch);
 	}
 	ft_free_str(&s);
-	// if (!tk->modif_word)
-	// 	return (0);
+	if (!tk->modif_word)
+		return (0);
 	return (1);
 }

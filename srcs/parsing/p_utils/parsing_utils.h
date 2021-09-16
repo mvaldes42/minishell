@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/14 16:33:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:33:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,10 @@ char	**token_split(char const *str, int token_nbr);
 void	search_path_str(t_searcher *srch);
 int		expand_word(t_data *d, t_searcher *s);
 // SEARCHER_UTILS.C
-int		search_variables(t_data *d, t_token *tk, t_searcher *srch, \
-																char **environ);
+int		search_variables(t_data *d, t_token *tk, t_searcher *srch,
+		char **environ);
+// WORD_SPLITTING.C
+int		word_splitting(t_data *d, t_token *tk, t_searcher *srch);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
 void	free_srch_struct(t_searcher *srch);
@@ -126,7 +128,7 @@ int		input_command_table(t_data *d);
 // CMD_TABLE_UTILS.C
 int		cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i);
 int		cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i);
-void	input_cmd_fct_builtin(t_commands *cmd);
+int		input_cmd_fct_builtin(t_commands *cmd);
 // PRINT_TABS.C
 void	print_lexer_tab(t_parsing	*lx);
 void	print_parsing_tab(t_data *data);

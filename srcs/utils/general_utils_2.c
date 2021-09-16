@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 17:50:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:41:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	error_handling(void)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
 	"syntax error near unexpected token", "", "not a valid identifier", \
-	"HOME not set"};
+	"HOME not set", "builtin address points to the zero page"};
 	int			i;
 
 	if (errno > 131)

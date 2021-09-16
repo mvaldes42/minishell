@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/06 11:35:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:23:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,11 @@ void	free_environ(t_data *data)
 	}
 	free(data->environ);
 	data->environ = NULL;
+}
+
+int	ft_str_in_str(char *str1, char *str2)
+{
+	if (ft_strncmp(str1, str2, ft_strlen(str2)) == 0)
+		return (1);
+	return (0);
 }
