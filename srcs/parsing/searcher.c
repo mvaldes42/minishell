@@ -133,7 +133,7 @@ int	expand_word(t_data *d, t_searcher *s)
 	while (++i < d->pars.tk_nbr)
 	{
 		tk = &d->pars.tks[i];
-		tk->modif_word = NULL;
+		// tk->modif_word = NULL;
 		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
 		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
 			break ;
@@ -141,6 +141,8 @@ int	expand_word(t_data *d, t_searcher *s)
 		{
 			if (!search_variables(d, tk, s, d->environ))
 				return (0);
+			tk = &d->pars.tks[i];
+			printf("(expand word) > tk[%d]: %s, d->pars.tk_nbr: %d\n", i, tk->modif_word, d->pars.tk_nbr);
 			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
 				if (!search_functions(d, tk, s))
 					return (0);

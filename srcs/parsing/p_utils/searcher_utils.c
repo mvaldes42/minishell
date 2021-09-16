@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/15 15:15:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:08:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ static int	translated_var_length(t_searcher *srch, t_token *tk, char **environ)
 		if (tk->var_not_quoted && (ft_strchr(srch->var_trans[i], SPACE) || \
 		ft_strchr(srch->var_trans[i], TAB)))
 			tk->flag_split = 1;
-		printf("srch->var_trans[%d]: %s\n", i, srch->var_trans[i]);
-		printf("%s\n", srch->var_name[i]);
+		printf("(translated_var_length) > srch->var_trans[%d]: %s\n", i, srch->var_trans[i]);
+		printf("srch->var_name[%d]: %s\n", i, srch->var_name[i]);
 		srch->t_var_len[i] = ft_strlen(srch->var_trans[i]);
 		srch->tot_t_len += srch->t_var_len[i];
 		i++;
@@ -123,7 +123,7 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 			v.dest[i++] = str[j++];
 	}
 	v.dest[i] = '\0';
-	printf("v.dest: %s\n", v.dest);
+	printf("(replace_substr) > v.dest: %s\n", v.dest);
 	return (v.dest);
 }
 
@@ -159,10 +159,12 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	char	**split;
 
 	tmp_tokens = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
+	ft_memset(tmp_tokens, 0, sizeof(tmp_tokens));
 	if (!(tmp_tokens))
 		return (0);
 	i = 0;
 	j = 0;
+	printf("(reattribute tk) > d->pars.tk_nbr: %d\n", d->pars.tk_nbr);
 	while (i < d->pars.tk_nbr || j < d->pars.tk_nbr + tk_to_add)
 	{
 		tk = d->pars.tks[i];
@@ -170,15 +172,14 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 		{
 			k = 0;
 			nbr_split = token_count(modif_word);
-			printf("nbr_split: %d, tk_to_add: %d\n", nbr_split, tk_to_add);
 			split = token_split(modif_word, nbr_split);
 			while (k < nbr_split)
 			{
 				ft_memset(&tmp_tokens[j], 0, sizeof(t_token));
 				tmp_tokens[j].type = WORD;
-				tmp_tokens[j].ptr = ft_strdup(tk.ptr);
+				tmp_tokens[j].ptr = ft_strdup(split[k]);
 				tmp_tokens[j].modif_word = ft_strdup(split[k]);
-				printf("%s\n", tmp_tokens[j].modif_word);
+				printf("tmp_tokens[%d].modif_word: %s\n", j, tmp_tokens[j].modif_word);
 				j++;
 				k++;
 			}
@@ -189,7 +190,7 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 		{
 			tmp_tokens[j].type = tk.type;
 			tmp_tokens[j].ptr = ft_strdup(tk.ptr);
-			printf("tmp_tokens[%d].ptr: %s\n", i, tmp_tokens[j].ptr);
+			printf("tmp_tokens[%d].ptr: %s\n", j, tmp_tokens[j].ptr);
 			tmp_tokens[j].redir = tk.redir;
 			tmp_tokens[j].echo_opt = tk.echo_opt;
 			tmp_tokens[j].flag_split = tk.flag_split;
@@ -199,8 +200,10 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 			i++;
 		}
 	}
+	printf("i: %d, d->pars.tk_nbr: %d, j: %d, d->pars.tk_nbr + tk_to_add: %d\n", i, d->pars.tk_nbr,j, d->pars.tk_nbr + tk_to_add);
+	tmp_tokens[j].modif_word = NULL;
+	tmp_tokens[j].ptr = NULL;
 	free(d->pars.tks);
-	d->pars.tks = malloc(sizeof(t_token) * (d->pars.tk_nbr + tk_to_add + 1));
 	d->pars.tks = tmp_tokens;
 	return (1);
 }
@@ -212,8 +215,14 @@ static int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
 	(void)d;
 	(void)tk;
 	tk_to_add = count_word_split(srch);
-	printf("tk_to_add : %d\n", tk_to_add);
-	reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
+	printf("(word_splitting) > tk_to_add : %d\n", tk_to_add);
+	if (tk_to_add > 0)
+	{
+		reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
+		d->pars.tk_nbr += tk_to_add;
+	}
+	else
+		tk->modif_word = srch->tmp_modif_word;
 	return (1);
 }
 
@@ -236,7 +245,7 @@ int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 		free_srch_struct(srch);
 	}
 	ft_free_str(&s);
-	if (!tk->modif_word)
-		return (0);
+	// if (!tk->modif_word)
+	// 	return (0);
 	return (1);
 }
