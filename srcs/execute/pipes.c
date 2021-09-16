@@ -6,11 +6,11 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/02 14:48:36 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/07 17:44:38 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../minishell.h"
+#include "../minishell.h"
 
 int	**ft_malloc_fds(int cmd_nb) //a proteger
 {
@@ -114,6 +114,5 @@ int	piping(t_data *data, int cmd_nb)
 		close(fd[idx][1]);
 		idx--;
 	}
-	idx = j;
 	return (0);
 }

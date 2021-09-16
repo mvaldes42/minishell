@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
+#    By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/09/01 11:03:59 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/09/13 16:47:16 by fcavillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,8 @@ CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
 INC			=	-I $(HEADER) \
 				-lreadline \
 				-L/Users/$(USER)/.brew/opt/readline/lib \
-				-L/usr/local/opt/readline/lib
+				-L/usr/local/opt/readline/lib \
+				-lncurses
 
 LIBFT		=	lib/libft/libft.a
 LIBFT_F		=	lib/libft
