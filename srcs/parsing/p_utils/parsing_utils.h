@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 14:26:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:41:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,8 @@ int		redir_case_general(char **dup, int count, char r_type, char other_r);
 char	**token_split(char const *str, int token_nbr);
 // SEARCHER.C
 void	search_path_str(t_searcher *srch);
-int		expand_word(t_data *d, t_searcher *s);
+int		remove_quotes(char **expanded_word);
+int		expand_word(t_data *d, t_searcher *s, int i);
 // SEARCHER_UTILS.C
 int		search_variables(t_data *d, t_token *tk, t_searcher *srch, char **env);
 // WORD_SPLITTING.C

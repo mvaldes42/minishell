@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 14:26:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:29:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	count_word_split(t_searcher *srch)
 	return (count);
 }
 
-static void	create_new_token(char *mod_word, t_token *tmp_tks, int *j, int *i)
+static void	create_new_tk(char *mod_word, t_token *tmp_tks, int *j, int *i)
 {
 	int		k;
 	int		nbr_split;
@@ -84,7 +84,7 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	while (i < d->pars.tk_nbr || j < d->pars.tk_nbr + tk_to_add)
 	{
 		if (d->pars.tks[i].flag_split)
-			create_new_token(modif_word, tmp_tokens, &j, &i);
+			create_new_tk(modif_word, tmp_tokens, &j, &i);
 		else if (!d->pars.tks[i].flag_split)
 			cp_tk_to_temp(tmp_tokens, &d->pars.tks[i], &j, &i);
 	}

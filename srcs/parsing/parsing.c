@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/13 14:05:09 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:42:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,21 @@ static void	get_argv_size(t_data *data)
 static int	searcher(t_data *d)
 {
 	t_searcher	s;
+	int			i;
 
 	ft_memset(&s, 0, sizeof(s));
 	search_path_str(&s);
-	if (!expand_word(d, &s))
-		return (0);
+	i = -1;
+	while (++i < d->pars.tk_nbr)
+	{
+		if (ft_str_in_str(".", d->pars.tks[i].ptr) || \
+		ft_str_in_str("..", d->pars.tks[i].ptr))
+			break ;
+		else if (!expand_word(d, &s, i))
+			return (0);
+		if (!remove_quotes(&d->pars.tks[i].modif_word))
+			return (0);
+	}
 	if (!free_searcher(d, &s))
 		return (0);
 	return (1);

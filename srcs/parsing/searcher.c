@@ -67,7 +67,7 @@ static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
 	return (q_rm);
 }
 
-static int	remove_quotes(char **expanded_word)
+int	remove_quotes(char **expanded_word)
 {
 	int		q_rm;
 	char	*unquoted;
@@ -123,31 +123,26 @@ void	search_path_str(t_searcher *srch)
 	}
 }
 
-int	expand_word(t_data *d, t_searcher *s)
+int	expand_word(t_data *d, t_searcher *s, int i)
 {
-	int			i;
-
-	i = -1;
-	while (++i < d->pars.tk_nbr)
+	if (d->pars.tks[i].type == WORD)
 	{
-		if (ft_str_in_str(".", d->pars.tks[i].ptr) || \
-		ft_str_in_str("..", d->pars.tks[i].ptr))
-			break ;
-		if (d->pars.tks[i].type == WORD)
-		{
-			if (!search_variables(d, &d->pars.tks[i], s, d->environ))
+		if (!search_variables(d, &d->pars.tks[i], s, d->environ))
+			return (0);
+		if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
+			if (!search_functions(d, &d->pars.tks[i], s))
 				return (0);
-			if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
-				if (!search_functions(d, &d->pars.tks[i], s))
-					return (0);
-		}
-		else if (d->pars.tks[i].type == EXIT_STS)
-			d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
-		else
-			d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
-		if (!remove_quotes(&d->pars.tks[i].modif_word))
+	}
+	else if (d->pars.tks[i].redir)
+	{
+		errno = UNEXPECTED_TK;
+		if (i + 1 > d->pars.tk_nbr || d->pars.tks[i + 1].type != WORD)
 			return (0);
 	}
+	else if (d->pars.tks[i].type == EXIT_STS)
+		d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
+	else
+		d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:56 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 10:15:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 15:09:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,6 @@ int	builtin_pwd(char **args, char ***environ_var)
 	if (!pwd)
 		return (1);
 	printf("%s\n", pwd);
-	free(pwd);
+	ft_free_str(&pwd);
 	return (0);
 }
