@@ -133,12 +133,6 @@ int	expand_word(t_data *d, t_searcher *s, int i)
 			if (!search_functions(d, &d->pars.tks[i], s))
 				return (0);
 	}
-	else if (d->pars.tks[i].redir)
-	{
-		errno = UNEXPECTED_TK;
-		if (i + 1 > d->pars.tk_nbr || d->pars.tks[i + 1].type != WORD)
-			return (0);
-	}
 	else if (d->pars.tks[i].type == EXIT_STS)
 		d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
 	else
