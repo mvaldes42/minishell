@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 16:33:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:26:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ char	**token_split(char const *str, int token_nbr);
 void	search_path_str(t_searcher *srch);
 int		expand_word(t_data *d, t_searcher *s);
 // SEARCHER_UTILS.C
-int		search_variables(t_data *d, t_token *tk, t_searcher *srch,
-		char **environ);
+int		search_variables(t_data *d, t_token *tk, t_searcher *srch, char **env);
 // WORD_SPLITTING.C
 int		word_splitting(t_data *d, t_token *tk, t_searcher *srch);
 // SEARCHER_UTILS_2.C

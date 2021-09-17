@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 16:32:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 14:26:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,5 @@ int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 		free_srch_struct(srch);
 	}
 	ft_free_str(&s);
-	if (!tk->modif_word)
-		return (0);
 	return (1);
 }
