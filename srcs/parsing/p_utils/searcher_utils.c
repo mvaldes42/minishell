@@ -6,34 +6,41 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 14:26:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:43:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	count_variables(t_token *tk, char *str)
+static int	count_variables(t_token *tk, char *str, int fct_expt)
 {
-	int	i;
-	int	var_nbr;
+	int		i;
+	int		var_nbr;
+	int		str_size;
+	bool	export_case;
 
+	str_size = ft_strlen(str);
 	i = -1;
 	var_nbr = 0;
-	while (str[++i])
+	export_case = 0;
+	while (++i < str_size)
 	{
 		if (str[i] == S_QUOTE)
-			while (str[++i] && str[i] != S_QUOTE)
+			while (++i < str_size && str[i] != S_QUOTE)
 				;
 		else if (str[i] == D_QUOTE)
 		{
-			while (str[++i] && str[i] != D_QUOTE)
+			while (++i < str_size && str[i] != D_QUOTE)
 				if (str[i] == VAR)
 					var_nbr++;
 		}
+		else if (str[i] == '=' && fct_expt)
+			export_case = 1;
 		else if (str[i] == VAR)
 		{
-			tk->var_not_quoted = 1;
+			if (!export_case)
+				tk->var_not_quoted = 1;
 			var_nbr++;
 		}
 	}
@@ -128,12 +135,20 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	return (v.dest);
 }
 
-int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
+int	search_variables(t_data *d, int i, t_searcher *srch, char **environ)
 {
 	char	*s;
+	int		fct_expt;
+	t_token	*tk;
 
+	tk = &d->pars.tks[i];
+	fct_expt = 0;
+	if (i > 0 && d->pars.tks[i - 1].type == BUILTIN && \
+	ft_str_in_str("export", d->pars.tks[i - 1].ptr))
+		fct_expt = 1;
 	s = ft_strdup(tk->ptr);
-	srch->nbr_var = count_variables(tk, s);
+	srch->nbr_var = count_variables(tk, s, fct_expt);
+	printf("srch->nbr_var: %d\n", srch->nbr_var);
 	if (srch->nbr_var == 0)
 		tk->modif_word = ft_strdup(tk->ptr);
 	else
@@ -142,7 +157,7 @@ int	search_variables(t_data *d, t_token *tk, t_searcher *srch, char **environ)
 		translated_var_length(srch, tk, environ);
 		srch->t_token_len = ft_strlen(s) - srch->tot_o_len + srch->tot_t_len;
 		srch->tmp_modif_word = replace_substr(srch, s, srch->t_token_len);
-		if (!word_splitting(d, tk, srch))
+		if (!word_splitting(d, tk, srch, fct_expt))
 			return (0);
 		free_srch_struct(srch);
 	}

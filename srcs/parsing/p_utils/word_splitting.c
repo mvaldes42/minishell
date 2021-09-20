@@ -6,29 +6,36 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 14:29:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:37:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	count_word_split(t_searcher *srch)
+static int	count_word_split(t_searcher *srch, int fct_expt)
 {
 	int		i;
 	int		count;
 	char	*tmp;
+	int		tmp_size;
 
 	i = 0;
 	count = 0;
 	tmp = srch->tmp_modif_word;
-	while (tmp != NULL && tmp[i])
+	tmp_size = ft_strlen(tmp);
+	printf("tmp: %s\n", tmp);
+	while (tmp != NULL && i < tmp_size)
 	{
+		printf("tmp[i] : %c, count: %d\n", tmp[i], count);
 		if (tmp[i] == D_QUOTE)
-			while (tmp[++i] && tmp[i] != D_QUOTE)
-				;
+			while (++i < tmp_size && tmp[i] != D_QUOTE)
+				printf("D_quote: tmp[i] : %c, count: %d\n", tmp[i], count);
 		if (tmp[i] == SPACE || tmp[i] == TAB)
 			count += 1;
+		if (tmp[i] == '=' && fct_expt)
+			while (++i < tmp_size)
+				printf("'=': tmp[i] : %c, count: %d\n", tmp[i], count);
 		i++;
 	}
 	return (count);
@@ -95,11 +102,11 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	return (1);
 }
 
-int	word_splitting(t_data *d, t_token *tk, t_searcher *srch)
+int	word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt)
 {
 	int		tk_to_add;
 
-	tk_to_add = count_word_split(srch);
+	tk_to_add = count_word_split(srch, fct_expt);
 	if (tk_to_add > 0)
 	{
 		reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);

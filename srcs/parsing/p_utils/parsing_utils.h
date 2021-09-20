@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 14:41:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/20 11:08:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_token
 	bool	redir;
 	bool	echo_opt;
 	bool	var_not_quoted;
+	bool	var_is_after_equal;
 	bool	flag_split;
 	char	*modif_word;
 	char	*tk_fct_path;
@@ -116,9 +117,9 @@ void	search_path_str(t_searcher *srch);
 int		remove_quotes(char **expanded_word);
 int		expand_word(t_data *d, t_searcher *s, int i);
 // SEARCHER_UTILS.C
-int		search_variables(t_data *d, t_token *tk, t_searcher *srch, char **env);
+int		search_variables(t_data *d, int i, t_searcher *srch, char **env);
 // WORD_SPLITTING.C
-int		word_splitting(t_data *d, t_token *tk, t_searcher *srch);
+int		word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
 void	free_srch_struct(t_searcher *srch);
