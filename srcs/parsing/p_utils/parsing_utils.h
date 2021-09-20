@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/20 11:08:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:57:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ int		remove_quotes(char **expanded_word);
 int		expand_word(t_data *d, t_searcher *s, int i);
 // SEARCHER_UTILS.C
 int		search_variables(t_data *d, int i, t_searcher *srch, char **env);
+// SEARCHER_UTILS_3.C
+int		count_variables(t_token *tk, char *str, int fct_expt);
 // WORD_SPLITTING.C
 int		word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt);
 // SEARCHER_UTILS_2.C

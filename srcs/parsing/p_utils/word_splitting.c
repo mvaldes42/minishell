@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/20 14:37:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/20 14:59:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,16 @@ static int	count_word_split(t_searcher *srch, int fct_expt)
 	count = 0;
 	tmp = srch->tmp_modif_word;
 	tmp_size = ft_strlen(tmp);
-	printf("tmp: %s\n", tmp);
 	while (tmp != NULL && i < tmp_size)
 	{
-		printf("tmp[i] : %c, count: %d\n", tmp[i], count);
 		if (tmp[i] == D_QUOTE)
 			while (++i < tmp_size && tmp[i] != D_QUOTE)
-				printf("D_quote: tmp[i] : %c, count: %d\n", tmp[i], count);
+				;
 		if (tmp[i] == SPACE || tmp[i] == TAB)
 			count += 1;
 		if (tmp[i] == '=' && fct_expt)
 			while (++i < tmp_size)
-				printf("'=': tmp[i] : %c, count: %d\n", tmp[i], count);
+				;
 		i++;
 	}
 	return (count);
