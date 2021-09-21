@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 15:41:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/21 12:04:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ char	*ft_getenv(const char *name, char **env_var)
 {
 	int		i;
 	char	**split_env;
+	char	*result;
 
 	i = -1;
 	while (env_var[++i])
@@ -86,7 +87,11 @@ char	*ft_getenv(const char *name, char **env_var)
 		split_env = ft_split(env_var[i], '=');
 		if (ft_strncmp(name, split_env[0], ft_strlen(split_env[0])) == 0 && \
 		ft_strncmp(name, split_env[0], ft_strlen(name)) == 0)
-			return (split_env[1]);
+		{
+			result = ft_strdup(split_env[1]);
+			free_split(split_env);
+			return (result);
+		}
 		free_split(split_env);
 	}
 	return (NULL);
