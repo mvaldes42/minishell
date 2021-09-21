@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/14 16:30:11 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/21 11:26:39 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	    exec_read_in(t_data *data, int i);
 int	    execute_fct(t_data *data);
 void    check_tty();
 void	sig_handler(int sig);
+void	term();
+
 
 
 

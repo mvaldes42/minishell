@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 15:17:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/21 15:40:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(void)
 
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
+	term();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	line = readline(data.prompt);
