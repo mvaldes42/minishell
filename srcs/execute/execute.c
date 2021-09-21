@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/14 17:15:20 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/21 12:28:06 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 ** bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
 ** oko | oko | oko
+** 
 */
 
 /*
@@ -116,7 +117,7 @@ void check_tty()
 //	printf("ttyname = %s\n", ttyname(fd));
 	
 }
-*/
+
 int get_pos(int *y, int *x) {
 
  char buf[30]={0};
@@ -133,7 +134,7 @@ int get_pos(int *y, int *x) {
  term.c_lflag &= ~(ICANON|ECHO);
  tcsetattr(0, TCSANOW, &term);
 
-// write(1, "\033[6n", 4);
+ write(1, "\033[6n", 4);
 
  for( i = 0, ch = 0; ch != 'R'; i++ )
  {
@@ -144,7 +145,7 @@ int get_pos(int *y, int *x) {
        return 1;
     }
     buf[i] = ch;
-//    printf("buf[%d]: \t%c \t%d\n", i, ch, ch);
+    printf("buf[%d]: \t%c \t%d\n", i, ch, ch);
  }
 
  if (i < 2) {
@@ -169,7 +170,7 @@ int pain() {
  printf("x:%d, y:%d\n", x, y);
  return 0;
 }
-
+*/
 int	execute(t_data *data)
 {
 	int			pipe_nb;
