@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 15:40:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/21 15:51:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	execute_fct(t_data *data) //int i??
 				return (0); //error to handle
 		waitpid(pid, NULL, 0);
 	}
-	return (0); // a preciser
+	return (1); // a preciser
 }
 
 /*
@@ -82,10 +82,37 @@ int	execute_piped_fct(t_data *data, int i)
 	else
 	{
 		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
+		{
+			errno = CMD_NOT_FOUND;
 			exit (0); //error to handle
+		}
 	}
-	exit (0); // a preciser
+	exit (1); // a preciser
 }
+
+int	execute(t_data *data)
+{
+	int			pipe_nb;
+
+//	pain();
+	if (check_redir(data) == -1) // a modifier
+		return (0); //erreur dramatique
+	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
+	if (!data->pid)
+		return (0);
+	pipe_nb = data->pars.cmd_nbr - 1;
+	if (data->pars.cmd_nbr >= 2)
+	{
+		piping(data, data->pars.cmd_nbr);
+		while (pipe_nb >= 0)
+			waitpid(data->pid[pipe_nb--], NULL, 0);
+	}
+	else
+		if (!execute_fct(data)) // gerer erreur
+			return (0);
+	return (1);
+}
+
 /*
 void check_tty()
 {
@@ -171,26 +198,3 @@ int pain() {
  return 0;
 }
 */
-int	execute(t_data *data)
-{
-	int			pipe_nb;
-
-//	pain();
-	if (check_redir(data) == -1) // a modifier
-		return (1); //erreur dramatique
-	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
-	pipe_nb = data->pars.cmd_nbr - 1;
-	if (!data->pid)
-		printf("malloc error\n");
-	if (data->pars.cmd_nbr >= 2)
-	{
-		piping(data, data->pars.cmd_nbr);
-		while (pipe_nb >= 0)
-			waitpid(data->pid[pipe_nb--], NULL, 0);
-	}
-	else
-	{
-		execute_fct(data); // gerer erreur
-	}
-	return (1);
-}

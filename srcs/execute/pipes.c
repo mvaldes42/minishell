@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/07 17:44:38 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/21 16:11:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,10 @@ int	pipe_first(t_data *data, int **fd)
 		close(fd[0][0]);
 		dup2(fd[0][1], STDOUT_FILENO);
 		close(fd[0][1]);
-		execute_piped_fct(data, 0);
+		if (!execute_piped_fct(data, 0))
+			return (0);
 	}
-	return (0);
+	return (1);
 }
 
 int	pipe_middle(t_data *data, int idx, int **fd)
@@ -114,5 +115,5 @@ int	piping(t_data *data, int cmd_nb)
 		close(fd[idx][1]);
 		idx--;
 	}
-	return (0);
+	return (1);
 }
