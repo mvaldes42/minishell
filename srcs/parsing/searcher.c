@@ -34,8 +34,12 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	}
 	if (search_funct_ext(&data->pars, token, srch) == 1)
 		return (1);
-	errno = CMD_NOT_FOUND;
-	return (0);
+	token->type = FUNCTION;
+	data->pars.cmd_nbr++;
+	// errno = CMD_NOT_FOUND;
+	token->modif_word = NULL;
+	token->tk_fct_path = NULL;
+	return (1);
 }
 
 static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)

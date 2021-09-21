@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:23:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 20:05:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/21 14:43:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	print_cmd_tab(t_data *d)
 		printf("	->fct_ptr: %p\n", cmds[j].fct.builtin_ptr);
 		printf("	->fct_path: %s\n", cmds[j].fct.fct_path);
 		k = 0;
-		while (cmds[j].args[k] && k < d->pars.argv_size[j])
+		while (k < d->pars.argv_size[j])
 		{
 			printf("		->args %d/%d: %s\n", k + 1, \
 			d->pars.argv_size[cmds[j].id], cmds[j].args[k]);
