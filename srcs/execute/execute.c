@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 15:51:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 13:55:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 ** bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
 ** oko | oko | oko
-** 
+**
 */
 
 /*
@@ -53,10 +53,13 @@ int	execute_fct(t_data *data) //int i??
 	}
 	else
 	{
+		errno = CMD_NOT_FOUND;
+		if (cmd.fct.fct_path == NULL)
+			return (0);
 		pid = fork(); // a proteger
 		if (pid == 0)
 			if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
-				return (0); //error to handle
+				return (0);
 		waitpid(pid, NULL, 0);
 	}
 	return (1); // a preciser
@@ -109,7 +112,11 @@ int	execute(t_data *data)
 	}
 	else
 		if (!execute_fct(data)) // gerer erreur
+		{
+			free(data->pid);
 			return (0);
+		}
+	// free (data->pid) ???
 	return (1);
 }
 
@@ -142,7 +149,7 @@ void check_tty()
 
 //	printf("ttyslot = %d\n", fd);
 //	printf("ttyname = %s\n", ttyname(fd));
-	
+
 }
 
 int get_pos(int *y, int *x) {
@@ -151,7 +158,7 @@ int get_pos(int *y, int *x) {
  int ret, i, pow;
  char ch;
 
-	*y = 0; 
+	*y = 0;
 	*x = 0;
 
  struct termios term, restore;
