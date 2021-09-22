@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/22 14:44:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:54:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	execute_piped_fct(t_data *data, int i)
 	}
 	else
 	{
+		if (cmd.fct.fct_path == NULL)
+			exit (0);
 		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
 			exit (0); //error to handle
 	}

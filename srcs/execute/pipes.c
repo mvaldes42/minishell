@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:50:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:52:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	pipe_middle(t_data *data, int idx, int **fd)
 int	pipe_last(t_data *data, int idx, int **fd)
 {
 	int	i;
+
 	errno = CMD_NOT_FOUND;
 	if (!data->cmds[idx].fct.builtin && data->cmds[idx].fct.fct_path == NULL)
 		error_handling();
