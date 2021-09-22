@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 14:30:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:06:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	input_command_table(t_data *d)
 	int			j;
 
 	d->cmds = malloc(sizeof(t_commands) * d->pars.cmd_nbr + 1);
-	memset(d->cmds, 0, sizeof(t_commands));
+	ft_memset(d->cmds, 0, sizeof(t_commands));
 	i = -1;
 	j = -1;
 	while (++j < d->pars.cmd_nbr && ++i < d->pars.tk_nbr)

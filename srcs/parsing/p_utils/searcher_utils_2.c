@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 14:36:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:06:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	make_dest_dir(t_searcher *srch, t_funct_ext *ext, int i)
 	size = sizeof(char *) * (ft_strlen(srch->env_path[i]) + ft_strlen("/\0") + \
 	ft_strlen(ext->func_name) + 1);
 	ext->dest_dir = (char *)malloc(size);
-	memset(ext->dest_dir, 0, sizeof(char *));
+	ft_memset(ext->dest_dir, 0, sizeof(char *));
 	ext->d_ptr = ext->dest_dir;
 	ft_strlcat(ext->dest_dir, srch->env_path[i], size);
 	ft_strlcat(ext->dest_dir, "/\0", size);

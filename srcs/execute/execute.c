@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/22 13:55:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/22 14:44:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	execute_fct(t_data *data) //int i??
 		if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 			data->is_exit = TRUE;
 		if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
-			return (0); // a preciser
+			return (0);
 	}
 	else
 	{
@@ -62,7 +62,7 @@ int	execute_fct(t_data *data) //int i??
 				return (0);
 		waitpid(pid, NULL, 0);
 	}
-	return (1); // a preciser
+	return (1);
 }
 
 /*
@@ -85,10 +85,7 @@ int	execute_piped_fct(t_data *data, int i)
 	else
 	{
 		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
-		{
-			errno = CMD_NOT_FOUND;
 			exit (0); //error to handle
-		}
 	}
 	exit (1); // a preciser
 }
@@ -111,12 +108,14 @@ int	execute(t_data *data)
 			waitpid(data->pid[pipe_nb--], NULL, 0);
 	}
 	else
-		if (!execute_fct(data)) // gerer erreur
+	{
+		if (!execute_fct(data))
 		{
 			free(data->pid);
 			return (0);
 		}
-	// free (data->pid) ???
+	}
+	free (data->pid);
 	return (1);
 }
 
