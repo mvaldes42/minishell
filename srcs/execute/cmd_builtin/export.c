@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 15:21:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/17 15:13:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	reatribute_var(char **args, char ***env_var, char *old_var)
 	{
 		if (ft_strncmp((*env_var)[i], old_var, ft_strlen(old_var)) == 0)
 		{
-			free((*env_var)[i]);
+			ft_free_str(&(*env_var)[i]);
 			(*env_var)[i] = ft_strdup(args[1]);
 		}
 	}
@@ -45,12 +45,12 @@ static	int	init_create_var(char **args, char ***env_var, char ***tmp_env, \
 	while (++i < *size)
 	{
 		(*tmp_env)[i] = ft_strdup((*env_var)[i]);
-		free((*env_var)[i]);
+		ft_free_str(&(*env_var)[i]);
 		(*env_var)[i] = NULL;
 	}
 	(*tmp_env)[*size] = ft_strdup(args[1]);
 	(*tmp_env)[*size + 1] = NULL;
-	free(*env_var);
+	ft_free_str(*env_var);
 	(*env_var) = NULL;
 	return (1);
 }

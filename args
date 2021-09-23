@@ -1,0 +1,4 @@
+#!/bin/sh -
+printf "%d args:\n" "$#"
+printf "<%s>\n" "$@"
+echo

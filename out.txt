@@ -1,3 +1,0 @@
-hello fd
-hello builtin
-hello real exit

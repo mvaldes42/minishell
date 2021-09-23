@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 15:26:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 15:39:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,8 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 	{
 		cmd->redirs[j].type = tks[i].type;
 		i += 1;
-		if (tks[i].type == WEAK_WORD)
-			cmd->redirs[j].filename = tks[i].trans_weak;
-		else if (tks[i].type == VARIABLE)
-			cmd->redirs[j].filename = tks[i].trans_var;
+		if (tks[i].type == WORD)
+			cmd->redirs[j].filename = tks[i].modif_word;
 		else
 			cmd->redirs[j].filename = tks[i].ptr;
 		j++;
@@ -59,37 +57,41 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 
 int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
-	int	k;
+	int		k;
+	int		l;
 
-	k = 0;
-	cmd->args[k] = cmd->fct.name;
-	while (++k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
+	cmd->args[0] = cmd->fct.name;
+	k = 1;
+	while (k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
-		if (tks[i].type == WEAK_WORD || tks[i].type == WORD_VAR)
-			cmd->args[k] = tks[i].trans_weak;
-		else if (tks[i].type == VARIABLE)
-			cmd->args[k] = tks[i].trans_var;
-		else
-			cmd->args[k] = tks[i].ptr;
+		l = -1;
+		cmd->args[k++] = tks[i].modif_word;
 	}
-	cmd->args[k] = NULL;
+	cmd->args[d->pars.argv_size[cmd->id]] = NULL;
 	return (i);
 }
 
-void	input_cmd_fct_builtin(t_commands *cmd)
+int	input_cmd_fct_builtin(t_commands *cmd)
 {
-	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0)
+	errno = 139;
+	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "ECHO", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_echo;
 	else if (ft_strncmp(cmd->fct.name, "cd", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_cd;
-	else if (ft_strncmp(cmd->fct.name, "pwd", ft_strlen(cmd->fct.name)) == 0)
+	else if (ft_strncmp(cmd->fct.name, "pwd", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "PWD", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_pwd;
 	else if (ft_strncmp(cmd->fct.name, "export", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_export;
 	else if (ft_strncmp(cmd->fct.name, "unset", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_unset;
-	else if (ft_strncmp(cmd->fct.name, "env", ft_strlen(cmd->fct.name)) == 0)
+	else if (ft_strncmp(cmd->fct.name, "env", ft_strlen(cmd->fct.name)) == 0 \
+	|| ft_strncmp(cmd->fct.name, "ENV", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_env;
 	else if (ft_strncmp(cmd->fct.name, "exit", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_exit;
+	if (cmd->fct.builtin_ptr == NULL)
+		return (0);
+	return (1);
 }

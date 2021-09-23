@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 12:26:42 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:00:41 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,6 @@ static void	initialize_env(t_data *data, char **line)
 	data->environ[size] = NULL;
 }
 
-void	free_environ(t_data *data)
-{
-	int	i;
-
-	i = -1;
-	if (data->environ != NULL)
-	{
-		while (data->environ[++i] != NULL)
-		{
-			free(data->environ[i]);
-			data->environ[i] = NULL;
-		}
-	}
-	free(data->environ);
-	data->environ = NULL;
-}
-
 static int	is_line_empty(char *line)
 {
 	if (char_occu(line, SPACE) == (int)ft_strlen(line))
@@ -135,7 +118,7 @@ int	main(void)
 	create_prompt(&data, 0);
 	term();
 	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);	
+	signal(SIGQUIT, SIG_IGN);
 	line = readline(data.prompt);
 	main_loop(&data, line);
 	rl_clear_history();

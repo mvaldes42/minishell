@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/02 10:53:05 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/16 16:19:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ static char	**scanning_tokens(t_parsing *lx, char *line)
 	char	**unspec_token;
 
 	unspec_token = NULL;
-	lx->tk_nbr = token_count(line, SPACE);
+	lx->tk_nbr = token_count(line);
 	if (lx->tk_nbr == 0)
 		return (NULL);
-	unspec_token = token_split(line, SPACE);
+	unspec_token = token_split(line, lx->tk_nbr);
 	return (unspec_token);
 }
 
@@ -35,14 +35,6 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 		lx->tks[i].type = EXIT_STS;
 }
 
-static int	is_redir(t_parsing *lx, int i)
-{
-	if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
-	|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
-		return (1);
-	return (0);
-}
-
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 {
 	int	i;
@@ -52,23 +44,17 @@ static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
 	{
 		ft_memset(&lx->tks[i], 0, sizeof(lx->tks[i]));
 		lx->tks[i].type = WORD;
-		lx->tks[i].redir = 0;
 		lx->tks[i].ptr = ft_strdup(unspec_token[i]);
 		if (ft_strlen(unspec_token[i]) == 1 && unspec_token[i][0] == PIPE_C)
 			lx->tks[i].type = PIPE;
 		else if (ft_strlen(unspec_token[i]) == 2)
 			eval_double_char(lx, unspec_token, i);
-		else if (unspec_token[i][0] == VAR)
-			lx->tks[i].type = VARIABLE;
-		else if (unspec_token[i][0] == S_QUOTE)
-			lx->tks[i].type = STRONG_WORD;
-		else if (unspec_token[i][0] == D_QUOTE)
-			lx->tks[i].type = WEAK_WORD;
 		else if (unspec_token[i][0] == R_IN)
 			lx->tks[i].type = REDIR_IN;
 		else if (unspec_token[i][0] == R_OUT)
 			lx->tks[i].type = REDIR_OUT;
-		if (is_redir(lx, i))
+		if (lx->tks[i].type == REDIR_OUT_A || lx->tks[i].type == REDIR_IN \
+		|| lx->tks[i].type == REDIR_OUT || lx->tks[i].type == READ_IN)
 			lx->tks[i].redir = 1;
 	}
 }

@@ -13,41 +13,22 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static int	search_variables(t_token *token, t_searcher *srch, char **environ)
-{
-	char	*translated_str;
-	char	*ptr;
-
-	errno = VAR_NOT_FOUND;
-	if (token->type == VARIABLE)
-	{
-		translated_str = ft_strdup(token->ptr);
-		ptr = translated_str;
-		translated_str++;
-		token->trans_var = ft_getenv(translated_str, environ);
-		ft_free_str(&ptr);
-	}
-	else if (token->type == WEAK_WORD || token->type == WORD)
-		if (!weak_word_search(token, srch, environ))
-			return (0);
-	return (1);
-}
-
 static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 {
 	int			i;
-	const char	*buildin[14] = \
+	const char	*buildin[] = \
 	{"echo", "cd", "pwd", "export", "unset", "env", "exit", \
-	"ECHO", "CD", "PWD", "EXPORT", "UNSET", "ENV", NULL};
+	"ECHO", "PWD", "ENV", NULL};
 
 	i = -1;
 	while (buildin[++i])
 	{
-		if (ft_strncmp(token->ptr, buildin[i], \
-		ft_strlen(buildin[i])) == 0)
+		if (ft_strncmp(token->ptr, buildin[i], ft_strlen(token->ptr)) == 0 \
+		&& ft_strncmp(token->ptr, buildin[i], ft_strlen(buildin[i])) == 0)
 		{
 			token->type = BUILTIN;
 			data->pars.cmd_nbr++;
+			token->modif_word = ft_strdup(token->ptr);
 			return (1);
 		}
 	}
@@ -57,7 +38,64 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-static void	search_path_str(t_searcher *srch)
+static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
+{
+	int		i;
+
+	i = 0;
+	while (i < size + 2 && *unquoted)
+	{
+		if (exp_word[i] == S_QUOTE)
+		{
+			i += 1;
+			while (i < size + 1 && *unquoted && exp_word[i] != S_QUOTE)
+				*(unquoted++) = exp_word[i++];
+			q_rm = 1;
+			i += 1;
+		}
+		if (exp_word[i] == D_QUOTE)
+		{
+			i += 1;
+			while (i < size + 1 && *unquoted && exp_word[i] != D_QUOTE)
+				*(unquoted++) = exp_word[i++];
+			q_rm = 1;
+			i += 1;
+		}
+		*(unquoted++) = exp_word[i++];
+	}
+	*unquoted = 0;
+	return (q_rm);
+}
+
+int	remove_quotes(char **expanded_word)
+{
+	int		q_rm;
+	char	*unquoted;
+	int		size;
+	char	*unquoted_ptr;
+
+	if (*expanded_word == NULL)
+		return (1);
+	size = ft_strlen(*expanded_word) - 1;
+	if (size <= 0)
+		return (1);
+	unquoted = malloc(sizeof(char *) * size);
+	if (!unquoted)
+		return (0);
+	q_rm = 0;
+	unquoted_ptr = unquoted;
+	q_rm = rm_quotes_next(*expanded_word, unquoted, size, q_rm);
+	if (q_rm)
+	{
+		ft_free_str(expanded_word);
+		(*expanded_word) = unquoted_ptr;
+	}
+	else
+		ft_free_str(&unquoted_ptr);
+	return (1);
+}
+
+void	search_path_str(t_searcher *srch)
 {
 	int			i;
 	char		*path_ptr;
@@ -85,42 +123,22 @@ static void	search_path_str(t_searcher *srch)
 	}
 }
 
-static int	searcher_bis(t_data *d, t_searcher	*s)
+int	expand_word(t_data *d, t_searcher *s, int i)
 {
-	int			i;
-	t_token		*tk;
-
-	i = -1;
-	while (++i < d->pars.tk_nbr)
+	if (d->pars.tks[i].type == WORD)
 	{
-		tk = &d->pars.tks[i];
-		if (ft_strncmp(".", tk->ptr, ft_strlen(tk->ptr)) == 0 \
-		|| ft_strncmp("..", tk->ptr, ft_strlen(tk->ptr)) == 0)
-			break ;
-		if (tk->type == WORD || tk->type == VARIABLE || tk->type == WEAK_WORD)
-		{
-			if (!search_variables(tk, s, d->environ))
+		if (!search_variables(d, i, s, d->environ))
+			return (0);
+		if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
+			if (!search_functions(d, &d->pars.tks[i], s))
 				return (0);
-			if (tk->type == WORD && \
-			(i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE)))
-				if (!search_functions(d, tk, s))
-					return (0);
-		}
-		if (tk->type == EXIT_STS)
-			tk->trans_weak = ft_strdup("exit_status(do do later)");
 	}
+	else if (d->pars.tks[i].type == EXIT_STS)
+		d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
+	else
+		d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
 	return (1);
 }
 
-int	searcher(t_data *d)
-{
-	t_searcher	s;
-
-	ft_memset(&s, 0, sizeof(s));
-	search_path_str(&s);
-	if (!searcher_bis(d, &s))
-		return (0);
-	if (!free_searcher(d, &s))
-		return (0);
-	return (1);
-}
+// printf("(expand word) > tk[%d]: %s, d->pars.tk_nbr: %d\n",
+// i, tk->modif_word, d->pars.tk_nbr);
