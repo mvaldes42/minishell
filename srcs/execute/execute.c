@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 12:28:06 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/21 15:15:49 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,7 @@ int pain() {
  return 0;
 }
 */
+
 int	execute(t_data *data)
 {
 	int			pipe_nb;

@@ -6,11 +6,34 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/21 14:47:36 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/21 18:14:04 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	term(void)
+{
+	struct termios	term1;
+
+	tcgetattr(STDIN_FILENO, &term1);
+	term1.c_lflag &= ~ECHOCTL;
+	if (tcsetattr(STDIN_FILENO, TCSANOW, &term1) != 0)
+		return ;//error to handle
+}
+
+void	sig_handler(int sig)
+{
+	if (sig == SIGINT)
+	{
+		write(1, "\n", 1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
+
+/*
 
 int	ft_putint(int c)
 {
@@ -18,17 +41,6 @@ int	ft_putint(int c)
 	return (0);
 }
 
-void	term()
-{
-  struct termios term1;
-
-	tcgetattr(STDIN_FILENO, &term1);
-	term1.c_lflag |= ~ECHOCTL;
-	if (tcsetattr(STDIN_FILENO, TCSANOW, &term1) != 0)
-		return ; //error to handle
-}
-
-/*
 void	term() {
   struct termios term1;
 
@@ -50,11 +62,11 @@ void	term() {
       printf("the new end-of-file character is x'%02x'\n",
              term1.c_cc[VEOF]);
  }
-*/
 
-/*
+
+
 ** I need to get the current cursor position
-*/
+
 
 void	sig_handler(int sig)
 {
@@ -64,12 +76,12 @@ void	sig_handler(int sig)
 //	char	*term_type;
 
 //	term();
-/*	term_type = getenv("TERM");//get terminal type
+	term_type = getenv("TERM");//get terminal type
 	ret = tgetent(NULL, term_type);//initialise termcap library by recovering infos from terminal + A PROTEGER
 	cm_cap = tgetstr("cm", NULL);//get the termcap to move cursor
 	li = tgetnum("li");
 	tputs(tgoto(cm_cap, 38, li + 1), 1, ft_putint);//38 a changer en fonction du prompt - tputs execute tgoto 
-	write(1, "  ", 2);*/
+	write(1, "  ", 2);
 	if (sig == SIGINT)
 	{
 		write(1, "\n", 1);
@@ -77,4 +89,4 @@ void	sig_handler(int sig)
 		rl_replace_line("", 0);
 		rl_redisplay();
 	}
-}
+}*/
