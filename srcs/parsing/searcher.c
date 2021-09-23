@@ -36,7 +36,6 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 		return (1);
 	token->type = FUNCTION;
 	data->pars.cmd_nbr++;
-	// errno = CMD_NOT_FOUND;
 	token->modif_word = NULL;
 	token->tk_fct_path = NULL;
 	return (1);
@@ -47,28 +46,62 @@ static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
 	int		i;
 
 	i = 0;
-	while (i < size + 2 && *unquoted)
+	while (i < (int)ft_strlen(exp_word) - 1 && *unquoted)
 	{
 		if (exp_word[i] == S_QUOTE)
 		{
 			i += 1;
 			while (i < size + 1 && *unquoted && exp_word[i] != S_QUOTE)
 				*(unquoted++) = exp_word[i++];
-			q_rm = 1;
+			q_rm += 2;
 			i += 1;
 		}
-		if (exp_word[i] == D_QUOTE)
+		else if (exp_word[i] == D_QUOTE)
 		{
 			i += 1;
 			while (i < size + 1 && *unquoted && exp_word[i] != D_QUOTE)
 				*(unquoted++) = exp_word[i++];
-			q_rm = 1;
+			q_rm += 2;
 			i += 1;
 		}
-		*(unquoted++) = exp_word[i++];
+		if (exp_word[i] != D_QUOTE && exp_word[i] != S_QUOTE)
+		{
+			*(unquoted) = exp_word[i];
+			unquoted++;
+		}
+		i++;
 	}
 	*unquoted = 0;
 	return (q_rm);
+}
+
+static int	size_of_unquoted(char *expanded_word)
+{
+	int	size;
+	int	nbr_removed;
+	int	i;
+
+	size = ft_strlen(expanded_word);
+	nbr_removed = 0;
+	i = -1;
+	while (i < size && expanded_word[++i])
+	{
+		if (i < size && expanded_word[i] == S_QUOTE)
+		{
+			while (i < size && expanded_word[++i] != S_QUOTE)
+				;
+			nbr_removed += 2;
+			i += 1;
+		}
+		if (i < size && expanded_word[i] == D_QUOTE)
+		{
+			while (i < size && expanded_word[++i] != D_QUOTE)
+				;
+			nbr_removed += 2;
+			i += 1;
+		}
+	}
+	return (size - nbr_removed);
 }
 
 int	remove_quotes(char **expanded_word)
@@ -80,10 +113,10 @@ int	remove_quotes(char **expanded_word)
 
 	if (*expanded_word == NULL)
 		return (1);
-	size = ft_strlen(*expanded_word) - 1;
-	if (size <= 0)
+	size = size_of_unquoted(*expanded_word);
+	if (size <= 0 || size == (int)ft_strlen(*expanded_word))
 		return (1);
-	unquoted = malloc(sizeof(char *) * size);
+	unquoted = malloc(sizeof(char *) * (size + 1));
 	if (!unquoted)
 		return (0);
 	q_rm = 0;
