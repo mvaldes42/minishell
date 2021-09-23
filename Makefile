@@ -6,7 +6,7 @@
 #    By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/09/13 16:47:16 by fcavillo         ###   ########.fr        #
+#    Updated: 2021/09/23 16:59:33 by fcavillo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ all:		$(NAME)
 
 $(NAME):	$(OBJS) $(HEADER)
 			@make -C $(LIBFT_F)
-			@$(CC) $(CC_FLAGS) $(INC) $(OBJS) $(LIBFT) -o $(NAME)
+			@$(CC) $(CC_FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(INC)
 			@printf "$(GREEN)$(NAME) created with '$(CC_FLAGS)' flags\n$(END)"
 			@printf "$(PURPLE)Minishell is ready to work!\n$(END)"
 
