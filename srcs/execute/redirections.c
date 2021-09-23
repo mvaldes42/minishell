@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/06 17:17:47 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:46:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	exec_redir_out(t_data *data, int i)
 	pid = fork(); //a proteger
 	if (pid == 0)
 	{
-		fd = open(cmd.redirs->filename, O_WRONLY | O_TRUNC | O_CREAT,
+		fd = open(cmd.redirs->filename, O_WRONLY | O_APPEND | O_CREAT,
 				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR); //check errors
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
@@ -99,7 +99,7 @@ int	handle_redir(t_data *data, int type, int i)
 		exec_redir_in(data, i);
 	else if (type == READ_IN) // <<	
 		exec_read_in(data, i);
-	return (0);
+	return (1);
 }
 
 int	check_redir(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/23 17:08:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:46:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	execute(t_data *data)
 
 //	pain();
 	if (check_redir(data) == -1) // a modifier
-		return (0); //erreur dramatique
+		return (1); //erreur dramatique
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	if (!data->pid)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/22 14:06:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/23 17:22:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 	i = cmd_args(d, cmd, tks, i);
 	if (i + 1 < d->pars.tk_nbr && tks[i + 1].redir)
 	{
+		printf("hello\n");
 		i += 1;
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
 		if (i == 0)
