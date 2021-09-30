@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/23 17:08:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/30 11:57:38 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,9 @@ int	execute(t_data *data)
 	int			pipe_nb;
 
 //	pain();
-	if (check_redir(data) == -1) // a modifier
-		return (0); //erreur dramatique
+	navigate_line(data);
+	if (check_redir(data)) // a modifier
+		return (1); //erreur dramatique
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	if (!data->pid)
 		return (0);

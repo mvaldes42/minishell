@@ -6,16 +6,18 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/06 17:17:47 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/30 16:32:07 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+/*
 // open non existant dir -> error ?
 // la redir est excutee en premier, que les autres commandes existent ou pas
 // la redir doit etre placee avant l'arrivee a exec
-// execute_fct ??by adding i in the parameters, 0 single use, i multi command
+// execute_fct ?? by adding i in the parameters, 0 single use, i multi command
+*/
 
 int	exec_redir_in(t_data *data, int i)
 {
@@ -28,15 +30,15 @@ int	exec_redir_in(t_data *data, int i)
 	pid = fork(); //a proteger
 	if (pid == 0)
 	{
-		fd = open(cmd.redirs->filename, O_RDONLY,
+		fd = open(cmd.redirs[0].filename, O_RDONLY,
 				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR); //check errors
 		dup2(fd, STDIN_FILENO);
 		close(fd);
+		
 		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
 			return (0); //error to handle
 		exit (0); //error to handle
 	}
-	close(fd);
 	waitpid(pid, NULL, 0);
 	return (0);
 }
@@ -52,7 +54,7 @@ int	exec_append_redir_out(t_data *data, int i)
 	pid = fork(); //a proteger
 	if (pid == 0)
 	{
-		fd = open(cmd.redirs->filename, O_WRONLY | O_APPEND | O_CREAT,
+		fd = open(cmd.redirs[0].filename, O_WRONLY | O_APPEND | O_CREAT,
 				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR); //check errors
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
@@ -60,7 +62,6 @@ int	exec_append_redir_out(t_data *data, int i)
 			return (0); //error to handle
 		exit (0); //error to handle
 	}
-	close(fd);
 	waitpid(pid, NULL, 0);
 	return (0);
 }
@@ -76,15 +77,15 @@ int	exec_redir_out(t_data *data, int i)
 	pid = fork(); //a proteger
 	if (pid == 0)
 	{
-		fd = open(cmd.redirs->filename, O_WRONLY | O_TRUNC | O_CREAT,
+		fd = open(cmd.redirs[0].filename, O_WRONLY | O_TRUNC | O_CREAT,
 				S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR); //check errors
 		dup2(fd, STDOUT_FILENO);
 		close(fd);
-		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
-			return (0); //error to handle
+		execute_fct(data);
+//		if (execve(cmd.fct.fct_path, cmd.args, data->environ) == -1)
+//			return (0); //error to handle
 		exit (0); //error to handle
 	}
-	close(fd);
 	waitpid(pid, NULL, 0);
 	return (0);
 }
@@ -122,6 +123,6 @@ int	check_redir(t_data *data)
 		i++;
 	}
 	if (has)
-		return (-1);
+		return (1);
 	return (0);
 }

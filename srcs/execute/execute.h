@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 15:15:34 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/30 13:41:44 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ int		exec_read_in(t_data *data, int i);
 int		execute_fct(t_data *data);
 void	check_tty(void);
 void	sig_handler(int sig);
-void	term(void);
+int     term(void);
+int		ft_new_stdin(int fd);
+int		ft_new_stdout(int fd);
+int		handle_signals(void);
+int     navigate_line(t_data *data);
+
+
+
 
 #endif
