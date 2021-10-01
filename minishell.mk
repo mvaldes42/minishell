@@ -28,7 +28,8 @@ FILES =	minishell.c\
 		execute/redirection_read_in.c\
 		execute/redirections_utils.c\
 		execute/signals.c\
-		execute/navigation.c\
+#		execute/navigation.c\
+#		execute/fd_handling.c\
 
 SUB_DIR	=	utils\
 			parsing\
