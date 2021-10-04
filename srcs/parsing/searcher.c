@@ -46,13 +46,19 @@ static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
 	int		i;
 
 	i = 0;
-	while (i < (int)ft_strlen(exp_word) - 1 && *unquoted)
+	printf("exp_word : %s\n", exp_word);
+	while (i < (int)ft_strlen(exp_word) && *unquoted)
 	{
 		if (exp_word[i] == S_QUOTE)
 		{
 			i += 1;
 			while (i < size + 1 && *unquoted && exp_word[i] != S_QUOTE)
-				*(unquoted++) = exp_word[i++];
+			{
+				*unquoted = exp_word[i];
+				printf("(single quote) exp_word[i] : %c\n", exp_word[i]);
+				i++;
+				unquoted++;
+			}
 			q_rm += 2;
 			i += 1;
 		}
@@ -60,13 +66,19 @@ static int	rm_quotes_next(char *exp_word, char *unquoted, int size, int q_rm)
 		{
 			i += 1;
 			while (i < size + 1 && *unquoted && exp_word[i] != D_QUOTE)
-				*(unquoted++) = exp_word[i++];
+			{
+				*unquoted = exp_word[i];
+				printf("(double quote) exp_word[%d] : %c\n", i, exp_word[i]);
+				i++;
+				unquoted++;
+			}
 			q_rm += 2;
 			i += 1;
 		}
-		if (exp_word[i] != D_QUOTE && exp_word[i] != S_QUOTE)
+		if (i < (int)ft_strlen(exp_word) && exp_word[i] != D_QUOTE && exp_word[i] != S_QUOTE)
 		{
-			*(unquoted) = exp_word[i];
+			*unquoted = exp_word[i];
+			printf("(double quote) exp_word[%d] : %c\n", i, exp_word[i]);
 			unquoted++;
 		}
 		i++;
@@ -114,6 +126,7 @@ int	remove_quotes(char **expanded_word)
 	if (*expanded_word == NULL)
 		return (1);
 	size = size_of_unquoted(*expanded_word);
+	printf("size_of_unquoted: %d\n", size);
 	if (size <= 0 || size == (int)ft_strlen(*expanded_word))
 		return (1);
 	unquoted = malloc(sizeof(char *) * (size + 1));

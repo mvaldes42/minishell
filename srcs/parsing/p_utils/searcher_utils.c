@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/23 16:45:43 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 12:11:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,42 +83,31 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	v.var_nb = 0;
 	if (dst_size <= 0)
 		return (NULL);
-	v.dest = malloc(sizeof(char *) * (dst_size));
+	v.dest = malloc(sizeof(char *) * (dst_size + 1));
 	ft_memset(v.dest, 0, sizeof(v.dest));
-	printf("dst_size: %d\n", dst_size);
 	while (i < dst_size && str[j] != '\0')
 	{
-		// printf("srch->var_trans[%d]: %s, dst_size: %d\n", v.var_nb, srch->var_trans[v.var_nb], dst_size);
-		// printf("srch->t_var_len[%d] : %zu\n", v.var_nb, srch->t_var_len[v.var_nb]);
 		if (str[j] == S_QUOTE)
 		{
 			j += 1;
 			while ((str[j] != '\0' && str[j] != S_QUOTE))
 				v.dest[i++] = str[j++];
 			j += 1;
-			printf("str[%d] : %c\n", j, str[j]);
 		}
 		else if (str[j] == VAR)
 		{
 			v.var_size = 0;
 			j++;
 			while (i < dst_size && v.var_size < srch->t_var_len[v.var_nb])
-			{
-				printf("srch->nbr_v: %d\n", srch->nbr_var);
-				printf("v.var_size: %zu < srch->t_var_len[%d] : %zu, srch->var_trans[v.var_nb][v.var_size] : %c\n", v.var_size, v.var_nb, srch->t_var_len[v.var_nb], srch->var_trans[v.var_nb][v.var_size]);
-				printf("i :%d < dst_size: %d\n", i, dst_size);
-				v.dest[i] = srch->var_trans[v.var_nb][v.var_size];
-				i++;
-				v.var_size++;
-
-			}
+				v.dest[i++] = srch->var_trans[v.var_nb][v.var_size++];
 			if (v.var_nb < srch->nbr_var)
 				j += srch->o_var_len[v.var_nb++] - 1;
 		}
 		else
 			v.dest[i++] = str[j++];
 	}
-	v.dest[i] = '\0';
+	while (i < dst_size)
+		v.dest[i++] = '\0';
 	return (v.dest);
 }
 
