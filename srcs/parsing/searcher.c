@@ -123,6 +123,7 @@ int	remove_quotes(char **expanded_word)
 	int		size;
 	char	*unquoted_ptr;
 
+	printf("expanded_word: %s\n", *expanded_word);
 	if (*expanded_word == NULL)
 		return (1);
 	size = size_of_unquoted(*expanded_word);

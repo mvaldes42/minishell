@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 12:11:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 15:10:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,9 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 	v.var_nb = 0;
 	if (dst_size <= 0)
 		return (NULL);
-	v.dest = malloc(sizeof(char *) * (dst_size + 1));
+	v.dest = malloc(sizeof(char) * (dst_size + 1));
+	if (!v.dest)
+		return (NULL);
 	ft_memset(v.dest, 0, sizeof(v.dest));
 	while (i < dst_size && str[j] != '\0')
 	{
@@ -106,8 +108,9 @@ static char	*replace_substr(t_searcher *srch, char *str, int dst_size)
 		else
 			v.dest[i++] = str[j++];
 	}
-	while (i < dst_size)
+	while (i <= dst_size)
 		v.dest[i++] = '\0';
+	printf("v.dest = %s\n", v.dest);
 	return (v.dest);
 }
 
