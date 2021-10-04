@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/22 16:21:32 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/22 14:52:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:25:21 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 int	**ft_malloc_fds(int cmd_nb)
 {
 	int	i;
@@ -134,3 +134,4 @@ int	piping(t_data *data, int cmd_nb)
 	}
 	return (1);
 }
+*/

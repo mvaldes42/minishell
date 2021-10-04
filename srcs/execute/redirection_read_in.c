@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/11 11:42:58 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/04 16:27:01 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
 ** execs the function from the fd[0] here_doc
 */
-
+/*
 int	exec_here_doc(t_data *data, t_commands cmd, int *fd, int *pid)
 {
 	pid[1] = fork();
@@ -33,11 +33,11 @@ int	exec_here_doc(t_data *data, t_commands cmd, int *fd, int *pid)
 	}
 	return (0);
 }
-
+*/
 /*
 ** copies every line entered into the heredoc until the stop word
 */
-
+/*
 int	fill_here_doc(int *fd, int *pid, char *end)
 {
 	size_t	len;
@@ -65,14 +65,14 @@ int	fill_here_doc(int *fd, int *pid, char *end)
 	}
 	return (0);
 }
-
+*/
 /*
 ** creates a here doc
 ** fills it with fill_here_doc
 ** execs the function with it's content
 ** deletes it with unlink
 */
-
+/*
 int	exec_read_in(t_data *data, int i)
 {
 	int			pid[2];
@@ -93,3 +93,4 @@ int	exec_read_in(t_data *data, int i)
 	unlink("here_doc");
 	return (0);
 }
+*/

@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/01 17:07:24 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:29:57 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,63 @@
 ** handle multiple redirs
 **
 ** Louski :
-** bash-3.2$ sort <<
+** * bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
-** oko | oko | oko
-**
+** * oko | oko | oko
+** * ls > hey | pwd > hoy tries to execute hoy ?
+** * cd .. sends back too far ?
+** * cat < hey | grep e
+** * how to know if a fct has redirs
 */
+
+//v2
+
+void	exec_builtout(t_data *data, t_commands cmd)
+{
+	int		pid;
+	int		status;
+	
+//	errno = CMD_NOT_FOUND; ?
+	if (cmd.fct.fct_path == NULL)
+		return ;
+	pid = fork(); // a proteger
+	if (pid == 0)
+	{
+		execve(cmd.fct.fct_path, cmd.args, data->environ);
+	}
+	waitpid(pid, &status, 0);
+	//set a status ?
+}
+
+void	exec_builtin(t_data *data, t_commands cmd)
+{
+	if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
+		data->is_exit = TRUE;
+	if (!cmd.fct.builtin_ptr(cmd.args, &data->environ))
+		return ;
+}
+
+void	execute(t_data *data, int nb)
+{
+	t_commands	cmd;
+//	printf("in execute, nb = %d so %s\n", nb, data->cmds[nb].fct.name);
+	cmd = data->cmds[nb];
+	if (cmd.fct.builtin)
+	{
+		exec_builtin(data, cmd);
+	}
+	else
+	{
+		exec_builtout(data, cmd);
+	}
+
+}
 
 /*
 ** executes a single function
 ** forks when it's not a builtin
 */
-
+/*
 int	execute_fct(t_data *data) //int i??
 {
 	t_commands	cmd;
@@ -64,12 +110,12 @@ int	execute_fct(t_data *data) //int i??
 	}
 	return (1);
 }
-
+*/
 /*
 ** executes a single piped function
 ** the function is already forked
 */
-
+/*
 int	execute_piped_fct(t_data *data, int i)
 {
 	t_commands	cmd;
@@ -92,14 +138,14 @@ int	execute_piped_fct(t_data *data, int i)
 	exit (1); // a preciser
 }
 
-int	execute(t_data *data)
+int	old_execute(t_data *data)
 {
 	int			pipe_nb;
 
 //	pain();
-//	navigate_line(data);
-	if (check_redir(data)) // a modifier
-		return (1); //erreur dramatique
+	navigate_line(data);
+//	if (check_redir(data)) // a modifier
+//		return (1); //erreur dramatique
 	data->pid = malloc(sizeof(pid_t) * data->pars.cmd_nbr);
 	if (!data->pid)
 		return (0);
@@ -121,7 +167,7 @@ int	execute(t_data *data)
 	free (data->pid);
 	return (1);
 }
-
+*/
 /*
 void check_tty()
 {
@@ -207,3 +253,4 @@ int pain() {
  return 0;
 }
 */
+

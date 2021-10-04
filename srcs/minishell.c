@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/27 16:15:51 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/04 19:15:52 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ static void	main_loop(t_data *data, char *line)
 	while (line)
 	{
 		is_cmd_fail = 0;
-		if (!is_line_empty(line) || !parsing(data, line) || \
-		!execute(data))
+		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
+		/*!execute(data)*/
 			is_cmd_fail = error_handling();
 		if (data->is_exit)
 			is_exit = 1;

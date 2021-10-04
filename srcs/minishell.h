@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:45:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 18:57:29 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,6 @@ typedef struct s_data
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);
-int		execute(t_data *data);
+// int		execute(t_data *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:27:03 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/01 16:49:03 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/04 17:48:34 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	set_initial_fd(int *first_fd)
 {
-	first_fd = 0;
+	*first_fd = 0;
 }
 
-void	close_initial_fd(int *first_fd)
+void	close_initial_fd(int first_fd)
 {
 	if (first_fd != 0)
 		close(first_fd);

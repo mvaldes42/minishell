@@ -15,7 +15,6 @@ Pipes
 - Separer les gestion de pipes de l'exec
 
 Combinaison
-- Determiner l'ordre des executions
 - Verifier les messages d'erreur
 - Bien gérer tous les fds
 
