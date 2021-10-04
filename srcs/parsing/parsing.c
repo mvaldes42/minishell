@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/23 17:20:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:17:38 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static int	searcher(t_data *d)
 	t_searcher	s;
 	int			i;
 
-	ft_memset(&s, 0, sizeof(s));
 	search_path_str(&s);
 	i = -1;
 	while (++i < d->pars.tk_nbr)

@@ -10,6 +10,7 @@ FILES =	minishell.c\
 		parsing/p_utils/token_split.c\
 		parsing/p_utils/token_count.c\
 		parsing/p_utils/token_count_2.c\
+		parsing/p_utils/remove_quotes.c\
 		parsing/p_utils/searcher_utils.c\
 		parsing/p_utils/searcher_utils_2.c\
 		parsing/p_utils/searcher_utils_3.c\

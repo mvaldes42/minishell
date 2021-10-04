@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/20 14:57:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:10:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_var_replace
 	char	*dest;
 	size_t	var_size;
 	int		var_nb;
+	int		dst_size;
+	char	*str;
 }	t_var_replace;
 
 typedef struct s_funct_ext

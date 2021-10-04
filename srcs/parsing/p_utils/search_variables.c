@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   searcher_utils.c                                   :+:      :+:    :+:   */
+/*   search_variables.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 16:11:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/04 16:01:47 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	translated_var_length(t_searcher *srch, t_token *tk, char **environ)
 	return (1);
 }
 
-static void	replace_substr(t_var_replace *v, t_searcher *s, int i, int j)
+static void	replace_substr(t_var_replace *v, t_searcher *srch, int i, int j)
 {
 	while (i < v->dst_size && v->str[j] != '\0')
 	{
@@ -83,10 +83,10 @@ static void	replace_substr(t_var_replace *v, t_searcher *s, int i, int j)
 		{
 			v->var_size = 0;
 			j++;
-			while (i < v->dst_size && v->var_size < s->t_var_len[v->var_nb])
-				v->dest[i++] = s->var_trans[v->var_nb][v->var_size++];
-			if (v->var_nb < s->nbr_var)
-				j += s->o_var_len[v->var_nb++] - 1;
+			while (i < v->dst_size && v->var_size < srch->t_var_len[v->var_nb])
+				v->dest[i++] = srch->var_trans[v->var_nb][v->var_size++];
+			if (v->var_nb < srch->nbr_var)
+				j += srch->o_var_len[v->var_nb++] - 1;
 		}
 		else
 			v->dest[i++] = v->str[j++];
@@ -108,7 +108,7 @@ static char	*replace_substr_init(t_searcher *srch, char *str, int dst_size)
 		return (NULL);
 	v.dest = malloc(sizeof(char) * (dst_size + 1));
 	if (!v.dest)
-		return (NULL);
+		return (v.dest);
 	ft_memset(v.dest, 0, sizeof(v.dest));
 	v.dst_size = dst_size;
 	v.str = str;
