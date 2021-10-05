@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/04 19:37:54 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 12:00:20 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,9 @@ void	make_redirects(t_data *data, int base_rank, int rank, int *initial_fd) //ch
 	{
 		if (data->cmds[i].redirs)  //JUST FIND A BETTER WAY
 		{
-			printf("in make_redirects while, i = %d\n", i);
 			j = 0;
+			printf("in make_redirects while, j = %d\n", j);
+
 			type = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
