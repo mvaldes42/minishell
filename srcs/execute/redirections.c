@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/23 17:46:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/09/23 18:41:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	exec_redir_out(t_data *data, int i)
 			return (0); //error to handle
 		exit (0); //error to handle
 	}
-	close(fd);
+	// close(fd);
 	waitpid(pid, NULL, 0);
 	return (0);
 }

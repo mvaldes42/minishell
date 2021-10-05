@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 16:16:03 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/05 11:58:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 	i = cmd_args(d, cmd, tks, i);
 	if (i + 1 < d->pars.tk_nbr && tks[i + 1].redir)
 	{
-		printf("hello\n");
 		i += 1;
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
 		if (i == 0)
@@ -49,6 +48,8 @@ int	input_command_table(t_data *d)
 	while (++j < d->pars.cmd_nbr && ++i < d->pars.tk_nbr)
 	{
 		memset(&d->cmds[j], 0, sizeof(t_commands));
+		if (d->cmds->redirs == NULL)
+			printf("lol\n");
 		d->cmds[j].args = malloc(sizeof(char *) * (d->pars.argv_size[j] + 1));
 		ft_memset(d->cmds[j].args, 0, sizeof(d->cmds[j].args));
 		d->cmds[j].id = j;

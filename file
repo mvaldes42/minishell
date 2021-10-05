@@ -1,0 +1,13 @@
+Makefile
+README.md
+args
+file
+lib
+minishell
+minishell.mk
+minishell.supp
+minishell_tester
+objs
+parse_valgrind_suppressions.sh
+rsc
+srcs

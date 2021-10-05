@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/23 17:37:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/05 11:34:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	is_line_empty(char *line)
 	return (1);
 }
 
-static void	main_loop(t_data *data, char *line)
+static void	main_loop(t_data *data, char *line, int flag)
 {
 	bool	is_cmd_fail;
 	int		is_exit;
@@ -101,15 +101,21 @@ static void	main_loop(t_data *data, char *line)
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);
-		ft_free_str(&line);
+		if (!flag)
+			ft_free_str(&line);
+		else
+			line = NULL;
 		if (is_exit)
 			break ;
-		create_prompt(data, is_cmd_fail);
-		line = readline(data->prompt);
+		if (!flag)
+		{
+			create_prompt(data, is_cmd_fail);
+			line = readline(data->prompt);
+		}
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data		data;
 	char		*line;
@@ -119,9 +125,15 @@ int	main(void)
 	term();
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
+	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
+	{
+		main_loop(&data, argv[2], 1);
+		free_environ(&data);
+		return (0);
+	}
 	line = readline(data.prompt);
-	main_loop(&data, line);
+	main_loop(&data, line, 0);
 	rl_clear_history();
 	free_environ(&data);
-	return (1);
+	return (0);
 }
