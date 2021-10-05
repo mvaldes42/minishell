@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 12:19:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/05 12:00:20 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ int	handle_redir(t_data *data, int type, int i)
 		exec_redir_in(data, i);
 	else if (type == READ_IN) // <<	
 		exec_read_in(data, i);
-	return (1);
+	return (0);
 }
 
 int	check_redir(t_data *data) //so here it should send each redir separately, cmd by cmd
