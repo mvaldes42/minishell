@@ -38,7 +38,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	data->pars.cmd_nbr++;
 	token->modif_word = NULL;
 	token->tk_fct_path = NULL;
-	return (1);
+	return (0);
 }
 
 void	search_path_str(t_searcher *srch)

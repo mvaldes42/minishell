@@ -6,37 +6,37 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 16:24:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/05 17:10:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	rm_quotes_next(char *exp, char *unquoted, int size, int q_rm)
+static int	rm_quotes_next(char *exp, char *unquoted, int max, int q_rm)
 {
 	int		i;
 
 	i = 0;
-	while (i < (int)ft_strlen(exp) && *unquoted)
+	while (i < max && *unquoted)
 	{
 		if (exp[i] == S_QUOTE)
 		{
 			i += 1;
-			while (i < size + 1 && *unquoted && exp[i] != S_QUOTE)
+			while (i < max && *unquoted && exp[i] != S_QUOTE)
 				*(unquoted++) = exp[i++];
 			q_rm += 2;
 			i += 1;
 		}
-		else if (exp[i] == D_QUOTE)
+		if (exp[i] == D_QUOTE)
 		{
 			i += 1;
-			while (i < size + 1 && *unquoted && exp[i] != D_QUOTE)
+			while (i < max && *unquoted && exp[i] != D_QUOTE)
 				*(unquoted++) = exp[i++];
 			q_rm += 2;
 			i += 1;
 		}
-		if (i < (int)ft_strlen(exp) && exp[i] != D_QUOTE && exp[i] != S_QUOTE)
+		if (exp[i] != D_QUOTE && exp[i] != S_QUOTE)
 			*(unquoted++) = exp[i];
 		i++;
 	}
@@ -90,7 +90,7 @@ int	remove_quotes(char **exp)
 		return (0);
 	q_rm = 0;
 	unquoted_ptr = unquoted;
-	q_rm = rm_quotes_next(*exp, unquoted, size, q_rm);
+	q_rm = rm_quotes_next(*exp, unquoted, (int)ft_strlen(*exp) - 1, q_rm);
 	if (q_rm)
 	{
 		ft_free_str(exp);

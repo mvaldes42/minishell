@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/20 14:59:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/05 19:10:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@ static int	count_word_split(t_searcher *srch, int fct_expt)
 static void	create_new_tk(char *mod_word, t_token *tmp_tks, int *j, int *i)
 {
 	int		k;
-	int		nbr_split;
+	// int		nbr_split;
 	char	**split;
 
 	k = 0;
-	nbr_split = token_count(mod_word);
-	split = token_split(mod_word, nbr_split);
-	while (k < nbr_split)
+	// nbr_split = token_count(mod_word);
+	// split = token_split(mod_word, nbr_split);
+	split = ft_split(mod_word, ' ');
+	while (split[k])
 	{
 		ft_memset(&tmp_tks[*j], 0, sizeof(t_token));
 		tmp_tks[*j].type = WORD;
 		tmp_tks[*j].ptr = ft_strdup(split[k]);
 		tmp_tks[*j].modif_word = ft_strdup(split[k]);
+		printf("split[%d]: %s\n", k, split[k]);
 		(*j)++;
 		k++;
 	}
@@ -86,8 +88,9 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 		return (0);
 	i = 0;
 	j = 0;
-	while (i < d->pars.tk_nbr || j < d->pars.tk_nbr + tk_to_add)
+	while (i < d->pars.tk_nbr && j < d->pars.tk_nbr + tk_to_add)
 	{
+		printf("d->pars.tks[%d].flag_split : %d\n", i, d->pars.tks[i].flag_split);
 		if (d->pars.tks[i].flag_split)
 			create_new_tk(modif_word, tmp_tokens, &j, &i);
 		else if (!d->pars.tks[i].flag_split)
@@ -105,6 +108,7 @@ int	word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt)
 	int		tk_to_add;
 
 	tk_to_add = count_word_split(srch, fct_expt);
+	printf("tk_to_add : %d\n", tk_to_add);
 	if (tk_to_add > 0)
 	{
 		reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
