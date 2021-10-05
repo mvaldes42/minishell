@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 18:36:17 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 21:10:37 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@
 ** * how to know if a fct has redirs
 */
 
-
 void	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
@@ -44,7 +43,8 @@ void	exec_builtout(t_data *data, t_commands cmd)
 //	errno = CMD_NOT_FOUND; ?
 	if (cmd.fct.fct_path == NULL)
 		return ;
-	pid = fork(); // a proteger
+	pid = fork();
+	handle_signals_exec();
 	if (pid == 0)
 	{
 		execve(cmd.fct.fct_path, cmd.args, data->environ);
@@ -64,7 +64,7 @@ void	exec_builtin(t_data *data, t_commands cmd)
 void	execute(t_data *data, int nb)
 {
 	t_commands	cmd;
-//	printf("in execute, nb = %d so %s\n", nb, data->cmds[nb].fct.name);
+
 	cmd = data->cmds[nb];
 	if (cmd.fct.builtin)
 	{

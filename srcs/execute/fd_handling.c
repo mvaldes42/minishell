@@ -6,22 +6,11 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:27:03 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 18:37:41 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 19:10:07 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	set_initial_fd(int *first_fd)
-{
-	*first_fd = 0;
-}
-
-void	close_initial_fd(int first_fd)
-{
-	if (first_fd != 0)
-		close(first_fd);
-}
 
 void	save_fds(int *fd)
 {

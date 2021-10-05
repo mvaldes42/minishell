@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 18:57:29 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 19:35:25 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@
 # define TRUE 1
 # define FALSE 0
 
+typedef struct s_minishell
+{
+	int			exit_status;
+	
+}				t_minishell;
+
+t_minishell	g_minishell;
+
 typedef int	(*t_builtin)(char **args, char ***environ_var);
 
 typedef struct s_functions
@@ -75,11 +83,9 @@ typedef struct s_data
 	t_commands	*cmds;
 	char		**environ;
 	bool		is_exit;
-	pid_t		*pid;
 }	t_data;
 
 int		parsing(t_data *data, char *line);
 int		lexer(t_data *data, char *line);
-// int		execute(t_data *data);
 
 #endif

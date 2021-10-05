@@ -6,11 +6,13 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 18:41:37 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 21:10:02 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// handle errors and exit statuses
 
 int	term(void)
 {
@@ -19,7 +21,7 @@ int	term(void)
 	tcgetattr(STDIN_FILENO, &term1);
 	term1.c_lflag &= ~ECHOCTL;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term1) != 0)
-		return (0);//error to handle
+		return (0);
 	return (1);
 }
 
@@ -41,4 +43,30 @@ int	handle_signals(void)
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, SIG_IGN);
 	return (1);
+}
+
+void	sig_new_line(int sig)
+{
+	(void)sig;
+	write(1, "\n", 1);
+}
+
+void	sig_heredoc(int sig)
+{
+	(void)sig;
+//	g_minishell.exit_status = 130;
+	write(1, "\n", 1);
+	exit(130);
+}
+
+void	sig_quit(int sig)
+{
+	(void)sig;
+	printf("exit\n");
+}
+
+void	handle_signals_exec(void)
+{
+	signal(SIGINT, sig_new_line);
+	signal(SIGQUIT, sig_quit);
 }

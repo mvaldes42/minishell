@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 19:15:52 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 20:35:53 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void	initialize_env(t_data *data, char **line)
 	ft_memset(data, 0, sizeof(t_data));
 	data->is_exit = FALSE;
 	data->prompt = NULL;
-	data->pid = NULL;
 	line = NULL;
 	size = -1;
 	while (environ[++size])
@@ -96,7 +95,6 @@ static void	main_loop(t_data *data, char *line)
 	{
 		is_cmd_fail = 0;
 		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
-		/*!execute(data)*/
 			is_cmd_fail = error_handling();
 		if (data->is_exit)
 			is_exit = 1;
@@ -105,6 +103,7 @@ static void	main_loop(t_data *data, char *line)
 		if (is_exit)
 			break ;
 		create_prompt(data, is_cmd_fail);
+		handle_signals();//
 		line = readline(data->prompt);
 	}
 }
