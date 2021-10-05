@@ -4,6 +4,7 @@ out.txt
 minishell_tester/
 parse_valgrind_suppressions.sh
 minishell.supp
+args
 # Prerequisites
 *.d
 
