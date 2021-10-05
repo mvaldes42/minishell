@@ -6,20 +6,21 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/09/21 18:14:04 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/09/29 14:40:34 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	term(void)
+int	term(void)
 {
 	struct termios	term1;
 
 	tcgetattr(STDIN_FILENO, &term1);
 	term1.c_lflag &= ~ECHOCTL;
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term1) != 0)
-		return ;//error to handle
+		return (0);//error to handle
+	return (1);	
 }
 
 void	sig_handler(int sig)
@@ -33,6 +34,14 @@ void	sig_handler(int sig)
 	}
 }
 
+int	handle_signals(void)
+{
+	if (term() == 0)
+		return (0);
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	return (1);
+}
 /*
 
 int	ft_putint(int c)
