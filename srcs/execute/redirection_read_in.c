@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/04 16:27:01 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/05 18:39:46 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,82 +15,86 @@
 //change $
 //clean
 
-/*
-** execs the function from the fd[0] here_doc
-*/
-/*
-int	exec_here_doc(t_data *data, t_commands cmd, int *fd, int *pid)
+int	create_here_doc(void)
 {
-	pid[1] = fork();
-	if (pid[1] == 0)
-	{
-		close(fd[1]);
-		dup2(fd[0], STDIN_FILENO);
-		close(fd[0]);
-		execute_fct(data); // gerer erreur, int i?? exit does not work
-		exit(0);
-		(void)cmd;
-	}
-	return (0);
-}
-*/
-/*
-** copies every line entered into the heredoc until the stop word
-*/
-/*
-int	fill_here_doc(int *fd, int *pid, char *end)
-{
-	size_t	len;
-	char	*line;
+	int	fd;
 
+	fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	if (fd == -1)
+		return (0); //error
+	return (fd);
+}
+
+void	fill_here_doc(char *end, int heredoc_fd)
+{
+	char	*line;
+	size_t	len;
+
+	//sig?
 	len = ft_strlen(end);
-	pid[0] = fork();
-	if (pid[0] == 0)
+	while (1)
 	{
-		close(fd[0]);
 		line = readline("> ");
+		if (!line)
+		{
+			exit (0); //error
+		}
 		if (ft_strlen(line) < len)
 			len = ft_strlen(line);
-		while (ft_strncmp(line, end, len + 1) != 0)
+		if (ft_strncmp(line, end, len + 1) != 0)
+			ft_putendl_fd(line, heredoc_fd);
+		else
 		{
-			len = ft_strlen(end);
-			write(fd[1], line, ft_strlen(line));
-			write(fd[1], &"\n", 1);
-			line = readline("> ");
-			if (ft_strlen(line) < len)
-				len = ft_strlen(line);
+			close(heredoc_fd);
+			free(line);
+			break ;
 		}
-		close(fd[1]);
-		exit(0);
+		free(line);
 	}
-	return (0);
+	exit (0);
 }
-*/
-/*
-** creates a here doc
-** fills it with fill_here_doc
-** execs the function with it's content
-** deletes it with unlink
-*/
-/*
-int	exec_read_in(t_data *data, int i)
-{
-	int			pid[2];
-	int			fd[2];
-	char		*end;
-	t_commands	cmd;
 
-	cmd = data->cmds[i];
-	end = data->cmds[i].redirs->filename;
-	fd[1] = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
-	fd[0] = open("here_doc", O_RDONLY, 0777);
-	fill_here_doc(fd, pid, end);
-	waitpid(pid[0], NULL, 0);
-	exec_here_doc(data, cmd, fd, pid);
-	waitpid(pid[1], NULL, 0);
-	close(fd[0]);
-	close(fd[1]);
+void	rm_heredoc(void)
+{
+	int	heredoc_fd;
+
+	heredoc_fd = open("here_doc", O_RDONLY);
 	unlink("here_doc");
-	return (0);
+	dup2(heredoc_fd, STDIN_FILENO);
+	close(heredoc_fd);
+}
+
+/*
+void	clear_tmp_file_input(void) //needed ?
+{
+	int		tmp_fd;
+
+	tmp_fd = open("here_doc", O_WRONLY | O_TRUNC, 0600);
+	close(tmp_fd);
 }
 */
+
+void	exec_read_in(char *end, int *initial_fd)
+{
+	int	heredoc_fd;
+	int	fd_stdout;
+	int	pid;
+	int	status;
+
+	heredoc_fd = create_here_doc();
+	fd_stdout = dup(STDOUT_FILENO);
+	dup2(initial_fd[1], STDOUT_FILENO);
+	//sig
+	pid = fork();
+	if (pid == 0)
+		fill_here_doc(end, heredoc_fd);
+	waitpid(pid, &status, 0); //status ??
+//	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)///////////
+//	{
+//		clear_tmp_file_input();
+//		g_minishell.error_status = 130;
+//	}	
+	rm_heredoc();
+	dup2(fd_stdout, STDOUT_FILENO);
+	close(fd_stdout);
+}
