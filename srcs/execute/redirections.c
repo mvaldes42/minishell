@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 21:13:44 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:14:16 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 ** opens or creates the needed files as it goes
 */
 
-void	make_redirects(t_data *data, int base_rank, int rank, int *initial_fd)
+int	make_redirects(t_data *data, int base_rank, int rank, int *initial_fd)
 {
 	int		i;
 	int		j;
@@ -96,4 +96,5 @@ void	make_redirects(t_data *data, int base_rank, int rank, int *initial_fd)
 		}
 		i++;
 	}
+	return (1);
 }

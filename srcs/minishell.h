@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 19:35:25 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:09:37 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@
 typedef struct s_minishell
 {
 	int			exit_status;
+	int			error_status;
 	
 }				t_minishell;
 

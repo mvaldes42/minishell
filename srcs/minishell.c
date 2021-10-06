@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 20:35:53 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:05:51 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ static void	main_loop(t_data *data, char *line)
 		if (is_exit)
 			break ;
 		create_prompt(data, is_cmd_fail);
-		handle_signals();//
+		handle_signals();//reset
 		line = readline(data->prompt);
 	}
 }
