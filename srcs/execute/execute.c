@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/06 22:21:01 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 23:47:43 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 		if (!(execve(cmd.fct.fct_path, cmd.args, data->environ)))
 		{
 			g_minishell.error_status = errno;
-			return (0);			
+			return (0);
 		}
 	}
 	waitpid(pid, &status, 0);
@@ -72,7 +72,7 @@ int	exec_builtin(t_data *data, t_commands cmd)
 	return (1);
 }
 
-int		execute(t_data *data, int nb)
+int	execute(t_data *data, int nb)
 {
 	t_commands	cmd;
 

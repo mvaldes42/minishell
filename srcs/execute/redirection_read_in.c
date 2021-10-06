@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 21:13:24 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 23:51:12 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	rm_heredoc(void)
 ** Fills here_doc from terminal lines, sets it as stdin, removes it
 */
 
-void	exec_read_in(char *end, int *initial_fd)
+int	exec_read_in(char *end, int *initial_fd)
 {
 	int	heredoc_fd;
 	int	pid;
@@ -101,6 +101,11 @@ void	exec_read_in(char *end, int *initial_fd)
 //	fd_stdout = dup(STDOUT_FILENO);
 //	dup2(initial_fd[1], STDOUT_FILENO);
 	pid = fork();
+	if (pid == -1)
+	{
+		g_minishell.error_status = errno;
+		return (0);
+	}
 	if (pid == 0)
 		fill_here_doc(end, heredoc_fd);
 	waitpid(pid, &status, 0);
@@ -112,4 +117,5 @@ void	exec_read_in(char *end, int *initial_fd)
 	rm_heredoc();
 //	dup2(fd_stdout, STDOUT_FILENO);
 //	close(fd_stdout);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/06 23:13:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/06 23:48:56 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	make_pipe(t_data *data, int rank, int *fd_in) //createpipe
 {
 	int	new_pipe[2];
-	
+
 	dup2(*fd_in, STDIN_FILENO); //putting fd_in as the stdin
 	if (*fd_in != 0)
 		close(*fd_in);
@@ -30,17 +30,26 @@ int	make_pipe(t_data *data, int rank, int *fd_in) //createpipe
 	return (1);
 }
 
-int	command_executor(t_data *data, int base_rank, int rank, int *fd_in) //cmdparser
+int	command_executor(t_data *data, int base_rank, int rank, int *fd_in)
 {
 	int	initial_fd[2];
 
 	save_fds(initial_fd); //set initial_fd to the basic fds
 	if (!(make_pipe(data, rank, fd_in)))
-		return (0); //sending current rank and fd to create a pipe to write in 
+	{
+		set_back_fds(initial_fd); //set back initial fds
+		return (0); //sending current rank and fd to create a pipe to write in
+	}
 	if (!(make_redirects(data, base_rank, rank, initial_fd)))
+	{
+		set_back_fds(initial_fd); //set back initial fds
 		return (0); //check redirects and handle their fds
+	}
 	if (!(execute(data, rank)))
+	{
+		set_back_fds(initial_fd); //set back initial fds
 		return (0);
+	}
 	set_back_fds(initial_fd); //set back initial fds
 	return (1);
 }
@@ -73,6 +82,6 @@ int	navigate_line(t_data *data) //p&x
 		return (0);
 	if (fd_in != 0)
 		close(fd_in);
-	printf("errno = %d\n", errno);
+//	printf("errno = %d\n", errno);
 	return (1);
 }

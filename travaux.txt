@@ -3,11 +3,9 @@ GROS TRAVAUX
 A faire
 
 Terminal et signaux
-- ctrl D doit afficher exit ?
 - ctrl \ sur ligne commencée ?
 
 Redirections
-- Separer la gestion des fds de l'exec
 - Ctrl C lors d'un heredoc
 
 Combinaison
@@ -15,7 +13,7 @@ Combinaison
 - Bien gérer tous les fds
 
 Gestion d'erreurs
-- Signal exit 
+- Signal exit $?
 - errno dans variable globale
 
 Leaks
