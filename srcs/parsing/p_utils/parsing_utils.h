@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 12:19:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/07 16:38:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,11 @@ typedef struct s_token
 	bool	flag_split;
 	char	*modif_word;
 	char	*tk_fct_path;
+	int		*spot_to_split;
+	int		*quotes_not_rm;
 }	t_token;
 
-typedef struct s_searcher
+typedef struct s_exp_var
 {
 	int		nbr_var;
 	size_t	*o_var_len;
@@ -66,8 +68,7 @@ typedef struct s_searcher
 	char	**var_name;
 	char	**var_trans;
 	size_t	t_token_len;
-	char	**env_path;
-}	t_searcher;
+}	t_exp_var;
 
 typedef struct s_parsing
 {
@@ -115,19 +116,19 @@ int		redir_case_general(char **dup, int count, char r_type, char other_r);
 // TOKEN_SPLIT.C
 char	**token_split(char const *str, int token_nbr);
 // SEARCHER.C
-void	search_path_str(t_searcher *srch);
+void	search_path_str(t_data *d, char ***env_path);
 int		remove_quotes(char **expanded_word);
-int		expand_word(t_data *d, t_searcher *s, int i);
+int		expand_word(t_data *d, char **env_path, int i);
 // SEARCHER_UTILS.C
-int		search_variables(t_data *d, int i, t_searcher *srch, char **env);
+int		search_variables(t_data *d, int i, char **env);
 // SEARCHER_UTILS_3.C
 int		count_variables(t_token *tk, char *str, int fct_expt);
 // WORD_SPLITTING.C
-int		word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt);
+int		word_splitting(t_data *d, t_token *tk, char *tmp_mod_w, int fct_expt);
 // SEARCHER_UTILS_2.C
-int		search_funct_ext(t_parsing *prsg, t_token *token, t_searcher *srch);
-void	free_srch_struct(t_searcher *srch);
-int		free_searcher(t_data *data, t_searcher *srch);
+int		search_funct_ext(t_parsing *parsing, t_token *token, char **env_path);
+void	free_expand_struct(t_exp_var *expand);
+int		free_env_path(t_data *data, char ***env_path);
 //CMD_TABlE_.C
 int		input_command_table(t_data *d);
 // CMD_TABLE_UTILS.C

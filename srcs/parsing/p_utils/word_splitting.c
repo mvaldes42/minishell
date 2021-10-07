@@ -6,14 +6,14 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 19:10:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/07 16:38:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	count_word_split(t_searcher *srch, int fct_expt)
+static int	count_word_split(char *tmp_mod_w, int fct_expt)
 {
 	int		i;
 	int		count;
@@ -22,7 +22,7 @@ static int	count_word_split(t_searcher *srch, int fct_expt)
 
 	i = 0;
 	count = 0;
-	tmp = srch->tmp_modif_word;
+	tmp = tmp_mod_w;
 	tmp_size = ft_strlen(tmp);
 	while (tmp != NULL && i < tmp_size)
 	{
@@ -103,18 +103,18 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	return (1);
 }
 
-int	word_splitting(t_data *d, t_token *tk, t_searcher *srch, int fct_expt)
+int	word_splitting(t_data *d, t_token *tk, char *tmp_mod_w, int fct_expt)
 {
 	int		tk_to_add;
 
-	tk_to_add = count_word_split(srch, fct_expt);
+	tk_to_add = count_word_split(tmp_mod_w, fct_expt);
 	printf("tk_to_add : %d\n", tk_to_add);
 	if (tk_to_add > 0)
 	{
-		reattribute_tokens(d, tk_to_add, srch->tmp_modif_word);
+		reattribute_tokens(d, tk_to_add, tmp_mod_w);
 		d->pars.tk_nbr += tk_to_add;
 	}
 	else
-		tk->modif_word = srch->tmp_modif_word;
+		tk->modif_word = tmp_mod_w;
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 12:05:53 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/07/24 15:34:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/07 16:56:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ char	**ft_split(char const *s, char c)
 	if (!(s))
 		return (NULL);
 	dest = (char **)malloc(sizeof(char *) * (word_count_split(s, c) + 1));
+	ft_memset(dest, 0, sizeof(dest));
 	if (!dest)
 		return (NULL);
 	return (ft_split2(s, c, dest));

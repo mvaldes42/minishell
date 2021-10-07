@@ -13,7 +13,7 @@
 #include "p_utils/parsing_utils.h"
 #include "../minishell.h"
 
-static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
+static int	search_functions(t_data *data, t_token *token, char **env_path)
 {
 	int			i;
 	const char	*buildin[] = \
@@ -32,7 +32,7 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 			return (1);
 		}
 	}
-	if (search_funct_ext(&data->pars, token, srch) == 1)
+	if (search_funct_ext(&data->pars, token, env_path) == 1)
 		return (1);
 	token->type = FUNCTION;
 	data->pars.cmd_nbr++;
@@ -41,43 +41,41 @@ static int	search_functions(t_data *data, t_token *token, t_searcher *srch)
 	return (0);
 }
 
-void	search_path_str(t_searcher *srch)
+void	search_path_str(t_data *d, char ***env_path)
 {
 	int			i;
 	char		*path_ptr;
 	char		*path;
-	extern char	**environ;
 
-	ft_memset(srch, 0, sizeof(*srch));
 	i = 0;
 	path = NULL;
 	errno = ENOENT;
-	while (environ[i] != NULL)
+	while (d->environ[i] != NULL)
 	{
 		path_ptr = path;
-		path = ft_strnstr(environ[i], "PATH=", 5);
+		path = ft_strnstr(d->environ[i], "PATH=", 5);
 		if (path != NULL)
 			break ;
 		ft_free_str(&path_ptr);
 		i++;
 	}
-	if (environ[i] == NULL)
-		srch->env_path = NULL;
+	if (d->environ[i] == NULL)
+		*env_path = NULL;
 	else
 	{
-		srch->env_path = ft_split(path + 5, ':');
+		*env_path = ft_split(path + 5, ':');
 		ft_free_str(&path_ptr);
 	}
 }
 
-int	expand_word(t_data *d, t_searcher *s, int i)
+int	expand_word(t_data *d, char **env_path, int i)
 {
 	if (d->pars.tks[i].type == WORD)
 	{
-		if (!search_variables(d, i, s, d->environ))
+		if (!search_variables(d, i, d->environ))
 			return (0);
 		if (i == 0 || (i > 0 && d->pars.tks[i - 1].type == PIPE))
-			if (!search_functions(d, &d->pars.tks[i], s))
+			if (!search_functions(d, &d->pars.tks[i], env_path))
 				return (0);
 	}
 	else if (d->pars.tks[i].type == EXIT_STS)
