@@ -6,60 +6,68 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/07 16:38:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 12:21:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	count_word_split(char *tmp_mod_w, int fct_expt)
+static void	create_new_tk(t_token *tmp_tks, t_exp_var *exp, int *j, int *i)
 {
-	int		i;
-	int		count;
-	char	*tmp;
-	int		tmp_size;
-
-	i = 0;
-	count = 0;
-	tmp = tmp_mod_w;
-	tmp_size = ft_strlen(tmp);
-	while (tmp != NULL && i < tmp_size)
-	{
-		if (tmp[i] == D_QUOTE)
-			while (++i < tmp_size && tmp[i] != D_QUOTE)
-				;
-		if (tmp[i] == SPACE || tmp[i] == TAB)
-			count += 1;
-		if (tmp[i] == '=' && fct_expt)
-			while (++i < tmp_size)
-				;
-		i++;
-	}
-	return (count);
-}
-
-static void	create_new_tk(char *mod_word, t_token *tmp_tks, int *j, int *i)
-{
+	int		tk_nbr;
+	int		word_char;
 	int		k;
-	// int		nbr_split;
+	int		start;
+	int		var;
+	int		s;
 	char	**split;
 
+	(void)tmp_tks;
+	(void)j;
+	split = malloc(sizeof(char **) * (exp->nbr_splits + 1));
+	tk_nbr = 0;
+	word_char = 0;
+	start = word_char;
+	var = 0;
+	s = 0;
+	while (exp->tmp_modif_word[word_char])
+	{
+		while (var < exp->nbr_var)
+		{
+			while (exp->spot_to_split_var[var][s])
+			{
+				if (word_char == exp->spot_to_split_var[var][s])
+				{
+					split[tk_nbr] = ft_substr(exp->tmp_modif_word, start, word_char - start);
+					word_char++;
+					start = word_char;
+					s++;
+					tk_nbr++;
+				}
+				word_char++;
+			}
+			s = 0;
+			var++;
+		}
+		if (word_char == (int)ft_strlen(exp->tmp_modif_word) - 1)
+			split[tk_nbr] = ft_substr(exp->tmp_modif_word, start, word_char - start);
+		word_char++;
+	}
 	k = 0;
-	// nbr_split = token_count(mod_word);
-	// split = token_split(mod_word, nbr_split);
-	split = ft_split(mod_word, ' ');
-	while (split[k])
+	while (k <= exp->nbr_splits)
 	{
 		ft_memset(&tmp_tks[*j], 0, sizeof(t_token));
 		tmp_tks[*j].type = WORD;
 		tmp_tks[*j].ptr = ft_strdup(split[k]);
+		// tmp_tks[*j].ptr = ft_strdup("ptr");
 		tmp_tks[*j].modif_word = ft_strdup(split[k]);
-		printf("split[%d]: %s\n", k, split[k]);
+		// tmp_tks[*j].modif_word = ft_strdup("modif");
+		printf("split[%d]: <%s>\n", k, split[k]);
 		(*j)++;
 		k++;
 	}
-	free_split(split);
+	// free_split(split);
 	*i += 1;
 }
 
@@ -76,7 +84,7 @@ static void	cp_tk_to_temp(t_token *tmp_tokens, t_token *tk, int *j, int *i)
 	(*i) += 1;
 }
 
-static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
+static int	reattribute_tokens(t_data *d, t_exp_var *exp, int tk_to_add)
 {
 	t_token	*tmp_tokens;
 	int		i;
@@ -92,7 +100,7 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	{
 		printf("d->pars.tks[%d].flag_split : %d\n", i, d->pars.tks[i].flag_split);
 		if (d->pars.tks[i].flag_split)
-			create_new_tk(modif_word, tmp_tokens, &j, &i);
+			create_new_tk(tmp_tokens, exp, &j, &i);
 		else if (!d->pars.tks[i].flag_split)
 			cp_tk_to_temp(tmp_tokens, &d->pars.tks[i], &j, &i);
 	}
@@ -103,18 +111,19 @@ static int	reattribute_tokens(t_data *d, int tk_to_add, char *modif_word)
 	return (1);
 }
 
-int	word_splitting(t_data *d, t_token *tk, char *tmp_mod_w, int fct_expt)
+int	word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt)
 {
 	int		tk_to_add;
 
-	tk_to_add = count_word_split(tmp_mod_w, fct_expt);
+	(void)fct_expt;
+	tk_to_add = exp->nbr_splits;
 	printf("tk_to_add : %d\n", tk_to_add);
 	if (tk_to_add > 0)
 	{
-		reattribute_tokens(d, tk_to_add, tmp_mod_w);
+		reattribute_tokens(d, exp, tk_to_add);
 		d->pars.tk_nbr += tk_to_add;
 	}
 	else
-		tk->modif_word = tmp_mod_w;
+		tk->modif_word = exp->tmp_modif_word;
 	return (1);
 }

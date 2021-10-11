@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/07 16:38:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/08 10:34:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ typedef struct s_exp_var
 	char	**var_name;
 	char	**var_trans;
 	size_t	t_token_len;
+	int		*spot_of_var;
+	int		**spot_to_split_var;
+	int		nbr_splits;
 }	t_exp_var;
 
 typedef struct s_parsing
@@ -124,7 +127,7 @@ int		search_variables(t_data *d, int i, char **env);
 // SEARCHER_UTILS_3.C
 int		count_variables(t_token *tk, char *str, int fct_expt);
 // WORD_SPLITTING.C
-int		word_splitting(t_data *d, t_token *tk, char *tmp_mod_w, int fct_expt);
+int		word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *parsing, t_token *token, char **env_path);
 void	free_expand_struct(t_exp_var *expand);
