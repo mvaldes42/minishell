@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/08 10:34:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 16:06:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_exp_var
 	size_t	*o_var_len;
 	size_t	*t_var_len;
 	size_t	tot_o_len;
+	size_t	current_o_len;
 	size_t	tot_t_len;
 	char	*tmp_modif_word;
 	char	**var_name;

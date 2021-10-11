@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 14:43:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 16:09:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ static void	where_to_split(t_exp_var *exp, char *str, int var)
 		{
 			if (var > 0)
 			{
-				// printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
-				// i, exp->spot_of_var[var], exp->tot_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
+				printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
+				i, exp->spot_of_var[var], exp->current_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
 				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var] - \
-				(exp->tot_o_len - exp->o_var_len[var]) + \
+				(exp->current_o_len - exp->o_var_len[var]) + \
 				(exp->tot_t_len - exp->t_var_len[var]);
 			}
 			else
@@ -98,6 +98,7 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	exp->var_trans = malloc(sizeof(char *) * (exp->nbr_var + 1));
 	exp->t_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->spot_to_split_var = malloc(sizeof(int *) * (exp->nbr_var + 1));
+	exp->current_o_len = 0;
 	i = 0;
 	while (i < exp->nbr_var)
 	{
@@ -113,6 +114,7 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 		}
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
 		exp->tot_t_len += exp->t_var_len[i];
+		exp->current_o_len += exp->o_var_len[i];
 		if (exp->var_trans[i] == NULL)
 			exp->nbr_splits += 0;
 		else
