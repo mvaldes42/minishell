@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 12:05:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 14:43:13 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,21 @@ static void	where_to_split(t_exp_var *exp, char *str, int var)
 
 	nbr_splits = how_many_spaces(exp->var_trans[var]);
 	exp->spot_to_split_var[var] = malloc(sizeof(int) * (nbr_splits + 1));
-
 	i = -1;
 	j = 0;
-	printf("str: %s\n", str);
+	printf("str: %s, nbr_splits: %d\n", str, nbr_splits);
 	while (str[++i] && j <= nbr_splits)
 	{
 		if (str[i] == SPACE || str[i] == TAB)
 		{
 			if (var > 0)
-				exp->spot_to_split_var[var][j] = i + exp->t_var_len[var - 1];
+			{
+				// printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
+				// i, exp->spot_of_var[var], exp->tot_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
+				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var] - \
+				(exp->tot_o_len - exp->o_var_len[var]) + \
+				(exp->tot_t_len - exp->t_var_len[var]);
+			}
 			else
 				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var];
 			printf("exp->spot_to_split_var[%d][%d]= %d\n", var, j, exp->spot_to_split_var[var][j]);

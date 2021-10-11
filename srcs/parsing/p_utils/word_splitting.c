@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/16 16:28:28 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 12:21:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 14:43:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	create_new_tk(t_token *tmp_tks, t_exp_var *exp, int *j, int *i)
 	word_char = 0;
 	start = word_char;
 	var = 0;
+	printf("exp->nbr_splits : %d\n", exp->nbr_splits);
 	s = 0;
 	while (exp->tmp_modif_word[word_char])
 	{
@@ -37,11 +38,14 @@ static void	create_new_tk(t_token *tmp_tks, t_exp_var *exp, int *j, int *i)
 		{
 			while (exp->spot_to_split_var[var][s])
 			{
+				// printf("exp->spot_to_split_var[var : %d][s: %d] : %d\n", var, s, exp->spot_to_split_var[var][s]);
+				// printf("exp->tmp_modif_word[%d != %d] : %c\n", word_char, exp->spot_to_split_var[var][s], exp->tmp_modif_word[word_char]);
 				if (word_char == exp->spot_to_split_var[var][s])
 				{
 					split[tk_nbr] = ft_substr(exp->tmp_modif_word, start, word_char - start);
-					word_char++;
-					start = word_char;
+					// printf("split[%d]: <%s>\n", tk_nbr, split[tk_nbr]);
+					// word_char++;
+					start = word_char + 1;
 					s++;
 					tk_nbr++;
 				}
@@ -51,7 +55,10 @@ static void	create_new_tk(t_token *tmp_tks, t_exp_var *exp, int *j, int *i)
 			var++;
 		}
 		if (word_char == (int)ft_strlen(exp->tmp_modif_word) - 1)
-			split[tk_nbr] = ft_substr(exp->tmp_modif_word, start, word_char - start);
+		{
+			split[tk_nbr] = ft_substr(exp->tmp_modif_word, start, word_char + 1 - start);
+			// printf("split[%d]: <%s>\n", tk_nbr, split[tk_nbr]);
+		}
 		word_char++;
 	}
 	k = 0;
@@ -63,7 +70,7 @@ static void	create_new_tk(t_token *tmp_tks, t_exp_var *exp, int *j, int *i)
 		// tmp_tks[*j].ptr = ft_strdup("ptr");
 		tmp_tks[*j].modif_word = ft_strdup(split[k]);
 		// tmp_tks[*j].modif_word = ft_strdup("modif");
-		printf("split[%d]: <%s>\n", k, split[k]);
+		printf("%d: <%s>\n", k, split[k]);
 		(*j)++;
 		k++;
 	}
@@ -98,7 +105,7 @@ static int	reattribute_tokens(t_data *d, t_exp_var *exp, int tk_to_add)
 	j = 0;
 	while (i < d->pars.tk_nbr && j < d->pars.tk_nbr + tk_to_add)
 	{
-		printf("d->pars.tks[%d].flag_split : %d\n", i, d->pars.tks[i].flag_split);
+		// printf("d->pars.tks[%d].flag_split : %d\n", i, d->pars.tks[i].flag_split);
 		if (d->pars.tks[i].flag_split)
 			create_new_tk(tmp_tokens, exp, &j, &i);
 		else if (!d->pars.tks[i].flag_split)
@@ -117,7 +124,6 @@ int	word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt)
 
 	(void)fct_expt;
 	tk_to_add = exp->nbr_splits;
-	printf("tk_to_add : %d\n", tk_to_add);
 	if (tk_to_add > 0)
 	{
 		reattribute_tokens(d, exp, tk_to_add);
