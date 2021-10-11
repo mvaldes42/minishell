@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 16:06:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 17:24:02 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ typedef struct s_exp_var
 	char	*tmp_modif_word;
 	char	**var_name;
 	char	**var_trans;
+	bool	*var_is_d_quoted;
+	bool	*var_is_s_quoted;
 	size_t	t_token_len;
 	int		*spot_of_var;
 	int		**spot_to_split_var;

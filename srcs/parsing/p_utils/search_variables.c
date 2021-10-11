@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 16:09:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/11 18:58:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,35 @@ static void	original_var_length(char *str, t_exp_var *exp)
 	exp->o_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->var_name = malloc(sizeof(char **) * (exp->nbr_var + 1));
 	exp->spot_of_var = malloc(sizeof(int) * (exp->nbr_var + 1));
+	exp->var_is_d_quoted = malloc(sizeof(bool) * (exp->nbr_var + 1));
+	exp->var_is_s_quoted = malloc(sizeof(bool) * (exp->nbr_var + 1));
+	ft_memset(exp->var_is_d_quoted, 0, sizeof(exp->var_is_d_quoted));
+	ft_memset(exp->var_is_s_quoted, 0, sizeof(exp->var_is_s_quoted));
 	while (str[i] != '\0' && j < exp->nbr_var)
 	{
+		if (str[i] == D_QUOTE)
+		{
+			i++;
+			while (str[i] != '\0' && str[i] != D_QUOTE)
+			{
+				exp->var_is_d_quoted[j] = 1;
+				printf("%d quoted\n", j);
+				if (str[i] == VAR)
+				{
+					start = i;
+					exp->o_var_len[j] = 1;
+					exp->spot_of_var[j] = start;
+					while (str[++i] && str[i] != VAR && str[i] != SPACE && \
+					str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE)
+						exp->o_var_len[j] += 1;
+					exp->tot_o_len += exp->o_var_len[j];
+					exp->var_name[j] = ft_substr(str, start, i - start);
+					j += 1;
+				}
+				else
+					i++;
+			}
+		}
 		if (str[i] == VAR)
 		{
 			start = i;
@@ -62,26 +89,29 @@ static void	where_to_split(t_exp_var *exp, char *str, int var)
 	int	j;
 	int	nbr_splits;
 
-	nbr_splits = how_many_spaces(exp->var_trans[var]);
+
+	nbr_splits = 0;
+	if (exp->var_is_d_quoted[var] != 1)
+		nbr_splits = how_many_spaces(exp->var_trans[var]);
 	exp->spot_to_split_var[var] = malloc(sizeof(int) * (nbr_splits + 1));
 	i = -1;
 	j = 0;
-	printf("str: %s, nbr_splits: %d\n", str, nbr_splits);
+	// printf("str: %s, nbr_splits: %d\n", str, nbr_splits);
 	while (str[++i] && j <= nbr_splits)
 	{
 		if (str[i] == SPACE || str[i] == TAB)
 		{
 			if (var > 0)
 			{
-				printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
-				i, exp->spot_of_var[var], exp->current_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
+				// printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
+				// i, exp->spot_of_var[var], exp->current_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
 				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var] - \
 				(exp->current_o_len - exp->o_var_len[var]) + \
 				(exp->tot_t_len - exp->t_var_len[var]);
 			}
 			else
 				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var];
-			printf("exp->spot_to_split_var[%d][%d]= %d\n", var, j, exp->spot_to_split_var[var][j]);
+			// printf("exp->spot_to_split_var[%d][%d]= %d\n", var, j, exp->spot_to_split_var[var][j]);
 			j++;
 		}
 	}
