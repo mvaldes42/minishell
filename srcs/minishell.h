@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/04 18:57:29 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:04:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef int	(*t_builtin)(char **args, char ***environ_var);
+typedef int	(*t_builtin)(char **args, int argc, char ***environ_var);
 
 typedef struct s_functions
 {
@@ -65,6 +65,7 @@ typedef struct s_commands
 	int				id;
 	t_functions		fct;
 	char			**args;
+	int				nbr_args;
 	t_redir_token	*redirs;
 }	t_commands;
 

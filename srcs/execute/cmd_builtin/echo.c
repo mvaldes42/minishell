@@ -6,13 +6,13 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 10:15:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:09:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-int	builtin_echo(char **args, char ***environ_var)
+int	builtin_echo(char **args, int argc, char ***environ_var)
 {
 	int		i;
 	bool	opt;
@@ -25,9 +25,10 @@ int	builtin_echo(char **args, char ***environ_var)
 		i = 1;
 		opt = TRUE;
 	}
-	while (args[++i])
+	while (++i < argc)
 	{
-		printf("%s", args[i]);
+		if (args[i])
+			printf("%s", args[i]);
 		if (args[i + 1])
 			printf(" ");
 	}
