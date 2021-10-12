@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/12 17:25:10 by fcavillo         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/12 15:04:43 by mvaldes          ###   ########.fr       */
->>>>>>> 2abe0b4daf675be6be7879b3287dcc741390d14d
+/*   Updated: 2021/10/12 17:44:24 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +52,7 @@ typedef struct s_minishell
 
 t_minishell	g_minishell;
 
-typedef int	(*t_builtin)(char **args, char ***environ_var);
+typedef int	(*t_builtin)(char **args, int argc, char ***environ_var);
 
 typedef struct s_functions
 {
