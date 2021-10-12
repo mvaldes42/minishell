@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 18:58:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 12:18:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,23 +83,52 @@ static int	how_many_spaces(char *str)
 	return (nbr_spaces);
 }
 
+static int	how_many_quotes(char *str)
+{
+	int	nbr_quotes;
+	int	i;
+
+	nbr_quotes = 0;
+	i = -1;
+	while (str[++i])
+		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
+			nbr_quotes ++;
+	return (nbr_quotes);
+}
+
 static void	where_to_split(t_exp_var *exp, char *str, int var)
 {
 	int	i;
 	int	j;
+	int	k;
 	int	nbr_splits;
+	int	nbr_quotes;
 
 
 	nbr_splits = 0;
+	nbr_quotes = 0;
 	if (exp->var_is_d_quoted[var] != 1)
 		nbr_splits = how_many_spaces(exp->var_trans[var]);
+	nbr_quotes = how_many_quotes(exp->var_trans[var]);
 	exp->spot_to_split_var[var] = malloc(sizeof(int) * (nbr_splits + 1));
+	exp->quotes_not_rm[var] = malloc(sizeof(int) * (nbr_quotes + 1));
 	i = -1;
 	j = 0;
+	k = 0;
 	// printf("str: %s, nbr_splits: %d\n", str, nbr_splits);
-	while (str[++i] && j <= nbr_splits)
+	while (str[++i])
 	{
-		if (str[i] == SPACE || str[i] == TAB)
+		if (k <= nbr_quotes && (str[i] == D_QUOTE || str[i] == S_QUOTE))
+		{
+			if (var > 0)
+				exp->quotes_not_rm[var][k] = i + exp->spot_of_var[var] - \
+				(exp->current_o_len - exp->o_var_len[var]) + \
+				(exp->tot_t_len - exp->t_var_len[var]);
+			else
+				exp->quotes_not_rm[var][k] = i + exp->spot_of_var[var];
+			k++;
+		}
+		if (j <= nbr_splits && (str[i] == SPACE || str[i] == TAB))
 		{
 			if (var > 0)
 			{
@@ -116,6 +145,7 @@ static void	where_to_split(t_exp_var *exp, char *str, int var)
 		}
 	}
 	exp->spot_to_split_var[var][nbr_splits] = '\0';
+	exp->quotes_not_rm[var][nbr_quotes] = '\0';
 	exp->nbr_splits += nbr_splits;
 }
 
@@ -128,6 +158,7 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	exp->var_trans = malloc(sizeof(char *) * (exp->nbr_var + 1));
 	exp->t_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->spot_to_split_var = malloc(sizeof(int *) * (exp->nbr_var + 1));
+	exp->quotes_not_rm = malloc(sizeof(int *) * (exp->nbr_var + 1));
 	exp->current_o_len = 0;
 	i = 0;
 	while (i < exp->nbr_var)

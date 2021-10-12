@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 17:24:02 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 12:08:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ typedef struct s_token
 	bool	flag_split;
 	char	*modif_word;
 	char	*tk_fct_path;
-	int		*spot_to_split;
-	int		*quotes_not_rm;
+	// int		*spot_to_split;
+	// int		*quotes_not_rm;
 }	t_token;
 
 typedef struct s_exp_var
@@ -73,6 +73,7 @@ typedef struct s_exp_var
 	size_t	t_token_len;
 	int		*spot_of_var;
 	int		**spot_to_split_var;
+	int		**quotes_not_rm;
 	int		nbr_splits;
 }	t_exp_var;
 
