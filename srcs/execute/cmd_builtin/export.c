@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 11:13:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:07:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,12 @@ static void	does_var_exists(char **args, char ***env_var, char **env_value)
 	free_split(split_arg);
 }
 
-int	builtin_export(char **args, char ***env_var)
+int	builtin_export(char **args, int argc, char ***env_var)
 {
 	int			i;
 	char		*env_value;
 
+	(void)argc;
 	i = -1;
 	if (args[1] == NULL)
 		while ((*env_var)[++i])

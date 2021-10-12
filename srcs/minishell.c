@@ -6,50 +6,11 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/06 22:05:51 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:39:00 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	handdle_signals(void)
-// {
-// 	if (signal(SIGINT, handdle_ctrl_c) != SIG_ERR)
-// 		;
-// 	if (signal(SIGQUIT, handdle_ctrl_d) != SIG_ERR)
-// 		;
-// }
-
-// void	handdle_ctrl_c(int nb)
-// {
-// 	printf("ctrl c");
-// 	printf("\b\b");
-// 	printf("\n");
-// 	// g_data.line = "\0";
-// 	loop();
-// }
-
-// void	handdle_ctrl_d(int nb)
-// {
-// 	printf("ctrl d");
-// 	printf("\n");
-// 	exit_sucess(&g_data, g_data.line);
-// }
-
-// void	loop(void)
-// {
-// 	// handdle_signals();
-// 	add_history(g_data.line);
-// 	if (ft_strncmp(g_data.line, "exit", ft_strlen("exit")) == 0)
-// 		exit_sucess();
-// 	lexer();
-// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
-// 	clear_data();
-// 	if (g_data.line)
-// 		ft_free_str(&g_data.line);
-// 	g_data.line = readline(g_data.prompt);
-// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
-// }
 
 static void	initialize_env(t_data *data, char **line)
 {
@@ -85,7 +46,7 @@ static int	is_line_empty(char *line)
 	return (1);
 }
 
-static void	main_loop(t_data *data, char *line)
+static void	main_loop(t_data *data, char *line, int flag)
 {
 	bool	is_cmd_fail;
 	int		is_exit;
@@ -99,26 +60,39 @@ static void	main_loop(t_data *data, char *line)
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);
-		ft_free_str(&line);
+		if (!flag)
+			ft_free_str(&line);
+		else
+			line = NULL;
 		if (is_exit)
 			break ;
-		create_prompt(data, is_cmd_fail);
-		handle_signals();//reset
-		line = readline(data->prompt);
+		if (!flag)
+		{
+			create_prompt(data, is_cmd_fail);
+			line = readline(data->prompt);
+		}
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data		data;
 	char		*line;
 
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
-	handle_signals();
+	term();
+	signal(SIGINT, sig_handler);
+	signal(SIGQUIT, SIG_IGN);
+	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
+	{
+		main_loop(&data, argv[2], 1);
+		free_environ(&data);
+		return (0);
+	}
 	line = readline(data.prompt);
-	main_loop(&data, line);
+	main_loop(&data, line, 0);
 	rl_clear_history();
 	free_environ(&data);
-	return (1);
+	return (0);
 }

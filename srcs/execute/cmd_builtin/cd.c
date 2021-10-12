@@ -6,14 +6,15 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/21 12:15:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:06:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 #include "../../minishell.h"
 
-static int	export_var_path(char *var_name, char *path, char ***environ_var)
+static int	export_var_path(char *var_name, char *path, int argc, \
+			char ***environ_var)
 {
 	char	*pwd;
 	int		size;
@@ -28,7 +29,7 @@ static int	export_var_path(char *var_name, char *path, char ***environ_var)
 	ft_strlcat(pwd, path, size);
 	args[0] = "export";
 	args[1] = pwd;
-	if (!builtin_export(args, environ_var))
+	if (!builtin_export(args, argc, environ_var))
 	{
 		ft_free_str(&pwd);
 		return (0);
@@ -37,13 +38,13 @@ static int	export_var_path(char *var_name, char *path, char ***environ_var)
 	return (1);
 }
 
-static int	export_pwd_vars(char *old_cwd, char ***environ_var)
+static int	export_pwd_vars(char *old_cwd, int argc, char ***environ_var)
 {
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	if (!export_var_path("PWD=", cwd, environ_var) || \
-	!export_var_path("OLDPWD=", old_cwd, environ_var))
+	if (!export_var_path("PWD=", cwd, argc, environ_var) || \
+	!export_var_path("OLDPWD=", old_cwd, argc, environ_var))
 	{
 		ft_free_str(&cwd);
 		return (0);
@@ -68,7 +69,7 @@ static int	get_directory(char **args, char ***environ_var, char **directory)
 	return (i);
 }
 
-int	builtin_cd(char **args, char ***environ_var)
+int	builtin_cd(char **args, int argc, char ***environ_var)
 {
 	char	*directory;
 	char	*old_cwd;
@@ -88,7 +89,7 @@ int	builtin_cd(char **args, char ***environ_var)
 	}
 	if (i == 1)
 		ft_free_str(&directory);
-	if (!export_pwd_vars(old_cwd, environ_var))
+	if (!export_pwd_vars(old_cwd, argc, environ_var))
 		return (0);
 	return (1);
 }

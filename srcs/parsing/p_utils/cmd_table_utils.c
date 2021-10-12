@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 15:39:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:01:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 		else
 			cmd->redirs[j].filename = tks[i].ptr;
 		j++;
-		i += 1;
+		if (j < size)
+			i += 1;
 	}
 	return (i);
 }
@@ -60,6 +61,7 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 	int		k;
 	int		l;
 
+	cmd->nbr_args = d->pars.argv_size[cmd->id];
 	cmd->args[0] = cmd->fct.name;
 	k = 1;
 	while (k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)

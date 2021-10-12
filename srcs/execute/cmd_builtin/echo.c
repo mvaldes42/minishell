@@ -6,30 +6,48 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/08/31 10:15:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 17:13:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../execute.h"
 
-int	builtin_echo(char **args, char ***environ_var)
+static int	is_opt(char **args, int *i)
+{
+	int	j;
+
+	*i = 1;
+	if (args[1] && ft_strncmp(args[1], "-n", ft_strlen("-n")) == 0)
+	{
+		while (ft_strncmp(args[*i], "-n", ft_strlen("-n")) == 0)
+		{
+			j = 1;
+			while (j++ < (int)ft_strlen(args[*i]) - 1)
+			{
+				if (args[*i][j] != 'n')
+					return (1);
+			}
+			(*i)++;
+		}
+		return (1);
+	}
+	return (0);
+}
+
+int	builtin_echo(char **args, int argc, char ***environ_var)
 {
 	int		i;
 	bool	opt;
 
 	(void)environ_var;
-	i = 0;
-	opt = 0;
-	if (args[1] && ft_strncmp(args[1], "-n", ft_strlen(args[1])) == 0)
+	opt = is_opt(args, &i);
+	while (i < argc)
 	{
-		i = 1;
-		opt = TRUE;
-	}
-	while (args[++i])
-	{
-		printf("%s", args[i]);
-		if (args[i + 1])
+		if (args[i])
+			printf("%s", args[i]);
+		if (i + 1 < argc)
 			printf(" ");
+		i++;
 	}
 	if (opt == FALSE)
 		printf("\n");

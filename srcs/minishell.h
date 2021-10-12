@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/12 17:25:10 by fcavillo         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/12 15:04:43 by mvaldes          ###   ########.fr       */
+>>>>>>> 2abe0b4daf675be6be7879b3287dcc741390d14d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +78,7 @@ typedef struct s_commands
 	int				id;
 	t_functions		fct;
 	char			**args;
+	int				nbr_args;
 	t_redir_token	*redirs;
 }	t_commands;
 

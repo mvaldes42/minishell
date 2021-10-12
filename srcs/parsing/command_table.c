@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/22 14:06:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:01:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
-	// errno = CMD_NOT_FOUND;
 	cmd->fct.name = tks[i].modif_word;
 	if (tks[i].type == FUNCTION)
 		cmd->fct.fct_path = tks[i].tk_fct_path;
@@ -33,6 +32,7 @@ static int	input_command_fct(t_data *d, t_commands *cmd, t_token *tks, int i)
 		i = cmd_redir_case(d, tks, cmd, i) + 1;
 		if (i == 0)
 			return (-1);
+		i -= 1;
 	}
 	return (i + 1);
 }
@@ -43,7 +43,7 @@ int	input_command_table(t_data *d)
 	int			j;
 
 	d->cmds = malloc(sizeof(t_commands) * d->pars.cmd_nbr + 1);
-	ft_memset(d->cmds, 0, sizeof(t_commands));
+	ft_memset(d->cmds, 0, sizeof(d->cmds));
 	i = -1;
 	j = -1;
 	while (++j < d->pars.cmd_nbr && ++i < d->pars.tk_nbr)
