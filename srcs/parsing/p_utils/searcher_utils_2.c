@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 13:48:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:51:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,11 @@ int	free_env_path(t_data *data, char ***env_path)
 
 	(void)data;
 	i = -1;
-	while (*env_path != NULL && (*env_path)[++i])
-		ft_free_str(&(*env_path)[i]);
-	ft_free_str(*env_path);
+	if (*env_path != NULL)
+	{
+		while ((*env_path)[++i])
+			ft_free_str(&(*env_path)[i]);
+		ft_free_str(*env_path);
+	}
 	return (1);
 }
