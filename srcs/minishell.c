@@ -6,50 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 12:19:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:47:21 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	handdle_signals(void)
-// {
-// 	if (signal(SIGINT, handdle_ctrl_c) != SIG_ERR)
-// 		;
-// 	if (signal(SIGQUIT, handdle_ctrl_d) != SIG_ERR)
-// 		;
-// }
-
-// void	handdle_ctrl_c(int nb)
-// {
-// 	printf("ctrl c");
-// 	printf("\b\b");
-// 	printf("\n");
-// 	// g_data.line = "\0";
-// 	loop();
-// }
-
-// void	handdle_ctrl_d(int nb)
-// {
-// 	printf("ctrl d");
-// 	printf("\n");
-// 	exit_sucess(&g_data, g_data.line);
-// }
-
-// void	loop(void)
-// {
-// 	// handdle_signals();
-// 	add_history(g_data.line);
-// 	if (ft_strncmp(g_data.line, "exit", ft_strlen("exit")) == 0)
-// 		exit_sucess();
-// 	lexer();
-// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
-// 	clear_data();
-// 	if (g_data.line)
-// 		ft_free_str(&g_data.line);
-// 	g_data.line = readline(g_data.prompt);
-// 	// printf("data: %s\n", data.parsing.tk_lst[0].token_ptr);
-// }
 
 static void	initialize_env(t_data *data, char **line)
 {

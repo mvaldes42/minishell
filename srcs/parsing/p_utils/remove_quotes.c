@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/07 15:35:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:30:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,15 @@ static int	rm_quotes_next(char *exp, char *unquoted, int max, int q_rm)
 	{
 		if (exp[i] == S_QUOTE)
 		{
-			i += 1;
-			while (i < max && *unquoted && exp[i] != S_QUOTE)
-				*(unquoted++) = exp[i++];
+			while (i < max && *unquoted && exp[++i] != S_QUOTE)
+				*(unquoted++) = exp[i];
 			q_rm += 2;
 			i += 1;
 		}
 		if (exp[i] == D_QUOTE)
 		{
-			i += 1;
-			while (i < max && *unquoted && exp[i] != D_QUOTE)
-				*(unquoted++) = exp[i++];
+			while (i < max && *unquoted && exp[++i] != D_QUOTE)
+				*(unquoted++) = exp[i];
 			q_rm += 2;
 			i += 1;
 		}

@@ -12,9 +12,9 @@ FILES =	minishell.c\
 		parsing/p_utils/token_count_2.c\
 		parsing/p_utils/remove_quotes.c\
 		parsing/p_utils/search_variables.c\
+		parsing/p_utils/replace_substr.c\
 		parsing/p_utils/searcher_utils_2.c\
 		parsing/p_utils/searcher_utils_3.c\
-		parsing/p_utils/word_splitting.c\
 		execute/cmd_builtin/cd.c\
 		execute/cmd_builtin/echo.c\
 		execute/cmd_builtin/env.c\

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:21:38 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:28:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int	input_command_table(t_data *d)
 		ft_memset(d->cmds[j].args, 0, sizeof(d->cmds[j].args));
 		d->cmds[j].id = j;
 		i = input_command_fct(d, &d->cmds[j], d->pars.tks, i);
-		printf("d->pars.tks[%d].modif_word : %s\n", i, d->pars.tks[i].modif_word);
 		if (i == -1)
 			break ;
 	}
