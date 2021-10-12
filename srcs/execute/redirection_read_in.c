@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/06 23:51:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 14:10:29 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	create_here_doc(void)
 
 	fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
+	{
+		g_minishell.error_status = errno;
 		return (0);
+	}
 	return (fd);
 }
 

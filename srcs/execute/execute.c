@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/06 23:47:43 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:45:43 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
 	int		status;
-//	errno = CMD_NOT_FOUND; ?
+	
+	errno = CMD_NOT_FOUND;
 	if (cmd.fct.fct_path == NULL)
 		return (0);
 	pid = fork();
@@ -59,8 +60,9 @@ int	exec_builtout(t_data *data, t_commands cmd)
 		}
 	}
 	waitpid(pid, &status, 0);
+	if (WIFEXITED(status))
+		g_minishell.error_status = WIFEXITED(status);
 	return (1);
-	//set a status ?
 }
 
 int	exec_builtin(t_data *data, t_commands cmd)
