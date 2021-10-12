@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:20:51 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:03:42 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 		return (set_back_fds(initial_fd)); //sending current rank and fd to create a pipe to write in
 	if (!(make_redirects(data, rank, initial_fd)))
 		return (set_back_fds(initial_fd)); //check redirects and handle their fds
-	if (g_minishell.error_status == 0 && !(execute(data, rank)))
+	if (!(execute(data, rank)))
 		return (set_back_fds(initial_fd));
 	set_back_fds(initial_fd); //set back initial fds 
 	return (1);

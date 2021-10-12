@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:44:34 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 18:04:25 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,13 @@
 ** handle all errors
 ** EXIT que ce soit builtin/out + garder en memoire le code de sortie d'erreur
 ** EXIT_SUCCESS et EXIT_FAILURE macros
-** should I handle other signals
-** handle ctrl D
-** handle multiple redirs
+** ls > hey | ls > hoy
+** ctrl c
 **
 ** Louski :
 ** * bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
 ** * oko | oko | oko
-** * ls > hey | pwd > hoy tries to execute hoy ?
 ** * cd .. sends back too far ?
 ** * cat < hey | grep e
 ** * how to know if a fct has redirs
