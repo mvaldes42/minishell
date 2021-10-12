@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:57:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 15:12:46 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	original_var_length(char *str, t_exp_var *exp)
 			start = i;
 			exp->o_var_len[j] = 1;
 			while (str[++i] && str[i] != VAR && str[i] != SPACE && \
-			str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE)
+			str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE && \
+			str[i] != '=' && str[i] != '/')
 				exp->o_var_len[j] += 1;
 			exp->tot_o_len += exp->o_var_len[j];
 			exp->var_name[j] = ft_substr(str, start, i - start);
