@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 15:45:43 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:51:19 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
 	int		status;
-	
+
 	errno = CMD_NOT_FOUND;
 	if (cmd.fct.fct_path == NULL)
 		return (0);

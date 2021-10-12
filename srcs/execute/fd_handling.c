@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:27:03 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/05 19:10:07 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 15:55:56 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,11 @@ void	save_fds(int *fd)
 	fd[1] = dup(STDOUT_FILENO);
 }
 
-void	set_back_fds(int *fd)
+int		set_back_fds(int *fd)
 {
 	dup2(fd[0], STDIN_FILENO);
 	close(fd[0]);
 	dup2(fd[1], STDOUT_FILENO);
 	close(fd[1]);
+	return (0);
 }

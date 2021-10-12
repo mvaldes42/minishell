@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 14:10:29 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/12 17:25:39 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,10 @@ int	exec_read_in(char *end, int *initial_fd)
 	int	heredoc_fd;
 	int	pid;
 	int	status;
-//	int	fd_stdout;
+
 	(void)initial_fd;
 	signal(SIGINT, SIG_IGN);
 	heredoc_fd = create_here_doc();
-//	fd_stdout = dup(STDOUT_FILENO);
-//	dup2(initial_fd[1], STDOUT_FILENO);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -112,13 +110,6 @@ int	exec_read_in(char *end, int *initial_fd)
 	if (pid == 0)
 		fill_here_doc(end, heredoc_fd);
 	waitpid(pid, &status, 0);
-/*	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-	{
-		clear_tmp_file_input();
-		g_minishell.error_status = 130;
-	}*/
 	rm_heredoc();
-//	dup2(fd_stdout, STDOUT_FILENO);
-//	close(fd_stdout);
 	return (1);
 }
