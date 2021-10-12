@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 12:18:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:03:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,41 +23,12 @@ static void	original_var_length(char *str, t_exp_var *exp)
 	j = 0;
 	exp->o_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->var_name = malloc(sizeof(char **) * (exp->nbr_var + 1));
-	exp->spot_of_var = malloc(sizeof(int) * (exp->nbr_var + 1));
-	exp->var_is_d_quoted = malloc(sizeof(bool) * (exp->nbr_var + 1));
-	exp->var_is_s_quoted = malloc(sizeof(bool) * (exp->nbr_var + 1));
-	ft_memset(exp->var_is_d_quoted, 0, sizeof(exp->var_is_d_quoted));
-	ft_memset(exp->var_is_s_quoted, 0, sizeof(exp->var_is_s_quoted));
 	while (str[i] != '\0' && j < exp->nbr_var)
 	{
-		if (str[i] == D_QUOTE)
-		{
-			i++;
-			while (str[i] != '\0' && str[i] != D_QUOTE)
-			{
-				exp->var_is_d_quoted[j] = 1;
-				printf("%d quoted\n", j);
-				if (str[i] == VAR)
-				{
-					start = i;
-					exp->o_var_len[j] = 1;
-					exp->spot_of_var[j] = start;
-					while (str[++i] && str[i] != VAR && str[i] != SPACE && \
-					str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE)
-						exp->o_var_len[j] += 1;
-					exp->tot_o_len += exp->o_var_len[j];
-					exp->var_name[j] = ft_substr(str, start, i - start);
-					j += 1;
-				}
-				else
-					i++;
-			}
-		}
 		if (str[i] == VAR)
 		{
 			start = i;
 			exp->o_var_len[j] = 1;
-			exp->spot_of_var[j] = start;
 			while (str[++i] && str[i] != VAR && str[i] != SPACE && \
 			str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE)
 				exp->o_var_len[j] += 1;
@@ -70,85 +41,6 @@ static void	original_var_length(char *str, t_exp_var *exp)
 	}
 }
 
-static int	how_many_spaces(char *str)
-{
-	int	nbr_spaces;
-	int	i;
-
-	nbr_spaces = 0;
-	i = -1;
-	while (str[++i])
-		if (str[i] == SPACE || str[i] == TAB)
-			nbr_spaces ++;
-	return (nbr_spaces);
-}
-
-static int	how_many_quotes(char *str)
-{
-	int	nbr_quotes;
-	int	i;
-
-	nbr_quotes = 0;
-	i = -1;
-	while (str[++i])
-		if (str[i] == S_QUOTE || str[i] == D_QUOTE)
-			nbr_quotes ++;
-	return (nbr_quotes);
-}
-
-static void	where_to_split(t_exp_var *exp, char *str, int var)
-{
-	int	i;
-	int	j;
-	int	k;
-	int	nbr_splits;
-	int	nbr_quotes;
-
-
-	nbr_splits = 0;
-	nbr_quotes = 0;
-	if (exp->var_is_d_quoted[var] != 1)
-		nbr_splits = how_many_spaces(exp->var_trans[var]);
-	nbr_quotes = how_many_quotes(exp->var_trans[var]);
-	exp->spot_to_split_var[var] = malloc(sizeof(int) * (nbr_splits + 1));
-	exp->quotes_not_rm[var] = malloc(sizeof(int) * (nbr_quotes + 1));
-	i = -1;
-	j = 0;
-	k = 0;
-	// printf("str: %s, nbr_splits: %d\n", str, nbr_splits);
-	while (str[++i])
-	{
-		if (k <= nbr_quotes && (str[i] == D_QUOTE || str[i] == S_QUOTE))
-		{
-			if (var > 0)
-				exp->quotes_not_rm[var][k] = i + exp->spot_of_var[var] - \
-				(exp->current_o_len - exp->o_var_len[var]) + \
-				(exp->tot_t_len - exp->t_var_len[var]);
-			else
-				exp->quotes_not_rm[var][k] = i + exp->spot_of_var[var];
-			k++;
-		}
-		if (j <= nbr_splits && (str[i] == SPACE || str[i] == TAB))
-		{
-			if (var > 0)
-			{
-				// printf("%d + %d - (%zu - %zu) + (%zu - %zu)\n", \
-				// i, exp->spot_of_var[var], exp->current_o_len,  exp->o_var_len[var], exp->tot_t_len, exp->t_var_len[var]);
-				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var] - \
-				(exp->current_o_len - exp->o_var_len[var]) + \
-				(exp->tot_t_len - exp->t_var_len[var]);
-			}
-			else
-				exp->spot_to_split_var[var][j] = i + exp->spot_of_var[var];
-			// printf("exp->spot_to_split_var[%d][%d]= %d\n", var, j, exp->spot_to_split_var[var][j]);
-			j++;
-		}
-	}
-	exp->spot_to_split_var[var][nbr_splits] = '\0';
-	exp->quotes_not_rm[var][nbr_quotes] = '\0';
-	exp->nbr_splits += nbr_splits;
-}
-
 static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 {
 	int		i;
@@ -157,8 +49,6 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	errno = VAR_NOT_FOUND;
 	exp->var_trans = malloc(sizeof(char *) * (exp->nbr_var + 1));
 	exp->t_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
-	exp->spot_to_split_var = malloc(sizeof(int *) * (exp->nbr_var + 1));
-	exp->quotes_not_rm = malloc(sizeof(int *) * (exp->nbr_var + 1));
 	exp->current_o_len = 0;
 	i = 0;
 	while (i < exp->nbr_var)
@@ -169,20 +59,12 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 		{
 			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
 			--exp->var_name[i];
-			if (tk->var_not_quoted && (ft_strchr(exp->var_trans[i], SPACE) || \
-			ft_strchr(exp->var_trans[i], TAB)))
-				tk->flag_split = 1;
 		}
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
 		exp->tot_t_len += exp->t_var_len[i];
 		exp->current_o_len += exp->o_var_len[i];
-		if (exp->var_trans[i] == NULL)
-			exp->nbr_splits += 0;
-		else
-			where_to_split(exp, exp->var_trans[i], i);
 		i++;
 	}
-	exp->spot_to_split_var[exp->nbr_var] = 0;
 	return (1);
 }
 
@@ -190,6 +72,7 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 {
 	while (i < v->dst_size && j < (int)ft_strlen(v->str))
 	{
+		printf("v->str[%d]: %c\n", j, v->str[j]);
 		if (v->str[j] == D_QUOTE)
 		{
 			v->dest[i++] = v->str[j++];
@@ -209,14 +92,14 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 			}
 			v->dest[i++] = v->str[j++];
 		}
-		if (v->str[j] == S_QUOTE)
+		if (j < (int)ft_strlen(v->str) && v->str[j] == S_QUOTE)
 		{
 			v->dest[i++] = v->str[j++];
 			while ((v->str[j] != '\0' && v->str[j] != S_QUOTE))
 				v->dest[i++] = v->str[j++];
 			v->dest[i++] = v->str[j++];
 		}
-		else if (v->str[j] == VAR)
+		else if (j < (int)ft_strlen(v->str) && v->str[j] == VAR)
 		{
 			v->var_size = 0;
 			j++;
@@ -225,7 +108,7 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 			if (v->var_nb < exp->nbr_var)
 				j += exp->o_var_len[v->var_nb++] - 1;
 		}
-		else
+		else if (j < (int)ft_strlen(v->str))
 			v->dest[i++] = v->str[j++];
 	}
 	while (i <= v->dst_size)
@@ -277,8 +160,7 @@ int	search_variables(t_data *d, int i, char **environ)
 		exp.t_token_len = ft_strlen(s) - exp.tot_o_len + exp.tot_t_len;
 		exp.tmp_modif_word = replace_substr_init(&exp, s, exp.t_token_len);
 		printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);
-		if (!word_splitting(d, tk, &exp, fct_expt))
-			return (0);
+		tk->modif_word = exp.tmp_modif_word;
 		free_expand_struct(&exp);
 	}
 	ft_free_str(&s);

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/11 16:21:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 14:07:38 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,7 @@ static int	searcher(t_data *d)
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
-		if (ft_str_in_str(".", d->pars.tks[i].ptr) || \
-		ft_str_in_str("..", d->pars.tks[i].ptr))
-			break ;
-		else if (d->pars.tks[i].redir || d->pars.tks[i].type == PIPE)
+		if (d->pars.tks[i].redir || d->pars.tks[i].type == PIPE)
 		{
 			errno = UNEXPECTED_TK;
 			if (i + 1 > d->pars.tk_nbr || d->pars.tks[i + 1].type != WORD)
@@ -68,8 +65,8 @@ static int	searcher(t_data *d)
 		}
 		else if (!expand_word(d, env_path, i))
 			return (0);
-		// if (!remove_quotes(&d->pars.tks[i].modif_word))
-		// 	return (0);
+		if (!remove_quotes(&d->pars.tks[i].modif_word))
+			return (0);
 	}
 	if (!free_env_path(d, &env_path))
 		return (0);
@@ -80,10 +77,10 @@ int	parsing(t_data *data, char *line)
 {
 	if (!lexer(data, line) || !searcher(data))
 		return (0);
-	// print_parsing_tab(data);
+	print_parsing_tab(data);
 	get_argv_size(data);
 	if (!input_command_table(data))
 		return (0);
-	// print_cmd_tab(data);
+	print_cmd_tab(data);
 	return (1);
 }
