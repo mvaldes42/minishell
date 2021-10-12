@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 15:12:46 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 16:45:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	search_variables(t_data *d, int i, char **environ)
 		translated_var_length(&exp, tk, environ);
 		exp.t_token_len = ft_strlen(tk->ptr) - exp.tot_o_len + exp.tot_t_len;
 		exp.tmp_modif_word = rplc_substr_init(&exp, tk->ptr, exp.t_token_len);
-		printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);
+		// printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);
 		tk->modif_word = exp.tmp_modif_word;
 		free_expand_struct(&exp);
 	}

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 16:01:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/12 17:13:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	builtin_echo(char **args, int argc, char ***environ_var)
 	opt = is_opt(args, &i);
 	while (i < argc)
 	{
-		printf("%s", args[i]);
+		if (args[i])
+			printf("%s", args[i]);
 		if (i + 1 < argc)
 			printf(" ");
 		i++;
