@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 18:23:57 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:16:28 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,15 @@ int	error_handling(void)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
 	"syntax error near unexpected token", "", "not a valid identifier", \
-	"HOME not set", "builtin address points to the zero page"};
+	"HOME not set", "builtin address points to the zero page", ""};
 	int			i;
-	
+
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
 		if (errno == 133)
 			printf("%s\n", errors[i]);
-		else if (errno == 136)
+		else if (errno == 136 || errno == 140)
 			;
 		else
 			printf("minishell: %s\n", errors[i]);

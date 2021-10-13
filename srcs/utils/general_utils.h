@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 16:23:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:14:49 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_err_codes
 	INV_NAME = 137,
 	HOME_NSET = 138,
 	FUNCT_NULL = 139,
+	UNSET_NOT_FOUND = 140,
 }	t_err_codes;
 
 typedef struct s_data		t_data;
