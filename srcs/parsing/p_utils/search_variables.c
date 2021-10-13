@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 16:45:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 14:37:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 			--exp->var_name[i];
 		}
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
+		if (exp->o_var_len[i] == 1 && exp->t_var_len[i] == 0)
+			exp->t_var_len[i] = 1;
+		printf("exp->t_var_len[i]: %zu\n", exp->t_var_len[i]);
 		exp->tot_t_len += exp->t_var_len[i];
 		exp->current_o_len += exp->o_var_len[i];
 		i++;
@@ -88,6 +91,7 @@ int	search_variables(t_data *d, int i, char **environ)
 	{
 		original_var_length(tk->ptr, &exp);
 		translated_var_length(&exp, tk, environ);
+		printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu\n", ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len);
 		exp.t_token_len = ft_strlen(tk->ptr) - exp.tot_o_len + exp.tot_t_len;
 		exp.tmp_modif_word = rplc_substr_init(&exp, tk->ptr, exp.t_token_len);
 		// printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);

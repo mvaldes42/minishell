@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 11:16:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 12:00:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_unset(char ***environ_var, char ***tmp_env, char *var_name, \
 {
 	int		i;
 
-	errno = 140;
+	errno = UNSET_NOT_FOUND;
 	*size = -1;
 	while ((*environ_var)[++(*size)])
 		;
@@ -79,7 +79,8 @@ int	builtin_unset(char **args, int argc, char ***environ_var)
 	int			size;
 	char		**tmp_env;
 
-	(void)argc;
+	if (argc == 0 || !is_name_valid(args[1]))
+		return (0);
 	if (!init_unset(environ_var, &tmp_env, args[1], &size))
 		return (0);
 	i = -1;

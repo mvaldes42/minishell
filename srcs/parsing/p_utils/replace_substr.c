@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:44:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:44:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 14:47:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,23 @@ static void	double_quotes_sub(t_var_replace *v, t_exp_var *exp, int *i, int *j)
 	{
 		if (v->str[*j] == VAR)
 		{
-			v->var_size = 0;
-			(*j)++;
-			while (*i < v->dst_size && \
-			v->var_size < exp->t_var_len[v->var_nb])
-				v->dest[(*i)++] = exp->var_trans[v->var_nb][v->var_size++];
-			if (v->var_nb < exp->nbr_var)
-				*j += exp->o_var_len[v->var_nb++] - 1;
+			if (exp->o_var_len[v->var_nb] == 1 && exp->t_var_len[v->var_nb] == 1)
+			{
+				v->dest[(*i)++] = v->str[(*j)++];
+				if (v->var_nb < exp->nbr_var)
+					v->var_nb += 1;
+
+			}
+			else
+			{
+				(*j)++;
+				v->var_size = 0;
+				while (*i < v->dst_size && \
+				v->var_size < exp->t_var_len[v->var_nb])
+					v->dest[(*i)++] = exp->var_trans[v->var_nb][v->var_size++];
+				if (v->var_nb < exp->nbr_var)
+					*j += exp->o_var_len[v->var_nb++] - 1;
+			}
 		}
 		else
 			v->dest[(*i)++] = v->str[(*j)++];
@@ -38,6 +48,7 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 {
 	while (i < v->dst_size && j < (int)ft_strlen(v->str))
 	{
+		printf("v->dst_size : %d\n", v->dst_size);
 		if (v->str[j] == D_QUOTE)
 			double_quotes_sub(v, exp, &i, &j);
 		if (j < (int)ft_strlen(v->str) && v->str[j] == S_QUOTE)

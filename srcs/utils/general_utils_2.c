@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 11:16:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:44:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int	error_handling(void)
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
-		if (errno == 133)
+		if (errno == VAR_NOT_FOUND)
 			printf("%s\n", errors[i]);
-		else if (errno == 136 || errno == 140)
+		else if (errno == EMPTY_LINE || errno == UNSET_NOT_FOUND)
 			;
 		else
 			printf("minishell: %s\n", errors[i]);

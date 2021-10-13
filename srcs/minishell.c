@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 18:21:49 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:43:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	is_line_empty(char *line)
 {
 	if (char_occu(line, SPACE) == (int)ft_strlen(line))
 	{
-		errno = 136;
+		errno = EMPTY_LINE;
 		return (0);
 	}
 	add_history(line);

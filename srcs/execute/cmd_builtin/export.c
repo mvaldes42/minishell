@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 15:07:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:53:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static	int	init_create_var(char **args, char ***env_var, char ***tmp_env, \
 {
 	int	i;
 
-	errno = 137;
 	if (!is_name_valid(args[1]))
 		return (0);
 	while ((*env_var)[*size])
@@ -77,23 +76,32 @@ static int	create_var(char **args, char ***env_var)
 	return (1);
 }
 
-static void	does_var_exists(char **args, char ***env_var, char **env_value)
+static int	does_var_exists(char **args, char ***env_var, char **env_value)
 {
 	char		**split_arg;
 	char		**split_env;
 	int			i;
+	int			r_value;
 
+	r_value = 1;
+	errno = INV_NAME;
 	split_arg = ft_split(args[1], '=');
-	i = -1;
-	while ((*env_var)[++i])
+	if (split_arg[0] == NULL)
+		r_value = 0;
+	else
 	{
-		split_env = ft_split((*env_var)[i], '=');
-		if (ft_strncmp(split_arg[0], split_env[0], \
-		ft_strlen(split_env[0])) == 0)
-			*env_value = (*env_var)[i];
-		free_split(split_env);
+		i = -1;
+		while ((*env_var)[++i])
+		{
+			split_env = ft_split((*env_var)[i], '=');
+			if (ft_strncmp(split_arg[0], split_env[0], \
+			ft_strlen(split_env[0])) == 0)
+				*env_value = (*env_var)[i];
+			free_split(split_env);
+		}
 	}
 	free_split(split_arg);
+	return (r_value);
 }
 
 int	builtin_export(char **args, int argc, char ***env_var)
@@ -109,7 +117,8 @@ int	builtin_export(char **args, int argc, char ***env_var)
 	else
 	{
 		env_value = NULL;
-		does_var_exists(args, env_var, &env_value);
+		if (!does_var_exists(args, env_var, &env_value))
+			return (0);
 		if (env_value != NULL && !reatribute_var(args, env_var, env_value))
 			return (0);
 		else if (env_value == NULL && !create_var(args, env_var))
