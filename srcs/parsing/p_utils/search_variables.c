@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 18:57:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 19:22:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
 
 	start = *i;
 	exp->o_var_len[*j] = 1;
-	// printf("(double quote start)str[%d]: %c\n", *i, str[*i]);
 	while (str[++(*i)] && str[*i] != VAR && str[*i] != SPACE && \
 	str[*i] != TAB && str[*i] != S_QUOTE && str[*i] != D_QUOTE && \
 	str[*i] != '=' && str[*i] != '/')
@@ -27,11 +26,6 @@ static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
 	exp->tot_o_len += exp->o_var_len[*j];
 	exp->var_name[*j] = ft_substr(str, start, *i - start);
 	(*j)++;
-	// if (*i < (int)ft_strlen(str))
-	// {
-	// 	(*i)++;
-	// 		printf("(double quote end)str[%d]: %c\n", *i, str[*i]);
-	// }
 }
 
 static void	original_var_length(char *str, t_exp_var *exp)
@@ -41,32 +35,21 @@ static void	original_var_length(char *str, t_exp_var *exp)
 
 	i = 0;
 	j = 0;
-	exp->o_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
-	exp->var_name = malloc(sizeof(char **) * (exp->nbr_var + 1));
 	while (i < (int)ft_strlen(str) && j < exp->nbr_var)
 	{
-		// printf("(o_var) j : %d, str[%d]: %c\n", j, i, str[i]);
 		if (str[i] == S_QUOTE)
-		{
 			while (++i < (int)ft_strlen(str) && str[i] != S_QUOTE)
 				;
-		}
 		else if (str[i] == D_QUOTE)
 		{
-			i++;
-			while (i < (int)ft_strlen(str) && str[i] != D_QUOTE)
+			while (++i < (int)ft_strlen(str) && str[i] != D_QUOTE)
 			{
 				if (str[i] == VAR)
 					if_var_case(exp, str, &i, &j);
 				if (str[i] == D_QUOTE)
 					break ;
-				i++;
-				// printf("(mean quote)str[%d]: %c\n", i, str[i]);
 			}
-			// printf("(fin double quote)str[%d]: %c\n", i, str[i]);
 		}
-		// if (i < (int)ft_strlen(str))
-			// printf("str[%d]: %c\n", i, str[i]);
 		if (i < (int)ft_strlen(str) && str[i] == VAR)
 			if_var_case(exp, str, &i, &j);
 		else if (i < (int)ft_strlen(str))
@@ -80,8 +63,6 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 
 	(void)tk;
 	errno = VAR_NOT_FOUND;
-	exp->var_trans = malloc(sizeof(char *) * (exp->nbr_var + 1));
-	exp->t_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->current_o_len = 0;
 	i = 0;
 	while (i < exp->nbr_var)
@@ -90,7 +71,6 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 			exp->var_trans[i] = ft_strdup("exit_status(do do later)");
 		else
 		{
-			// printf("++exp->var_name[i] : %s\n", exp->var_name[i]);
 			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
 			--exp->var_name[i];
 		}
@@ -104,29 +84,39 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	return (1);
 }
 
-int	search_variables(t_data *d, int i, char **environ)
+int	init_search_variable(t_data *d, t_exp_var *exp, t_token *tk, int i)
 {
-	int			fct_expt;
-	t_token		*tk;
-	t_exp_var	exp;
+	int		fct_expt;
 
-	tk = &d->pars.tks[i];
-	ft_memset(&exp, 0, sizeof(exp));
+	ft_memset(exp, 0, sizeof(exp));
 	fct_expt = 0;
 	if (i > 0 && d->pars.tks[i - 1].type == BUILTIN && \
 	ft_str_in_str("export", d->pars.tks[i - 1].ptr))
 		fct_expt = 1;
-	exp.nbr_var = count_variables(tk, tk->ptr, fct_expt);
+	exp->nbr_var = count_variables(tk, tk->ptr, fct_expt);
+	return (1);
+}
+
+int	search_variables(t_data *d, int i, char **environ)
+{
+	t_token		*tk;
+	t_exp_var	exp;
+
+	tk = &d->pars.tks[i];
+	if (!init_search_variable(d, &exp, tk, i))
+		return (0);
 	if (exp.nbr_var == 0)
 		tk->modif_word = ft_strdup(tk->ptr);
 	else
 	{
+		exp.o_var_len = malloc(sizeof(size_t) * (exp.nbr_var + 1));
+		exp.var_name = malloc(sizeof(char **) * (exp.nbr_var + 1));
+		exp.var_trans = malloc(sizeof(char *) * (exp.nbr_var + 1));
+		exp.t_var_len = malloc(sizeof(size_t) * (exp.nbr_var + 1));
 		original_var_length(tk->ptr, &exp);
 		translated_var_length(&exp, tk, environ);
-		// printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu\n", ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len);
 		exp.t_token_len = ft_strlen(tk->ptr) - exp.tot_o_len + exp.tot_t_len;
 		exp.tmp_modif_word = rplc_substr_init(&exp, tk->ptr, exp.t_token_len);
-		// printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);
 		tk->modif_word = exp.tmp_modif_word;
 		free_expand_struct(&exp);
 	}
