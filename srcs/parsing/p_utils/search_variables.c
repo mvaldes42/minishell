@@ -6,38 +6,70 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 14:37:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 17:00:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
+static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
+{
+	int	start;
+
+	start = *i;
+	exp->o_var_len[*j] = 1;
+	printf("(double quote start)str[%d]: %c\n", *i, str[*i]);
+	while (str[++(*i)] && str[*i] != VAR && str[*i] != SPACE && \
+	str[*i] != TAB && str[*i] != S_QUOTE && str[*i] != D_QUOTE && \
+	str[*i] != '=' && str[*i] != '/')
+		exp->o_var_len[*j] += 1;
+	exp->tot_o_len += exp->o_var_len[*j];
+	exp->var_name[*j] = ft_substr(str, start, *i - start);
+	(*j)++;
+	// if (*i < (int)ft_strlen(str))
+	// {
+	// 	(*i)++;
+	// 		printf("(double quote end)str[%d]: %c\n", *i, str[*i]);
+	// }
+}
+
 static void	original_var_length(char *str, t_exp_var *exp)
 {
 	int		j;
 	int		i;
-	int		start;
 
 	i = 0;
 	j = 0;
 	exp->o_var_len = malloc(sizeof(size_t) * (exp->nbr_var + 1));
 	exp->var_name = malloc(sizeof(char **) * (exp->nbr_var + 1));
-	while (str[i] != '\0' && j < exp->nbr_var)
+	while (i < (int)ft_strlen(str) && j < exp->nbr_var)
 	{
-		if (str[i] == VAR)
+		printf("(o_var) j : %d, str[%d]: %c\n", j, i, str[i]);
+		if (str[i] == S_QUOTE)
 		{
-			start = i;
-			exp->o_var_len[j] = 1;
-			while (str[++i] && str[i] != VAR && str[i] != SPACE && \
-			str[i] != TAB && str[i] != S_QUOTE && str[i] != D_QUOTE && \
-			str[i] != '=' && str[i] != '/')
-				exp->o_var_len[j] += 1;
-			exp->tot_o_len += exp->o_var_len[j];
-			exp->var_name[j] = ft_substr(str, start, i - start);
-			j += 1;
+			while (++i < (int)ft_strlen(str) && str[i] != S_QUOTE)
+				;
 		}
-		else
+		else if (str[i] == D_QUOTE)
+		{
+			i++;
+			while (i < (int)ft_strlen(str) && str[i] != D_QUOTE)
+			{
+				if (str[i] == VAR)
+					if_var_case(exp, str, &i, &j);
+				if (str[i] == D_QUOTE)
+					break ;
+				i++;
+				printf("(mean quote)str[%d]: %c\n", i, str[i]);
+			}
+			printf("(fin double quote)str[%d]: %c\n", i, str[i]);
+		}
+		if (i < (int)ft_strlen(str))
+			printf("str[%d]: %c\n", i, str[i]);
+		if (i < (int)ft_strlen(str) && str[i] == VAR)
+			if_var_case(exp, str, &i, &j);
+		else if (i < (int)ft_strlen(str))
 			i++;
 	}
 }
@@ -58,13 +90,13 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 			exp->var_trans[i] = ft_strdup("exit_status(do do later)");
 		else
 		{
+			printf("++exp->var_name[i] : %s\n", exp->var_name[i]);
 			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
 			--exp->var_name[i];
 		}
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
 		if (exp->o_var_len[i] == 1 && exp->t_var_len[i] == 0)
 			exp->t_var_len[i] = 1;
-		printf("exp->t_var_len[i]: %zu\n", exp->t_var_len[i]);
 		exp->tot_t_len += exp->t_var_len[i];
 		exp->current_o_len += exp->o_var_len[i];
 		i++;

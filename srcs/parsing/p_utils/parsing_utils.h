@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:45:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 15:07:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ typedef struct s_split
 typedef struct s_var_replace
 {
 	char	*dest;
-	size_t	var_size;
-	int		var_nb;
-	int		dst_size;
+	size_t	vsize;
+	int		vnbr;
+	int		dst_s;
 	char	*str;
 }	t_var_replace;
 

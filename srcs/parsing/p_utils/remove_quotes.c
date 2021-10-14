@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:12:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 10:42:11 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,14 @@ static int	rm_quotes_next(char *exp, char *unquoted, int max, int q_rm)
 			while (i <= max && *unquoted && exp[++i] != S_QUOTE)
 				*(unquoted++) = exp[i];
 			q_rm += 2;
-			i += 1;
 		}
-		if (i <= max && exp[i] == D_QUOTE)
+		else if (i <= max && exp[i] == D_QUOTE)
 		{
 			while (i <= max && *unquoted && exp[++i] != D_QUOTE)
 				*(unquoted++) = exp[i];
 			q_rm += 2;
-			i += 1;
 		}
-		if (i <= max && exp[i] != D_QUOTE && exp[i] != S_QUOTE)
+		else if (i <= max && exp[i] != D_QUOTE && exp[i] != S_QUOTE)
 			*(unquoted++) = exp[i];
 		i++;
 	}
@@ -60,7 +58,7 @@ static int	size_of_unquoted(char *exp)
 			nbr_removed += 2;
 			i += 1;
 		}
-		if (i < size && exp[i] == D_QUOTE)
+		else if (i < size && exp[i] == D_QUOTE)
 		{
 			while (i < size && exp[++i] != D_QUOTE)
 				;
@@ -82,7 +80,7 @@ int	remove_quotes(char **exp)
 		return (1);
 	size = size_of_unquoted(*exp);
 	// printf("size_unquoted : %d\n", size);
-	// printf("exp: %s\n", *exp);
+	printf("exp: %s\n", *exp);
 	if (size <= 0)
 		(*exp) = ft_strdup(NULL);
 	if (size <= 0 || size == (int)ft_strlen(*exp))
