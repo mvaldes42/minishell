@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 18:06:21 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 12:18:08 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static void	main_loop(t_data *data, char *line, int flag)
 	while (line)
 	{
 		is_cmd_fail = 0;
+		printf("loopy\n");
 		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
 			is_cmd_fail = error_handling();
 		if (data->is_exit)

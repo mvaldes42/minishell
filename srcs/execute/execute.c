@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 18:04:25 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 11:27:46 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@
 ** EXIT_SUCCESS et EXIT_FAILURE macros
 ** ls > hey | ls > hoy
 ** ctrl c
-**
+** echo $? + $?
+** cat < hey | grep e
+
 ** Louski :
 ** * bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
 ** * oko | oko | oko
 ** * cd .. sends back too far ?
-** * cat < hey | grep e
+** 
 ** * how to know if a fct has redirs
 */
 
@@ -38,7 +40,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
 	int		status;
-
+//	printf("in exec_in for cmd %s\n", cmd.fct.name);
 	errno = CMD_NOT_FOUND;
 	if (cmd.fct.fct_path == NULL)
 		return (0);
@@ -51,6 +53,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 	handle_signals_exec();
 	if (pid == 0)
 	{
+//		printf("doing %s\n", cmd.fct.name);
 		if (!(execve(cmd.fct.fct_path, cmd.args, data->environ)))
 		{
 			g_minishell.error_status = errno;
@@ -65,6 +68,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 
 int	exec_builtin(t_data *data, t_commands cmd)
 {
+//	printf("in exec_out for cmd %s\n", cmd.fct.name);
 	if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 		data->is_exit = TRUE;
 	if (!cmd.fct.builtin_ptr(cmd.args, cmd.nbr_args, &data->environ))

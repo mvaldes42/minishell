@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 11:56:31 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,26 +100,23 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 	int		j;
 	int		type;
 	char	*filename;
-
-	i = 0;
-	while (i <= rank)
+//	printf("in mk_redir for cmd %d\n", rank);
+	i = rank;
+	if (data->cmds[i].redirs)
 	{
-		if (data->cmds[i].redirs)
+//		printf("making a redir towards %s for cmd %d\n", data->cmds[i].redirs[0].filename, rank);
+		j = 0;
+		type = 0;
+		type = data->cmds[i].redirs[j].type;
+		filename = data->cmds[i].redirs[j].filename;
+		while (type >= 0 && type <= 6)
 		{
-			j = 0;
-			type = 0;
+			if (!(handle_redirs(type, filename, initial_fd)))
+				return (0);
+			j++;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
-			while (type >= 0 && type <= 6)
-			{
-				if (!(handle_redirs(type, filename, initial_fd)))
-					return (0);
-				j++;
-				type = data->cmds[i].redirs[j].type;
-				filename = data->cmds[i].redirs[j].filename;
-			}
 		}
-		i++;
 	}
 	return (1);
 }

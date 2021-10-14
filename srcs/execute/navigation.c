@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 18:03:42 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 12:26:52 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	make_pipe(t_data *data, int rank, int *fd_in)
 {
 	int	new_pipe[2];
-
+//	printf("in mk_pipe for cmd %d\n", rank);
 	dup2(*fd_in, STDIN_FILENO);
 	if (*fd_in != 0)
 		close(*fd_in);
@@ -33,7 +33,7 @@ int	make_pipe(t_data *data, int rank, int *fd_in)
 int	command_executor(t_data *data, int rank, int *fd_in)
 {
 	int	initial_fd[2];
-
+//	printf("in cmd_ex doing cmd %d\n", rank);
 	save_fds(initial_fd); //set initial_fd to the basic fds
 	if (!(make_pipe(data, rank, fd_in)))
 		return (set_back_fds(initial_fd)); //sending current rank and fd to create a pipe to write in
@@ -45,7 +45,7 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 	return (1);
 }                           
 
-int	parse_and_exec(t_data *data, int *fd_in, int base_rank, int rank) //pipecheck
+int	parse_and_exec(t_data *data, int *fd_in, int rank)
 {
 	while (rank < data->pars.cmd_nbr - 1)
 	{
@@ -53,7 +53,7 @@ int	parse_and_exec(t_data *data, int *fd_in, int base_rank, int rank) //pipechec
 			return (0);
 		rank++;
 		if (rank < data->pars.cmd_nbr - 1)
-			parse_and_exec(data, fd_in, base_rank, rank);
+			parse_and_exec(data, fd_in, rank);
 		break ;
 	}
 	if (rank == data->pars.cmd_nbr - 1)
@@ -64,12 +64,13 @@ int	parse_and_exec(t_data *data, int *fd_in, int base_rank, int rank) //pipechec
 	return (1);
 }
 
-int	navigate_line(t_data *data) //p&x
+int	navigate_line(t_data *data)
 {
 	int	fd_in;
 
 	fd_in = 0;
-	if (!(parse_and_exec(data, &fd_in, 0, 0)))
+	create_files(data);
+	if (!(parse_and_exec(data, &fd_in, 0)))
 		return (0);
 	if (fd_in != 0)
 		close(fd_in);

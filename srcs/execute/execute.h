@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:42:21 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 11:51:18 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int		navigate_line(t_data *data);
 void	save_fds(int *fd);
 int 	set_back_fds(int *fd);
 
+int		create_files(t_data *data);
 int		make_redirects(t_data *data, int rank, int *initial_fd);
 int		exec_read_in(char *end, int *initial_fd);
 
