@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 11:27:46 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:39:09 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,16 @@
 /*
 ** handle all errors
 ** EXIT que ce soit builtin/out + garder en memoire le code de sortie d'erreur
-** EXIT_SUCCESS et EXIT_FAILURE macros
-** ls > hey | ls > hoy
-** ctrl c
+** EXIT_SUCCESS et EXIT_FAILURE macro
 ** echo $? + $?
-** cat < hey | grep e
-
+** heredoc then pipe
+** heredoc then ctrl D
+**
 ** Louski :
 ** * bash-3.2$ sort <<
 ** bash: syntax error near unexpected token `newline'
 ** * oko | oko | oko
-** * cd .. sends back too far ?
-** 
-** * how to know if a fct has redirs
+**
 */
 
 int	exec_builtout(t_data *data, t_commands cmd)
@@ -81,6 +78,7 @@ int	execute(t_data *data, int nb)
 	t_commands	cmd;
 
 	cmd = data->cmds[nb];
+	term_interactive();
 	if (cmd.fct.builtin)
 	{
 		if (!(exec_builtin(data, cmd)))

@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:25:39 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:35:01 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	exec_read_in(char *end, int *initial_fd)
 	int	status;
 
 	(void)initial_fd;
+	g_minishell.stopped_heredoc = TRUE;
 	signal(SIGINT, SIG_IGN);
 	heredoc_fd = create_here_doc();
 	pid = fork();

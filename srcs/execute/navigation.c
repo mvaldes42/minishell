@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/14 12:26:52 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:33:51 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,14 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 	int	initial_fd[2];
 //	printf("in cmd_ex doing cmd %d\n", rank);
 	save_fds(initial_fd); //set initial_fd to the basic fds
+
 	if (!(make_pipe(data, rank, fd_in)))
 		return (set_back_fds(initial_fd)); //sending current rank and fd to create a pipe to write in
+
 	if (!(make_redirects(data, rank, initial_fd)))
 		return (set_back_fds(initial_fd)); //check redirects and handle their fds
-	if (!(execute(data, rank)))
+
+	if (!g_minishell.stopped_heredoc && !(execute(data, rank)))
 		return (set_back_fds(initial_fd));
 	set_back_fds(initial_fd); //set back initial fds 
 	return (1);

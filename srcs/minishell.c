@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 12:18:08 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:14:04 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ static void	main_loop(t_data *data, char *line, int flag)
 	while (line)
 	{
 		is_cmd_fail = 0;
-		printf("loopy\n");
 		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
 			is_cmd_fail = error_handling();
+		term();
+		handle_signals_empty();
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);
@@ -67,11 +68,8 @@ static void	main_loop(t_data *data, char *line, int flag)
 			line = NULL;
 		if (is_exit)
 			break ;
-//		if (!flag)
-//		{
-			create_prompt(data, is_cmd_fail);
-			line = readline(data->prompt);
-//		}
+		create_prompt(data, is_cmd_fail);
+		line = readline(data->prompt);
 	}
 }
 
@@ -83,8 +81,7 @@ int	main(int argc, char **argv)
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
 	term();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	handle_signals_empty();
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
 	{
 		main_loop(&data, argv[2], 1);

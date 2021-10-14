@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 11:51:18 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/14 17:13:25 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	free_split(char **split);
 int		is_name_valid(char *str);
 
 int		term(void);
-int		handle_signals(void);
+int	    term_interactive(void);
+int		handle_signals_empty(void);
 void	handle_signals_exec(void);
 void	sig_heredoc(int sig);
 void	sig_handler(int sig);
