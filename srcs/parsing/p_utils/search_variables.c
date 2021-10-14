@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 19:22:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 19:53:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,15 @@ static void	original_var_length(char *str, t_exp_var *exp)
 				;
 		else if (str[i] == D_QUOTE)
 		{
-			while (++i < (int)ft_strlen(str) && str[i] != D_QUOTE)
+			i++;
+			while (i < (int)ft_strlen(str) && str[i] != D_QUOTE)
 			{
 				if (str[i] == VAR)
 					if_var_case(exp, str, &i, &j);
 				if (str[i] == D_QUOTE)
 					break ;
+				else if (str[i] != VAR)
+					i++;
 			}
 		}
 		if (i < (int)ft_strlen(str) && str[i] == VAR)
