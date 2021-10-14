@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 17:00:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 18:57:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
 
 	start = *i;
 	exp->o_var_len[*j] = 1;
-	printf("(double quote start)str[%d]: %c\n", *i, str[*i]);
+	// printf("(double quote start)str[%d]: %c\n", *i, str[*i]);
 	while (str[++(*i)] && str[*i] != VAR && str[*i] != SPACE && \
 	str[*i] != TAB && str[*i] != S_QUOTE && str[*i] != D_QUOTE && \
 	str[*i] != '=' && str[*i] != '/')
@@ -45,7 +45,7 @@ static void	original_var_length(char *str, t_exp_var *exp)
 	exp->var_name = malloc(sizeof(char **) * (exp->nbr_var + 1));
 	while (i < (int)ft_strlen(str) && j < exp->nbr_var)
 	{
-		printf("(o_var) j : %d, str[%d]: %c\n", j, i, str[i]);
+		// printf("(o_var) j : %d, str[%d]: %c\n", j, i, str[i]);
 		if (str[i] == S_QUOTE)
 		{
 			while (++i < (int)ft_strlen(str) && str[i] != S_QUOTE)
@@ -61,12 +61,12 @@ static void	original_var_length(char *str, t_exp_var *exp)
 				if (str[i] == D_QUOTE)
 					break ;
 				i++;
-				printf("(mean quote)str[%d]: %c\n", i, str[i]);
+				// printf("(mean quote)str[%d]: %c\n", i, str[i]);
 			}
-			printf("(fin double quote)str[%d]: %c\n", i, str[i]);
+			// printf("(fin double quote)str[%d]: %c\n", i, str[i]);
 		}
-		if (i < (int)ft_strlen(str))
-			printf("str[%d]: %c\n", i, str[i]);
+		// if (i < (int)ft_strlen(str))
+			// printf("str[%d]: %c\n", i, str[i]);
 		if (i < (int)ft_strlen(str) && str[i] == VAR)
 			if_var_case(exp, str, &i, &j);
 		else if (i < (int)ft_strlen(str))
@@ -90,7 +90,7 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 			exp->var_trans[i] = ft_strdup("exit_status(do do later)");
 		else
 		{
-			printf("++exp->var_name[i] : %s\n", exp->var_name[i]);
+			// printf("++exp->var_name[i] : %s\n", exp->var_name[i]);
 			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
 			--exp->var_name[i];
 		}
@@ -123,7 +123,7 @@ int	search_variables(t_data *d, int i, char **environ)
 	{
 		original_var_length(tk->ptr, &exp);
 		translated_var_length(&exp, tk, environ);
-		printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu\n", ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len);
+		// printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu\n", ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len);
 		exp.t_token_len = ft_strlen(tk->ptr) - exp.tot_o_len + exp.tot_t_len;
 		exp.tmp_modif_word = rplc_substr_init(&exp, tk->ptr, exp.t_token_len);
 		// printf("exp->tmp_modif_word : %s\n", exp.tmp_modif_word);

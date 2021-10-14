@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:57:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 16:55:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/14 18:56:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,6 @@ int	count_variables(t_token *tk, char *str, int fct_expt)
 			export_case = 1;
 		var_nbr += count_variables_var(tk, str, i, export_case);
 	}
-	printf("var_nbr: %d\n", var_nbr);
+	// printf("var_nbr: %d\n", var_nbr);
 	return (var_nbr);
 }
