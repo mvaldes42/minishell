@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 12:09:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 12:19:29 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
 	str[*i] != TAB && str[*i] != S_QUOTE && str[*i] != D_QUOTE \
 	&& str[*i] != '=' && str[*i] != '/')
 	{
-		// printf("str[%d]: %c\n", *i, str[*i]);
 		if (exp->o_var_len[*j] == 1 && str[*i] >= '1' && str[*i] <= '9')
 		{
 			exp->o_var_len[*j] += 1;
@@ -31,12 +30,6 @@ static void	if_var_case(t_exp_var *exp, char *str, int *i, int *j)
 		}
 		exp->o_var_len[*j] += 1;
 	}
-	// printf("str[%d]: %c\n", *i, str[*i]);
-	// if (exp->o_var_len[*j] == 1 && str[*i] >= '1' && str[*i] <= '9')
-	// {
-	// 	printf("hello\n");
-	// 	exp->o_var_len[*j] += 1;
-	// }
 	exp->tot_o_len += exp->o_var_len[*j];
 	exp->var_name[*j] = ft_substr(str, start, *i - start);
 	(*j)++;
@@ -94,7 +87,7 @@ static int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
 		if (exp->o_var_len[i] == 1 && exp->t_var_len[i] == 0)
 			exp->t_var_len[i] = 1;
-		// printf("exp->var_trans[i] : %s, exp->t_var_len[i] : %zu\n", exp->var_trans[i], exp->t_var_len[i]);
+		printf("exp->var_trans[i] : %s, exp->t_var_len[i] : %zu\n", exp->var_trans[i], exp->t_var_len[i]);
 		exp->tot_t_len += exp->t_var_len[i];
 		exp->current_o_len += exp->o_var_len[i];
 		i++;
@@ -134,7 +127,8 @@ int	search_variables(t_data *d, int i, char **environ)
 		original_var_length(tk->ptr, &exp);
 		translated_var_length(&exp, tk, environ);
 		exp.t_token_len = ft_strlen(tk->ptr) - exp.tot_o_len + exp.tot_t_len;
-		// printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu\n", ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len);
+		printf("ft_strlen(tk->ptr): %zu - exp.tot_o_len: %zu +  exp.tot_t_len: %zu = exp.t_token_len : %zu\n",\
+		 ft_strlen(tk->ptr), exp.tot_o_len, exp.tot_t_len, exp.t_token_len);
 		exp.tmp_modif_word = rplc_substr_init(&exp, tk->ptr, exp.t_token_len);
 		tk->modif_word = exp.tmp_modif_word;
 		free_expand_struct(&exp);
