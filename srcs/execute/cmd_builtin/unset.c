@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 12:00:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:44:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,4 @@ int	builtin_unset(char **args, int argc, char ***environ_var)
 		free_split(split_env);
 	}
 	return (0);
-	//CAREFULL IF IT GETS HERE
 }

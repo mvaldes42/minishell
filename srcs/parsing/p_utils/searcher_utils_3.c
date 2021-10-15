@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:57:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 19:02:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:41:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,31 @@ int	count_variables(t_token *tk, char *str, int fct_expt)
 		var_nbr += count_variables_var(tk, str, i, export_case);
 	}
 	return (var_nbr);
+}
+
+int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
+{
+	int		i;
+
+	(void)tk;
+	errno = VAR_NOT_FOUND;
+	exp->current_o_len = 0;
+	i = 0;
+	while (i < exp->nbr_var)
+	{
+		if (ft_strncmp(exp->var_name[i], "$?", 2) == 0)
+			exp->var_trans[i] = ft_strdup("exit_status(do do later)");
+		else
+		{
+			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
+			--exp->var_name[i];
+		}
+		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
+		if (exp->o_var_len[i] == 1 && exp->t_var_len[i] == 0)
+			exp->t_var_len[i] = 1;
+		exp->tot_t_len += exp->t_var_len[i];
+		exp->current_o_len += exp->o_var_len[i];
+		i++;
+	}
+	return (1);
 }

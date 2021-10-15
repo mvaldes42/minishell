@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 15:32:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:15:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int	remove_quotes(char **exp)
 	if (*exp == NULL)
 		return (1);
 	size = size_of_unquoted(*exp);
-	if (size <= 0)
-		(*exp) = ft_strdup(NULL);
 	if (size <= 0 || size == (int)ft_strlen(*exp))
 		return (1);
 	unquoted = malloc(sizeof(char *) * (size + 1));

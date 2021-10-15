@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 15:07:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:41:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int		search_variables(t_data *d, int i, char **env);
 char	*rplc_substr_init(t_exp_var *exp, char *str, int dst_size);
 // SEARCHER_UTILS_3.C
 int		count_variables(t_token *tk, char *str, int fct_expt);
+int		translated_var_length(t_exp_var *exp, t_token *tk, char **environ);
 // WORD_SPLITTING.C
 int		word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt);
 // SEARCHER_UTILS_2.C
