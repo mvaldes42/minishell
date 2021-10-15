@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:44:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 20:07:23 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 12:10:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,9 @@
 static void	double_quotes_sub(t_var_replace *v, t_exp_var *exp, int *i, int *j)
 {
 	v->dest[(*i)++] = v->str[(*j)++];
-	while (*j < (int)ft_strlen(v->str) && v->str[*j] != D_QUOTE \
-			&& v->vnbr < exp->nbr_var)
+	while (*j < (int)ft_strlen(v->str) && v->str[*j] != D_QUOTE)
 	{
-		if (v->str[*j] == VAR)
+		if (v->vnbr < exp->nbr_var && v->str[*j] == VAR)
 		{
 			if (exp->o_var_len[v->vnbr] == 1 && exp->t_var_len[v->vnbr] == 1)
 			{
@@ -41,13 +40,22 @@ static void	double_quotes_sub(t_var_replace *v, t_exp_var *exp, int *i, int *j)
 				}
 			}
 		}
-		v->dest[(*i)] = v->str[(*j)];
+		// printf("*j : %d, ft_strlen(v->str): %zu, v->str[*j]: %c, v->vnbr: %d, exp->nbr_var:%d\n", *j, ft_strlen(v->str), v->str[*j], v->vnbr, exp->nbr_var);
 		// printf("(double)v->str[%d] : %c\n", *j, v->str[*j]);
 		if (*j < (int)ft_strlen(v->str) && v->str[*j] == D_QUOTE)
+		{
+			// printf("break\n");
 			break ;
-		(*i)++;
-		(*j)++;
+		}
+		if (*j < (int)ft_strlen(v->str) && v->str[*j] != VAR)
+		{
+			v->dest[(*i)] = v->str[(*j)];
+			(*i)++;
+			(*j)++;
+		}
+		// printf("*j : %d, ft_strlen(v->str): %zu, v->str[*j]: %c\n", *j, ft_strlen(v->str), v->str[*j]);
 	}
+	// printf("(avant fin double)v->str[%d] : %c\n", *j, v->str[(*j)]);
 	if (*j < (int)ft_strlen(v->str))
 		v->dest[(*i)] = v->str[(*j)];
 	// printf("(fin double)v->str[%d] : %c\n", *j, v->str[(*j)]);
@@ -76,7 +84,8 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 		{
 			v->vsize = 0;
 			j++;
-			while (v->vnbr < exp->nbr_var && i < v->dst_s && v->vsize < exp->t_var_len[v->vnbr])
+			// printf("*j : %d, ft_strlen(v->str): %zu, v->str[*j]: %c, v->vnbr: %d, exp->nbr_var:%d\n", j, ft_strlen(v->str), v->str[j], v->vnbr, exp->nbr_var);
+			while (exp->var_trans[v->vnbr] && v->vnbr < exp->nbr_var && i < v->dst_s && v->vsize < exp->t_var_len[v->vnbr])
 				v->dest[i++] = exp->var_trans[v->vnbr][v->vsize++];
 			if (v->vnbr < exp->nbr_var)
 				j += exp->o_var_len[v->vnbr++] - 1;
