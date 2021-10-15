@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:44:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 12:17:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 14:51:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static void	replace_substr(t_var_replace *v, t_exp_var *exp, int i, int j)
 				v->dest[i++] = v->str[j++];
 			}
 			v->dest[i] = v->str[j];
-			// printf("(fin single)v->str[%d] : %c\n", j, v->str[j]);
+			// printf("(fin :single)v->str[%d] : %c\n", j, v->str[j]);
 		}
 		if (j < (int)ft_strlen(v->str) && v->str[j] == VAR)
 		{
@@ -114,8 +114,8 @@ char	*rplc_substr_init(t_exp_var *exp, char *str, int dst_size)
 	ft_memset(v.dest, 0, sizeof(v.dest));
 	v.dst_s = dst_size;
 	v.str = str;
-	printf("dst_size: %d\n", dst_size);
+	// printf("dst_size: %d\n", dst_size);
 	replace_substr(&v, exp, i, j);
-	printf("v->dest : %s\n", v.dest);
+	// printf("v->dest : %s<\n", v.dest);
 	return (v.dest);
 }
