@@ -2,9 +2,6 @@ GROS TRAVAUX
 
 A faire
 
-Terminal et signaux
-x ctrl \ sur ligne commencée ?
-
 Redirections
 x Ctrl C lors d'un heredoc
 
@@ -23,15 +20,3 @@ Leaks
 Find out how setting an exit status can interrupt all process
 See each file for it's needs
 
-x Try ctrl-C in an empty prompt should show a new line with a new prompt 
-x Try ctrl-\ in an empty prompt should not do anything 
-x Try ctrl-D in an empty prompt should quit minishell --> RELAUNCH! 
-x Try ctrl-C in a prompt after you wrote some stuff should show a new line with a new prompt 
-x Try ctrl-D in a prompt after you wrote some stuff should not do anything 
-x Try ctrl-\ in a prompt after you wrote some stuff should do nothing
-x Try ctrl-C after running a blocking command like cat or grep without arguments 
-x Try ctrl-\ after running a blocking command like cat or grep without arguments 
-x Try ctrl-D after running a blocking command like cat or grep without arguments 
-- Repeat multiple times with different commands
-- if something crashes use the crash flag. 
-- if something is not working use the incomplete work flag.

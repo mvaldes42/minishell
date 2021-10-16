@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/14 17:35:01 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:44:59 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	fill_here_doc(char *end, int heredoc_fd)
 	char	*line;
 	size_t	len;
 
-	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -99,8 +98,7 @@ int	exec_read_in(char *end, int *initial_fd)
 	int	status;
 
 	(void)initial_fd;
-	g_minishell.stopped_heredoc = TRUE;
-	signal(SIGINT, SIG_IGN);
+//	g_minishell.stopped_heredoc = TRUE;
 	heredoc_fd = create_here_doc();
 	pid = fork();
 	if (pid == -1)

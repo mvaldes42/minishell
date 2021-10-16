@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 17:14:04 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/15 14:41:22 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	main_loop(t_data *data, char *line, int flag)
 		is_cmd_fail = 0;
 		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
 			is_cmd_fail = error_handling();
-		term();
 		handle_signals_empty();
 		if (data->is_exit)
 			is_exit = 1;
@@ -80,7 +79,6 @@ int	main(int argc, char **argv)
 
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
-	term();
 	handle_signals_empty();
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
 	{
