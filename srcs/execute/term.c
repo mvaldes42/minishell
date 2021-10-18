@@ -6,12 +6,12 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 15:08:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/15 15:09:25 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/16 11:17:04 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
+/*
 int	term_interactive(void)
 {
 	struct termios	term1;
@@ -32,4 +32,4 @@ int	term(void)
 	if (tcsetattr(STDIN_FILENO, TCSANOW, &term1) != 0)
 		return (0);
 	return (1);
-}
+}*/

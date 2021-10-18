@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/15 15:12:17 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:49:22 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	sig_int_general(int sig)
 
 int	handle_signals_empty(void)
 {
-	if (term() == 0)
-		return (0);
 	signal(SIGINT, sig_int_general);
 	signal(SIGQUIT, SIG_IGN);
 	return (1);
@@ -37,16 +35,15 @@ int	handle_signals_empty(void)
 void	sig_heredoc(int sig)
 {
 	(void)sig;
-//	g_minishell.stopped_heredoc = TRUE;	
-//	g_minishell.exit_status = 130;
+	g_minishell.error_status = -1;
 	write(1, "\n", 1);
-	exit(130);
+	exit(131);
 }
 
 void	sig_quit(int sig)
 {
 	(void)sig;
-	printf("Quit: 3\n");
+	printf("Quit\n");
 }
 
 void	sig_int_interactive(int sig)

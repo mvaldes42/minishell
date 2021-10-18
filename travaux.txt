@@ -2,9 +2,6 @@ GROS TRAVAUX
 
 A faire
 
-Redirections
-x Ctrl C lors d'un heredoc
-
 Combinaison
 - Verifier les messages d'erreur
 - Bien gérer tous les fds

@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 15:07:31 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/16 12:26:37 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ int	execute(t_data *data, int nb)
 	t_commands	cmd;
 
 	cmd = data->cmds[nb];
-	term_interactive();
+	signal(SIGQUIT, sig_quit);
+//	term_interactive();
 	if (cmd.fct.builtin)
 	{
 		if (!(exec_builtin(data, cmd)))

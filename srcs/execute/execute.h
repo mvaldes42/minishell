@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 17:13:25 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/16 11:46:48 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int		handle_signals_empty(void);
 void	handle_signals_exec(void);
 void	sig_heredoc(int sig);
 void	sig_handler(int sig);
+void	sig_quit(int sig);
+
 
 
 int		navigate_line(t_data *data);

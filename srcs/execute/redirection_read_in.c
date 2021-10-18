@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/15 14:44:59 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/18 14:50:36 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	fill_here_doc(char *end, int heredoc_fd)
 	char	*line;
 	size_t	len;
 
+	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -65,7 +66,7 @@ void	fill_here_doc(char *end, int heredoc_fd)
 		}
 		free(line);
 	}
-	exit (0);
+	exit (130);
 }
 
 /*
@@ -98,7 +99,7 @@ int	exec_read_in(char *end, int *initial_fd)
 	int	status;
 
 	(void)initial_fd;
-//	g_minishell.stopped_heredoc = TRUE;
+	signal(SIGINT, SIG_IGN);
 	heredoc_fd = create_here_doc();
 	pid = fork();
 	if (pid == -1)
@@ -110,5 +111,11 @@ int	exec_read_in(char *end, int *initial_fd)
 		fill_here_doc(end, heredoc_fd);
 	waitpid(pid, &status, 0);
 	rm_heredoc();
+	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130 && WEXITSTATUS(status) != 131))
+	{
+		printf("bash: warning : \"here document\" on line 1 ended with ");
+		printf("end_of_file (instead of %s).\n", end);
+	}
+	g_minishell.error_status = WEXITSTATUS(status);
 	return (1);
 }
