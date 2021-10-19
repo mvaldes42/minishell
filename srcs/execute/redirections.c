@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 15:14:54 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,21 +102,20 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 	char	*filename;
 
 	i = 0;
-	while (i <= rank)
+	while (i <= rank && i < data->pars.cmd_nbr)
 	{
-		if (data->cmds[i].redirs)
+		if (data->cmds[i].redirs_size > 0)
 		{
 			j = 0;
-			type = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
-			while (type >= 0 && type <= 6)
+			while (j < data->cmds[i].redirs_size)
 			{
 				if (!(handle_redirs(type, filename, initial_fd)))
 					return (0);
-				j++;
 				type = data->cmds[i].redirs[j].type;
 				filename = data->cmds[i].redirs[j].filename;
+				j++;
 			}
 		}
 		i++;

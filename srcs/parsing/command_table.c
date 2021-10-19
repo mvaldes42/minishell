@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 11:07:45 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 15:08:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,9 @@ int	input_command_table(t_data *d)
 	{
 		memset(&d->cmds[j], 0, sizeof(t_commands));
 		d->cmds[j].args = malloc(sizeof(char *) * (d->pars.argv_size[j] + 1));
-		ft_memset(d->cmds[j].args, 0, sizeof(d->cmds[j].args));
+		ft_memset(d->cmds[j].args, 1, sizeof(d->cmds[j].args));
 		d->cmds[j].id = j;
+		d->cmds[j].redirs_size = 0;
 		i = input_command_fct(d, &d->cmds[j], d->pars.tks, i);
 		if (i == -1)
 			break ;

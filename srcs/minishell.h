@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 17:28:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 14:43:04 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_commands
 	char			**args;
 	int				nbr_args;
 	t_redir_token	*redirs;
+	int				redirs_size;
 }	t_commands;
 
 typedef struct s_data

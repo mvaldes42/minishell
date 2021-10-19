@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 14:42:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 14:29:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 14:19:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	search_variables(t_data *d, int i, char **environ)
 	else
 	{
 		exp.o_var_len = malloc(sizeof(size_t) * (exp.nbr_var + 1));
-		exp.var_name = malloc(sizeof(char **) * (exp.nbr_var + 1));
+		exp.var_name = malloc(sizeof(char *) * (exp.nbr_var + 1));
 		exp.var_trans = malloc(sizeof(char *) * (exp.nbr_var + 1));
 		exp.t_var_len = malloc(sizeof(size_t) * (exp.nbr_var + 1));
 		original_var_length(tk->ptr, &exp);

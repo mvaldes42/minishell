@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 10:10:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 14:12:48 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	builtin_echo(char **args, int argc, char ***environ_var)
 	while (i < argc)
 	{
 		if (args[i] != NULL)
-			printf("%s", args[i]);
+			ft_putstr_fd(args[i], 1);
 		if (i + 1 < argc && args[i + 1])
-			printf(" ");
+			ft_putchar_fd(' ', 1);
 		i++;
 	}
 	if (opt == FALSE)
-		printf("\n");
+		ft_putchar_fd('\n', 1);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 11:18:10 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 14:19:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,13 @@ void	free_expand_struct(t_exp_var *expand)
 			ft_free_str(&expand->var_trans[i]);
 		i++;
 	}
-	ft_free_str(expand->var_name);
-	ft_free_str(expand->var_trans);
+	free(expand->var_name);
+	expand->var_name = NULL;
+	free(expand->var_trans);
+	expand->var_name = NULL;
 	ft_free_int((int **)&expand->o_var_len);
 	ft_free_int((int **)&expand->t_var_len);
 }
-
 // int	free_env_path(t_data *data)
 // {
 // 	int	i;
