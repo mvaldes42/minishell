@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 15:14:54 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 17:19:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	redir_out(char *filename)
 	return (1);
 }
 
-int	handle_redirs(int type, char *filename, int *initial_fd)
+int	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 {
 	if (type == REDIR_OUT)
 	{
@@ -83,7 +83,7 @@ int	handle_redirs(int type, char *filename, int *initial_fd)
 	}
 	else if (type == READ_IN)
 	{
-		if (!(exec_read_in(filename, initial_fd)))
+		if (!(exec_read_in(data, filename, initial_fd)))
 			return (0);
 	}
 	return (1);
@@ -111,7 +111,7 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 			filename = data->cmds[i].redirs[j].filename;
 			while (j < data->cmds[i].redirs_size)
 			{
-				if (!(handle_redirs(type, filename, initial_fd)))
+				if (!(handle_redirs(data, type, filename, initial_fd)))
 					return (0);
 				type = data->cmds[i].redirs[j].type;
 				filename = data->cmds[i].redirs[j].filename;

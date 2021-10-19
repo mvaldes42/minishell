@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 14:19:31 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 17:47:56 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,11 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, char **env_path)
 		if (stat(e.dest_dir, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 		{
 			funct_ext_found(parsing, token, e.dest_dir);
-			ft_free_str(&e.dest_dir);
+			ft_free_str(&e.d_ptr);
 			return (1);
 		}
 		ft_free_str(&e.d_ptr);
 	}
-	ft_free_str(&e.dest_dir);
 	return (0);
 }
 
@@ -80,7 +79,7 @@ void	free_expand_struct(t_exp_var *expand)
 	free(expand->var_name);
 	expand->var_name = NULL;
 	free(expand->var_trans);
-	expand->var_name = NULL;
+	expand->var_trans = NULL;
 	ft_free_int((int **)&expand->o_var_len);
 	ft_free_int((int **)&expand->t_var_len);
 }

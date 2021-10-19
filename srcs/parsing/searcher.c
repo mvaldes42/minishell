@@ -37,7 +37,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 		return (1);
 	token->type = FUNCTION;
 	data->pars.cmd_nbr++;
-	token->modif_word = NULL;
+	ft_free_str(&token->modif_word);
 	token->tk_fct_path = NULL;
 	errno = CMD_NOT_FOUND;
 	return (0);

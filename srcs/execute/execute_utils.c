@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:34:58 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 11:58:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 17:58:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ void	free_split(char **split)
 	int	i;
 
 	i = -1;
-	if (split)
+	if (split != NULL)
 	{
 		while (split[++i])
-			ft_free_str(&split[i]);
+		{
+			printf("free split[%i]: %s\n", i, split[i]);
+			ft_free_str(&(split[i]));
+		}
 		free(split);
 		split = NULL;
 	}

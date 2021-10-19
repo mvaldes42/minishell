@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 14:56:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 17:59:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static void	main_loop(t_data *data, char *line, int flag)
 			is_cmd_fail = error_handling();
 		if (data->is_exit)
 			is_exit = 1;
-		clear_data(data);
+		if (!is_line_empty(line))
+			clear_data(data);
 		if (!flag)
 			ft_free_str(&line);
 		else

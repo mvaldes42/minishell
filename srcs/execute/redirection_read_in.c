@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_read_in.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:25:39 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:33:19 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	create_here_doc(void)
 ** Stops if == end 
 */
 
-void	fill_here_doc(char *end, int heredoc_fd)
+void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 {
 	char	*line;
 	size_t	len;
@@ -52,6 +52,8 @@ void	fill_here_doc(char *end, int heredoc_fd)
 		len = ft_strlen(end);
 		if (!line)
 		{
+			clear_data(data);
+			free_environ(data);
 			exit (0);
 		}
 		if (ft_strlen(line) < len)
@@ -61,11 +63,13 @@ void	fill_here_doc(char *end, int heredoc_fd)
 		else
 		{
 			close(heredoc_fd);
-			free(line);
+			ft_free_str(&line);
 			break ;
 		}
-		free(line);
+		ft_free_str(&line);
 	}
+	clear_data(data);
+	free_environ(data);
 	exit (0);
 }
 
@@ -92,7 +96,7 @@ void	rm_heredoc(void)
 ** Fills here_doc from terminal lines, sets it as stdin, removes it
 */
 
-int	exec_read_in(char *end, int *initial_fd)
+int	exec_read_in(t_data *data, char *end, int *initial_fd)
 {
 	int	heredoc_fd;
 	int	pid;
@@ -108,7 +112,7 @@ int	exec_read_in(char *end, int *initial_fd)
 		return (0);
 	}
 	if (pid == 0)
-		fill_here_doc(end, heredoc_fd);
+		fill_here_doc(data, end, heredoc_fd);
 	waitpid(pid, &status, 0);
 	rm_heredoc();
 	return (1);
