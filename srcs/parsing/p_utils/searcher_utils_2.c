@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 17:41:39 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 11:18:10 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	funct_ext_found(t_parsing *parsing, t_token *token, char *path)
 {
 	token->tk_fct_path = ft_strdup(path);
 	parsing->cmd_nbr++;
+	ft_free_str(&token->modif_word);
 	token->modif_word = ft_strdup(token->ptr);
 	token->type = FUNCTION;
 }
@@ -55,10 +56,12 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, char **env_path)
 		if (stat(e.dest_dir, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 		{
 			funct_ext_found(parsing, token, e.dest_dir);
+			ft_free_str(&e.dest_dir);
 			return (1);
 		}
 		ft_free_str(&e.d_ptr);
 	}
+	ft_free_str(&e.dest_dir);
 	return (0);
 }
 
@@ -80,16 +83,19 @@ void	free_expand_struct(t_exp_var *expand)
 	ft_free_int((int **)&expand->t_var_len);
 }
 
-int	free_env_path(t_data *data)
-{
-	int	i;
+// int	free_env_path(t_data *data)
+// {
+// 	int	i;
 
-	i = -1;
-	if (data->env_path)
-	{
-		while (data->env_path[++i])
-			ft_free_str(&data->env_path[i]);
-		ft_free_str(data->env_path);
-	}
-	return (1);
-}
+// 	i = -1;
+// 	if (data->env_path)
+// 	{
+// 		while (data->env_path[++i])
+// 		{
+// 			free_split(&data->env_path[i]);
+// 		}
+// 		ft_free_str(data->env_path);
+// 	}
+// 	printf("free env path\n");
+// 	return (1);
+// }

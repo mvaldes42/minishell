@@ -28,6 +28,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 		{
 			token->type = BUILTIN;
 			data->pars.cmd_nbr++;
+			ft_free_str(&token->modif_word);
 			token->modif_word = ft_strdup(token->ptr);
 			return (1);
 		}
@@ -42,7 +43,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 	return (0);
 }
 
-void	search_path_str(t_data *d, char ***env_path)
+void	search_path_str(t_data *d)
 {
 	int			i;
 	char		*path_ptr;
@@ -61,10 +62,10 @@ void	search_path_str(t_data *d, char ***env_path)
 		i++;
 	}
 	if (d->environ[i] == NULL)
-		*env_path = NULL;
+		d->env_path = NULL;
 	else
 	{
-		*env_path = ft_split(path + 5, ':');
+		d->env_path = ft_split(path + 5, ':');
 		ft_free_str(&path_ptr);
 	}
 }

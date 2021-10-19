@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 17:38:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 11:14:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,19 @@ void	clear_data(t_data *data)
 {
 	int	i;
 
-	free_env_path(data);
+	free_split(data->env_path);
 	free_tks(data);
 	ft_free_str(&data->prompt);
 	i = -1;
-	while (data->cmds && ++i < data->pars.cmd_nbr && data->cmds[i].redirs)
+	while (data->cmds && ++i < data->pars.cmd_nbr)
 	{
-		// ft_free_str(data->cmds[i].args);
-		free(data->cmds[i].redirs);
-		data->cmds[i].redirs = NULL;
+		free(data->cmds[i].args);
+		data->cmds[i].args = NULL;
+		if (data->cmds[i].redirs)
+		{
+			free(data->cmds[i].redirs);
+			data->cmds[i].redirs = NULL;
+		}
 	}
 	if (data->pars.cmd_nbr)
 	{

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 17:28:32 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:29:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	searcher(t_data *d)
 {
 	int			i;
 
-	search_path_str(d, &d->env_path);
+	search_path_str(d);
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
