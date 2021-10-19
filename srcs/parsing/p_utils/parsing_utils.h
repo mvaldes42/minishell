@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 16:41:53 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/18 17:38:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int		word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *parsing, t_token *token, char **env_path);
 void	free_expand_struct(t_exp_var *expand);
-int		free_env_path(t_data *data, char ***env_path);
+int		free_env_path(t_data *data);
 //CMD_TABlE_.C
 int		input_command_table(t_data *d);
 // CMD_TABLE_UTILS.C

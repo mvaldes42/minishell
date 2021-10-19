@@ -6,7 +6,7 @@
 #    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/10/14 10:23:28 by mvaldes          ###   ########.fr        #
+#    Updated: 2021/10/19 10:09:17 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-CC_FLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
+CC_FLAGS	=	-Wall -Wextra -Werror -g3
+# -fsanitize=address
 INC			=	-I $(HEADER) \
 				-lreadline \
 				-L/Users/$(USER)/.brew/opt/readline/lib \

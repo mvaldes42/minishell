@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 16:15:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:08:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,21 @@ int	remove_quotes(char **exp)
 	if (*exp == NULL)
 		return (1);
 	size = size_of_unquoted(*exp);
+	// printf("size : %d\n", size);
 	if (size <= 0 || size == (int)ft_strlen(*exp))
 		return (1);
-	unquoted = malloc(sizeof(char *) * (size + 1));
+	unquoted = (char *)malloc(sizeof(char) * (size + 1));
+	// printf("*exp : %s\n", *exp);
 	if (!unquoted)
 		return (0);
+	// printf("sizeof(unquoted) : %lu\n", sizeof(unquoted));
+	// printf("sizeof(char) * (size + 1) : %lu\n", sizeof(char) * (size + 1));
+	ft_memset(unquoted, '0', sizeof(char) * (size + 1));
 	q_rm = 0;
 	unquoted_ptr = unquoted;
+	// printf("unquoted : %s\n", unquoted);
 	q_rm = rm_quotes_unquoted(*exp, unquoted, (int)ft_strlen(*exp) - 1, q_rm);
+	// printf("unquoted : %s\n", unquoted);
 	if (q_rm)
 	{
 		ft_free_str(exp);

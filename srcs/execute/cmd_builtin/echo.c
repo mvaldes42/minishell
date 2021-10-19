@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:44:04 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 14:19:33 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:10:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static int	is_opt(char **args, int argc, int *i)
 {
 	int	j;
 
-	*i = 1;
 	if (args[1] && ft_strncmp(args[1], "-n", ft_strlen("-n")) == 0)
 	{
 		while (*i < argc && ft_strncmp(args[*i], "-n", ft_strlen("-n")) == 0)
@@ -40,10 +39,11 @@ int	builtin_echo(char **args, int argc, char ***environ_var)
 	bool	opt;
 
 	(void)environ_var;
+	i = 1;
 	opt = is_opt(args, argc, &i);
 	while (i < argc)
 	{
-		if (args[i])
+		if (args[i] != NULL)
 			printf("%s", args[i]);
 		if (i + 1 < argc && args[i + 1])
 			printf(" ");
