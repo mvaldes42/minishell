@@ -1,0 +1,999 @@
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_dictionary_create
+   fun:_xpc_dyld_image_callback
+   fun:_ZN4dyld20registerLoadCallbackEPFvPK11mach_headerPKcbE
+   fun:_xpc_collect_images
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:_NXHashRehashToCapacity
+   fun:NXHashInsert
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xrealloc
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:sh_set_lines_and_columns
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_dispatch_lane_create_with_target
+   fun:_libtrace_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_xpc_malloc
+   fun:_xpc_dictionary_insert
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:arc4_init
+   fun:arc4random_buf
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL9protocolsv
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_home_terminfo
+   fun:_nc_next_db
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:_ZL12_NXMapRehashP11_NXMapTable
+   fun:NXMapInsert
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:_ZL15fixupMethodListP13method_list_tbb
+   fun:_ZL18prepareMethodListsP10objc_classPP13method_list_tibb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:add_history
+   fun:is_line_empty
+   fun:main_loop
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:_NXHashRehashToCapacity
+   fun:NXHashInsert
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:reallocf
+   fun:_Read_RuneMagi
+   fun:__setrunelocale
+   fun:__wrap_setrunelocale
+   fun:loadlocale
+   fun:_rl_init_locale
+   fun:_rl_init_eightbit
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_dictionary_create
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:_xpc_create_bootstrap_pipe
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:xpc_string_create
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_owned_ptr_alloc
+   fun:setenv
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_tparm_analyze
+   fun:tparm
+   fun:_nc_trim_sgr0
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_xpc_string_create
+   fun:xpc_string_create
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xrealloc
+   fun:rl_add_funmap_entry
+   fun:rl_initialize_funmap
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_xpc_malloc
+   fun:_xpc_dictionary_insert
+   fun:_xpc_dyld_image_callback
+   fun:_ZN4dyld20registerLoadCallbackEPFvPK11mach_headerPKcbE
+   fun:_xpc_collect_images
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__smakebuf
+   fun:__swsetup
+   fun:__sfvwrite
+   fun:fwrite
+   fun:rl_prep_terminal
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_array_create
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_xpc_calloc
+   fun:xpc_array_create
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:tparm
+   fun:_nc_trim_sgr0
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_add_funmap_entry
+   fun:rl_initialize_funmap
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:_ZL12_NXMapRehashP11_NXMapTable
+   fun:NXMapInsert
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}

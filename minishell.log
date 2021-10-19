@@ -1,0 +1,2653 @@
+==79844== Memcheck, a memory error detector
+==79844== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==79844== Using Valgrind-3.18.0.GIT-lbmacos and LibVEX; rerun with -h for copyright info
+==79844== Command: ./minishell
+==79844== Parent PID: 79014
+==79844== 
+==79844== 
+==79844== HEAP SUMMARY:
+==79844==     in use at exit: 304,448 bytes in 377 blocks
+==79844==   total heap usage: 651 allocs, 274 frees, 330,705 bytes allocated
+==79844== 
+==79844== 8 bytes in 1 blocks are still reachable in loss record 1 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003BAC03: strdup (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x100148F0F: _nc_trim_sgr0 (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140CF4: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8 bytes in 1 blocks are still reachable in loss record 2 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D4E: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001009FA: expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100E89: rl_expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF615: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001277: main_loop (minishell.c:72)
+==79844==    by 0x100001073: main (minishell.c:94)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xrealloc
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+==79844== 9 bytes in 1 blocks are still reachable in loss record 3 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C3518: __setenv_locked (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C391A: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1001101EC: sh_set_lines_and_columns (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001081E4: _rl_get_screen_size (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100895: expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100E89: rl_expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF615: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:sh_set_lines_and_columns
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+==79844== 12 bytes in 1 blocks are still reachable in loss record 4 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C3518: __setenv_locked (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C391A: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1001081E4: _rl_get_screen_size (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100895: expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100E89: rl_expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF615: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+==79844== 14 bytes in 1 blocks are still reachable in loss record 5 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C3518: __setenv_locked (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C391A: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10061A099: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844==    by 0x10001271E: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+==79844== 14 bytes in 1 blocks are still reachable in loss record 6 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100132255: _nc_doalloc (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10014201C: tparm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10014937E: _nc_trim_sgr0 (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100148F02: _nc_trim_sgr0 (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140CF4: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:tparm
+   fun:_nc_trim_sgr0
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 15 bytes in 1 blocks are still reachable in loss record 7 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003BAC03: strdup (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10013F992: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 16 bytes in 1 blocks are still reachable in loss record 8 of 97
+==79844==    at 0x1000E41B1: malloc_zone_calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E8D8: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066D7F5: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 16 bytes in 1 blocks are still reachable in loss record 9 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C320F: _owned_ptr_alloc (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C38EC: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10061A099: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844==    by 0x10001271E: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_owned_ptr_alloc
+   fun:setenv
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+==79844== 16 bytes in 1 blocks are still reachable in loss record 10 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1000EF893: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 24 bytes in 1 blocks are still reachable in loss record 11 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E5BF: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+==79844== 24 bytes in 1 blocks are still reachable in loss record 12 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E5BF: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066D7BC: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 24 bytes in 1 blocks are still reachable in loss record 13 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E5BF: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066EEFD: protocols() (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DC7C: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL9protocolsv
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+==79844== 24 bytes in 1 blocks are still reachable in loss record 14 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E5BF: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100670139: unattachedCategoriesForClass(objc_class*, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10068387C: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+==79844== 27 bytes in 1 blocks are still reachable in loss record 15 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100133129: _nc_home_terminfo (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100131EC9: _nc_next_db (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100148067: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_home_terminfo
+   fun:_nc_next_db
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 16 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E770: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E5F7: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 17 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E791: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E5F7: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 18 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E855: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E5F7: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 19 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E661: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 20 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E770: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066D7F5: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 21 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E855: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066D7F5: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 32 bytes in 1 blocks are still reachable in loss record 22 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E661: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100670139: unattachedCategoriesForClass(objc_class*, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10068387C: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+==79844== 40 bytes in 1 blocks are still reachable in loss record 23 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10061A201: xpc_array_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619CB3: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_array_create
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+}
+==79844== 46 bytes in 1 blocks are still reachable in loss record 24 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100132255: _nc_doalloc (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147A5B: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 48 bytes in 1 blocks are still reachable in loss record 25 of 97
+==79844==    at 0x1000E41B1: malloc_zone_calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066EC00: _NXHashRehashToCapacity (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066EB8A: NXHashInsert (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E87F: NXCreateHashTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E73E: NXCreateHashTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E5F7: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689E5D: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066CE1C: sel_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C674: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:_NXHashRehashToCapacity
+   fun:NXHashInsert
+   fun:NXCreateHashTableFromZone
+   fun:NXCreateHashTable
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:sel_init
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+}
+==79844== 48 bytes in 1 blocks are still reachable in loss record 26 of 97
+==79844==    at 0x1000E41B1: malloc_zone_calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066EC00: _NXHashRehashToCapacity (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066EB8A: NXHashInsert (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E695: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100670139: unattachedCategoriesForClass(objc_class*, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10068387C: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc_zone_calloc
+   fun:_NXHashRehashToCapacity
+   fun:NXHashInsert
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+}
+==79844== 48 bytes in 2 blocks are still reachable in loss record 27 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066C47B: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10016D9C4: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+}
+==79844== 48 bytes in 2 blocks are possibly lost in loss record 28 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066C47B: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10016D9C4: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+}
+==79844== 56 bytes in 1 blocks are still reachable in loss record 29 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10062D624: _xpc_pipe_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A460: _xpc_create_bootstrap_pipe (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619FF8: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_xpc_pipe_create
+   fun:_xpc_create_bootstrap_pipe
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 30 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 31 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 32 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 33 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 34 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10061A294: _xpc_calloc (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A218: xpc_array_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619CB3: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844==    by 0x10001271E: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_xpc_calloc
+   fun:xpc_array_create
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+==79844== 64 bytes in 1 blocks are still reachable in loss record 35 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C3221: _owned_ptr_alloc (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C38EC: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10061A099: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844==    by 0x10001271E: dyld::initializeMainExecutable() (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_owned_ptr_alloc
+   fun:setenv
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+   fun:_ZN4dyld24initializeMainExecutableEv
+}
+==79844== 78 bytes in 1 blocks are still reachable in loss record 36 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100132255: _nc_doalloc (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147A73: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 83 bytes in 1 blocks are still reachable in loss record 37 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10014199B: _nc_tparm_analyze (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100141DE3: tparm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10014937E: _nc_trim_sgr0 (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100148F02: _nc_trim_sgr0 (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140CF4: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_tparm_analyze
+   fun:tparm
+   fun:_nc_trim_sgr0
+   fun:_nc_trim_sgr0
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 98 bytes in 1 blocks are still reachable in loss record 38 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF5DF: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001277: main_loop (minishell.c:72)
+==79844==    by 0x100001073: main (minishell.c:94)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+==79844== 98 bytes in 1 blocks are still reachable in loss record 39 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001009A7: expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100E89: rl_expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF615: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001277: main_loop (minishell.c:72)
+==79844==    by 0x100001073: main (minishell.c:94)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main_loop
+   fun:main
+}
+==79844== 120 bytes in 1 blocks are still reachable in loss record 40 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x1002632F6: _dispatch_lane_create_with_target (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x1005E7C73: _libtrace_init (in /usr/lib/system/libsystem_trace.dylib)
+==79844==    by 0x10016D9CE: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022E04: ImageLoader::runInitializers(ImageLoader::LinkContext const&, ImageLoader::InitializerTimingList&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_dispatch_lane_create_with_target
+   fun:_libtrace_init
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader15runInitializersERKNS_11LinkContextERNS_21InitializerTimingListE
+}
+==79844== 192 bytes in 1 blocks are still reachable in loss record 41 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10061A692: xpc_dictionary_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A54D: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619FFD: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_dictionary_create
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 192 bytes in 1 blocks are still reachable in loss record 42 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10061A692: xpc_dictionary_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061AC80: _xpc_dyld_image_callback (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100014873: dyld::registerLoadCallback(void (*)(mach_header const*, char const*, bool)) (in /usr/lib/dyld)
+==79844==    by 0x10061ABA1: _xpc_collect_images (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A002: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:xpc_dictionary_create
+   fun:_xpc_dyld_image_callback
+   fun:_ZN4dyld20registerLoadCallbackEPFvPK11mach_headerPKcbE
+   fun:_xpc_collect_images
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 240 bytes in 1 blocks are still reachable in loss record 43 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10013F840: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 256 bytes in 1 blocks are still reachable in loss record 44 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF737: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 256 bytes in 4 blocks are still reachable in loss record 45 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 256 bytes in 4 blocks are still reachable in loss record 46 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+}
+==79844== 272 bytes in 1 blocks are still reachable in loss record 47 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C346F: __setenv_locked (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C391A: setenv (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1001081E4: _rl_get_screen_size (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100895: expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100E89: rl_expand_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF615: rl_set_prompt (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF638: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:__setenv_locked
+   fun:setenv
+   fun:_rl_get_screen_size
+   fun:expand_prompt
+   fun:rl_expand_prompt
+   fun:rl_set_prompt
+   fun:readline
+   fun:main
+}
+==79844== 280 bytes in 2 blocks are still reachable in loss record 48 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10061AAB8: _xpc_malloc (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A973: _xpc_dictionary_insert (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061ACE9: _xpc_dyld_image_callback (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100014873: dyld::registerLoadCallback(void (*)(mach_header const*, char const*, bool)) (in /usr/lib/dyld)
+==79844==    by 0x10061ABA1: _xpc_collect_images (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A002: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_xpc_malloc
+   fun:_xpc_dictionary_insert
+   fun:_xpc_dyld_image_callback
+   fun:_ZN4dyld20registerLoadCallbackEPFvPK11mach_headerPKcbE
+   fun:_xpc_collect_images
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 280 bytes in 7 blocks are still reachable in loss record 49 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006711DD: class_createInstance (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DEF3: _os_object_alloc_realized (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10063448B: _xpc_string_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A74D: xpc_string_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A704: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A579: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619FFD: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:class_createInstance
+   fun:_os_object_alloc_realized
+   fun:_xpc_string_create
+   fun:xpc_string_create
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 344 bytes in 7 blocks are still reachable in loss record 50 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003BAC03: strdup (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10061A732: xpc_string_create (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A704: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A579: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619FFD: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   fun:xpc_string_create
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 367 bytes in 7 blocks are still reachable in loss record 51 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10061AAB8: _xpc_malloc (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A973: _xpc_dictionary_insert (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A715: xpc_dictionary_set_string (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10061A579: _xpc_collect_environment (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x100619FFD: _libxpc_initializer (in /usr/lib/system/libxpc.dylib)
+==79844==    by 0x10016D9C9: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844==    by 0x100028591: ImageLoaderMachO::doModInitFunctions(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100028797: ImageLoaderMachO::doInitialization(ImageLoader::LinkContext const&) (in /usr/lib/dyld)
+==79844==    by 0x100023BE9: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100023B7F: ImageLoader::recursiveInitialization(ImageLoader::LinkContext const&, unsigned int, char const*, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844==    by 0x100022D72: ImageLoader::processInitializers(ImageLoader::LinkContext const&, unsigned int, ImageLoader::InitializerTimingList&, ImageLoader::UninitedUpwards&) (in /usr/lib/dyld)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_xpc_malloc
+   fun:_xpc_dictionary_insert
+   fun:xpc_dictionary_set_string
+   fun:_xpc_collect_environment
+   fun:_libxpc_initializer
+   fun:libSystem_initializer
+   fun:_ZN16ImageLoaderMachO18doModInitFunctionsERKN11ImageLoader11LinkContextE
+   fun:_ZN16ImageLoaderMachO16doInitializationERKN11ImageLoader11LinkContextE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader23recursiveInitializationERKNS_11LinkContextEjPKcRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+   fun:_ZN11ImageLoader19processInitializersERKNS_11LinkContextEjRNS_21InitializerTimingListERNS_15UninitedUpwardsE
+}
+==79844== 480 bytes in 1 blocks are still reachable in loss record 52 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100147D4B: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 528 bytes in 1 blocks are possibly lost in loss record 53 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E6DD: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100670139: unattachedCategoriesForClass(objc_class*, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10068387C: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_ZL28unattachedCategoriesForClassP10objc_classb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+}
+==79844== 680 bytes in 1 blocks are still reachable in loss record 54 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100147C17: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 736 bytes in 1 blocks are still reachable in loss record 55 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100385CC0: arc4_init (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x100385E1C: arc4random_buf (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10066D739: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:arc4_init
+   fun:arc4random_buf
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 56 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D58: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x10010477C: realloc_line (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100EFE: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 57 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D58: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100104792: realloc_line (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100EFE: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 58 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D58: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001047AF: realloc_line (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100EFE: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 59 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D58: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001047C5: realloc_line (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100EFE: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xrealloc
+   fun:realloc_line
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 60 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100F32: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 61 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100F54: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 62 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100F6C: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,024 bytes in 1 blocks are still reachable in loss record 63 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100100F8B: init_line_structures (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FEC02: rl_redisplay (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EFA35: readline_internal_setup (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF65E: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:init_line_structures
+   fun:rl_redisplay
+   fun:readline_internal_setup
+   fun:readline
+   fun:main
+}
+==79844== 1,487 bytes in 1 blocks are still reachable in loss record 64 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100147561: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 1,536 bytes in 1 blocks are still reachable in loss record 65 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D4E: xrealloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F4781: rl_add_funmap_entry (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F4803: rl_initialize_funmap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF77F: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:xrealloc
+   fun:rl_add_funmap_entry
+   fun:rl_initialize_funmap
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 2,032 bytes in 1 blocks are still reachable in loss record 66 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001083AC: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 2,064 bytes in 1 blocks are possibly lost in loss record 67 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066E6DD: NXCreateMapTableFromZone (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066E591: NXCreateMapTable (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066D7BC: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:NXCreateMapTableFromZone
+   fun:NXCreateMapTable
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 2,064 bytes in 1 blocks are possibly lost in loss record 68 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066F58B: _NXMapRehash(_NXMapTable*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066F457: NXMapInsert (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DD65: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:_ZL12_NXMapRehashP11_NXMapTable
+   fun:NXMapInsert
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 2,240 bytes in 140 blocks are still reachable in loss record 69 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F4792: rl_add_funmap_entry (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F4803: rl_initialize_funmap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF77F: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_add_funmap_entry
+   fun:rl_initialize_funmap
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 3,200 bytes in 50 blocks are still reachable in loss record 70 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x10016D9C4: libSystem_initializer (in /usr/lib/libSystem.B.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+   fun:libSystem_initializer
+}
+==79844== 3,200 bytes in 50 blocks are still reachable in loss record 71 of 97
+==79844==    at 0x1000E3FF0: calloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1006831BD: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066C788: map_images_nolock (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067EF30: map_images (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10001547A: dyld::notifyBatchPartial(dyld_image_states, bool, char const* (*)(dyld_image_states, unsigned int, dyld_image_info const*), bool, bool) (in /usr/lib/dyld)
+==79844==    by 0x10001562D: dyld::registerObjCNotifiers(void (*)(unsigned int, char const* const*, mach_header const* const*), void (*)(char const*, mach_header const*), void (*)(char const*, mach_header const*)) (in /usr/lib/dyld)
+==79844==    by 0x1002C6A26: _dyld_objc_notify_register (in /usr/lib/system/libdyld.dylib)
+==79844==    by 0x10066BF73: _objc_init (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10025DE35: _os_object_init (in /usr/lib/system/libdispatch.dylib)
+==79844==    by 0x100269AD1: libdispatch_init (in /usr/lib/system/libdispatch.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:calloc
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+   fun:map_images_nolock
+   fun:map_images
+   fun:_ZN4dyldL18notifyBatchPartialE17dyld_image_statesbPFPKcS0_jPK15dyld_image_infoEbb
+   fun:_ZN4dyld21registerObjCNotifiersEPFvjPKPKcPKPK11mach_headerEPFvS1_S6_ESC_
+   fun:_dyld_objc_notify_register
+   fun:_objc_init
+   fun:_os_object_init
+   fun:libdispatch_init
+}
+==79844== 3,776 bytes in 1 blocks are still reachable in loss record 72 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100132255: _nc_doalloc (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147A8C: _nc_read_termtype (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100147F92: _nc_read_file_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001480D8: _nc_read_entry (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x10013F865: _nc_setupterm (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x100140B17: tgetent (in /usr/lib/libncurses.5.4.dylib)
+==79844==    by 0x1001083E6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:_nc_doalloc
+   fun:_nc_read_termtype
+   fun:_nc_read_file_entry
+   fun:_nc_read_entry
+   fun:_nc_setupterm
+   fun:tgetent
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,016 bytes in 1 blocks are still reachable in loss record 73 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x10010BF6B: add_history (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000012E2: is_line_empty (minishell.c:45)
+==79844==    by 0x1000011C1: main_loop (minishell.c:58)
+==79844==    by 0x100001073: main (minishell.c:94)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:add_history
+   fun:is_line_empty
+   fun:main_loop
+   fun:main
+}
+==79844== 4,080 bytes in 1 blocks are still reachable in loss record 74 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001083C9: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,096 bytes in 1 blocks are still reachable in loss record 75 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10039FDE8: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003B389C: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10039F003: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10039F5B5: fwrite (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1000F5BC1: rl_prep_terminal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF654: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:__smakebuf
+   fun:__swsetup
+   fun:__sfvwrite
+   fun:fwrite
+   fun:rl_prep_terminal
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 76 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001087EF: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086D6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 77 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108874: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086D6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 78 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108874: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086E2: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 79 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108874: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086EE: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 80 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CD7: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7D0: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 81 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CD7: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7DF: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are still reachable in loss record 82 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CD7: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF80C: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 4,112 bytes in 1 blocks are possibly lost in loss record 83 of 97
+==79844==    at 0x1000E3C0A: malloc_zone_malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x10066F58B: _NXMapRehash(_NXMapTable*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066F457: NXMapInsert (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x100689EBF: __sel_registerName(char const*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10067A904: fixupMethodList(method_list_t*, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066FBFF: prepareMethodLists(objc_class*, method_list_t**, int, bool, bool) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006837F6: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832B8: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x1006832A0: realizeClassWithoutSwift(objc_class*) (in /usr/lib/libobjc.A.dylib)
+==79844==    by 0x10066DFAA: _read_images (in /usr/lib/libobjc.A.dylib)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   fun:_ZL12_NXMapRehashP11_NXMapTable
+   fun:NXMapInsert
+   fun:_ZL18__sel_registerNamePKcbb
+   fun:_ZL15fixupMethodListP13method_list_tbb
+   fun:_ZL18prepareMethodListsP10objc_classPP13method_list_tibb
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_ZL24realizeClassWithoutSwiftP10objc_class
+   fun:_read_images
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 84 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108861: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086D6: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 85 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001087EF: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086E2: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 86 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108861: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086E2: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 87 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001087EF: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086EE: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 88 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100108861: bind_termcap_arrow_keys (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1001086EE: _rl_init_terminal_io (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF765: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_termcap_arrow_keys
+   fun:_rl_init_terminal_io
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 89 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CC8: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7D0: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 90 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CC8: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7DF: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 91 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0CC8: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF80C: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 92 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF833: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 8,224 bytes in 2 blocks are still reachable in loss record 93 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF845: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 12,336 bytes in 3 blocks are still reachable in loss record 94 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0C9F: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7D0: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 12,336 bytes in 3 blocks are still reachable in loss record 95 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0C9F: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF7DF: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 12,336 bytes in 3 blocks are still reachable in loss record 96 of 97
+==79844==    at 0x1000E3995: malloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x100111D04: xmalloc (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F48D2: rl_make_bare_keymap (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA3DB: rl_generic_bind (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000FA174: rl_bind_keyseq_if_unbound_in_map (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000F0C9F: bind_arrow_keys_internal (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF80C: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:xmalloc
+   fun:rl_make_bare_keymap
+   fun:rl_generic_bind
+   fun:rl_bind_keyseq_if_unbound_in_map
+   fun:bind_arrow_keys_internal
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== 103,292 bytes in 1 blocks are still reachable in loss record 97 of 97
+==79844==    at 0x1000E4336: realloc (in /Users/mvaldes/.brew/Cellar/valgrind/HEAD-3568e0b/libexec/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==79844==    by 0x1003C29A1: reallocf (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003C6224: _Read_RuneMagi (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x1003967C4: __setrunelocale (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x100396C8E: __wrap_setrunelocale (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x100396482: loadlocale (in /usr/lib/system/libsystem_c.dylib)
+==79844==    by 0x10010AF96: _rl_init_locale (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x10010AFFC: _rl_init_eightbit (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF784: rl_initialize (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x1000EF63D: readline (in /Users/mvaldes/.brew/Cellar/readline/8.1.1/lib/libreadline.8.1.dylib)
+==79844==    by 0x100001060: main (minishell.c:93)
+==79844== 
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:realloc
+   fun:reallocf
+   fun:_Read_RuneMagi
+   fun:__setrunelocale
+   fun:__wrap_setrunelocale
+   fun:loadlocale
+   fun:_rl_init_locale
+   fun:_rl_init_eightbit
+   fun:rl_initialize
+   fun:readline
+   fun:main
+}
+==79844== LEAK SUMMARY:
+==79844==    definitely lost: 0 bytes in 0 blocks
+==79844==    indirectly lost: 0 bytes in 0 blocks
+==79844==      possibly lost: 8,816 bytes in 6 blocks
+==79844==    still reachable: 295,632 bytes in 371 blocks
+==79844==         suppressed: 0 bytes in 0 blocks
+==79844== 
+==79844== For lists of detected and suppressed errors, rerun with: -s
+==79844== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 405 from 10)
