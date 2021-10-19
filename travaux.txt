@@ -2,18 +2,17 @@ GROS TRAVAUX
 
 A faire
 
+Multiple heredocs.
+
 Combinaison
 - Verifier les messages d'erreur
 - Bien gérer tous les fds
 
 Gestion d'erreurs
 - Signal exit $?
-- errno dans variable globale
 
 Leaks
 - Check lors d'un ctrl D
 - Check lors de pipes, redirs, fonctions simples...
 
-Find out how setting an exit status can interrupt all process
 See each file for it's needs
-

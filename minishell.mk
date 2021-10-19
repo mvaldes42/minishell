@@ -31,7 +31,6 @@ FILES =	minishell.c\
 		execute/signals.c\
 		execute/navigation.c\
 		execute/fd_handling.c\
-		execute/term.c\
 
 SUB_DIR	=	utils\
 			parsing\

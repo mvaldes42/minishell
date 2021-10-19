@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:28 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 13:47:43 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int	error_handling(void)
 	"syntax error near unexpected token", "", "not a valid identifier", \
 	"HOME not set", "builtin address points to the zero page"};
 	int			i;
-	printf("errno = %d\n", errno);
-	printf("minishell errno = %d\n", g_minishell.error_status);
+
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;

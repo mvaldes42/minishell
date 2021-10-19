@@ -6,15 +6,11 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/18 14:49:22 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 17:57:57 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// handle errors and exit statuses
-
-
 
 void	sig_int_general(int sig)
 {
@@ -55,5 +51,4 @@ void	sig_int_interactive(int sig)
 void	handle_signals_exec(void)
 {
 	signal(SIGINT, sig_int_interactive);
-//	signal(SIGQUIT, sig_quit);
 }

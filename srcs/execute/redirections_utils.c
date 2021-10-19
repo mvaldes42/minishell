@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/14 12:32:17 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:21:17 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,22 @@ int	open_and_close(char *filename, int type)
 		return (0);
 	}
 	close(fd);
-	return (1);	
+	return (1);
 }
 
-int create_files(t_data *data)
+int	create_files(t_data *data)
 {
-	int	i;
-	int	j;
-	int	type;
-	char *filename;
-//	printf("in cr_files\n");
+	int		i;
+	int		j;
+	int		type;
+	char	*filename;
+
 	i = 0;
 	while (i <= data->pars.cmd_nbr - 1)
 	{
 		if (data->cmds[i].redirs)
 		{
 			j = 0;
-			type = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
 			while (type >= 0 && type <= 6)

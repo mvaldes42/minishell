@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/16 12:26:37 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:03:03 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@
 ** heredoc then pipe
 ** heredoc then ctrl D
 **
-** Louski :
-** * bash-3.2$ sort <<
-** bash: syntax error near unexpected token `newline'
-** * oko | oko | oko
 **
 */
 
@@ -37,7 +33,7 @@ int	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
 	int		status;
-//	printf("in exec_in for cmd %s\n", cmd.fct.name);
+	(void)data;
 	errno = CMD_NOT_FOUND;
 	if (cmd.fct.fct_path == NULL)
 		return (0);
@@ -50,22 +46,22 @@ int	exec_builtout(t_data *data, t_commands cmd)
 	handle_signals_exec();
 	if (pid == 0)
 	{
-//		printf("doing %s\n", cmd.fct.name);
-		if (!(execve(cmd.fct.fct_path, cmd.args, data->environ)))
-		{
+			execve(cmd.fct.fct_path, cmd.args, data->environ);	
 			g_minishell.error_status = errno;
-			return (0);
-		}
+			exit (0);
 	}
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		g_minishell.error_status = WIFEXITED(status);
+		g_minishell.error_status = WEXITSTATUS(status);
+//	if (errno == CMD_NOT_FOUND)
+//	errno = 0;
+//	printf("exit = %d\n", WEXITSTATUS(status));
+//	printf("in x errno = %d, g_errno = %d\n", errno, g_minishell.error_status);
 	return (1);
 }
 
 int	exec_builtin(t_data *data, t_commands cmd)
 {
-//	printf("in exec_out for cmd %s\n", cmd.fct.name);
 	if (ft_strncmp(cmd.fct.name, "exit", ft_strlen(cmd.fct.name)) == 0)
 		data->is_exit = TRUE;
 	if (!cmd.fct.builtin_ptr(cmd.args, cmd.nbr_args, &data->environ))
@@ -76,10 +72,9 @@ int	exec_builtin(t_data *data, t_commands cmd)
 int	execute(t_data *data, int nb)
 {
 	t_commands	cmd;
-
+//	printf("in exec\n");
 	cmd = data->cmds[nb];
 	signal(SIGQUIT, sig_quit);
-//	term_interactive();
 	if (cmd.fct.builtin)
 	{
 		if (!(exec_builtin(data, cmd)))
@@ -90,5 +85,7 @@ int	execute(t_data *data, int nb)
 		if (!(exec_builtout(data, cmd)))
 			return (0);
 	}
+//	printf("scooby snack\n");
+	errno = 0;
 	return (1);
 }
