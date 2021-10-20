@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 11:21:17 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:28:46 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ int	open_and_close(char *filename, int type)
 	close(fd);
 	return (1);
 }
+
+/*
+** for each > and >> redirection,
+** creates a file by opening and closing it
+*/
 
 int	create_files(t_data *data)
 {

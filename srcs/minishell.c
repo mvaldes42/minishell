@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 11:11:36 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 21:04:21 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	main_loop(t_data *data, char *line, int flag)
 		is_cmd_fail = 0;
 		if ((!is_line_empty(line) || !parsing(data, line) || !navigate_line(data)))
 			is_cmd_fail = error_handling();
-		printf("loop : errno = %d, g_errno = %d\n", errno, g_minishell.error_status);
+//		printf("loop : errno = %d, g_errno = %d\n", errno, g_minishell.error_status);
 		handle_signals_empty();
 		if (data->is_exit)
 			is_exit = 1;

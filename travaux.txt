@@ -2,21 +2,8 @@ GROS TRAVAUX
 
 A faire
 
-Multiple heredocs.
-
 env patate
 ctrl c heredoc status 1
 cmd not found status 127
+sort | ls
 
-Combinaison
-- Verifier les messages d'erreur
-- Bien gérer tous les fds
-
-Gestion d'erreurs
-- Signal exit $?
-
-Leaks
-- Check lors d'un ctrl D
-- Check lors de pipes, redirs, fonctions simples...
-
-See each file for it's needs

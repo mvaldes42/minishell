@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 11:46:09 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 22:49:20 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,4 @@ void	sig_int_interactive(int sig)
 	(void)sig;
 	g_minishell.error_status = 130;
 	write(1, "\n", 1);
-}
-
-void	handle_signals_exec(void)
-{
-	signal(SIGINT, sig_int_interactive);
 }
