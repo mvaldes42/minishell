@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 17:59:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 14:50:30 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ static void	initialize_env(t_data *data, char **line)
 	size = -1;
 	while (environ[++size])
 		;
-	data->environ = malloc(sizeof(char *) * (size + 1));
+	data->environ = malloc(sizeof(char *) * (size + 2));
+	data->environ[0] = ft_strdup("?=0");
 	i = 0;
 	while (i < size)
 	{
-		data->environ[i] = ft_strdup(environ[i]);
+		data->environ[i + 1] = ft_strdup(environ[i]);
 		i++;
 	}
 	data->environ[size] = NULL;
@@ -56,7 +57,12 @@ static void	main_loop(t_data *data, char *line, int flag)
 	{
 		is_cmd_fail = 0;
 		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
-			is_cmd_fail = error_handling();
+			is_cmd_fail = error_handling(data);
+		else
+		{
+			ft_free_str(&data->environ[0]);
+			data->environ[0] = ft_strdup("?=1");
+		}
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);

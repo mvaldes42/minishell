@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 17:47:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:00:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ void	free_expand_struct(t_exp_var *expand)
 	while (i < expand->nbr_var)
 	{
 		ft_free_str(&expand->var_name[i]);
-		if (ft_strncmp(expand->var_name[i], "$?", 2) == 0)
-			ft_free_str(&expand->var_trans[i]);
 		i++;
 	}
 	free(expand->var_name);
@@ -83,19 +81,3 @@ void	free_expand_struct(t_exp_var *expand)
 	ft_free_int((int **)&expand->o_var_len);
 	ft_free_int((int **)&expand->t_var_len);
 }
-// int	free_env_path(t_data *data)
-// {
-// 	int	i;
-
-// 	i = -1;
-// 	if (data->env_path)
-// 	{
-// 		while (data->env_path[++i])
-// 		{
-// 			free_split(&data->env_path[i]);
-// 		}
-// 		ft_free_str(data->env_path);
-// 	}
-// 	printf("free env path\n");
-// 	return (1);
-// }

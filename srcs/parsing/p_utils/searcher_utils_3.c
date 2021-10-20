@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:57:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 16:41:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:25:00 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,8 @@ int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	i = 0;
 	while (i < exp->nbr_var)
 	{
-		if (ft_strncmp(exp->var_name[i], "$?", 2) == 0)
-			exp->var_trans[i] = ft_strdup("exit_status(do do later)");
-		else
-		{
-			exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
-			--exp->var_name[i];
-		}
+		exp->var_trans[i] = ft_getenv(++exp->var_name[i], environ);
+		--exp->var_name[i];
 		exp->t_var_len[i] = ft_strlen(exp->var_trans[i]);
 		if (exp->o_var_len[i] == 1 && exp->t_var_len[i] == 0)
 			exp->t_var_len[i] = 1;

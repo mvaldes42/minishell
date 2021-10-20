@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 17:18:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:00:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 		lx->tks[i].type = REDIR_OUT_A;
 	if (!ft_strncmp(unspec_token[i], "<<", 2))
 		lx->tks[i].type = READ_IN;
-	if (!ft_strncmp(unspec_token[i], "$?", 2))
-		lx->tks[i].type = EXIT_STS;
 }
 
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)

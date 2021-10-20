@@ -40,7 +40,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 	ft_free_str(&token->modif_word);
 	token->tk_fct_path = NULL;
 	errno = CMD_NOT_FOUND;
-	return (0);
+	return (1);
 }
 
 void	search_path_str(t_data *d)
@@ -80,8 +80,6 @@ int	expand_word(t_data *d, char **env_path, int i)
 			if (!search_functions(d, &d->pars.tks[i], env_path))
 				return (0);
 	}
-	else if (d->pars.tks[i].type == EXIT_STS)
-		d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
 	else
 		d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
 	return (1);

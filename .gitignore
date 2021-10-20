@@ -5,9 +5,9 @@ minishell_tester/
 minishell.supp
 args
 travaux.tx
-# minishell.log
-# minishell_1.supp
-# parse_valgrind_suppressions.sh
+minishell.log
+minishell_1.supp
+parse_valgrind_suppressions.sh
 # Prerequisites
 *.d
 
