@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 14:50:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:20:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,7 @@ int	main(int argc, char **argv)
 
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
-	term();
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, SIG_IGN);
+	handle_signals_empty();
 	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
 	{
 		main_loop(&data, argv[2], 1);

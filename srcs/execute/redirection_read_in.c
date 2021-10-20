@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 17:33:19 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:18:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	create_here_doc(void)
 ** Assigns \n to ^C
 ** Compares each line with end
 ** Copies it in here_doc if != end
-** Stops if == end 
+** Stops if == end
 */
 
 void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
@@ -70,7 +70,7 @@ void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 	}
 	clear_data(data);
 	free_environ(data);
-	exit (0);
+	exit (130);
 }
 
 /*
@@ -92,7 +92,7 @@ void	rm_heredoc(void)
 ** Disables ^C since it would display an excess prompt
 ** Creates a here_doc in the current repo
 ** Saves the current stdout, switches to terminal stdout ?
-** 
+**
 ** Fills here_doc from terminal lines, sets it as stdin, removes it
 */
 
@@ -115,5 +115,11 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 		fill_here_doc(data, end, heredoc_fd);
 	waitpid(pid, &status, 0);
 	rm_heredoc();
+	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130 && WEXITSTATUS(status) != 131))
+	{
+		printf("bash: warning : \"here document\" on line 1 ended with ");
+		printf("end_of_file (instead of %s).\n", end);
+	}
+	g_minishell.error_status = WEXITSTATUS(status);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 17:20:52 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:18:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,15 @@ int		builtin_exit(char **args, int argc, char ***environ_var);
 void	free_split(char ***split);
 int		is_name_valid(char *str);
 
-int		term(void);
-int		handle_signals(void);
+int		handle_signals_empty(void);
 void	handle_signals_exec(void);
 void	sig_heredoc(int sig);
 void	sig_handler(int sig);
-
-
+void	sig_quit(int sig);
 int		navigate_line(t_data *data);
-
 void	save_fds(int *fd);
-int 	set_back_fds(int *fd);
-
+int		set_back_fds(int *fd);
+int		create_files(t_data *data);
 int		make_redirects(t_data *data, int rank, int *initial_fd);
 int		exec_read_in(t_data *data, char *end, int *initial_fd);
 

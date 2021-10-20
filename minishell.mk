@@ -26,6 +26,7 @@ FILES =	minishell.c\
 		execute/execute_utils.c\
 		execute/pipes.c\
 		execute/redirections.c\
+		execute/redirections_utils.c\
 		execute/redirection_read_in.c\
 		execute/signals.c\
 		execute/navigation.c\

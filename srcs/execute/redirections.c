@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 17:19:26 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 15:19:26 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 				j++;
 			}
 		}
-		i++;
 	}
 	return (1);
 }
