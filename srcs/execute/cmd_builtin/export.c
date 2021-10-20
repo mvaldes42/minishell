@@ -97,10 +97,10 @@ static int	does_var_exists(char **args, char ***env_var, char **env_value)
 			if (ft_strncmp(split_arg[0], split_env[0], \
 			ft_strlen(split_env[0])) == 0)
 				*env_value = (*env_var)[i];
-			free_split(split_env);
+			free_split(&split_env);
 		}
 	}
-	free_split(split_arg);
+	free_split(&split_arg);
 	return (r_value);
 }
 

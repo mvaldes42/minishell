@@ -23,7 +23,7 @@ int		builtin_pwd(char **args, int argc, char ***environ_var);
 int		builtin_unset(char **args, int argc, char ***environ_var);
 int		builtin_exit(char **args, int argc, char ***environ_var);
 
-void	free_split(char **split);
+void	free_split(char ***split);
 int		is_name_valid(char *str);
 
 int		term(void);

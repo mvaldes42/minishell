@@ -37,11 +37,11 @@ static int	does_var_exists(int size, char *var_name, char ***environ_var)
 		if (ft_strncmp(var_name, split_env[0], \
 		ft_strlen(split_env[0])) == 0)
 		{
-			free_split(split_env);
+			free_split(&split_env);
 			return (1);
 		}
 	}
-	free_split(split_env);
+	free_split(&split_env);
 	return (0);
 }
 
@@ -91,12 +91,12 @@ int	builtin_unset(char **args, int argc, char ***environ_var)
 		ft_strlen(split_env[0])) == 0)
 		{
 			i = shift_all_env_var(environ_var, tmp_env, i, size);
-			free_split(split_env);
+			free_split(&split_env);
 			return (1);
 		}
 		(*environ_var)[i] = ft_strdup(tmp_env[i]);
 		ft_free_str(&tmp_env[i]);
-		free_split(split_env);
+		free_split(&split_env);
 	}
 	return (0);
 }

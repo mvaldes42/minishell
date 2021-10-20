@@ -89,10 +89,10 @@ char	*ft_getenv(const char *name, char **env_var)
 		ft_strncmp(name, split_env[0], ft_strlen(name)) == 0)
 		{
 			result = ft_strdup(split_env[1]);
-			free_split(split_env);
+			free_split(&split_env);
 			return (result);
 		}
-		free_split(split_env);
+		free_split(&split_env);
 	}
 	return (NULL);
 }

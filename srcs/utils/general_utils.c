@@ -37,7 +37,8 @@ void	clear_data(t_data *data)
 {
 	int	i;
 
-	free_split(data->env_path);
+	if (data->env_path)
+		free_split(&data->env_path);
 	free_tks(data);
 	ft_free_str(&data->prompt);
 	i = -1;

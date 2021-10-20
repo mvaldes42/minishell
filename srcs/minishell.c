@@ -59,8 +59,7 @@ static void	main_loop(t_data *data, char *line, int flag)
 			is_cmd_fail = error_handling();
 		if (data->is_exit)
 			is_exit = 1;
-		if (!is_line_empty(line))
-			clear_data(data);
+		clear_data(data);
 		if (!flag)
 			ft_free_str(&line);
 		else

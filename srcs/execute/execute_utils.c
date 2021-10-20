@@ -13,20 +13,17 @@
 #include "execute.h"
 #include "../minishell.h"
 
-void	free_split(char **split)
+void	free_split(char ***split)
 {
 	int	i;
 
 	i = -1;
-	if (split != NULL)
+	if (*split != NULL)
 	{
-		while (split[++i])
-		{
-			printf("free split[%i]: %s\n", i, split[i]);
-			ft_free_str(&(split[i]));
-		}
-		free(split);
-		split = NULL;
+		while ((*split)[++i])
+			ft_free_str(&((*split)[i]));
+		free(*split);
+		*split = NULL;
 	}
 }
 
@@ -45,10 +42,10 @@ int	is_name_valid(char *str)
 		if (!((split[0][i] >= 'A' && split[0][i] <= 'Z') || \
 		(split[0][i] >= 'a' && split[0][i] <= 'z') || split[0][i] == '_'))
 		{
-			free_split(split);
+			free_split(&split);
 			return (0);
 		}
 	}
-	free_split(split);
+	free_split(&split);
 	return (1);
 }

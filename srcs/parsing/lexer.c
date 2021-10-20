@@ -72,6 +72,6 @@ int	lexer(t_data *data, char *line)
 	lx->tks = (t_token *)malloc(sizeof(t_token) * (data->pars.tk_nbr + 1));
 	ft_memset(lx->tks, 0, sizeof(t_token) * (data->pars.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
-	free_split(unspec_token);
+	free_split(&unspec_token);
 	return (1);
 }
