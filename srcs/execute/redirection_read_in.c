@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 17:05:42 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 12:14:33 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,5 +117,7 @@ int	exec_read_in(char *end, int *initial_fd)
 		printf("end_of_file (instead of %s).\n", end);
 	}
 	g_minishell.error_status = WEXITSTATUS(status);
+	if (g_minishell.error_status == 131)
+		g_minishell.error_status = -1;
 	return (1);
 }

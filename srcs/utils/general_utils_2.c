@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 13:47:43 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/19 18:12:38 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	error_handling(void)
 	}
 	else
 		printf("minishell: %s\n", strerror(errno));
+	
 	return (1);
 }
 

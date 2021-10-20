@@ -4,6 +4,10 @@ A faire
 
 Multiple heredocs.
 
+env patate
+ctrl c heredoc status 1
+cmd not found status 127
+
 Combinaison
 - Verifier les messages d'erreur
 - Bien gérer tous les fds
