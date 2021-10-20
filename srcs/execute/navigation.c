@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/19 18:02:32 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:31:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 		return (set_back_fds(initial_fd)); //check redirects and handle their fds
 	if (g_minishell.error_status != 131  && !(execute(data, rank)))
 		return (set_back_fds(initial_fd));
-	set_back_fds(initial_fd); //set back initial fds 
+	set_back_fds(initial_fd); //set back initial fds
 	return (1);
-}                           
+}
 
 int	parse_and_exec(t_data *data, int *fd_in, int rank)
 {
