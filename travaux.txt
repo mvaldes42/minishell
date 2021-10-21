@@ -1,9 +1,0 @@
-GROS TRAVAUX
-
-A faire
-
-env patate
-ctrl c heredoc status 1
-cmd not found status 127
-sort | ls
-
