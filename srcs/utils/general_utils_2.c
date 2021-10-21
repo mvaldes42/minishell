@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 17:00:17 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:46:07 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ void	create_prompt(t_data *data, int fail)
 
 int	error_handling(t_data *data)
 {
-	static char	*errors[] = {"missing quote", "", \
-	"syntax error near unexpected token", "", "not a valid identifier", \
-	"HOME not set", "builtin address points to the zero page", ""};
+	static char	*errors[] = {"missing quote", "", "syntax error near \
+	unexpected token", "", "not a valid identifier", "HOME not set", \
+	"builtin address points to the zero page", ""};
 	int			i;
 
 	printf("g_error: %d\n", g_error);
@@ -80,9 +80,7 @@ int	error_handling(t_data *data)
 		data->environ[0] = ft_strdup("?=ft_itoa(g_error)");
 	}
 	else
-	{
 		printf("minishell: %s\n", strerror(errno));
-	}
 	return (1);
 }
 

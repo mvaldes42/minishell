@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:57:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/13 11:53:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static int	does_var_exists(char **args, char ***env_var, char **env_value)
 	int			r_value;
 
 	r_value = 1;
-	g_error = INV_NAME;
+	errno = INV_NAME;
 	split_arg = ft_split(args[1], '=');
 	if (split_arg[0] == NULL)
 		r_value = 0;

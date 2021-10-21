@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:57:13 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/15 16:44:55 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	init_unset(char ***environ_var, char ***tmp_env, char *var_name, \
 {
 	int		i;
 
-	g_error = UNSET_NOT_FOUND;
+	errno = UNSET_NOT_FOUND;
 	*size = -1;
 	while ((*environ_var)[++(*size)])
 		;
