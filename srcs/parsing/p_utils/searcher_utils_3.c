@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:57:10 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 12:25:00 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:58:14 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	translated_var_length(t_exp_var *exp, t_token *tk, char **environ)
 	int		i;
 
 	(void)tk;
-	errno = VAR_NOT_FOUND;
+	g_error = VAR_NOT_FOUND;
 	exp->current_o_len = 0;
 	i = 0;
 	while (i < exp->nbr_var)

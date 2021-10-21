@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:34:58 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:34:24 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 17:13:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_name_valid(char *str)
 	int		i;
 	char	**split;
 
-	errno = INV_NAME;
+	g_error = INV_NAME;
 	split = ft_split(str, '=');
 	if (!split || split[0] == NULL)
 		return (0);

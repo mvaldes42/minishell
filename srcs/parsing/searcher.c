@@ -38,7 +38,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 	data->pars.cmd_nbr++;
 	ft_free_str(&token->modif_word);
 	token->tk_fct_path = NULL;
-	errno = CMD_NOT_FOUND;
+	// errno = CMD_NOT_FOUND;
 	return (1);
 }
 
@@ -50,7 +50,7 @@ void	search_path_str(t_data *d)
 
 	i = 0;
 	path = NULL;
-	errno = ENOENT;
+	g_error = ENOENT;
 	while (d->environ[i] != NULL)
 	{
 		path_ptr = path;

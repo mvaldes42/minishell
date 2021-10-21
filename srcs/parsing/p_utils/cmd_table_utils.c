@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 15:19:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:10:31 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 {
 	int	size;
 
-	errno = ENOENT;
+	g_error = ENOENT;
 	size = 0;
 	while (i < d->pars.tk_nbr && tks[i].type != PIPE)
 	{
@@ -74,7 +74,7 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 
 int	input_cmd_fct_builtin(t_commands *cmd)
 {
-	errno = FUNCT_NULL;
+	g_error = FUNCT_NULL;
 	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0 \
 	|| ft_strncmp(cmd->fct.name, "ECHO", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_echo;

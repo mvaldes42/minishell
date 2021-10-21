@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 16:09:08 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/03 19:40:40 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:58:43 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static int	quotes_case_general(char **dup, char q_type)
 {
-	errno = MISSING_QUOTE;
+	g_error = MISSING_QUOTE;
 	*dup += 1;
 	while (**dup != '\0' && **dup != q_type)
 		*dup += 1;
@@ -26,7 +26,7 @@ static int	quotes_case_general(char **dup, char q_type)
 
 static int	word_case_count(char **dup, int count)
 {
-	errno = MISSING_QUOTE;
+	g_error = MISSING_QUOTE;
 	while (**dup != '\0')
 	{
 		if ((**dup == SPACE || **dup == TAB || **dup == PIPE_C || \

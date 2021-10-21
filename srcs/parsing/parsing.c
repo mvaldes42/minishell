@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 15:19:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:05:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	searcher(t_data *d)
 	{
 		if (d->pars.tks[i].redir || d->pars.tks[i].type == PIPE)
 		{
-			errno = UNEXPECTED_TK;
+			g_error = UNEXPECTED_TK;
 			if (i + 1 > d->pars.tk_nbr || d->pars.tks[i + 1].type != WORD)
 				return (0);
 			d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);

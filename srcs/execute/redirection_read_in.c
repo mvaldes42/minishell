@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_read_in.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 16:46:31 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 17:14:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,19 @@ int	create_here_doc(void)
 	return (fd);
 }
 
-void	heredoc_stdin(t_data *data, char *end, int heredoc_fd, size_t len)
+/*
+** Assigns \n to ^C
+** Compares each line with end
+** Copies it in here_doc if != end
+** Stops if == end
+*/
+
+void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 {
 	char	*line;
+	size_t	len;
 
+	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -54,23 +63,7 @@ void	heredoc_stdin(t_data *data, char *end, int heredoc_fd, size_t len)
 			break ;
 		}
 		ft_free_str(&line);
-	}	
-}
-
-/*
-** Assigns \n to ^C
-** Compares each line with end
-** Copies it in here_doc if != end
-** Stops if == end
-*/
-
-void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
-{
-	size_t	len;
-
-	len = 0;
-	signal(SIGINT, sig_heredoc);
-	heredoc_stdin(data, end, heredoc_fd, len);
+	}
 	clear_data(data);
 	free_environ(data);
 	exit (130);
