@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 14:28:28 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:22:05 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ static int	is_line_empty(char *line)
 		return (0);
 	}
 	add_history(line);
+	g_error = 0;
+	errno = 0;
 	return (1);
 }
 
-static void	main_loop(t_data *data, char *line, int flag)
+static void	main_loop(t_data *d, char *line, int flag)
 {
 	bool	is_cmd_fail;
 	int		is_exit;
@@ -56,27 +58,29 @@ static void	main_loop(t_data *data, char *line, int flag)
 	is_exit = 0;
 	while (line)
 	{
+			printf("errno : %d\n", errno);
 		is_cmd_fail = 0;
-		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
-			is_cmd_fail = error_handling(data);
+		if (!is_line_empty(line) || !parsing(d, line) || !navigate_line(d))
+			is_cmd_fail = error_handling(d);
 		else
 		{
-			ft_free_str(&data->environ[0]);
-			data->environ[0] = ft_strdup("?=1");
+			ft_free_str(&d->environ[0]);
+			d->environ[0] = ft_strdup("?=0");
 		}
-		if (data->is_exit)
+		if (d->is_exit)
 			is_exit = 1;
-		clear_data(data);
+		clear_data(d);
 		if (!flag)
 			ft_free_str(&line);
 		else
 			line = NULL;
 		if (is_exit)
 			break ;
+		handle_signals_empty();
 		if (!flag)
 		{
-			create_prompt(data, is_cmd_fail);
-			line = readline(data->prompt);
+			create_prompt(d, is_cmd_fail);
+			line = readline(d->prompt);
 		}
 	}
 }

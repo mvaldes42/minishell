@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 14:07:18 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:35:16 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,32 @@ void	create_prompt(t_data *data, int fail)
 
 int	error_handling(t_data *data)
 {
-	static char	*errors[] = {"missing quote", "", "command not found", \
-	"syntax error near unexpected token", "", "not a valid identifier", \
-	"HOME not set", "builtin address points to the zero page", ""};
+	static char	*errors[] = {"missing quote", "", "syntax error near \
+	unexpected token", "", "not a valid identifier", "HOME not set", \
+	"builtin address points to the zero page", ""};
 	int			i;
 
-	if (errno > 131)
+	printf("g_error: %d\n", g_error);
+	printf("errno : %d\n", errno);
+	ft_free_str(&data->environ[0]);
+	data->environ[0] = ft_strdup("?=1");
+	if (g_error >= 300)
 	{
-		i = errno - 131 - 1;
-		if (errno == VAR_NOT_FOUND)
+		i = g_error - 300;
+		if (g_error == VAR_NOT_FOUND)
 			printf("%s\n", errors[i]);
-		else if (errno == EMPTY_LINE || errno == UNSET_NOT_FOUND)
+		else if (g_error == EMPTY_LINE || g_error == UNSET_NOT_FOUND)
 			;
 		else
 			printf("minishell: %s\n", errors[i]);
 	}
+	else if (g_error < 300)
+	{
+		ft_free_str(&data->environ[0]);
+		data->environ[0] = ft_strdup("?=ft_itoa(g_error)");
+	}
 	else
 		printf("minishell: %s\n", strerror(errno));
-	ft_free_str(&data->environ[0]);
-	printf("g_minishell.exit_status : %d\n", g_minishell.exit_status);
-	printf("%d\n", errno);
-	if (g_minishell.exit_status != 0)
-		data->environ[0] = ft_strdup("?=ft_itoa(g_minishell.exit_status)");
-	else
-		data->environ[0] = ft_strdup("?=1");
 	return (1);
 }
 

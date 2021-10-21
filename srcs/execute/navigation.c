@@ -3,14 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   navigation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 10:19:08 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:02:18 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/*
+** checks if each command exists and displays error messages
+*/
+
+void	check_commands(t_data *data)
+{
+	int			i;
+	t_commands	cmd;
+
+	i = 0;
+	if (data->pars.cmd_nbr > 1)
+	{
+		while (i < data->pars.cmd_nbr - 1)
+		{
+			cmd = data->cmds[i];
+			if (cmd.fct.fct_path == NULL && !cmd.fct.builtin)
+				printf("minishell: command not found\n");
+			i++;
+		}
+	}
+}
 
 /*
 ** sets fd_in as the stdin
@@ -78,11 +100,13 @@ int	parse_and_exec(t_data *data, int *fd_in, int rank)
 {
 	while (rank < data->pars.cmd_nbr - 1)
 	{
-		if (!(command_executor(data, rank, fd_in)))
-			return (0);
+		command_executor(data, rank, fd_in);
 		rank++;
 		if (rank < data->pars.cmd_nbr - 1)
-			parse_and_exec(data, fd_in, rank);
+		{
+			if (!(parse_and_exec(data, fd_in, rank)))
+				return (0);
+		}
 		break ;
 	}
 	if (rank == data->pars.cmd_nbr - 1)
@@ -96,6 +120,7 @@ int	parse_and_exec(t_data *data, int *fd_in, int rank)
 /*
 ** creates an original base stdin
 ** creates the files for the > and >> redirections
+** checks for the non-existant commands
 ** sends the command line to p&x
 ** closes the original stdin if changed
 */
@@ -106,6 +131,7 @@ int	navigate_line(t_data *data)
 
 	fd_in = 0;
 	create_files(data);
+	check_commands(data);
 	if (!(parse_and_exec(data, &fd_in, 0)))
 		return (0);
 	if (fd_in != 0)

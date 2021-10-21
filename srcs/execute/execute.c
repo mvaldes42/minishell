@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 10:18:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 12:16:52 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@
 #include <curses.h>
 #include <term.h>
 
-int	exec_builtout(t_data *data, t_commands cmd)
+int	exec_builtout(t_data *data, t_commands cmd, int nb)
 {
 	int		pid;
 	int		status;
 
 	(void)data;
 	errno = CMD_NOT_FOUND;
-	if (cmd.fct.fct_path == NULL)
-		return (1);
+	if (cmd.fct.fct_path == NULL && data->pars.cmd_nbr - 1 == nb)
+		return (0);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -64,7 +64,7 @@ int	execute(t_data *data, int nb)
 	}
 	else
 	{
-		if (!(exec_builtout(data, cmd)))
+		if (!(exec_builtout(data, cmd, nb)))
 			return (0);
 	}
 	errno = 0;
