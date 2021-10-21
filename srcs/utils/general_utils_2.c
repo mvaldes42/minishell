@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:28 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,26 +53,32 @@ void	create_prompt(t_data *data, int fail)
 	ft_strlcat(data->prompt, cross, size);
 }
 
-int	error_handling(void)
+int	error_handling(t_data *data)
 {
 	static char	*errors[] = {"missing quote", "", "command not found", \
 	"syntax error near unexpected token", "", "not a valid identifier", \
-	"HOME not set", "builtin address points to the zero page"};
+	"HOME not set", "builtin address points to the zero page", ""};
 	int			i;
-	printf("errno = %d\n", errno);
-	printf("minishell errno = %d\n", g_minishell.error_status);
+
 	if (errno > 131)
 	{
 		i = errno - 131 - 1;
-		if (errno == 133)
+		if (errno == VAR_NOT_FOUND)
 			printf("%s\n", errors[i]);
-		else if (errno == 136)
+		else if (errno == EMPTY_LINE || errno == UNSET_NOT_FOUND)
 			;
 		else
 			printf("minishell: %s\n", errors[i]);
 	}
 	else
 		printf("minishell: %s\n", strerror(errno));
+	ft_free_str(&data->environ[0]);
+	// printf("g_minishell.exit_status : %d\n", g_minishell.exit_status);
+	// if (g_minishell.exit_status != 0)
+	// 	data->environ[0] = ft_strdup("?=ft_itoa(g_minishell.exit_status)");
+	// else
+	printf("%d\n", errno);
+		data->environ[0] = ft_strdup("?=1");
 	return (1);
 }
 
@@ -90,10 +96,10 @@ char	*ft_getenv(const char *name, char **env_var)
 		ft_strncmp(name, split_env[0], ft_strlen(name)) == 0)
 		{
 			result = ft_strdup(split_env[1]);
-			free_split(split_env);
+			free_split(&split_env);
 			return (result);
 		}
-		free_split(split_env);
+		free_split(&split_env);
 	}
 	return (NULL);
 }

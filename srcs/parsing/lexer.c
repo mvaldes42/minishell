@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:46:01 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/05 16:29:21 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:00:20 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ static void	eval_double_char(t_parsing *lx, char **unspec_token, int i)
 		lx->tks[i].type = REDIR_OUT_A;
 	if (!ft_strncmp(unspec_token[i], "<<", 2))
 		lx->tks[i].type = READ_IN;
-	if (!ft_strncmp(unspec_token[i], "$?", 2))
-		lx->tks[i].type = EXIT_STS;
 }
 
 static void	evaluating_tokens(t_parsing *lx, char **unspec_token)
@@ -63,7 +61,6 @@ int	lexer(t_data *data, char *line)
 {
 	char		**unspec_token;
 	t_parsing	*lx;
-	int			i;
 
 	lx = &data->pars;
 	ft_memset(lx, 0, sizeof(t_parsing));
@@ -73,9 +70,6 @@ int	lexer(t_data *data, char *line)
 	lx->tks = (t_token *)malloc(sizeof(t_token) * (data->pars.tk_nbr + 1));
 	ft_memset(lx->tks, 0, sizeof(t_token) * (data->pars.tk_nbr + 1));
 	evaluating_tokens(lx, unspec_token);
-	i = 0;
-	while (i < lx->tk_nbr)
-		ft_free_str(&unspec_token[i++]);
-	ft_free_str(unspec_token);
+	free_split(&unspec_token);
 	return (1);
 }

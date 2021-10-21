@@ -28,6 +28,7 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 		{
 			token->type = BUILTIN;
 			data->pars.cmd_nbr++;
+			ft_free_str(&token->modif_word);
 			token->modif_word = ft_strdup(token->ptr);
 			return (1);
 		}
@@ -36,12 +37,13 @@ static int	search_functions(t_data *data, t_token *token, char **env_path)
 		return (1);
 	token->type = FUNCTION;
 	data->pars.cmd_nbr++;
-	token->modif_word = NULL;
+	ft_free_str(&token->modif_word);
 	token->tk_fct_path = NULL;
-	return (0);
+	errno = CMD_NOT_FOUND;
+	return (1);
 }
 
-void	search_path_str(t_data *d, char ***env_path)
+void	search_path_str(t_data *d)
 {
 	int			i;
 	char		*path_ptr;
@@ -60,10 +62,10 @@ void	search_path_str(t_data *d, char ***env_path)
 		i++;
 	}
 	if (d->environ[i] == NULL)
-		*env_path = NULL;
+		d->env_path = NULL;
 	else
 	{
-		*env_path = ft_split(path + 5, ':');
+		d->env_path = ft_split(path + 5, ':');
 		ft_free_str(&path_ptr);
 	}
 }
@@ -78,8 +80,6 @@ int	expand_word(t_data *d, char **env_path, int i)
 			if (!search_functions(d, &d->pars.tks[i], env_path))
 				return (0);
 	}
-	else if (d->pars.tks[i].type == EXIT_STS)
-		d->pars.tks[i].modif_word = ft_strdup("exit_status(do do later)");
 	else
 		d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
 	return (1);

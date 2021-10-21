@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:03:22 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:45:24 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:29:52 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ typedef struct s_split
 typedef struct s_var_replace
 {
 	char	*dest;
-	size_t	var_size;
-	int		var_nb;
-	int		dst_size;
+	size_t	vsize;
+	int		vnbr;
+	int		dst_s;
 	char	*str;
 }	t_var_replace;
 
@@ -113,7 +113,7 @@ int		redir_case_general(char **dup, int count, char r_type, char other_r);
 // TOKEN_SPLIT.C
 char	**token_split(char const *str, int token_nbr);
 // SEARCHER.C
-void	search_path_str(t_data *d, char ***env_path);
+void	search_path_str(t_data *d);
 int		remove_quotes(char **expanded_word);
 int		expand_word(t_data *d, char **env_path, int i);
 // SEARCHER_UTILS.C
@@ -122,12 +122,13 @@ int		search_variables(t_data *d, int i, char **env);
 char	*rplc_substr_init(t_exp_var *exp, char *str, int dst_size);
 // SEARCHER_UTILS_3.C
 int		count_variables(t_token *tk, char *str, int fct_expt);
+int		translated_var_length(t_exp_var *exp, t_token *tk, char **environ);
 // WORD_SPLITTING.C
 int		word_splitting(t_data *d, t_token *tk, t_exp_var *exp, int fct_expt);
 // SEARCHER_UTILS_2.C
 int		search_funct_ext(t_parsing *parsing, t_token *token, char **env_path);
 void	free_expand_struct(t_exp_var *expand);
-int		free_env_path(t_data *data, char ***env_path);
+int		free_env_path(t_data *data);
 //CMD_TABlE_.C
 int		input_command_table(t_data *d);
 // CMD_TABLE_UTILS.C

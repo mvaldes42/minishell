@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 14:51:55 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:00:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	funct_ext_found(t_parsing *parsing, t_token *token, char *path)
 {
 	token->tk_fct_path = ft_strdup(path);
 	parsing->cmd_nbr++;
+	ft_free_str(&token->modif_word);
 	token->modif_word = ft_strdup(token->ptr);
 	token->type = FUNCTION;
 }
@@ -55,6 +56,7 @@ int	search_funct_ext(t_parsing *parsing, t_token *token, char **env_path)
 		if (stat(e.dest_dir, &e.statbuf) == 0 && !S_ISDIR(e.statbuf.st_mode))
 		{
 			funct_ext_found(parsing, token, e.dest_dir);
+			ft_free_str(&e.d_ptr);
 			return (1);
 		}
 		ft_free_str(&e.d_ptr);
@@ -70,27 +72,12 @@ void	free_expand_struct(t_exp_var *expand)
 	while (i < expand->nbr_var)
 	{
 		ft_free_str(&expand->var_name[i]);
-		if (ft_strncmp(expand->var_name[i], "$?", 2) == 0)
-			ft_free_str(&expand->var_trans[i]);
 		i++;
 	}
-	ft_free_str(expand->var_name);
-	ft_free_str(expand->var_trans);
+	free(expand->var_name);
+	expand->var_name = NULL;
+	free(expand->var_trans);
+	expand->var_trans = NULL;
 	ft_free_int((int **)&expand->o_var_len);
 	ft_free_int((int **)&expand->t_var_len);
-}
-
-int	free_env_path(t_data *data, char ***env_path)
-{
-	int	i;
-
-	(void)data;
-	i = -1;
-	if (*env_path != NULL)
-	{
-		while ((*env_path)[++i])
-			ft_free_str(&(*env_path)[i]);
-		ft_free_str(*env_path);
-	}
-	return (1);
 }

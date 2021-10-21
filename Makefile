@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+         #
+#    By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/20 12:16:14 by mvaldes           #+#    #+#              #
-#    Updated: 2021/09/23 16:59:33 by fcavillo         ###   ########.fr        #
+#    Updated: 2021/10/19 17:49:10 by mvaldes          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ HEADER		=	./srcs/minishell.h
 
 CC			=	gcc
 RM			=	/bin/rm -rf
-CC_FLAGS	=	-Wall -Wextra -Werror -fsanitize=address -g3
+CC_FLAGS	=	-Wall -Wextra -Werror -g3 -fsanitize=address
 INC			=	-I $(HEADER) \
 				-lreadline \
 				-L/Users/$(USER)/.brew/opt/readline/lib \

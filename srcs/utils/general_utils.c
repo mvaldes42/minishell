@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/17 15:10:20 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 17:46:12 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	free_tks(t_data *data)
 		while (i < data->pars.tk_nbr)
 		{
 			ft_free_str(&data->pars.tks[i].ptr);
-			if (data->pars.tks[i].type == WORD)
-				ft_free_str(&data->pars.tks[i].modif_word);
+			ft_free_str(&data->pars.tks[i].modif_word);
 			if (data->pars.tks[i].type == FUNCTION)
 				ft_free_str(&data->pars.tks[i].tk_fct_path);
 			i++;
@@ -38,16 +37,24 @@ void	clear_data(t_data *data)
 {
 	int	i;
 
+	if (data->env_path)
+		free_split(&data->env_path);
 	free_tks(data);
 	ft_free_str(&data->prompt);
 	i = -1;
-	while (data->cmds && ++i < data->pars.cmd_nbr && data->cmds[i].redirs)
+	while (data->cmds && ++i < data->pars.cmd_nbr)
 	{
-		free(data->cmds[i].redirs);
-		data->cmds[i].redirs = NULL;
+		free(data->cmds[i].args);
+		data->cmds[i].args = NULL;
+		if (data->cmds[i].redirs)
+		{
+			free(data->cmds[i].redirs);
+			data->cmds[i].redirs = NULL;
+		}
 	}
 	if (data->pars.cmd_nbr)
 	{
+		ft_free_int(&data->pars.argv_size);
 		free(data->cmds);
 		data->cmds = NULL;
 	}

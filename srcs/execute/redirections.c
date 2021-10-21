@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/12 17:38:12 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// error handling
-// find a better way to check for redirs when there are pipes
-// check if base_rank is useful
 
 int	redir_in(char *filename)
 {
@@ -64,7 +60,7 @@ int	redir_out(char *filename)
 	return (1);
 }
 
-int	handle_redirs(int type, char *filename, int *initial_fd)
+int	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 {
 	if (type == REDIR_OUT)
 	{
@@ -83,15 +79,14 @@ int	handle_redirs(int type, char *filename, int *initial_fd)
 	}
 	else if (type == READ_IN)
 	{
-		if (!(exec_read_in(filename, initial_fd)))
+		if (!(exec_read_in(data, filename, initial_fd)))
 			return (0);
 	}
 	return (1);
 }
 
 /*
-** for each command, follows the redirs by setting the STDIN and STDOUT
-** opens or creates the needed files as it goes
+** for each command, follows the redirs by setting the stdin and stdout
 */
 
 int	make_redirects(t_data *data, int rank, int *initial_fd)
@@ -102,21 +97,20 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 	char	*filename;
 
 	i = 0;
-	while (i <= rank)
+	while (i <= rank && i < data->pars.cmd_nbr)
 	{
-		if (data->cmds[i].redirs)
+		if (data->cmds[i].redirs_size > 0)
 		{
 			j = 0;
-			type = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
-			while (type >= 0 && type <= 6)
+			while (j < data->cmds[i].redirs_size)
 			{
-				if (!(handle_redirs(type, filename, initial_fd)))
+				if (!(handle_redirs(data, type, filename, initial_fd)))
 					return (0);
-				j++;
 				type = data->cmds[i].redirs[j].type;
 				filename = data->cmds[i].redirs[j].filename;
+				j++;
 			}
 		}
 		i++;
