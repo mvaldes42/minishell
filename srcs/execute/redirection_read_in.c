@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 17:14:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 17:30:17 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,10 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	dup2(initial_fd[1], STDOUT_FILENO);
 	pid = fork();
 	if (pid == -1)
+	{
+		g_error = errno;
 		return (0);
+	}
 	if (pid == 0)
 		fill_here_doc(data, end, heredoc_fd);
 	waitpid(pid, &status, 0);
@@ -119,7 +122,5 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	close(fd_out);
 	check_heredoc_ctrl_d(status, end);
 	g_error = WEXITSTATUS(status);
-	if (g_error == 131)
-		g_error = -1;
 	return (1);
 }

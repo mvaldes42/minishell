@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 16:29:38 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 17:27:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,25 @@ int	make_pipe(t_data *data, int rank, int *fd_in)
 
 	dup2(*fd_in, STDIN_FILENO);
 	if (*fd_in != 0)
+	{
+		g_error = errno;
 		close(*fd_in);
+	}
 	if (rank == data->pars.cmd_nbr - 1)
 		return (1);
 	pipe(new_pipe);
 	dup2(new_pipe[1], STDOUT_FILENO);
 	if (close(new_pipe[1]) == -1)
+	{
+		g_error = errno;
 		return (0);
+	}
 	*fd_in = dup(new_pipe[0]);
 	if (close(new_pipe[0]) == -1)
+	{
+		g_error = errno;
 		return (0);
+	}
 	return (1);
 }
 
@@ -79,7 +88,7 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 		return (set_back_fds(initial_fd));
 	if (!(make_redirects(data, rank, initial_fd)))
 		return (set_back_fds(initial_fd));
-	if (g_error == 131 || g_error == -1)
+	if (g_error == 131)
 	{
 		set_back_fds(initial_fd);
 		return (1);
@@ -131,7 +140,7 @@ int	navigate_line(t_data *data)
 	fd_in = 0;
 	create_files(data);
 	check_commands(data);
-	if (!(parse_and_exec(data, &fd_in, 0)))
+	if (!(parse_and_exec(data, &fd_in, 0)) || g_error != 0)
 		return (0);
 	if (fd_in != 0)
 		close(fd_in);
