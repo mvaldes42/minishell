@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 10:19:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:03:08 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ static void	main_loop(t_data *data, char *line, int flag)
 			line = NULL;
 		if (is_exit)
 			break ;
+		handle_signals_empty();
 		if (!flag)
 		{
 			create_prompt(data, is_cmd_fail);
