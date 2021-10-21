@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 10:19:15 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:35:41 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 			{
 				if (!(handle_redirs(data, type, filename, initial_fd)))
 					return (0);
+				j++;
 				type = data->cmds[i].redirs[j].type;
 				filename = data->cmds[i].redirs[j].filename;
-				j++;
 			}
 		}
 		i++;

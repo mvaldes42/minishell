@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/29 19:42:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 17:46:12 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:05:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,14 @@ void	clear_data(t_data *data)
 	i = -1;
 	while (data->cmds && ++i < data->pars.cmd_nbr)
 	{
-		free(data->cmds[i].args);
-		data->cmds[i].args = NULL;
+		ft_free_int((int **)&data->cmds[i].args);
 		if (data->cmds[i].redirs)
-		{
-			free(data->cmds[i].redirs);
-			data->cmds[i].redirs = NULL;
-		}
+			ft_free_int((int **)&data->cmds[i].redirs);
 	}
 	if (data->pars.cmd_nbr)
 	{
 		ft_free_int(&data->pars.argv_size);
-		free(data->cmds);
-		data->cmds = NULL;
+		ft_free_int((int **)&data->cmds);
 	}
 	ft_memset(&data->pars, 0, sizeof(t_parsing));
 	ft_memset(data->cmds, 0, sizeof(t_commands));
@@ -90,10 +85,7 @@ void	free_environ(t_data *data)
 	if (data->environ != NULL)
 	{
 		while (data->environ[++i] != NULL)
-		{
-			free(data->environ[i]);
-			data->environ[i] = NULL;
-		}
+			ft_free_str(&(data->environ[i]));
 	}
 	free(data->environ);
 	data->environ = NULL;

@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 10:19:44 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:07:18 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ int	error_handling(t_data *data)
 	else
 		printf("minishell: %s\n", strerror(errno));
 	ft_free_str(&data->environ[0]);
-	// printf("g_minishell.exit_status : %d\n", g_minishell.exit_status);
-	// if (g_minishell.exit_status != 0)
-	// 	data->environ[0] = ft_strdup("?=ft_itoa(g_minishell.exit_status)");
-	// else
+	printf("g_minishell.exit_status : %d\n", g_minishell.exit_status);
 	printf("%d\n", errno);
+	if (g_minishell.exit_status != 0)
+		data->environ[0] = ft_strdup("?=ft_itoa(g_minishell.exit_status)");
+	else
 		data->environ[0] = ft_strdup("?=1");
 	return (1);
 }

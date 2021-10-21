@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_utils.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 21:28:46 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 14:34:57 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ int	create_files(t_data *data)
 	i = 0;
 	while (i <= data->pars.cmd_nbr - 1)
 	{
-		if (data->cmds[i].redirs)
+		if (data->cmds->redirs_size > 0)
 		{
 			j = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
-			while (type >= 0 && type <= 6)
+			while (j < data->cmds[i].redirs_size)
 			{
 				if (!(open_and_close(filename, type)))
 					return (0);

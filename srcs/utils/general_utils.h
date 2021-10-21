@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 12:08:59 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:59:42 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ typedef enum e_err_codes
 {
 	MISSING_QUOTE = 132,
 	VAR_NOT_FOUND = 133,
-	CMD_NOT_FOUND = 134,
+	CMD_NOT_FOUND = 127,
 	UNEXPECTED_TK = 135,
 	EMPTY_LINE = 136,
 	INV_NAME = 137,
