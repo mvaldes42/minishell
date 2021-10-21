@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 15:12:48 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 12:00:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 14:45:50 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	free_expand_struct(t_exp_var *expand)
 	while (i < expand->nbr_var)
 	{
 		ft_free_str(&expand->var_name[i]);
+		ft_free_str(&expand->var_trans[i]);
 		i++;
 	}
 	free(expand->var_name);

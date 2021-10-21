@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:30:07 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:40:25 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ static void	initialize_env(t_data *data, char **line)
 	size = -1;
 	while (environ[++size])
 		;
-	data->environ = malloc(sizeof(char *) * (size + 2));
-	data->environ[0] = ft_strdup("?=0");
-	i = 0;
-	while (i < size)
+	data->environ = malloc(sizeof(char *) * (size + 1));
+	i = -1;
+	while (++i < size)
 	{
-		data->environ[i + 1] = ft_strdup(environ[i]);
-		i++;
+		if (i == 0)
+			data->environ[i] = ft_strdup("?=0");
+		else if (i >= 1)
+			data->environ[i] = ft_strdup(environ[i - 1]);
 	}
 	data->environ[size] = NULL;
 	g_error = 0;
@@ -98,7 +99,8 @@ int	main(int argc, char **argv)
 	}
 	line = readline(data.prompt);
 	main_loop(&data, line, 0);
-	rl_clear_history();
 	free_environ(&data);
+	ft_free_str(&data.prompt);
+	rl_clear_history();
 	return (0);
 }

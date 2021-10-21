@@ -16,9 +16,8 @@
 static int	search_functions(t_data *data, t_token *token, char **env_path)
 {
 	int			i;
-	const char	*buildin[] = \
-	{"echo", "cd", "pwd", "export", "unset", "env", "exit", \
-	"ECHO", "PWD", "ENV", NULL};
+	const char	*buildin[] = {"echo", "cd", "pwd", "export", "unset", "env", \
+	"exit", "ECHO", "PWD", "ENV", NULL};
 
 	i = -1;
 	while (buildin[++i])
