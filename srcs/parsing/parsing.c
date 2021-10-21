@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/24 21:19:44 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 14:37:54 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:19:37 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,8 @@ static void	get_argv_size(t_data *data)
 static int	searcher(t_data *d)
 {
 	int			i;
-	char		**env_path;
 
-	search_path_str(d, &env_path);
+	search_path_str(d);
 	i = -1;
 	while (++i < d->pars.tk_nbr)
 	{
@@ -63,13 +62,11 @@ static int	searcher(t_data *d)
 				return (0);
 			d->pars.tks[i].modif_word = ft_strdup(d->pars.tks[i].ptr);
 		}
-		else if (!expand_word(d, env_path, i))
+		else if (!expand_word(d, d->env_path, i))
 			return (0);
 		if (!remove_quotes(&d->pars.tks[i].modif_word))
 			return (0);
 	}
-	if (!free_env_path(d, &env_path))
-		return (0);
 	return (1);
 }
 
@@ -81,6 +78,6 @@ int	parsing(t_data *data, char *line)
 	get_argv_size(data);
 	if (!input_command_table(data))
 		return (0);
-	print_cmd_tab(data);
+	// print_cmd_tab(data);
 	return (1);
 }

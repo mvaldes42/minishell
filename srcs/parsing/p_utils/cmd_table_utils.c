@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/19 14:42:02 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:19:34 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,14 @@ static int	get_redir_size(t_data *d, t_token *tks, int i)
 int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 {
 	int	j;
-	int	size;
 
-	size = get_redir_size(d, tks, i);
-	if (size == 0)
+	cmd->redirs_size = get_redir_size(d, tks, i);
+	if (cmd->redirs_size == 0)
 		return (-1);
-	cmd->redirs = malloc(sizeof(t_redir_token) * (size + 1));
+	cmd->redirs = malloc(sizeof(t_redir_token) * (cmd->redirs_size + 1));
 	ft_memset(cmd->redirs, 0, sizeof(cmd->redirs));
 	j = 0;
-	while (i < d->pars.tk_nbr && j < size)
+	while (i < d->pars.tk_nbr && j < cmd->redirs_size)
 	{
 		cmd->redirs[j].type = tks[i].type;
 		i += 1;
@@ -50,7 +49,7 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 		else
 			cmd->redirs[j].filename = tks[i].ptr;
 		j++;
-		if (j < size)
+		if (j < cmd->redirs_size)
 			i += 1;
 	}
 	return (i);
@@ -75,7 +74,7 @@ int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 
 int	input_cmd_fct_builtin(t_commands *cmd)
 {
-	errno = 139;
+	errno = FUNCT_NULL;
 	if (ft_strncmp(cmd->fct.name, "echo", ft_strlen(cmd->fct.name)) == 0 \
 	|| ft_strncmp(cmd->fct.name, "ECHO", ft_strlen(cmd->fct.name)) == 0)
 		cmd->fct.builtin_ptr = builtin_echo;

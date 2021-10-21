@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 22:22:26 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	redir_out(char *filename)
 	return (1);
 }
 
-int	handle_redirs(int type, char *filename, int *initial_fd)
+int	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 {
 	if (type == REDIR_OUT)
 	{
@@ -79,7 +79,7 @@ int	handle_redirs(int type, char *filename, int *initial_fd)
 	}
 	else if (type == READ_IN)
 	{
-		if (!(exec_read_in(filename, initial_fd)))
+		if (!(exec_read_in(data, filename, initial_fd)))
 			return (0);
 	}
 	return (1);
@@ -96,21 +96,24 @@ int	make_redirects(t_data *data, int rank, int *initial_fd)
 	int		type;
 	char	*filename;
 
-	i = rank;
-	if (data->cmds[i].redirs)
+	i = 0;
+	while (i <= rank && i < data->pars.cmd_nbr)
 	{
-		j = 0;
-		type = 0;
-		type = data->cmds[i].redirs[j].type;
-		filename = data->cmds[i].redirs[j].filename;
-		while (type >= 0 && type <= 6)
+		if (data->cmds[i].redirs_size > 0)
 		{
-			if (!(handle_redirs(type, filename, initial_fd)))
-				return (0);
-			j++;
+			j = 0;
 			type = data->cmds[i].redirs[j].type;
 			filename = data->cmds[i].redirs[j].filename;
+			while (j < data->cmds[i].redirs_size)
+			{
+				if (!(handle_redirs(data, type, filename, initial_fd)))
+					return (0);
+				type = data->cmds[i].redirs[j].type;
+				filename = data->cmds[i].redirs[j].filename;
+				j++;
+			}
 		}
+		i++;
 	}
 	return (1);
 }

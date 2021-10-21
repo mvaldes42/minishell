@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/09/16 16:23:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/20 12:08:59 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef enum e_err_codes
 	INV_NAME = 137,
 	HOME_NSET = 138,
 	FUNCT_NULL = 139,
+	UNSET_NOT_FOUND = 140,
 }	t_err_codes;
 
 typedef struct s_data		t_data;
@@ -38,7 +39,7 @@ void		free_tks(t_data *data);
 void		ft_free_int(int **int_ptr);
 void		ft_free_str(char **str_ptr);
 void		create_prompt(t_data *data, int fail);
-int			error_handling(void);
+int			error_handling(t_data *data);
 char		*ft_getenv(const char *name, char **environ_var);
 // GENERAL_UTILS.C
 void		clear_data(t_data *data);

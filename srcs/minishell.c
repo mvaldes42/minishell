@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 21:04:21 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:58 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ static void	initialize_env(t_data *data, char **line)
 	size = -1;
 	while (environ[++size])
 		;
-	data->environ = malloc(sizeof(char *) * (size + 1));
+	data->environ = malloc(sizeof(char *) * (size + 2));
+	data->environ[0] = ft_strdup("?=0");
 	i = 0;
 	while (i < size)
 	{
-		data->environ[i] = ft_strdup(environ[i]);
+		data->environ[i + 1] = ft_strdup(environ[i]);
 		i++;
 	}
 	data->environ[size] = NULL;
@@ -39,7 +40,7 @@ static int	is_line_empty(char *line)
 {
 	if (char_occu(line, SPACE) == (int)ft_strlen(line))
 	{
-		errno = 136;
+		errno = EMPTY_LINE;
 		return (0);
 	}
 	add_history(line);
@@ -55,10 +56,13 @@ static void	main_loop(t_data *data, char *line, int flag)
 	while (line)
 	{
 		is_cmd_fail = 0;
-		if ((!is_line_empty(line) || !parsing(data, line) || !navigate_line(data)))
-			is_cmd_fail = error_handling();
-//		printf("loop : errno = %d, g_errno = %d\n", errno, g_minishell.error_status);
-		handle_signals_empty();
+		if (!is_line_empty(line) || !parsing(data, line) || !navigate_line(data))
+			is_cmd_fail = error_handling(data);
+		else
+		{
+			ft_free_str(&data->environ[0]);
+			data->environ[0] = ft_strdup("?=1");
+		}
 		if (data->is_exit)
 			is_exit = 1;
 		clear_data(data);
@@ -68,8 +72,11 @@ static void	main_loop(t_data *data, char *line, int flag)
 			line = NULL;
 		if (is_exit)
 			break ;
-		create_prompt(data, is_cmd_fail);
-		line = readline(data->prompt);
+		if (!flag)
+		{
+			create_prompt(data, is_cmd_fail);
+			line = readline(data->prompt);
+		}
 	}
 }
 

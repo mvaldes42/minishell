@@ -6,14 +6,23 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/04 15:33:32 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/12 17:12:37 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/19 10:08:32 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parsing_utils.h"
 #include "../../minishell.h"
 
-static int	rm_quotes_next(char *exp, char *unquoted, int max, int q_rm)
+static int	quotes_unquoted(char *exp, char **unquoted, int *i, int quote_t)
+{
+	if (exp[++(*i)] == quote_t)
+		*(*unquoted) = ' ';
+	while (*i <= (int)ft_strlen(exp) - 1 && **unquoted && exp[*i] != quote_t)
+		*((*unquoted)++) = exp[(*i)++];
+	return (2);
+}
+
+static int	rm_quotes_unquoted(char *exp, char *unquoted, int max, int q_rm)
 {
 	int		i;
 
@@ -21,25 +30,25 @@ static int	rm_quotes_next(char *exp, char *unquoted, int max, int q_rm)
 	while (i <= max && *unquoted)
 	{
 		if (i <= max && exp[i] == S_QUOTE)
-		{
-			while (i <= max && *unquoted && exp[++i] != S_QUOTE)
-				*(unquoted++) = exp[i];
-			q_rm += 2;
-			i += 1;
-		}
-		if (i <= max && exp[i] == D_QUOTE)
-		{
-			while (i <= max && *unquoted && exp[++i] != D_QUOTE)
-				*(unquoted++) = exp[i];
-			q_rm += 2;
-			i += 1;
-		}
-		if (i <= max && exp[i] != D_QUOTE && exp[i] != S_QUOTE)
+			q_rm += quotes_unquoted(exp, &unquoted, &i, S_QUOTE);
+		else if (i <= max && exp[i] == D_QUOTE)
+			q_rm += quotes_unquoted(exp, &unquoted, &i, D_QUOTE);
+		else if (i <= max)
 			*(unquoted++) = exp[i];
 		i++;
 	}
 	*unquoted = 0;
 	return (q_rm);
+}
+
+static void	quotes_size(char *exp, int *i, int *nbr_removed, int quote_t)
+{
+	if (exp[++(*i)] == quote_t)
+		*nbr_removed -= 1;
+	while (*i < (int)ft_strlen(exp) && exp[(*i)++] != quote_t)
+		;
+	*nbr_removed += 2;
+	*i += 1;
 }
 
 static int	size_of_unquoted(char *exp)
@@ -54,19 +63,9 @@ static int	size_of_unquoted(char *exp)
 	while (i < size && exp[++i])
 	{
 		if (i < size && exp[i] == S_QUOTE)
-		{
-			while (i < size && exp[++i] != S_QUOTE)
-				;
-			nbr_removed += 2;
-			i += 1;
-		}
-		if (i < size && exp[i] == D_QUOTE)
-		{
-			while (i < size && exp[++i] != D_QUOTE)
-				;
-			nbr_removed += 2;
-			i += 1;
-		}
+			quotes_size(exp, &i, &nbr_removed, S_QUOTE);
+		else if (i < size && exp[i] == D_QUOTE)
+			quotes_size(exp, &i, &nbr_removed, D_QUOTE);
 	}
 	return (size - nbr_removed);
 }
@@ -81,18 +80,21 @@ int	remove_quotes(char **exp)
 	if (*exp == NULL)
 		return (1);
 	size = size_of_unquoted(*exp);
-	// printf("size_unquoted : %d\n", size);
-	// printf("exp: %s\n", *exp);
-	if (size <= 0)
-		(*exp) = ft_strdup(NULL);
+	// printf("size : %d\n", size);
 	if (size <= 0 || size == (int)ft_strlen(*exp))
 		return (1);
-	unquoted = malloc(sizeof(char *) * (size + 1));
+	unquoted = (char *)malloc(sizeof(char) * (size + 1));
+	// printf("*exp : %s\n", *exp);
 	if (!unquoted)
 		return (0);
+	// printf("sizeof(unquoted) : %lu\n", sizeof(unquoted));
+	// printf("sizeof(char) * (size + 1) : %lu\n", sizeof(char) * (size + 1));
+	ft_memset(unquoted, '0', sizeof(char) * (size + 1));
 	q_rm = 0;
 	unquoted_ptr = unquoted;
-	q_rm = rm_quotes_next(*exp, unquoted, (int)ft_strlen(*exp) - 1, q_rm);
+	// printf("unquoted : %s\n", unquoted);
+	q_rm = rm_quotes_unquoted(*exp, unquoted, (int)ft_strlen(*exp) - 1, q_rm);
+	// printf("unquoted : %s\n", unquoted);
 	if (q_rm)
 	{
 		ft_free_str(exp);

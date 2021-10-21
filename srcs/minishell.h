@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/18 14:40:58 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/20 15:20:25 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ typedef struct s_commands
 	char			**args;
 	int				nbr_args;
 	t_redir_token	*redirs;
+	int				redirs_size;
 }	t_commands;
 
 typedef struct s_data
@@ -83,6 +84,7 @@ typedef struct s_data
 	t_parsing	pars;
 	t_commands	*cmds;
 	char		**environ;
+	char		**env_path;
 	bool		is_exit;
 	bool		in_read;
 }	t_data;
