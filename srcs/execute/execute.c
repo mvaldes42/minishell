@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 15:18:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:18:44 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,11 @@
 #include <curses.h>
 #include <term.h>
 
-/*
-** handle all errors
-** EXIT que ce soit builtin/out + garder en memoire le code de sortie d'erreur
-** EXIT_SUCCESS et EXIT_FAILURE macro
-** echo $? + $?
-** heredoc then pipe
-** heredoc then ctrl D
-**
-**
-*/
-
 int	exec_builtout(t_data *data, t_commands cmd)
 {
 	int		pid;
 	int		status;
+
 	(void)data;
 	errno = CMD_NOT_FOUND;
 	if (cmd.fct.fct_path == NULL)
@@ -43,20 +33,12 @@ int	exec_builtout(t_data *data, t_commands cmd)
 		g_minishell.error_status = errno;
 		return (0);
 	}
-	handle_signals_exec();
+	signal(SIGINT, sig_int_interactive);
 	if (pid == 0)
-	{
-			execve(cmd.fct.fct_path, cmd.args, data->environ);
-			g_minishell.error_status = errno;
-			exit (0);
-	}
+		exit(execve(cmd.fct.fct_path, cmd.args, data->environ));
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
 		g_minishell.error_status = WEXITSTATUS(status);
-//	if (errno == CMD_NOT_FOUND)
-//	errno = 0;
-//	printf("exit = %d\n", WEXITSTATUS(status));
-//	printf("in x errno = %d, g_errno = %d\n", errno, g_minishell.error_status);
 	return (1);
 }
 
@@ -72,7 +54,7 @@ int	exec_builtin(t_data *data, t_commands cmd)
 int	execute(t_data *data, int nb)
 {
 	t_commands	cmd;
-//	printf("in exec\n");
+
 	cmd = data->cmds[nb];
 	signal(SIGQUIT, sig_quit);
 	if (cmd.fct.builtin)
@@ -85,7 +67,6 @@ int	execute(t_data *data, int nb)
 		if (!(exec_builtout(data, cmd)))
 			return (0);
 	}
-//	printf("scooby snack\n");
 	errno = 0;
 	return (1);
 }

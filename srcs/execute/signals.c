@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 15:19:30 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:22 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	handle_signals_empty(void)
 void	sig_heredoc(int sig)
 {
 	(void)sig;
-	g_minishell.error_status = -1;
+	g_minishell.error_status = 1;
 	write(1, "\n", 1);
 	exit(131);
 }
@@ -39,16 +39,13 @@ void	sig_heredoc(int sig)
 void	sig_quit(int sig)
 {
 	(void)sig;
+	g_minishell.error_status = 131;
 	printf("Quit\n");
 }
 
 void	sig_int_interactive(int sig)
 {
 	(void)sig;
+	g_minishell.error_status = 130;
 	write(1, "\n", 1);
-}
-
-void	handle_signals_exec(void)
-{
-	signal(SIGINT, sig_int_interactive);
 }

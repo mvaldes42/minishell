@@ -24,7 +24,6 @@ FILES =	minishell.c\
 		execute/cmd_builtin/unset.c\
 		execute/execute.c\
 		execute/execute_utils.c\
-		execute/pipes.c\
 		execute/redirections.c\
 		execute/redirections_utils.c\
 		execute/redirection_read_in.c\

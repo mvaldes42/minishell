@@ -6,15 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 15:18:58 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:20:35 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-//handle each error
-//check if here_doc should be cleared before being unlinked
-//check why there is stuff related to stdouts downstairs
 
 /*
 ** Creates an empty here_doc file in the current repo
@@ -28,7 +24,7 @@ int	create_here_doc(void)
 	if (fd == -1)
 	{
 		g_minishell.error_status = errno;
-		return (0);
+		return (-1);
 	}
 	return (fd);
 }
@@ -73,6 +69,16 @@ void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 	exit (130);
 }
 
+void	check_heredoc_ctrl_d(int status, char *end)
+{
+	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130
+			&& WEXITSTATUS(status) != 131))
+	{
+		printf("bash: warning : \"here document\" on line 1 ended with ");
+		printf("end_of_file (instead of %s).\n", end);
+	}	
+}
+
 /*
 ** Duplicates here_doc into stdin
 ** Deletes here_doc
@@ -91,9 +97,12 @@ void	rm_heredoc(void)
 /*
 ** Disables ^C since it would display an excess prompt
 ** Creates a here_doc in the current repo
-** Saves the current stdout, switches to terminal stdout ?
-**
-** Fills here_doc from terminal lines, sets it as stdin, removes it
+** Saves the current stdout
+** puts the stdout back to terminal
+** Fills here_doc from terminal line
+** sets it as stdin, removes it
+** puts stdout back to base stdout
+** 
 */
 
 int	exec_read_in(t_data *data, char *end, int *initial_fd)
@@ -101,25 +110,26 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	int	heredoc_fd;
 	int	pid;
 	int	status;
+	int	fd_out;
 
-	(void)initial_fd;
 	signal(SIGINT, SIG_IGN);
 	heredoc_fd = create_here_doc();
+	if (heredoc_fd == -1)
+		return (0);
+	fd_out = dup(STDOUT);
+	dup2(initial_fd[1], STDOUT_FILENO);
 	pid = fork();
 	if (pid == -1)
-	{
-		g_minishell.error_status = errno;
 		return (0);
-	}
 	if (pid == 0)
 		fill_here_doc(data, end, heredoc_fd);
 	waitpid(pid, &status, 0);
 	rm_heredoc();
-	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130 && WEXITSTATUS(status) != 131))
-	{
-		printf("bash: warning : \"here document\" on line 1 ended with ");
-		printf("end_of_file (instead of %s).\n", end);
-	}
+	dup2(fd_out, STDOUT_FILENO);
+	close(fd_out);
+	check_heredoc_ctrl_d(status, end);
 	g_minishell.error_status = WEXITSTATUS(status);
+	if (g_minishell.error_status == 131)
+		g_minishell.error_status = -1;
 	return (1);
 }

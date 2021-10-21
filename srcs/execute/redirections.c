@@ -6,15 +6,11 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 15:31:14 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:19:15 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-// error handling
-// find a better way to check for redirs when there are pipes
-// check if base_rank is useful
 
 int	redir_in(char *filename)
 {
@@ -90,8 +86,7 @@ int	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 }
 
 /*
-** for each command, follows the redirs by setting the STDIN and STDOUT
-** opens or creates the needed files as it goes
+** for each command, follows the redirs by setting the stdin and stdout
 */
 
 int	make_redirects(t_data *data, int rank, int *initial_fd)

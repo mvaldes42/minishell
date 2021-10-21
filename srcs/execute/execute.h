@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 15:18:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 10:18:53 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ void	free_split(char ***split);
 int		is_name_valid(char *str);
 
 int		handle_signals_empty(void);
-void	handle_signals_exec(void);
 void	sig_heredoc(int sig);
 void	sig_handler(int sig);
 void	sig_quit(int sig);
+void	sig_int_interactive(int sig);
 int		navigate_line(t_data *data);
 void	save_fds(int *fd);
 int		set_back_fds(int *fd);
