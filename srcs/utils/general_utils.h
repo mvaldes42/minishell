@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:55:43 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 14:59:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 15:31:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,18 @@
 
 typedef enum e_err_codes
 {
-	MISSING_QUOTE = 132,
-	VAR_NOT_FOUND = 133,
+	CMD_NOT_EXEC = 126,
 	CMD_NOT_FOUND = 127,
-	UNEXPECTED_TK = 135,
-	EMPTY_LINE = 136,
-	INV_NAME = 137,
-	HOME_NSET = 138,
-	FUNCT_NULL = 139,
-	UNSET_NOT_FOUND = 140,
+	BUILTIN_ERROR = 2,
+	TERM_CTRL_C = 130,
+	MISSING_QUOTE = 300,
+	VAR_NOT_FOUND = 301,
+	UNEXPECTED_TK = 302,
+	EMPTY_LINE = 303,
+	INV_NAME = 304,
+	HOME_NSET = 305,
+	FUNCT_NULL = 306,
+	UNSET_NOT_FOUND = 307,
 }	t_err_codes;
 
 typedef struct s_data		t_data;
