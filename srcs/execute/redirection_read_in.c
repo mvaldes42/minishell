@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_read_in.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 10:20:35 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:03:14 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,16 @@ int	create_here_doc(void)
 	fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
-		g_minishell.error_status = errno;
+		g_error = errno;
 		return (-1);
 	}
 	return (fd);
 }
 
-/*
-** Assigns \n to ^C
-** Compares each line with end
-** Copies it in here_doc if != end
-** Stops if == end
-*/
-
-void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
+void	heredoc_stdin(t_data *data, char *end, int heredoc_fd, size_t len)
 {
 	char	*line;
-	size_t	len;
 
-	signal(SIGINT, sig_heredoc);
 	while (1)
 	{
 		line = readline("> ");
@@ -63,20 +54,26 @@ void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 			break ;
 		}
 		ft_free_str(&line);
-	}
+	}	
+}
+
+/*
+** Assigns \n to ^C
+** Compares each line with end
+** Copies it in here_doc if != end
+** Stops if == end
+*/
+
+void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
+{
+	size_t	len;
+
+	len = 0;
+	signal(SIGINT, sig_heredoc);
+	heredoc_stdin(data, end, heredoc_fd, len);
 	clear_data(data);
 	free_environ(data);
 	exit (130);
-}
-
-void	check_heredoc_ctrl_d(int status, char *end)
-{
-	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130
-			&& WEXITSTATUS(status) != 131))
-	{
-		printf("bash: warning : \"here document\" on line 1 ended with ");
-		printf("end_of_file (instead of %s).\n", end);
-	}	
 }
 
 /*
@@ -128,8 +125,8 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	dup2(fd_out, STDOUT_FILENO);
 	close(fd_out);
 	check_heredoc_ctrl_d(status, end);
-	g_minishell.error_status = WEXITSTATUS(status);
-	if (g_minishell.error_status == 131)
-		g_minishell.error_status = -1;
+	g_error = WEXITSTATUS(status);
+	if (g_error == 131)
+		g_error = -1;
 	return (1);
 }

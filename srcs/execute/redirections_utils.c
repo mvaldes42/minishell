@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/20 21:28:46 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:02:57 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	open_and_close(char *filename, int type)
 			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
-		g_minishell.error_status = errno;
+		g_error = errno;
 		return (0);
 	}
 	close(fd);
@@ -61,4 +61,14 @@ int	create_files(t_data *data)
 		i++;
 	}		
 	return (1);
+}
+
+void	check_heredoc_ctrl_d(int status, char *end)
+{
+	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130
+			&& WEXITSTATUS(status) != 131))
+	{
+		printf("bash: warning : \"here document\" on line 1 ended with ");
+		printf("end_of_file (instead of %s).\n", end);
+	}	
 }

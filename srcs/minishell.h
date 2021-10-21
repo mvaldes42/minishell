@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 15:57:42 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/20 15:20:25 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/21 16:01:30 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,8 @@
 # define TRUE 1
 # define FALSE 0
 
-typedef struct s_minishell
-{
-	int			exit_status;
-	int			error_status;
-}				t_minishell;
 
-t_minishell	g_minishell;
+int			g_error;
 
 typedef int	(*t_builtin)(char **args, int argc, char ***environ_var);
 

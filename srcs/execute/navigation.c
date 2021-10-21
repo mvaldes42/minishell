@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:02:18 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:29:38 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,11 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 	int	initial_fd[2];
 
 	save_fds(initial_fd);
-	g_minishell.error_status = 0;
 	if (!(make_pipe(data, rank, fd_in)))
 		return (set_back_fds(initial_fd));
 	if (!(make_redirects(data, rank, initial_fd)))
 		return (set_back_fds(initial_fd));
-	if (g_minishell.error_status == 131 || g_minishell.error_status == -1)
+	if (g_error == 131 || g_error == -1)
 	{
 		set_back_fds(initial_fd);
 		return (1);

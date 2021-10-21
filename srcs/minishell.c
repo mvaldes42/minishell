@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 14:03:08 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:30:07 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	initialize_env(t_data *data, char **line)
 		i++;
 	}
 	data->environ[size] = NULL;
+	g_error = 0;
 }
 
 static int	is_line_empty(char *line)

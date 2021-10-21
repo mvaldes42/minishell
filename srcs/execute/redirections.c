@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 14:38:52 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/21 16:37:20 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	redir_in(char *filename)
 			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
-		g_minishell.error_status = errno;
+		g_error = errno;
 		return (0);
 	}
 	dup2(fd, STDIN_FILENO);
@@ -36,7 +36,7 @@ int	redir_append_out(char *filename)
 			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
-		g_minishell.error_status = errno;
+		g_error = errno;
 		return (0);
 	}
 	dup2(fd, STDOUT_FILENO);
@@ -52,7 +52,7 @@ int	redir_out(char *filename)
 			S_IRUSR | S_IRGRP | S_IWGRP | S_IWUSR);
 	if (fd == -1)
 	{
-		g_minishell.error_status = errno;
+		g_error = errno;
 		return (0);
 	}
 	dup2(fd, STDOUT_FILENO);
