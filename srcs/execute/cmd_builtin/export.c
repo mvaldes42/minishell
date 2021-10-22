@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 12:27:56 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 15:39:45 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static	int	init_create_var(char **args, char ***env_var, char ***tmp_env, \
 	}
 	(*tmp_env)[*size] = ft_strdup(args[1]);
 	(*tmp_env)[*size + 1] = NULL;
-	ft_free_str(*env_var);
+	free(*env_var);
 	(*env_var) = NULL;
 	return (1);
 }
@@ -78,7 +78,8 @@ static int	create_var(char **args, char ***env_var)
 		(*env_var)[i] = ft_strdup(tmp_env[i]);
 		ft_free_str(&tmp_env[i]);
 	}
-	ft_free_str(tmp_env);
+	free(tmp_env);
+	tmp_env = NULL;
 	return (1);
 }
 

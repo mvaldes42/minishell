@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 14:23:22 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 15:51:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ static int	does_var_exists(int size, char *var_name, char ***environ_var)
 	char	**split_env;
 
 	i = -1;
-
 	while (i < size - 1 && (*environ_var)[++i])
 	{
 		split_env = ft_split((*environ_var)[i], '=');
@@ -41,8 +40,9 @@ static int	does_var_exists(int size, char *var_name, char ***environ_var)
 			free_split(&split_env);
 			return (1);
 		}
+		free_split(&split_env);
 	}
-	free_split(&split_env);	
+	free_split(&split_env);
 	g_error = UNSET_NOT_FOUND;
 	return (0);
 }
@@ -67,7 +67,8 @@ static int	init_unset(char ***environ_var, char ***tmp_env, char *var_name, \
 		(*tmp_env)[i] = ft_strdup((*environ_var)[i]);
 		ft_free_str(&(*environ_var)[i]);
 	}
-	ft_free_str(*environ_var);
+	free(*environ_var);
+	*environ_var = NULL;
 	(*environ_var) = malloc(sizeof(char *) * *size);
 	if (!(*environ_var))
 		return (0);
@@ -75,17 +76,16 @@ static int	init_unset(char ***environ_var, char ***tmp_env, char *var_name, \
 	return (1);
 }
 
-int	builtin_unset(char **args, int argc, char ***env)
+int	builtin_unset(char **args, int nb, char ***e)
 {
 	int			i;
 	char		**split_env;
 	int			size;
 	char		**tmp_env;
 
-	if (argc == 1)
+	if (nb == 1)
 		return (1);
-	if (!is_name_valid_unset(args[1]) || \
-	!init_unset(env, &tmp_env, args[1], &size))
+	if (!is_n_vld_unset(args[1]) || !init_unset(e, &tmp_env, args[1], &size))
 		return (0);
 	i = -1;
 	while (i < size - 1 && tmp_env[++i])
@@ -93,11 +93,12 @@ int	builtin_unset(char **args, int argc, char ***env)
 		split_env = ft_split(tmp_env[i], '=');
 		if (ft_strncmp(args[1], split_env[0], ft_strlen(split_env[0])) == 0)
 		{
-			i = shift_all_env_var(env, tmp_env, i, size);
+			i = shift_all_env_var(e, tmp_env, i, size);
 			free_split(&split_env);
+			ft_free_int((int **)&tmp_env);
 			return (1);
 		}
-		(*env)[i] = ft_strdup(tmp_env[i]);
+		(*e)[i] = ft_strdup(tmp_env[i]);
 		ft_free_str(&tmp_env[i]);
 		free_split(&split_env);
 	}
