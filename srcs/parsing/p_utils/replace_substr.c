@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   replace_substr.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/12 14:44:37 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/15 16:33:06 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 18:56:58 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*rplc_substr_init(t_exp_var *exp, char *str, int dst_size)
 	v.dest = malloc(sizeof(char) * (dst_size + 1));
 	if (!v.dest)
 		return (NULL);
-	ft_memset(v.dest, 0, sizeof(v.dest));
+	ft_memset(v.dest, 0, sizeof(char) * (dst_size + 1));
 	v.dst_s = dst_size;
 	v.str = str;
 	replace_substr(&v, exp, i, j);

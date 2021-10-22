@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/22 15:43:43 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 18:50:26 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,7 @@ int	make_pipe(t_data *data, int rank, int *fd_in)
 
 	dup2(*fd_in, STDIN_FILENO);
 	if (*fd_in != 0)
-	{
-		g_error = errno;
 		close(*fd_in);
-	}
 	if (rank == data->pars.cmd_nbr - 1)
 		return (1);
 	pipe(new_pipe);
@@ -83,6 +80,7 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 {
 	int	initial_fd[2];
 
+	g_error = 0;
 	save_fds(initial_fd);
 	if (!(make_pipe(data, rank, fd_in)))
 		return (set_back_fds(initial_fd));

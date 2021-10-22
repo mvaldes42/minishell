@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/02 14:28:09 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 16:46:26 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 18:51:05 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,23 @@ int	handle_redirs(t_data *data, int type, char *filename, int *initial_fd)
 
 int	make_redirects(t_data *data, int rank, int *initial_fd)
 {
-	int		i;
 	int		j;
 	int		type;
 	char	*filename;
 
-	i = 0;
-	while (i <= rank && i < data->pars.cmd_nbr)
+	if (data->cmds[rank].redirs_size > 0)
 	{
-		if (data->cmds[i].redirs_size > 0)
+		j = 0;
+		type = data->cmds[rank].redirs[j].type;
+		filename = data->cmds[rank].redirs[j].filename;
+		while (j < data->cmds[rank].redirs_size)
 		{
-			j = 0;
-			type = data->cmds[i].redirs[j].type;
-			filename = data->cmds[i].redirs[j].filename;
-			while (j < data->cmds[i].redirs_size)
-			{
-				if (!(handle_redirs(data, type, filename, initial_fd)))
-					return (0);
-				j++;
-				type = data->cmds[i].redirs[j].type;
-				filename = data->cmds[i].redirs[j].filename;
-			}
+			if (!(handle_redirs(data, type, filename, initial_fd)))
+				return (0);
+			j++;
+			type = data->cmds[rank].redirs[j].type;
+			filename = data->cmds[rank].redirs[j].filename;
 		}
-		i++;
 	}
 	return (1);
 }

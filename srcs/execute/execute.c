@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 14:58:34 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 19:03:14 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,26 +20,29 @@
 
 int	exec_builtout(t_data *data, t_commands cmd, int nb)
 {
-	int		pid;
-	int		status;
-
+	int	status;
+	int pid;
+	
 	if (cmd.fct.fct_path == NULL && data->pars.cmd_nbr - 1 == nb)
 	{
 		g_error = CMD_NOT_FOUND;
 		return (0);
 	}
-	pid = fork();
-	if (pid == -1)
+	else if (cmd.fct.fct_path != NULL)
 	{
-		g_error = errno;
-		return (0);
+		pid = fork();
+		if (pid == -1)
+		{
+			g_error = errno;
+			return (0);
+		}
+		signal(SIGINT, sig_int_interactive);
+		if (pid == 0)
+			exit(execve(cmd.fct.fct_path, cmd.args, data->environ));
+		waitpid(pid, &status, 0);
+		if (g_error == 0)
+			g_error = WEXITSTATUS(status);
 	}
-	signal(SIGINT, sig_int_interactive);
-	if (pid == 0)
-		exit(execve(cmd.fct.fct_path, cmd.args, data->environ));
-	waitpid(pid, &status, 0);
-	if (g_error == 0)
-		g_error = WEXITSTATUS(status);
 	return (1);
 }
 

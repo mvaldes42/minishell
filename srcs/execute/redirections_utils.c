@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/22 15:50:32 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 16:11:29 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	create_files(t_data *data)
 	i = 0;
 	while (i <= data->pars.cmd_nbr - 1)
 	{
-		if (data->cmds->redirs_size > 0)
+		if (data->cmds[i].redirs_size > 0)
 		{
 			j = 0;
 			type = data->cmds[i].redirs[j].type;

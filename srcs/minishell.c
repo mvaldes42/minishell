@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 14:16:01 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:23:36 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int	main(void)
 	t_data		data;
 	char		*line;
 
+	g_error = 0;
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
 	handle_signals_empty();
