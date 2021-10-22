@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_table_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:58:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 18:01:42 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:47:16 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,12 @@ int	cmd_redir_case(t_data *d, t_token *tks, t_commands *cmd, int i)
 int	cmd_args(t_data *d, t_commands *cmd, t_token *tks, int i)
 {
 	int		k;
-	int		l;
 
 	cmd->nbr_args = d->pars.argv_size[cmd->id];
 	cmd->args[0] = cmd->fct.name;
 	k = 1;
 	while (k < d->pars.argv_size[cmd->id] && ++i < d->pars.tk_nbr)
 	{
-		l = -1;
 		cmd->args[k++] = tks[i].modif_word;
 	}
 	cmd->args[d->pars.argv_size[cmd->id]] = NULL;

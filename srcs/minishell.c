@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 11:42:36 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:47:06 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	initialize_env(t_data *data, char **line)
 	data->is_exit = FALSE;
 	data->prompt = NULL;
 	line = NULL;
+	(void)line;
 	size = -1;
 	while (environ[++size])
 		;
