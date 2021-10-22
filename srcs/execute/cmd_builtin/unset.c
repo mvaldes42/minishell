@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:25 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 11:19:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:41:51 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ int	builtin_unset(char **args, int argc, char ***env)
 
 	if (argc == 1)
 		return (1);
-	if (!is_name_valid(args[1]) || !init_unset(env, &tmp_env, args[1], &size))
+	if (!is_name_valid_unset(args[1]) || \
+	!init_unset(env, &tmp_env, args[1], &size))
 		return (0);
 	i = -1;
 	while (i < size - 1 && tmp_env[++i])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:08:59 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 15:29:14 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 13:36:06 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int		builtin_exit(char **args, int argc, char ***environ_var);
 
 void	free_split(char ***split);
 int		is_name_valid(char *str);
+int		is_name_valid_unset(char *str);
 
 int		handle_signals_empty(void);
 void	sig_heredoc(int sig);

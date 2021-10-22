@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:34:58 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 12:14:50 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 13:44:03 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ void	free_split(char ***split)
 		free(*split);
 		*split = NULL;
 	}
+}
+
+int	is_name_valid_unset(char *str)
+{
+	int	i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if (!((str[i] >= 'A' && str[i] <= 'Z') || \
+		(str[i] >= 'a' && str[i] <= 'z') || str[i] == '_'))
+		{
+			g_error = INV_NAME;
+			return (0);
+		}
+	}
+	return (1);
 }
 
 int	is_name_valid(char *str)
