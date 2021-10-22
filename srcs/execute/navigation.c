@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/22 14:06:37 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 15:43:43 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	command_executor(t_data *data, int rank, int *fd_in)
 		return (set_back_fds(initial_fd));
 	if (!(make_redirects(data, rank, initial_fd)))
 		return (set_back_fds(initial_fd));
-	if (g_error == 131)
+	if (g_error == 130)
 	{
 		set_back_fds(initial_fd);
 		return (1);

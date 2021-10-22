@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 16:29:19 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 16:31:46 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 15:44:25 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	handle_signals_empty(void)
 void	sig_heredoc(int sig)
 {
 	(void)sig;
-	g_error = 1;
+	g_error = 130;
 	write(1, "\n", 1);
-	exit(131);
+	exit(130);
 }
 
 void	sig_quit(int sig)

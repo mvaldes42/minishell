@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:47:43 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 16:40:29 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 15:50:32 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,12 @@ int	create_files(t_data *data)
 
 void	check_heredoc_ctrl_d(int status, char *end)
 {
-	if (WIFEXITED(status) && (WEXITSTATUS(status) != 130
-			&& WEXITSTATUS(status) != 131))
+	g_error = WEXITSTATUS(status);
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 131)
 	{
 		printf("bash: warning : \"here document\" on line 1 ended with ");
 		printf("end_of_file (instead of %s).\n", end);
-	}	
+	}
+	if (g_error == 131)
+		g_error = 0;
 }

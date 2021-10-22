@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_read_in.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/22 11:37:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 15:49:51 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	heredoc_stdin(t_data *data, char *end, int heredoc_fd, size_t len)
 		{
 			clear_data(data);
 			free_environ(data);
-			exit (0);
+			exit (131);
 		}
 		if (ft_strlen(line) < len)
 			len = ft_strlen(line);
@@ -74,7 +74,9 @@ void	fill_here_doc(t_data *data, char *end, int heredoc_fd)
 	heredoc_stdin(data, end, heredoc_fd, len);
 	clear_data(data);
 	free_environ(data);
-	exit (130);
+	if (g_error == 130)
+		exit (130);
+	exit (0);
 }
 
 /*
@@ -128,6 +130,5 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	dup2(fd_out, STDOUT_FILENO);
 	close(fd_out);
 	check_heredoc_ctrl_d(status, end);
-	g_error = WEXITSTATUS(status);
 	return (1);
 }
