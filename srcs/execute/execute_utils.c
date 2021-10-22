@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 11:34:58 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 14:27:27 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 16:09:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,11 @@ void	free_split(char ***split)
 		{
 			ft_free_str(&(*split)[i]);
 		}
-		free(*split);
-		*split = NULL;
+		ft_free_int((int **)split);
 	}
 }
 
-int	is_name_valid_unset(char *str)
+int	is_n_vld_unset(char *str)
 {
 	int	i;
 
@@ -46,18 +45,34 @@ int	is_name_valid_unset(char *str)
 	return (1);
 }
 
+static int	error_cases(int *value, char ***split)
+{
+	g_error = INV_NAME;
+	if (!*split || (*split)[0] == NULL)
+	{
+		free_split(split);
+		*value = 0;
+		return (0);
+	}
+	else if ((*split)[1] == NULL)
+	{
+		free_split(split);
+		*value = -1;
+		return (0);
+	}
+	return (1);
+}
+
 int	is_name_valid(char *str)
 {
 	int		i;
 	char	**split;
+	int		value;
 
-	g_error = INV_NAME;
+	value = 1;
 	split = ft_split(str, '=');
-	if (!split || split[0] == NULL)
-		return (0);
-	if (split[1] == NULL)
-		return (-1);
-	g_error = 0;
+	if (!error_cases(&value, &split))
+		return (value);
 	i = -1;
 	while (split[0][++i])
 	{
@@ -69,5 +84,6 @@ int	is_name_valid(char *str)
 		}
 	}
 	free_split(&split);
+	g_error = 0;
 	return (1);
 }
