@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 11:51:27 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 12:15:40 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static	int	init_create_var(char **args, char ***env_var, char ***tmp_env, \
 {
 	int	i;
 
-	if (!is_name_valid(args[1]))
+	if (!is_name_valid(args[1]) || is_name_valid(args[1]) == -1)
 		return (0);
 	while ((*env_var)[*size])
 		(*size)++;

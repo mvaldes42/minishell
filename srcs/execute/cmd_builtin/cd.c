@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:06:50 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 10:18:48 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 12:17:39 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static int	get_directory(char **args, char ***environ_var, char **directory)
 {
 	int		i;
 
-	g_error = H_NOT_SET;
 	i = 1;
 	while (args[i] != NULL)
 		i++;
@@ -66,6 +65,8 @@ static int	get_directory(char **args, char ***environ_var, char **directory)
 		*directory = ft_getenv("HOME", *environ_var);
 	else
 		*directory = args[1];
+	if (*directory == NULL)
+		g_error = H_NOT_SET;
 	return (i);
 }
 
