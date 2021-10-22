@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:47:09 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 11:42:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	initialize_env(t_data *data, char **line)
 			data->environ[i] = ft_strdup(environ[i - 1]);
 	}
 	data->environ[size] = NULL;
-	g_error = 0;
 }
 
 static int	is_line_empty(char *line)
@@ -51,7 +50,7 @@ static int	is_line_empty(char *line)
 	return (1);
 }
 
-static void	main_loop(t_data *d, char *line, int flag)
+static void	main_loop(t_data *d, char *line)
 {
 	bool	is_cmd_fail;
 	int		is_exit;
@@ -59,7 +58,6 @@ static void	main_loop(t_data *d, char *line, int flag)
 	is_exit = 0;
 	while (line)
 	{
-			printf("errno : %d\n", errno);
 		is_cmd_fail = 0;
 		if (!is_line_empty(line) || !parsing(d, line) || !navigate_line(d))
 			is_cmd_fail = error_handling(d);
@@ -71,22 +69,16 @@ static void	main_loop(t_data *d, char *line, int flag)
 		if (d->is_exit)
 			is_exit = 1;
 		clear_data(d);
-		if (!flag)
-			ft_free_str(&line);
-		else
-			line = NULL;
+		ft_free_str(&line);
 		if (is_exit)
 			break ;
 		handle_signals_empty();
-		if (!flag)
-		{
-			create_prompt(d, is_cmd_fail);
-			line = readline(d->prompt);
-		}
+		create_prompt(d, is_cmd_fail);
+		line = readline(d->prompt);
 	}
 }
 
-int	main(int argc, char **argv)
+int	main(void)
 {
 	t_data		data;
 	char		*line;
@@ -94,16 +86,10 @@ int	main(int argc, char **argv)
 	initialize_env(&data, &line);
 	create_prompt(&data, 0);
 	handle_signals_empty();
-	if (argc >= 3 && !ft_strncmp(argv[1], "-c", 3))
-	{
-		main_loop(&data, argv[2], 1);
-		free_environ(&data);
-		return (0);
-	}
 	line = readline(data.prompt);
-	main_loop(&data, line, 0);
+	main_loop(&data, line);
 	free_environ(&data);
 	ft_free_str(&data.prompt);
 	rl_clear_history();
-	return (0);
+	return (g_error);
 }

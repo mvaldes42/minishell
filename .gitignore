@@ -8,6 +8,7 @@ travaux.txt
 minishell.log
 minishell_1.supp
 parse_valgrind_suppressions.sh
+srcs/parsing/p_utils/print_tabs.c
 # Prerequisites
 *.d
 

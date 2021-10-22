@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:56 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/14 11:38:57 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 09:41:36 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ int	builtin_pwd(char **args, int argc, char ***environ_var)
 	(void)environ_var;
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
+	{
+		g_error = errno;
 		return (0);
+	}
 	printf("%s\n", pwd);
 	ft_free_str(&pwd);
 	return (1);

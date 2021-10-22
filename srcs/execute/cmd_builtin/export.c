@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 18:43:33 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/13 11:53:16 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 11:51:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ static	int	init_create_var(char **args, char ***env_var, char ***tmp_env, \
 		(*size)++;
 	*tmp_env = malloc(sizeof(char *) * (*size + 2));
 	if (!(*tmp_env))
+	{
+		g_error = errno;
 		return (0);
+	}
 	i = -1;
 	while (++i < *size)
 	{
@@ -65,7 +68,10 @@ static int	create_var(char **args, char ***env_var)
 		return (0);
 	(*env_var) = (char **)malloc(sizeof(char *) * (size + 2));
 	if (!(*env_var))
+	{
+		g_error = errno;
 		return (0);
+	}
 	i = -1;
 	while (++i < size + 2)
 	{
@@ -84,7 +90,6 @@ static int	does_var_exists(char **args, char ***env_var, char **env_value)
 	int			r_value;
 
 	r_value = 1;
-	errno = INV_NAME;
 	split_arg = ft_split(args[1], '=');
 	if (split_arg[0] == NULL)
 		r_value = 0;

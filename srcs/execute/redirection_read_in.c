@@ -6,7 +6,7 @@
 /*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/03 15:18:06 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/21 17:40:04 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 11:37:27 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	create_here_doc(void)
 {
 	int	fd;
 
+	signal(SIGINT, SIG_IGN);
 	fd = open("here_doc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (fd == -1)
 	{
@@ -109,7 +110,6 @@ int	exec_read_in(t_data *data, char *end, int *initial_fd)
 	int	status;
 	int	fd_out;
 
-	signal(SIGINT, SIG_IGN);
 	heredoc_fd = create_here_doc();
 	if (heredoc_fd == -1)
 		return (0);

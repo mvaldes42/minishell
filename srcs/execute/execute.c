@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/10/21 17:23:27 by mvaldes          ###   ########.fr       */
-=======
-/*   Updated: 2021/10/21 16:29:44 by fcavillo         ###   ########.fr       */
->>>>>>> parent of a0c8555... wip tmp
+/*   Updated: 2021/10/22 09:39:07 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +23,6 @@ int	exec_builtout(t_data *data, t_commands cmd, int nb)
 	int		pid;
 	int		status;
 
-<<<<<<< HEAD
-=======
-	(void)data;
-	errno = CMD_NOT_FOUND;
-	if (cmd.fct.fct_path == NULL)
-		g_error = 134;
->>>>>>> parent of a0c8555... wip tmp
 	if (cmd.fct.fct_path == NULL && data->pars.cmd_nbr - 1 == nb)
 	{
 		g_error = CMD_NOT_FOUND;

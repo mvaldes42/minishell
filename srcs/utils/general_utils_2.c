@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   general_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/16 12:07:39 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/21 16:46:07 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 10:44:24 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,37 +51,6 @@ void	create_prompt(t_data *data, int fail)
 	ft_strlcat(data->prompt, arrow, size);
 	ft_strlcat(data->prompt, cwd, size);
 	ft_strlcat(data->prompt, cross, size);
-}
-
-int	error_handling(t_data *data)
-{
-	static char	*errors[] = {"missing quote", "", "syntax error near \
-	unexpected token", "", "not a valid identifier", "HOME not set", \
-	"builtin address points to the zero page", ""};
-	int			i;
-
-	printf("g_error: %d\n", g_error);
-	printf("errno : %d\n", errno);
-	ft_free_str(&data->environ[0]);
-	data->environ[0] = ft_strdup("?=1");
-	if (g_error >= 300)
-	{
-		i = g_error - 300;
-		if (g_error == VAR_NOT_FOUND)
-			printf("%s\n", errors[i]);
-		else if (g_error == EMPTY_LINE || g_error == UNSET_NOT_FOUND)
-			;
-		else
-			printf("minishell: %s\n", errors[i]);
-	}
-	else if (g_error < 300)
-	{
-		ft_free_str(&data->environ[0]);
-		data->environ[0] = ft_strdup("?=ft_itoa(g_error)");
-	}
-	else
-		printf("minishell: %s\n", strerror(errno));
-	return (1);
 }
 
 char	*ft_getenv(const char *name, char **env_var)

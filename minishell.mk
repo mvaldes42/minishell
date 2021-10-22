@@ -1,12 +1,12 @@
 FILES =	minishell.c\
 		utils/general_utils.c\
 		utils/general_utils_2.c\
+		utils/error_utils.c\
 		parsing/parsing.c\
 		parsing/lexer.c\
 		parsing/searcher.c\
 		parsing/command_table.c\
 		parsing/p_utils/cmd_table_utils.c\
-		parsing/p_utils/print_tabs.c\
 		parsing/p_utils/token_split.c\
 		parsing/p_utils/token_count.c\
 		parsing/p_utils/token_count_2.c\
@@ -29,7 +29,8 @@ FILES =	minishell.c\
 		execute/redirection_read_in.c\
 		execute/signals.c\
 		execute/navigation.c\
-		execute/fd_handling.c\
+		execute/fd_handling.c
+		# parsing/p_utils/print_tabs.c\ 
 
 SUB_DIR	=	utils\
 			parsing\
