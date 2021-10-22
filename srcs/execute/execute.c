@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 09:39:07 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 14:14:08 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	exec_builtout(t_data *data, t_commands cmd, int nb)
 	if (pid == 0)
 		exit(execve(cmd.fct.fct_path, cmd.args, data->environ));
 	waitpid(pid, &status, 0);
-	g_error = WEXITSTATUS(status);
+	if (g_error == 0)
+		g_error = WEXITSTATUS(status);
 	return (1);
 }
 

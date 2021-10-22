@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/22 10:44:36 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 13:44:41 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 14:11:40 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,10 @@ int	error_handling(t_data *data)
 	{
 		if (errno < 300)
 			printf("minishell: %s\n", strerror(errno));
-		else if (errno >= MISSING_QUOTE && errno <= FUNCT_NULL)
+		else if (errno >= MISSING_QUOTE && errno <= UNEXPECTED_TK)
 			printf("minishell : %s\n", errors[errno - 300]);
-		attribute_error_return(&data->environ[0], 1);
+		if (errno != EMPTY_LINE)
+			attribute_error_return(&data->environ[0], 1);
 	}
 	else if (g_error)
 	{
@@ -84,9 +85,9 @@ int	error_handling(t_data *data)
 			error_handle_exc(data);
 		else
 		{
-			if (g_error != 127 || g_error != 130 || g_error != 131)
-				printf("minishell: %s\n", strerror(g_error));
-			attribute_error_return(&data->environ[0], 1);
+//			if (g_error != 127 || g_error != 130 || g_error != 131)
+//				printf("minishell: %s\n", strerror(g_error));
+			attribute_error_return(&data->environ[0], g_error);
 		}
 	}
 	return (1);

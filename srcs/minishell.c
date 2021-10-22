@@ -6,7 +6,7 @@
 /*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 16:34:03 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 13:47:06 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 14:16:01 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ int	main(void)
 	free_environ(&data);
 	ft_free_str(&data.prompt);
 	rl_clear_history();
+	printf("\n");
 	return (g_error);
 }

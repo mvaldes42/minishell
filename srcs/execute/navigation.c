@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   navigation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 15:24:14 by fcavillo          #+#    #+#             */
-/*   Updated: 2021/10/22 12:27:22 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/22 14:06:37 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ int	navigate_line(t_data *data)
 	fd_in = 0;
 	create_files(data);
 	check_commands(data);
-	if (!(parse_and_exec(data, &fd_in, 0)))
+	if (!(parse_and_exec(data, &fd_in, 0)) || g_error != 0)
 		return (0);
 	if (fd_in != 0)
 		close(fd_in);
