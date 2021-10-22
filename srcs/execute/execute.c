@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 12:27:17 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/10/22 19:03:14 by fcavillo         ###   ########.fr       */
+/*   Updated: 2021/10/22 19:35:08 by mvaldes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 int	exec_builtout(t_data *data, t_commands cmd, int nb)
 {
 	int	status;
-	int pid;
-	
+	int	pid;
+
 	if (cmd.fct.fct_path == NULL && data->pars.cmd_nbr - 1 == nb)
 	{
 		g_error = CMD_NOT_FOUND;
