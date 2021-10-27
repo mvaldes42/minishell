@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mvaldes <mvaldes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fcavillo <fcavillo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 15:21:09 by mvaldes           #+#    #+#             */
-/*   Updated: 2021/06/22 19:35:01 by mvaldes          ###   ########.fr       */
+/*   Updated: 2021/10/27 17:08:42 by fcavillo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	digit_len(long n)
 {
-	int	 len;
+	int	len;
 
 	len = 0;
 	if (n == 0)
